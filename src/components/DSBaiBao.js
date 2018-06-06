@@ -1,0 +1,122 @@
+import React, {Component} from 'react';
+import {Alert, 
+    FlatList,
+    BackHandler,
+    StyleSheet,
+    View,
+    TouchableOpacity,
+    Text,
+ } from 'react-native';
+import HTML from 'react-native-render-html'
+class DSBaiBao extends Component {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            noidung: '',
+            refeshing: true
+        }
+    }
+
+    loadData() {
+        this.setState({refeshing: true});
+        fetch('http://192.168.1.103/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
+            if (responeJson == null) {
+                Alert.alert("Lỗi", "Không có nội dung");
+            } else {
+                this.setState({noidung: responeJson, refeshing: false});
+            }
+        })
+        //this.LoadData();
+    }
+
+    componentDidMount() {
+        this.loadData();
+        BackHandler.addEventListener('hardwareBackPress',this.onBackButtonPress)
+    }
+
+    xem(i,t) {
+        //Alert.alert(t+"");
+        this.props.navigation.navigate("ct", {id: i,title: t});
+    }
+
+    render() {
+        const { navigate } = this.props.navigation;
+
+        return (
+            <FlatList
+                refreshing={this.state.refeshing}
+                onRefresh={() => this.refesh()}
+                data={this.state.noidung}
+                keyExtractor={(x,i)=> i.toString()}
+                renderItem={({item}) =>
+                <View style={myStyle.baibao}>
+                            <TouchableOpacity onPress={() => this.xem(item.id,item.title.rendered)}>
+                            <Text style={myStyle.title}>{item.title.rendered}</Text>
+                            <View style={myStyle.excerpt} >
+                                <HTML html={item.excerpt.rendered} />
+                            </View>
+                        </TouchableOpacity>
+                        <View style={myStyle.edit}>
+                            <TouchableOpacity onPress={() => this.xem(item.id,item.title.rendered)} style={myStyle.textEdit}>
+                                <Text>Xem</Text>
+                            </TouchableOpacity>
+                            <Text>|</Text>
+                            <TouchableOpacity style={myStyle.textEdit}>
+                                <Text>Xóa</Text>
+                            </TouchableOpacity>
+                            <Text>|</Text>
+                            <TouchableOpacity style={myStyle.textEdit}>
+                                <Text>Chỉnh sửa</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                }/>
+        );
+    }
+
+    refesh() {
+        this.loadData();
+    }
+    
+    onBackButtonPress=()=> {
+        Alert.alert("Thoát","Bạn muốn thoát không",
+            [{text: 'Hủy', style: 'cancel'},
+                {text:'Đồng ý',onPress: () => BackHandler.exitApp() }],
+            {cancelable: false});
+        return true;
+	};
+}
+
+const myStyle = StyleSheet.create({
+    title: {
+        color: '#088A4B',
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        marginBottom: 0,
+        fontSize: 18
+    },
+    excerpt: {
+        color: '#088A4B',
+        paddingLeft: 10,
+    },
+    edit: {
+        padding: 7,
+        backgroundColor: 'rgba(0,100,0,0.1)',
+        flexDirection: 'row',
+        borderBottomStartRadius: 8,
+        borderBottomEndRadius: 8
+    },
+    textEdit: {
+        flex: 1,
+        color: '#FFFFFF',
+        alignItems: 'center'
+    },
+    baibao: {
+        borderRadius: 8,
+        margin: 5,
+        backgroundColor: 'rgba(0,80,0,0.1)',
+    }
+});
+export default DSBaiBao;
