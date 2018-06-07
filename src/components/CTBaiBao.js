@@ -9,8 +9,8 @@ import {
     Image
 } from 'react-native';
 import HTMLView from 'react-native-htmlview'
-import {title} from 'react-navigation'
-import {NavigationActions} from 'react-navigation'
+import { title } from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 
 class CTBaiBao extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ class CTBaiBao extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`,
         headerTitleStyle: {
-            fontSize: 16,
+            fontSize: 18,
             //textAlign: 'center',alignSelf:'center'
         },
         headerStyle: {
@@ -51,7 +51,7 @@ class CTBaiBao extends Component {
         //var h = this.state.noidung.content.toString();
         //var html= h.replace("http://localhost","http://192.168.1.103");
         return (
-            <View style={myStyle.container}>
+            <View style={{ flex: 1, padding: 5 }}>
                 {
                     this.state.loaded === false &&
                     <View style={myStyle.loadingContainer}>
@@ -59,54 +59,73 @@ class CTBaiBao extends Component {
                         <Text>Đang tải</Text>
                     </View>
                 }
-                {
-                    this.state.loaded&&
-                    <HTMLView
-                            value={"<span>"+this.state.noidung.title.rendered+"</span>"}
-                            stylesheet={htmlTitleStyle}
-                    />
-                    // <HTML 
-                    //     tagStyle={myStyle.title  }
-                    //     html={this.state.noidung.title.rendered} />
-                }
+
                 <ScrollView style={myStyle.container}>
-                    {
-                        this.state.loaded &&
-                        <HTMLView
-                            value={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}
-                            stylesheet={myStyle}
-                        />
-                        // <HTML 
-                        // // tagStyle : {p: {fontStyle:'italic'}}
-                        // html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
-                    }
+                    <View style={myStyle.content}>
+                        {
+                            this.state.loaded &&
+                            <HTMLView
+                                value={"<span>" + this.state.noidung.title.rendered + "</span>"}
+                                stylesheet={htmlTitleStyle}
+                            />
+                            // <HTML 
+                            //     tagStyle={myStyle.title  }
+                            //     html={this.state.noidung.title.rendered} />
+                        }
+                        {
+                            this.state.loaded &&
+                            <HTMLView
+                                value={"<i>Cập nhật lúc: " + this.state.noidung.modified.replace("T", "   ") + "</i>"}
+                                stylesheet={htmlTitleStyle}/>
+                        }
+                    </View>
+                    <View style={myStyle.content}>
+                        {
+                            this.state.loaded &&
+                            <HTMLView
+                                value={this.state.noidung.content.rendered.replace("http://localhost", "http://192.168.1.103")}
+                                stylesheet={htmlTitleStyle}
+                            />
+                            // <HTML 
+                            // // tagStyle : {p: {fontStyle:'italic'}}
+                            // html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
+                        }
+                    </View>
                 </ScrollView>
             </View>
         );
     }
 }
 const htmlTitleStyle = StyleSheet.create({
-    span:{
+    span: {
+        borderRadius: 8,
         color: '#088A4B',
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 10,
-        marginBottom: 0,
         fontSize: 18
     },
+    p: {
+        fontSize: 16
+    },
+    img:{
+        width:800,
+        height:400,
+    }
 })
 const myStyle = StyleSheet.create({
     container: {
         flex: 1,
         //marginTop: (Platform.OS === 'ios') ? 60 : 50,
-        padding: 5
-    },
-    content: {
-        flex: 1,
+        borderWidth: 1,
+        borderColor: '#dfdfdf',
+        borderRadius: 8,
         backgroundColor: '#fff',
     },
-    header:{
-        padding:5
+    content: {
+        padding: 10,
+        borderColor: 8,
+        flex: 1,
+    },
+    header: {
+        padding: 5
     },
     title: {
         fontSize: 18,
