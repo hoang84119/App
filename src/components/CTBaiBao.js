@@ -47,6 +47,8 @@ class CTBaiBao extends Component{
     }
 
     render(){
+        //var h = this.state.noidung.content.toString();
+        //var html= h.replace("http://localhost","http://192.168.1.103");
         return(
             <View style={myStyle.container}>
                 {
@@ -61,9 +63,10 @@ class CTBaiBao extends Component{
                 }
                 <ScrollView style={myStyle.container}>
                     {
+                        
                         this.state.loaded &&
                         <HTML
-                        html={this.state.noidung.content.rendered}/>
+                        html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
                     }
                 </ScrollView>
             </View>
