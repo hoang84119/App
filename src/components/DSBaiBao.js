@@ -54,7 +54,7 @@ class DSBaiBao extends Component {
         const { navigate } = this.props.navigation;
         const kieu = {
             tagsStyles: { div: { textAlign: 'center', fontStyle: 'italic', color: 'grey' } },
-            classesStyles: { 'last-paragraph': { textAlign: 'right', color: 'teal', fontWeight: '800' } }      
+            classesStyles: { 'last-paragraph': { textAlign: 'right', color: 'teal', fontWeight: '800' } }
         }
 
         return (
@@ -68,9 +68,10 @@ class DSBaiBao extends Component {
                         <TouchableOpacity onPress={() => this.xem(item.id, item.title.rendered)}>
                             <View >
                                 <HTMLView
-                                    value={"<span>"+item.title.rendered+"</span>"}
+                                    value={"<span>" + item.title.rendered + "</span>"}
                                     stylesheet={htmlTitleStyle}
-                                /></View>
+                                />
+                            </View>
                             <View style={myStyle.excerpt} >
                                 <HTMLView
                                     value={item.excerpt.rendered}
@@ -108,7 +109,7 @@ class DSBaiBao extends Component {
     };
 }
 const htmlTitleStyle = StyleSheet.create({
-    span:{
+    span: {
         color: '#088A4B',
         paddingLeft: 10,
         paddingRight: 10,

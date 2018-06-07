@@ -24,12 +24,9 @@ class CTBaiBao extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`,
         headerTitleStyle: {
-            fontSize: 18,
+            fontSize: 18,backgroundColor: 'white'
             //textAlign: 'center',alignSelf:'center'
-        },
-        headerStyle: {
-            backgroundColor: 'white',
-        },
+        }
     });
     async loadData() {
         fetch('http://192.168.1.103/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
@@ -56,7 +53,7 @@ class CTBaiBao extends Component {
                     this.state.loaded === false &&
                     <View style={myStyle.loadingContainer}>
                         <Image style={{ width: 32, height: 32 }} source={require('../image/loading.gif')} />
-                        <Text>Đang tải</Text>
+                        <Text >Đang tải</Text>
                     </View>
                 }
 
