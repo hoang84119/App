@@ -22,4 +22,4 @@ const MainNaigations=StackNavigator({
 }
 );
 
-export default MainNaigations
+export default BaiVietNavigations

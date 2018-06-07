@@ -5,7 +5,7 @@ const BaiVietNavigations=StackNavigator({
     main:{
         screen: DSBaiBao,
         navigationOptions:{
-            headerTitle: 'Bài viết'
+            headerTitle: 'Bài viết',
         },
     },
     ct:{
