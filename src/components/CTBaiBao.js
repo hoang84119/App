@@ -22,7 +22,7 @@ class CTBaiBao extends Component {
         //const { navigation } = this.props;
     }
     static navigationOptions = ({ navigation }) => ({
-        title: `${navigation.state.params.title}`,
+        title: `${navigation.state.params.title.replace('&#8216;', "'")}`,
         headerTitleStyle: {
             fontSize: 18,backgroundColor: 'white'
             //textAlign: 'center',alignSelf:'center'
