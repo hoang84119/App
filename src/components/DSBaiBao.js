@@ -12,10 +12,10 @@ import HTML from 'react-native-render-html'
 class DSBaiBao extends Component {
     static navigationOptions = {
         headerTitleStyle: {
-            color: '#fff'
+            color: '#088A4B'
         },
         headerStyle: {
-            backgroundColor: '#36BC63',
+            backgroundColor: '#fff',
             alignItems: 'center',
             textAlign: 'center',
         },
@@ -113,9 +113,9 @@ const myStyle = StyleSheet.create({
     },
     edit: {
         borderTopWidth: 1,
-        borderColor: '#ffefef',
+        borderColor: '#efefef',
         padding: 7,
-        backgroundColor: '#36BC63',
+        backgroundColor: 'rgba(210,210,210,0.1)',
         flexDirection: 'row',
         borderBottomStartRadius: 8,
         borderBottomEndRadius: 8
@@ -123,7 +123,7 @@ const myStyle = StyleSheet.create({
     textEdit: {
         fontWeight: 'bold',
         flex: 1,
-        color: '#fff',
+        color: '#36BC63',
         alignItems: 'center'
     },
     baibao: {
