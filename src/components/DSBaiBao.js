@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Text,
 } from 'react-native';
-import HTML from 'react-native-render-html'
+import HTMLView from 'react-native-htmlview';
 class DSBaiBao extends Component {
     static navigationOptions = {
         headerTitleStyle: {
@@ -52,6 +52,10 @@ class DSBaiBao extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        const kieu = {
+            tagsStyles: { div: { textAlign: 'center', fontStyle: 'italic', color: 'grey' } },
+            classesStyles: { 'last-paragraph': { textAlign: 'right', color: 'teal', fontWeight: '800' } }      
+        }
 
         return (
             <FlatList
@@ -62,9 +66,15 @@ class DSBaiBao extends Component {
                 renderItem={({ item }) =>
                     <View style={myStyle.baibao}>
                         <TouchableOpacity onPress={() => this.xem(item.id, item.title.rendered)}>
-                            <Text style={myStyle.title}>{item.title.rendered}</Text>
+                            <View >
+                                <HTMLView
+                                    value={"<span>"+item.title.rendered+"</span>"}
+                                    stylesheet={htmlTitleStyle}
+                                /></View>
                             <View style={myStyle.excerpt} >
-                                <HTML html={item.excerpt.rendered} />
+                                <HTMLView
+                                    value={item.excerpt.rendered}
+                                />
                             </View>
                         </TouchableOpacity>
                         <View style={myStyle.edit}>
@@ -97,7 +107,16 @@ class DSBaiBao extends Component {
         return true;
     };
 }
-
+const htmlTitleStyle = StyleSheet.create({
+    span:{
+        color: '#088A4B',
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        marginBottom: 0,
+        fontSize: 18
+    },
+})
 const myStyle = StyleSheet.create({
     title: {
         color: '#088A4B',

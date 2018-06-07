@@ -9,6 +9,7 @@ import {
     Platform
 } from 'react-native';
 import HTML from 'react-native-render-html'
+import HTMLView from 'react-native-htmlview'
 import {title} from 'react-navigation'
 import {NavigationActions} from 'react-navigation'
 
@@ -59,20 +60,40 @@ class CTBaiBao extends Component{
                 }
                 {
                     this.state.loaded&&
-                    <HTML html={this.state.noidung.title.rendered} />
+                    <HTMLView
+                            value={"<span>"+this.state.noidung.title.rendered+"</span>"}
+                            stylesheet={htmlTitleStyle}
+                    />
+                    // <HTML 
+                    //     tagStyle={myStyle.title  }
+                    //     html={this.state.noidung.title.rendered} />
                 }
                 <ScrollView style={myStyle.container}>
                     {
-                        
                         this.state.loaded &&
-                        <HTML
-                        html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
+                        <HTMLView
+                            value={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}
+                            stylesheet={myStyle}
+                        />
+                        // <HTML 
+                        // // tagStyle : {p: {fontStyle:'italic'}}
+                        // html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
                     }
                 </ScrollView>
             </View>
         );
     }
 }
+const htmlTitleStyle = StyleSheet.create({
+    span:{
+        color: '#088A4B',
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        marginBottom: 0,
+        fontSize: 18
+    },
+})
 const myStyle = StyleSheet.create({
     container: {
         flex: 1,
