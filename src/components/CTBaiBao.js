@@ -10,10 +10,10 @@ import {
     Image
 } from 'react-native';
 import HTML from 'react-native-render-html'
-import {title} from 'react-navigation'
-import {NavigationActions} from 'react-navigation'
+import { title } from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 
-class CTBaiBao extends Component{
+class CTBaiBao extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,50 +24,58 @@ class CTBaiBao extends Component{
     }
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`,
-         headerTitleStyle : {fontSize:16,
+        headerTitleStyle: {
+            fontSize: 16,
             //textAlign: 'center',alignSelf:'center'
         },
-            headerStyle:{
-                backgroundColor:'white',
-            },
+        headerStyle: {
+            backgroundColor: 'white',
+        },
     });
     async loadData() {
-        fetch('http://192.168.1.103/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id",""))
-        .then((response) => response.json())
-        .then(responeJson => {
-            if (responeJson == null) {
-                Alert.alert("Lỗi", "Không có nội dung");
-            } else {
-                this.setState({ noidung: responeJson, loaded: true });
-            }
-        })
+        fetch('http://192.168.1.103/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
+            .then((response) => response.json())
+            .then(responeJson => {
+                if (responeJson == null) {
+                    Alert.alert("Lỗi", "Không có nội dung");
+                } else {
+                    this.setState({ noidung: responeJson, loaded: true });
+                }
+            })
     }
 
     componentDidMount() {
         this.loadData();
     }
 
-    render(){
+    render() {
         //var h = this.state.noidung.content.toString();
         //var html= h.replace("http://localhost","http://192.168.1.103");
-        return(
+        return (
             <View style={myStyle.container}>
                 {
                     this.state.loaded === false &&
                     <View style={myStyle.loadingContainer}>
-                        <Image style={{width: 32, height: 32}}  source={require('../image/loading.gif')}/>
+                        <Image style={{ width: 32, height: 32 }} source={require('../image/loading.gif')} />
                         <Text>Đang tải</Text>
                     </View>
                 }
-                {
-                    this.state.loaded&&
-                    <HTML html={this.state.noidung.title.rendered} />
-                }
-                <ScrollView style={myStyle.container}>
+                {/* Bố cục trang */}
+                <ScrollView style={myStyle.content}>
+                    <View style={myStyle.header}>
+                        {
+                            this.state.loaded &&
+                            <HTML html={this.state.noidung.title.rendered} />
+                        }
+                        {
+                            this.state.loaded &&
+                            <HTML html={'Cập nhật ngày: '+ this.state.noidung.date.replace("T", "  ")} />
+                        }
+                    </View>
                     {
                         this.state.loaded &&
                         <HTML
-                        html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
+                            html={this.state.noidung.content.rendered.replace("http://localhost", "http://192.168.1.103")} />
                     }
                 </ScrollView>
             </View>
@@ -77,14 +85,20 @@ class CTBaiBao extends Component{
 const myStyle = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: (Platform.OS === 'ios') ? 60 : 50,
-        padding: 10
+        //marginTop: (Platform.OS === 'ios') ? 60 : 50,
+        padding: 5
+    },
+    content: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    header:{
+        padding:5
     },
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        marginBottom: 10,
-        marginTop: 10
+        margin: 10,
     },
     loadingContainer: {
         flex: 1,
