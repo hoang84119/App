@@ -6,7 +6,6 @@ import {
     Alert,
     Header,
     ScrollView,
-    WebView,
     Image
 } from 'react-native';
 import HTMLView from 'react-native-htmlview'
@@ -73,14 +72,10 @@ class CTBaiBao extends Component {
                 <ScrollView style={myStyle.container}>
                     {
                         this.state.loaded &&
-                        <WebView
-                            source={{html: this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}}
-                            style={{marginTop: 20}}
+                        <HTMLView
+                            value={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}
+                            stylesheet={myStyle}
                         />
-                        // <HTMLView
-                        //     value={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}
-                        //     stylesheet={myStyle}
-                        // />
                         // <HTML 
                         // // tagStyle : {p: {fontStyle:'italic'}}
                         // html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
