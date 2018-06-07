@@ -81,8 +81,8 @@ class DSBaiBao extends Component {
     
     onBackButtonPress=()=> {
         Alert.alert("Thoát","Bạn muốn thoát không",
-            [{text: 'Hủy', style: 'cancel'},
-                {text:'Đồng ý',onPress: () => BackHandler.exitApp() }],
+            [{text:'Đồng ý',onPress: () => BackHandler.exitApp() },
+                {text: 'Hủy', style: 'cancel'}],
             {cancelable: false});
         return true;
 	};
