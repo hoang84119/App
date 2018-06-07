@@ -20,7 +20,9 @@ class CTBaiBao extends Component{
     }
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`,
-         headerTitleStyle : {fontSize:15,textAlign: 'center',alignSelf:'center'},
+         headerTitleStyle : {fontSize:15,
+            //textAlign: 'center',alignSelf:'center'
+        },
             headerStyle:{
                 backgroundColor:'white',
             },
