@@ -114,7 +114,7 @@ const myStyle = StyleSheet.create({
 	},
 	nen: {
 		flex: 1,
-		backgroundColor: '#088A4B'
+		backgroundColor: '#36BC63'
 	},
 	header: {
 		fontSize: 30,
