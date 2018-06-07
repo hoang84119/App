@@ -102,21 +102,28 @@ const myStyle = StyleSheet.create({
         paddingLeft: 10,
     },
     edit: {
+        borderTopWidth: 1,
+        borderColor: '#efefef',
         padding: 7,
-        backgroundColor: 'rgba(0,100,0,0.1)',
+        backgroundColor: 'rgba(210,210,210,0.1)',
         flexDirection: 'row',
         borderBottomStartRadius: 8,
         borderBottomEndRadius: 8
     },
     textEdit: {
+        fontWeight: 'bold',
         flex: 1,
-        color: '#FFFFFF',
+        color: '#a0a0a0',
         alignItems: 'center'
     },
     baibao: {
+        borderWidth: 1,
+        borderColor: '#ddd',
         borderRadius: 8,
-        margin: 5,
-        backgroundColor: 'rgba(0,80,0,0.1)',
+        marginTop: 5,
+        marginRight: 5,
+        marginLeft: 5,
+        backgroundColor: '#fff',
     }
 });
 export default DSBaiBao;
