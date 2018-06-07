@@ -4,19 +4,22 @@ import {
     Text,
     StyleSheet,
     Alert,
-    Header
+    Header,
+    ScrollView,
+    Platform
 } from 'react-native';
 import HTML from 'react-native-render-html'
 import {title} from 'react-navigation'
+import {NavigationActions} from 'react-navigation'
 
 class CTBaiBao extends Component{
     constructor(props) {
         super(props);
         this.state = {
             noidung: [],
-            refeshing: true
+            loaded: false
         }
-        const { navigation } = this.props;
+        //const { navigation } = this.props;
     }
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`,
@@ -27,17 +30,16 @@ class CTBaiBao extends Component{
                 backgroundColor:'white',
             },
     });
-    loadData() {
+    async loadData() {
         fetch('http://192.168.1.103/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id",""))
         .then((response) => response.json())
         .then(responeJson => {
             if (responeJson == null) {
                 Alert.alert("Lỗi", "Không có nội dung");
             } else {
-                this.setState({ noidung: responeJson, refeshing: false });
+                this.setState({ noidung: responeJson, loaded: true });
             }
         })
-        //this.LoadData();
     }
 
     componentDidMount() {
@@ -46,41 +48,44 @@ class CTBaiBao extends Component{
 
     render(){
         return(
-            <View>
-                <Text>{this.props.navigation.getParam("id","")}</Text>
+            <View style={myStyle.container}>
+                {
+                    this.state.loaded === false &&
+                    <View style={myStyle.loadingContainer}>
+                        <Text>Đang tải...</Text>
+                    </View>
+                }
+                {
+                    this.state.loaded&&
+                    <HTML html={this.state.noidung.title.rendered} />
+                }
+                <ScrollView style={myStyle.container}>
+                    {
+                        this.state.loaded &&
+                        <HTML
+                        html={this.state.noidung.content.rendered}/>
+                    }
+                </ScrollView>
             </View>
         );
     }
 }
 const myStyle = StyleSheet.create({
-    title: {
-        color: '#088A4B',
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 10,
-        marginBottom: 0,
-        fontSize: 18
-    },
-    excerpt: {
-        color: '#088A4B',
-        paddingLeft: 10,
-    },
-    edit: {
-        padding: 7,
-        backgroundColor: 'rgba(0,100,0,0.1)',
-        flexDirection: 'row',
-        borderBottomStartRadius: 8,
-        borderBottomEndRadius: 8
-    },
-    textEdit: {
+    container: {
         flex: 1,
-        color: '#FFFFFF',
-        alignItems: 'center'
+        marginTop: (Platform.OS === 'ios') ? 60 : 50,
+        padding: 10
     },
-    baibao: {
-        borderRadius: 8,
-        margin: 5,
-        backgroundColor: 'rgba(0,80,0,0.1)',
+    title: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 10,
+        marginTop: 10
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
     }
 });
 export default CTBaiBao
