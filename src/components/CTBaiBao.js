@@ -6,7 +6,8 @@ import {
     Alert,
     Header,
     ScrollView,
-    Platform
+    Platform,
+    Image
 } from 'react-native';
 import HTML from 'react-native-render-html'
 import {title} from 'react-navigation'
@@ -23,7 +24,7 @@ class CTBaiBao extends Component{
     }
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`,
-         headerTitleStyle : {fontSize:15,
+         headerTitleStyle : {fontSize:16,
             //textAlign: 'center',alignSelf:'center'
         },
             headerStyle:{
@@ -54,7 +55,8 @@ class CTBaiBao extends Component{
                 {
                     this.state.loaded === false &&
                     <View style={myStyle.loadingContainer}>
-                        <Text>Đang tải...</Text>
+                        <Image style={{width: 32, height: 32}}  source={require('../image/loading.gif')}/>
+                        <Text>Đang tải</Text>
                     </View>
                 }
                 {
@@ -63,7 +65,6 @@ class CTBaiBao extends Component{
                 }
                 <ScrollView style={myStyle.container}>
                     {
-                        
                         this.state.loaded &&
                         <HTML
                         html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
