@@ -1,13 +1,13 @@
 import {StackNavigator} from 'react-navigation'
 import DangNhap from '../components/DangNhap'
 import DSBaiBao from'../components/DSBaiBao'
-import BaiVietNavigations from './BaiVietNavigations'
-const MainNaigations=StackNavigator({
+import PostToDetail from './PostToDetail'
+const LogiToPost=StackNavigator({
     Login:{
         screen: DangNhap,
     },
     MainScreen:{
-        screen: BaiVietNavigations,
+        screen: PostToDetail,
         navigationOptions:{
             headerTitle: 'Danh sach',
             gesturesEnabled: false,
@@ -22,4 +22,4 @@ const MainNaigations=StackNavigator({
 }
 );
 
-export default MainNaigations
+export default LogiToPost

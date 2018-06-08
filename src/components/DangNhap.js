@@ -7,7 +7,7 @@ import {
 	TouchableOpacity,
 	Alert
 } from 'react-native'
-
+import {Config} from '../Config'
 import { NavigationActions } from 'react-navigation'
 
 export default class App extends Component {
@@ -21,7 +21,7 @@ export default class App extends Component {
 		try {
 			const response = await fetch
 				//("http://192.168.1.103/thuctap/wp-json/custom-plugin/login?username="+this.state.user+"&password="+this.state.pass);
-				('http://192.168.1.103/thuctap/wp-json/custom-plugin/login?username=admin&password=123456789');
+				( 'http://192.168.1.192/thuctap/wp-json/custom-plugin/login?username=admin&password=123456789');
 			const responseJson = await response.json();
 			//Alert.alert(responseJson.data.user_email);
 			// this.setState({data:responseJson.data});
@@ -40,7 +40,7 @@ export default class App extends Component {
 		if (this.state.user == "") Alert.alert("Lỗi", "Tên đăng nhập không được rỗng");
 		else if (this.state.pass == "") Alert.alert("Lỗi", "Mật khẩu không được rỗng");
 		else {
-			fetch('http://192.168.1.103/thuctap/wp-json/custom-plugin/login?username=' + this.state.user + '&password=' + this.state.pass, )
+			fetch('http://192.168.1.192/thuctap/wp-json/custom-plugin/login?username=' + this.state.user + '&password=' + this.state.pass, )
 				.then((response) => response.json())
 				.then(responeJson => {
 					// console.log(responseJson.data);

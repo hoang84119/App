@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Text,
 } from 'react-native';
+import {Config} from '../Config'
 import HTMLView from 'react-native-htmlview';
 class DSBaiBao extends Component {
     static navigationOptions = {
@@ -27,10 +28,9 @@ class DSBaiBao extends Component {
             refeshing: true
         }
     }
-
     loadData() {
         this.setState({ refeshing: true });
-        fetch('http://192.168.1.103/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
+        fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
             if (responeJson == null) {
                 Alert.alert("Lỗi", "Không có nội dung");
             } else {
@@ -79,7 +79,7 @@ class DSBaiBao extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style={myStyle.edit}>
-                            <TouchableOpacity onPress={() => this.xem(item.id, item.title.rendered)} style={myStyle.textEdit}>
+                            <TouchableOpacity onPress={() => this.xem(item.id, <View><HTMLView value={item.title.rendered.toString()}/></View>)} style={myStyle.textEdit}>
                                 <Text style={myStyle.textEdit}>Xem</Text>
                             </TouchableOpacity>
                             <Text>|</Text>

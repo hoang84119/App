@@ -1,7 +1,7 @@
 import {StackNavigator} from 'react-navigation'
 import CTBaiBao from '../components/CTBaiBao'
 import DSBaiBao from'../components/DSBaiBao'
-const BaiVietNavigations=StackNavigator({
+const PostToDetail=StackNavigator({
     main:{
         screen: DSBaiBao,
         navigationOptions:{
@@ -20,4 +20,4 @@ const BaiVietNavigations=StackNavigator({
 // }
 );
 
-export default BaiVietNavigations
+export default PostToDetail

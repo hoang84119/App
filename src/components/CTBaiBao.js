@@ -8,6 +8,7 @@ import {
     ScrollView,
     Image
 } from 'react-native';
+import {Config} from '../Config'
 import HTMLView from 'react-native-htmlview'
 import { title } from 'react-navigation'
 import { NavigationActions } from 'react-navigation'
@@ -22,14 +23,14 @@ class CTBaiBao extends Component {
         //const { navigation } = this.props;
     }
     static navigationOptions = ({ navigation }) => ({
-        title: `${navigation.state.params.title.replace('&#8216;', "'")}`,
+        title: `${navigation.state.params.title}`,
         headerTitleStyle: {
             fontSize: 18,backgroundColor: 'white'
             //textAlign: 'center',alignSelf:'center'
         }
     });
     async loadData() {
-        fetch('http://192.168.1.103/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
+        fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
             .then((response) => response.json())
             .then(responeJson => {
                 if (responeJson == null) {
