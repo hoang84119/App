@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LogiToPost from './src/navigations/LogiToPost'
-import PostToDetail from './src/navigations/PostToDetail'
+import PostTo from './src/navigations/PostTo'
 class App  extends Component {
     state = {  }
     render() {
@@ -10,4 +10,4 @@ class App  extends Component {
     }
 }
 
-export default LogiToPost;
+export default PostTo;

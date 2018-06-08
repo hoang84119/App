@@ -1,13 +1,13 @@
 import {StackNavigator} from 'react-navigation'
 import DangNhap from '../components/DangNhap'
 import DSBaiBao from'../components/DSBaiBao'
-import PostToDetail from './PostToDetail'
+import PostTo from './PostTo'
 const LogiToPost=StackNavigator({
     Login:{
         screen: DangNhap,
     },
     MainScreen:{
-        screen: PostToDetail,
+        screen: PostTo,
         navigationOptions:{
             headerTitle: 'Danh sach',
             gesturesEnabled: false,

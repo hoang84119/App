@@ -8,7 +8,7 @@ import {
     ScrollView,
     Image
 } from 'react-native';
-import {Config} from '../Config'
+import { Config } from '../Config'
 import HTMLView from 'react-native-htmlview'
 import { title } from 'react-navigation'
 import { NavigationActions } from 'react-navigation'
@@ -18,6 +18,7 @@ class CTBaiBao extends Component {
         super(props);
         this.state = {
             noidung: [],
+            tacgia: [],
             loaded: false
         }
         //const { navigation } = this.props;
@@ -25,7 +26,7 @@ class CTBaiBao extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`,
         headerTitleStyle: {
-            fontSize: 18,backgroundColor: 'white'
+            fontSize: 18, backgroundColor: 'white'
             //textAlign: 'center',alignSelf:'center'
         }
     });
@@ -37,9 +38,23 @@ class CTBaiBao extends Component {
                     Alert.alert("Lỗi", "Không có nội dung");
                 } else {
                     this.setState({ noidung: responeJson, loaded: true });
+                    this.loadTacGia();
+                    
                 }
             })
     }
+    loadTacGia() {
+        fetch('http://192.168.1.192//thuctap/wp-json/wp/v2/users/' + this.state.noidung.author)
+            .then((response) => response.json())
+            .then(responeJson => {
+                if (responeJson == null) {
+                    Alert.alert("Lỗi", "Không có nội dung");
+                } else {
+                    this.setState({ tacgia: responeJson, loaded: true });
+                }
+            })
+    }
+
 
     componentDidMount() {
         this.loadData();
@@ -73,15 +88,21 @@ class CTBaiBao extends Component {
                         {
                             this.state.loaded &&
                             <HTMLView
-                                value={"<i>Cập nhật lúc: " + this.state.noidung.modified.replace("T", "   ") + "</i>"}
-                                stylesheet={htmlTitleStyle}/>
+                                value={"<i>Cập nhật lúc: <b>" + this.state.noidung.modified.replace("T", "   ") + "</b></i>"}
+                                stylesheet={htmlTitleStyle} />
+                        }
+                        {
+                            this.state.loaded &&
+                            <HTMLView
+                                value={"<i>Người đăng: <b>" + this.state.tacgia.name + "</i></b>"}
+                                />
                         }
                     </View>
                     <View style={myStyle.content}>
                         {
                             this.state.loaded &&
                             <HTMLView
-                                value={this.state.noidung.content.rendered.replace("http://localhost", "http://192.168.1.103")}
+                                value={this.state.noidung.content.rendered.replace("http://localhost", "http://192.168.1.192")}
                                 stylesheet={htmlTitleStyle}
                             />
                             // <HTML 
@@ -103,9 +124,9 @@ const htmlTitleStyle = StyleSheet.create({
     p: {
         fontSize: 16
     },
-    img:{
-        width:800,
-        height:400,
+    img: {
+        width: 800,
+        height: 400,
     }
 })
 const myStyle = StyleSheet.create({

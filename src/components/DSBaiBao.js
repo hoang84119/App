@@ -47,9 +47,11 @@ class DSBaiBao extends Component {
 
     xem(i, t) {
         //Alert.alert(t+"");
-        this.props.navigation.navigate("ct", { id: i, title: t });
+        this.props.navigation.navigate("chitiet", { id: i, title: t });
     }
-
+    chinhsua(i) {
+        this.props.navigation.navigate("chinhsua", { id: i});
+    }
     render() {
         const { navigate } = this.props.navigation;
         const kieu = {
@@ -79,7 +81,7 @@ class DSBaiBao extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style={myStyle.edit}>
-                            <TouchableOpacity onPress={() => this.xem(item.id, <View><HTMLView value={item.title.rendered.toString()}/></View>)} style={myStyle.textEdit}>
+                            <TouchableOpacity onPress={() => this.xem(item.id, item.title.rendered)} style={myStyle.textEdit}>
                                 <Text style={myStyle.textEdit}>Xem</Text>
                             </TouchableOpacity>
                             <Text>|</Text>
@@ -87,7 +89,7 @@ class DSBaiBao extends Component {
                                 <Text style={myStyle.textEdit}>Xóa</Text>
                             </TouchableOpacity>
                             <Text>|</Text>
-                            <TouchableOpacity style={myStyle.textEdit}>
+                            <TouchableOpacity onPress={() => this.chinhsua(item.id)} style={myStyle.textEdit}>
                                 <Text style={myStyle.textEdit}>Chỉnh sửa</Text>
                             </TouchableOpacity>
                         </View>
