@@ -30,7 +30,7 @@ class DSBaiBao extends Component {
     }
     async loadData() {
         this.setState({ refeshing: true });
-        fetch(API.getURL()+'/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
+        fetch(API.getURL() + '/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
             if (responeJson == null) {
                 Alert.alert("Lỗi", "Không có nội dung");
             } else {
@@ -51,16 +51,21 @@ class DSBaiBao extends Component {
         Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?",
             [{
                 text: 'Xóa', onPress: () => {
-                    fetch(API.getURL()+'/thuctap/wp-json/wp/v2/posts/' + i, {
-                        "method":"DELETE",
-                        "headers":{
-                            "Accept":"application/json",
-                            "Content-Type":"application/json",
-                            "X-App-Token":"blablatoken",
-                            "Authorization":"JWT blablasuperlongtoken"
-                    }}).then(response => response.json());
-                    this.setState({ refeshing: true });
-                    Alert.alert("Thông báo", "Xóa thành công!(chưa xóa được)");
+                    fetch(API.getURL() + '/thuctap/wp-json/wp/v2/posts/' + i, {
+                        headers: {
+                            'Authorization': 'Basic ' + Base64.btoa('admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok'),
+                        },
+                        method: 'DELETE',
+
+                    }).then(response => {
+                        var t = response.status;
+                        if (response.status == "200") {
+                            ToastAndroid.show('Xóa thành công !', ToastAndroid.SHORT);
+                            this.loadData();
+                        }
+                        else Alert.alert("Cảnh báo", "Xóa thất bại!");
+                    });
+
 
                 }
             },
@@ -177,4 +182,48 @@ const myStyle = StyleSheet.create({
         backgroundColor: '#fff',
     }
 });
+
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+const Base64 = {
+    btoa: (input) => {
+        let str = input;
+        let output = '';
+
+        for (let block = 0, charCode, i = 0, map = chars;
+            str.charAt(i | 0) || (map = '=', i % 1);
+            output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
+
+            charCode = str.charCodeAt(i += 3 / 4);
+
+            if (charCode > 0xFF) {
+                throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+            }
+
+            block = block << 8 | charCode;
+        }
+
+        return output;
+    },
+
+    atob: (input) => {
+        let str = input.replace(/=+$/, '');
+        let output = '';
+
+        if (str.length % 4 == 1) {
+            throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+        }
+        for (let bc = 0, bs = 0, buffer, i = 0;
+            buffer = str.charAt(i++);
+
+            ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+                bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+        ) {
+            buffer = chars.indexOf(buffer);
+        }
+
+        return output;
+    }
+};
+
+
 export default DSBaiBao;
