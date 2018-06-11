@@ -1,8 +1,7 @@
 import {StackNavigator} from 'react-navigation'
 import DangNhap from '../components/DangNhap'
-import DSBaiBao from'../components/DSBaiBao'
 import PostTo from './PostTo'
-const LogiToPost=StackNavigator({
+const LoginToPost=StackNavigator({
     Login:{
         screen: DangNhap,
     },
@@ -22,4 +21,4 @@ const LogiToPost=StackNavigator({
 }
 );
 
-export default PostTo
+export default LoginToPost
