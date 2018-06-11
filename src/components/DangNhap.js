@@ -8,6 +8,7 @@ import {
 	Alert
 } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import API from '../API'
 
 export default class App extends Component {
 	state = {
@@ -39,7 +40,7 @@ export default class App extends Component {
 		if (this.state.user == "") Alert.alert("Lỗi", "Tên đăng nhập không được rỗng");
 		else if (this.state.pass == "") Alert.alert("Lỗi", "Mật khẩu không được rỗng");
 		else {
-			fetch('http://192.168.1.192/thuctap/wp-json/custom-plugin/login?username=' + this.state.user + '&password=' + this.state.pass, )
+			fetch(API.getURL()+'/thuctap/wp-json/custom-plugin/login?username=' + this.state.user + '&password=' + this.state.pass, )
 				.then((response) => response.json())
 				.then(responeJson => {
 					// console.log(responseJson.data);

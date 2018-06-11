@@ -1,5 +1,8 @@
 export const url = "http://192.168.1.135";
 module.exports = API = {
+  getURL(){
+    return url;
+  },
   getAllPost() {
     return fetch(`${url}/thuctap/wp-json/wp/v2/posts`)
       .then(function(response) {
