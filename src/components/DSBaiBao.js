@@ -45,7 +45,7 @@ class DSBaiBao extends Component {
     }
 
     xem(i, t) {
-        this.props.navigation.navigate("chitiet", { id: i, title: t });
+        this.props.navigation.navigate("chitiet", { id: i});
     }
     xoa(i, t) {
         Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?",

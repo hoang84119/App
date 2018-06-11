@@ -32,7 +32,9 @@ class CTBaiBao extends Component {
     //   //textAlign: 'center',alignSelf:'center'
     // }
     //let headerTitle = navigation.state.params.title;
-    let headerRight = <Button title="Chỉnh sửa" onPress={() => {}} />;
+    let headerRight = <Button title="Chỉnh sửa" onPress={() => {
+      this.props.navigation.navigate("chinhsua", { id: this.props.navigation.getParam("id", "") });
+    }} />;
     return { headerRight };
   };
   async loadData() {
