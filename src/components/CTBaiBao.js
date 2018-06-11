@@ -6,7 +6,8 @@ import {
   Alert,
   Header,
   ScrollView,
-  Image
+  Image,
+  Button
 } from "react-native";
 import API from "../API";
 import HTMLView from "react-native-htmlview";
@@ -23,26 +24,32 @@ class CTBaiBao extends Component {
     };
     //const { navigation } = this.props;
   }
-  static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.title}`,
-    headerTitleStyle: {
-      fontSize: 18,
-      backgroundColor: "white"
-      //textAlign: 'center',alignSelf:'center'
-    }
-  });
+  static navigationOptions = ({ navigation }) => {
+    //title: `${navigation.state.params.title}`,
+    // headerTitleStyle: {
+    //   fontSize: 18,
+    //   backgroundColor: "white"
+    //   //textAlign: 'center',alignSelf:'center'
+    // }
+    let headerTitle = navigation.state.params.title;
+    let headerRight = <Button title="Chỉnh sửa" onPress={() => {}} />;
+    return { headerTitle, headerRight };
+  };
   async loadData() {
-    fetch(API.getURL()+'/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
-        .then((response) => response.json())
-        .then(responeJson => {
-            if (responeJson == null) {
-                Alert.alert("Lỗi", "Không có nội dung");
-            } else {
-                this.setState({ noidung: responeJson, loaded: true });
-                this.loadTacGia();
-
-            }
-        })
+    fetch(
+      API.getURL() +
+        "/thuctap/wp-json/wp/v2/posts/" +
+        this.props.navigation.getParam("id", "")
+    )
+      .then(response => response.json())
+      .then(responeJson => {
+        if (responeJson == null) {
+          Alert.alert("Lỗi", "Không có nội dung");
+        } else {
+          this.setState({ noidung: responeJson, loaded: true });
+          this.loadTacGia();
+        }
+      });
     // API.getCTBaiBao(this.props.navigation.getParam("id", "")).then(response => {
     //   if (response == null) {
     //     Alert.alert("Lỗi", "Không có nội dung");
@@ -54,8 +61,7 @@ class CTBaiBao extends Component {
   }
   loadTacGia() {
     fetch(
-      API.getURL()+"/thuctap/wp-json/wp/v2/users/" +
-        this.state.noidung.author
+      API.getURL() + "/thuctap/wp-json/wp/v2/users/" + this.state.noidung.author
     )
       .then(response => response.json())
       .then(responeJson => {
@@ -91,8 +97,7 @@ class CTBaiBao extends Component {
                 value={"<span>" + this.state.noidung.title.rendered + "</span>"}
                 stylesheet={htmlTitleStyle}
               />
-            )
-            }
+            )}
             {this.state.loaded && (
               <HTMLView
                 value={
@@ -120,8 +125,7 @@ class CTBaiBao extends Component {
                 )}
                 stylesheet={htmlTitleStyle}
               />
-            )
-            }
+            )}
           </View>
         </ScrollView>
       </View>

@@ -22,4 +22,4 @@ const LogiToPost=StackNavigator({
 }
 );
 
-export default LogiToPost
+export default PostTo
