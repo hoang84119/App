@@ -77,12 +77,12 @@ class CTBaiBao extends Component {
         this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
-      .then(responeJson => {
-        if (responeJson == null) {
+      .then(responseJson => {
+        if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
           this.setState({
-            noidung: responeJson,
+            noidung: responseJson,
             loaded: true
           });
         }
