@@ -31,9 +31,9 @@ class CTBaiBao extends Component {
     //   backgroundColor: "white"
     //   //textAlign: 'center',alignSelf:'center'
     // }
-    let headerTitle = navigation.state.params.title;
+    //let headerTitle = navigation.state.params.title;
     let headerRight = <Button title="Chỉnh sửa" onPress={() => {}} />;
-    return { headerTitle, headerRight };
+    return { headerRight };
   };
   async loadData() {
     fetch(

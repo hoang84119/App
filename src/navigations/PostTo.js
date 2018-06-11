@@ -11,6 +11,9 @@ const PostTo = StackNavigator({
     },
     chitiet: {
         screen: CTBaiBao,
+        navigationOptions: {
+            headerTitle: 'Chi tiết bài viết',
+        },   
     },
     chinhsua:{
         screen: ChinhSuaBaiViet,
