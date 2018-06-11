@@ -7,9 +7,10 @@ import {
     Header,
     ScrollView,
     Image,
-    TextInput
+    TextInput,
+    Button
 } from 'react-native';
-import {Config} from '../Config'
+import { Config } from '../Config'
 import HTMLView from 'react-native-htmlview'
 import { title } from 'react-navigation'
 import { NavigationActions } from 'react-navigation'
@@ -19,7 +20,8 @@ class CTBaiBao extends Component {
         super(props);
         this.state = {
             noidung: [],
-            loaded: false
+            loaded: false,
+
         }
         //const { navigation } = this.props;
     }
@@ -49,17 +51,32 @@ class CTBaiBao extends Component {
                         <Text >Đang tải</Text>
                     </View>
                 }
-
-                <ScrollView style={myStyle.container}>
-                    <View>
-                    <TextInput
-                        placeholderTextColor='white'
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        style={myStyle.ctmInput}
-                        onChangeText={(u) => { this.setState({ user: u }) }}
-                        value=" hayak;asn" />
-                    </View>
-                </ScrollView>
+                {
+                    this.state.loaded === true &&
+                    
+                        <View style={myStyle.container}>
+                            <Text style={{margin:10, fontSize:16}}>Tiêu đề bài viết:</Text>
+                            <View style={myStyle.content1}>
+                            <TextInput
+                                style={myStyle.input}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                value= {this.state.noidung.title.rendered}
+                                onChangeText={(u) => { this.setState({ user: u }) }}
+                            />
+                            </View>
+                            <Text style={{margin:10, fontSize:16}}>Nội dung bài viết:</Text>
+                            <ScrollView style={myStyle.content}>
+                            <TextInput
+                                style={myStyle.input}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                multiline={true}
+                                value= {this.state.noidung.content.rendered}
+                                onChangeText={(u) => { this.setState({ user: u }) }}
+                            />
+                            </ScrollView>
+                            <Button title="Chỉnh sửa"/>
+                        </View>
+                }
             </View>
         );
     }
@@ -73,32 +90,39 @@ const htmlTitleStyle = StyleSheet.create({
     p: {
         fontSize: 16
     },
-    img:{
-        width:800,
-        height:400,
+    img: {
+        width: 800,
+        height: 400,
     }
 })
 const myStyle = StyleSheet.create({
+    input:{
+        borderRadius: 15,
+		fontSize: 18,
+		paddingTop: 10,
+		paddingLeft: 20,
+		paddingBottom: 10,
+		paddingRight: 20,
+		backgroundColor:"rgba(0,0,0,0)",
+		textAlign: 'center',
+    },
     container: {
         flex: 1,
         //marginTop: (Platform.OS === 'ios') ? 60 : 50,
-        borderWidth: 1,
-        borderColor: '#dfdfdf',
-        borderRadius: 8,
-        backgroundColor: '#fff',
+    },
+    content1: {
+        backgroundColor:"#fff",
+        borderRadius: 15,
+        borderColor: 8,
+        marginBottom: 5
     },
     content: {
-        padding: 10,
+        padding: 5,
+        backgroundColor:"#fff",
+        borderRadius: 15,
         borderColor: 8,
         flex: 1,
-    },
-    header: {
-        padding: 5
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: "bold",
-        margin: 10,
+        marginBottom: 5
     },
     loadingContainer: {
         flex: 1,
