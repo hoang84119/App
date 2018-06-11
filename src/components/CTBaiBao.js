@@ -31,8 +31,9 @@ class CTBaiBao extends Component {
     //   //textAlign: 'center',alignSelf:'center'
     // }
     //let headerTitle = navigation.state.params.title;
+    const { params = {} } = navigation.state;
     let headerRight = <TouchableOpacity onPress={() => {
-      this.props.navigation.navigate("chinhsua", { id: this.props.navigation.getParam("id", "") });
+      params.onEdit();
     }}
       style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <Image
@@ -42,6 +43,10 @@ class CTBaiBao extends Component {
     </TouchableOpacity>
     return { headerRight };
   };
+
+  _onEdit(){
+    this.props.navigation.navigate("chinhsua", { id: this.props.navigation.getParam("id", "") });
+  }
   async loadData() {
     fetch(
       API.getURL() +
@@ -82,6 +87,9 @@ class CTBaiBao extends Component {
 
   componentDidMount() {
     this.loadData();
+    this.props.navigation.setParams({
+      onEdit: this._onEdit.bind(this)
+    });
   }
 
   render() {
