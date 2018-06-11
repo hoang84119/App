@@ -16,11 +16,11 @@ class DSBaiBao extends Component {
         headerTitleStyle: {
             color: '#088A4B'
         },
-        headerStyle: {
-            backgroundColor: '#fff',
-            alignItems: 'center',
-            textAlign: 'center',
-        },
+        // headerStyle: {
+        //     backgroundColor: '#fff',
+        //     alignItems: 'center',
+        //     textAlign: 'center',
+        // },
     };
     constructor(props) {
         super(props);
@@ -106,15 +106,15 @@ class DSBaiBao extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style={myStyle.edit}>
-                            <TouchableOpacity onPress={() => this.xem(item.id, item.title.rendered)} style={myStyle.textEdit}>
+                            <TouchableOpacity onPress={() => this.xem(item.id, item.title.rendered)} style={{ flex: 1,alignItems:'center'}}>
                                 <Text style={myStyle.textEdit}>Xem</Text>
                             </TouchableOpacity>
                             <Text>|</Text>
-                            <TouchableOpacity onPress={() => this.xoa(item.id, item.title.rendered)} style={myStyle.textEdit}>
+                            <TouchableOpacity onPress={() => this.xoa(item.id, item.title.rendered)} style={{ flex: 1,alignItems:'center'}}>
                                 <Text style={myStyle.textEdit}>Xóa</Text>
                             </TouchableOpacity>
                             <Text>|</Text>
-                            <TouchableOpacity onPress={() => this.chinhsua(item.id)} style={myStyle.textEdit}>
+                            <TouchableOpacity onPress={() => this.chinhsua(item.id)} style={{ flex: 1,alignItems:'center'}}>
                                 <Text style={myStyle.textEdit}>Chỉnh sửa</Text>
                             </TouchableOpacity>
                         </View>
@@ -155,7 +155,7 @@ const myStyle = StyleSheet.create({
         fontSize: 18
     },
     excerpt: {
-        color: '#088A4B',
+        //color: '#088A4B',
         paddingLeft: 10,
     },
     edit: {
@@ -168,9 +168,10 @@ const myStyle = StyleSheet.create({
         borderBottomEndRadius: 8
     },
     textEdit: {
-        //fontWeight: 'bold',
+        fontWeight: 'bold',
         flex: 1,
         color: '#36BC63',
+        //color: "lightgreen",
         alignItems: 'center'
     },
     baibao: {
