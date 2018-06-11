@@ -9,7 +9,6 @@ import {
     Image,
     TextInput
 } from 'react-native';
-import {Config} from '../Config'
 import HTMLView from 'react-native-htmlview'
 import { title } from 'react-navigation'
 import { NavigationActions } from 'react-navigation'

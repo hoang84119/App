@@ -7,7 +7,7 @@ import {
 	TouchableOpacity,
 	Alert
 } from 'react-native'
-import {Config} from '../Config'
+//import {Config} from '../Config'
 import { NavigationActions } from 'react-navigation'
 
 export default class App extends Component {

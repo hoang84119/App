@@ -8,7 +8,7 @@ import {
     ScrollView,
     Image
 } from 'react-native';
-import { Config } from '../Config'
+import API from '../API'
 import HTMLView from 'react-native-htmlview'
 import { title } from 'react-navigation'
 import { NavigationActions } from 'react-navigation'
@@ -31,17 +31,27 @@ class CTBaiBao extends Component {
         }
     });
     async loadData() {
-        fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
-            .then((response) => response.json())
-            .then(responeJson => {
-                if (responeJson == null) {
-                    Alert.alert("Lỗi", "Không có nội dung");
-                } else {
-                    this.setState({ noidung: responeJson, loaded: true });
-                    this.loadTacGia();
+        // fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
+        //     .then((response) => response.json())
+        //     .then(responeJson => {
+        //         if (responeJson == null) {
+        //             Alert.alert("Lỗi", "Không có nội dung");
+        //         } else {
+        //             this.setState({ noidung: responeJson, loaded: true });
+        //             this.loadTacGia();
                     
-                }
-            })
+        //         }
+        //     })
+       API.getCTBaiBao(this.props.navigation.getParam("id", ""))
+       .then( (response) => {
+        if (response == null) {
+            Alert.alert("Lỗi", "Không có nội dung");
+        } else {
+            this.setState({ noidung: response, loaded: true });
+            this.loadTacGia();
+            
+        }
+    })
     }
     loadTacGia() {
         fetch('http://192.168.1.192//thuctap/wp-json/wp/v2/users/' + this.state.noidung.author)

@@ -8,8 +8,9 @@ import {
     TouchableOpacity,
     Text,
 } from 'react-native';
-import {Config} from '../Config'
+import {Config} from '../API'
 import HTMLView from 'react-native-htmlview';
+import API from '../API'
 class DSBaiBao extends Component {
     static navigationOptions = {
         headerTitleStyle: {
@@ -28,15 +29,24 @@ class DSBaiBao extends Component {
             refeshing: true
         }
     }
-    loadData() {
+    async loadData() {
         this.setState({ refeshing: true });
-        fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
-            if (responeJson == null) {
-                Alert.alert("Lỗi", "Không có nội dung");
-            } else {
-                this.setState({ noidung: responeJson, refeshing: false });
+        // fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
+        //     if (responeJson == null) {
+        //         Alert.alert("Lỗi", "Không có nội dung");
+        //     } else {
+        //         this.setState({ noidung: responeJson, refeshing: false });
+        //     }
+        // })
+        API.getAllPost().then(
+            (response)=>{
+                if (response == null) {
+                    Alert.alert("Lỗi", "Không có nội dung");
+                } else {
+                    this.setState({ noidung: response, refeshing: false });
+                }
             }
-        })
+        );
         //this.LoadData();
     }
 
