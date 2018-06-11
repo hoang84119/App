@@ -44,11 +44,11 @@ class CTBaiBao extends Component {
         this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
-      .then(responeJson => {
-        if (responeJson == null) {
+      .then(responseJson => {
+        if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
-          this.setState({ noidung: responeJson, loaded: true });
+          this.setState({ noidung: responseJson});
           this.loadTacGia();
         }
       });
@@ -61,16 +61,16 @@ class CTBaiBao extends Component {
     //   }
     // });
   }
-  loadTacGia() {
+  async loadTacGia() {
     fetch(
       API.getURL() + "/thuctap/wp-json/wp/v2/users/" + this.state.noidung.author
     )
       .then(response => response.json())
-      .then(responeJson => {
-        if (responeJson == null) {
+      .then(responseJson => {
+        if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
-          this.setState({ tacgia: responeJson, loaded: true });
+          this.setState({ tacgia: responseJson, loaded: true });
         }
       });
   }

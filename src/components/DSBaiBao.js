@@ -12,12 +12,13 @@ import {
 } from "react-native";
 import HTMLView from "react-native-htmlview";
 import API from "../API";
+import ThemBaiViet from "./ThemBaiViet";
 class DSBaiBao extends Component {
     constructor(props) {
         super(props);
         this.state = {
             noidung: "",
-            refeshing: true
+            refreshing: true
         };
     }
 
@@ -25,7 +26,7 @@ class DSBaiBao extends Component {
         const { params = {} } = navigation.state;
         let headerRight = (
             <Button
-                title="Chỉnh sửa"
+                title="Thêm"
                 onPress={() => {
                     params.onAdd();
                 }}
@@ -35,28 +36,29 @@ class DSBaiBao extends Component {
     };
 
     _onAdd() {
-        if (this.props.navigation.state.params.isAdding == true) return;
-        this.props.navigation.setParams({ isAdding: true });
+        // if (this.props.navigation.state.params.isAdding == true) return;
+        // this.props.navigation.setParams({ isAdding: true });
+        this.props.navigation.navigate("thembaiviet")
     }
 
     componentDidMount() {
         this.loadData();
-        BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
+        //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
         this.props.navigation.setParams({
-            onAdd: this._onAdd.bind(this),
-            isAdding: false
+            onAdd: this._onAdd.bind(this)
+            //,isAdding: false
         });
     }
 
     async loadData() {
-        this.setState({ refeshing: true });
+        this.setState({ refreshing: true });
         fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts")
             .then(response => response.json())
-            .then(responeJson => {
-                if (responeJson == null) {
+            .then(responseJson => {
+                if (responseJson == null) {
                     Alert.alert("Lỗi", "Không có nội dung");
                 } else {
-                    this.setState({ noidung: responeJson, refeshing: false });
+                    this.setState({ noidung: responseJson, refreshing: false });
                 }
             });
     }
@@ -113,8 +115,8 @@ class DSBaiBao extends Component {
 
         return (
             <FlatList
-                refreshing={this.state.refeshing}
-                onRefresh={() => this.refesh()}
+                refreshing={this.state.refreshing}
+                onRefresh={() => this.refresh()}
                 data={this.state.noidung}
                 keyExtractor={(x, i) => i.toString()}
                 renderItem={({ item }) => (
@@ -157,7 +159,7 @@ class DSBaiBao extends Component {
         );
     }
 
-    refesh() {
+    refresh() {
         this.loadData();
     }
 

@@ -5,55 +5,55 @@ import {
   Text,
   StyleSheet,
   Alert,
-  Header,
-  ScrollView,
-  Image,
-  TextInput,
-  Button
+  Button,
+  ToastAndroid
 } from "react-native";
 import {
   RichTextEditor,
   RichTextToolbar
 } from "react-native-zss-rich-text-editor";
-import { title } from "react-navigation";
-import { NavigationActions } from "react-navigation";
+import DSBaiBao from "./DSBaiBao";
 
-class CTBaiBao extends Component {
+class ThemBaiViet extends Component {
   constructor(props) {
     super(props);
     this.getHTML = this.getHTML.bind(this);
     this.setFocusHandlers = this.setFocusHandlers.bind(this);
-    this.state = {
-      noidung: [],
-      loaded: false
-    };
   }
+
+  async getHTML() {
+    const titleHtml = await this.richtext.getTitleHtml();
+    const contentHtml = await this.richtext.getContentHtml();
+    var html = contentHtml;
+    alert(titleHtml + " " + contentHtml);
+  }
+
   static navigationOptions = ({ navigation }) => {
     //let headerTitle = navigation.state.params.title;
     const { params = {} } = navigation.state;
     let headerRight = (
       <Button
-        title="Lưu"
+        title="Thêm"
         onPress={() => {
-          params.onSave();
+          params.onAdd();
         }}
       />
     );
     return { headerRight };
   };
 
-  async _onSave() {
-    if (this.props.navigation.state.params.isSaving == true) return;
-    this.props.navigation.setParams({ isSaving: true });
+  async _onAdd() {
+    if (this.props.navigation.state.params.isAdding == true) return;
+    this.props.navigation.setParams({ isAdding: true });
     var formData = new FormData();
     let title = await this.richtext.getTitleHtml();
     let content = await this.richtext.getContentHtml();
     formData.append("title", title);
     formData.append("content", content);
+    formData.append("status","publish");
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", ""),
+        "/thuctap/wp-json/wp/v2/posts/",
       {
         headers: {
           Authorization:
@@ -64,73 +64,39 @@ class CTBaiBao extends Component {
       }
     ).then(response => {
       var t = response.status;
-      if (response.status == "200")
-        Alert.alert("Thông báo", "Đã lưu thành công");
+      if (response.status == 201)
+      {
+        ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
+        //DSBaiBao.loadData();
+        this.props.navigation.navigate("main");
+      }
       else Alert.alert("Lỗi", "Thất bại");
     });
   }
 
-  async loadData() {
-    fetch(
-      API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", "")
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson == null) {
-          Alert.alert("Lỗi", "Không có nội dung");
-        } else {
-          this.setState({
-            noidung: responseJson,
-            loaded: true
-          });
-        }
-      });
-  }
-
   componentDidMount() {
     this.props.navigation.setParams({
-      onSave: this._onSave.bind(this),
-      isSaving: false
+      onAdd: this._onAdd.bind(this),
+      isAdding: false
     });
-    this.loadData();
   }
 
   render() {
     return (
       <View style={myStyle.container}>
-        {this.state.loaded && (
-          <RichTextEditor
-            ref={r => (this.richtext = r)}
-            style={myStyle.richText}
-            initialTitleHTML={this.state.noidung.title.rendered}
-            initialContentHTML={this.state.noidung.content.rendered.replace(
-              "http://localhost",
-              API.getURL()
-            )}
-          />
-        )}
-        {this.state.loaded && (
-          <RichTextToolbar getEditor={() => this.richtext} />
-        )}
-        {this.state.loaded === false && (
-          <ActivityIndicator size="large" color="#0000ff" />
-        )}
+        <RichTextEditor
+          ref={r => (this.richtext = r)}
+          style={myStyle.richText}
+          initialTitleHTML={"Tiêu đề bài viết"}
+          initialContentHTML={"Nội dung bài viết"}
+        />
+        <RichTextToolbar getEditor={() => this.richtext} />
       </View>
     );
   }
-
   onEditorInitialized() {
     this.setFocusHandlers();
     this.getHTML();
-  }
-
-  async getHTML() {
-    const titleHtml = await this.richtext.getTitleHtml();
-    const contentHtml = await this.richtext.getContentHtml();
-    var html = contentHtml;
-    alert(titleHtml + " " + contentHtml);
   }
 
   setFocusHandlers() {
@@ -206,4 +172,4 @@ const Base64 = {
   }
 };
 
-export default CTBaiBao;
+export default ThemBaiViet;
