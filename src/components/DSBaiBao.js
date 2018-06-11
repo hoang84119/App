@@ -8,11 +8,6 @@ import {
     TouchableOpacity,
     Text,
 } from 'react-native';
-<<<<<<< HEAD
-import {Config} from '../API'
-=======
-import { Config } from '../Config'
->>>>>>> 44a518fed77d515f35be39ab127d14a9184258f7
 import HTMLView from 'react-native-htmlview';
 import API from '../API'
 class DSBaiBao extends Component {

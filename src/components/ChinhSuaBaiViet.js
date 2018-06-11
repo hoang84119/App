@@ -10,10 +10,6 @@ import {
     TextInput,
     Button
 } from 'react-native';
-<<<<<<< HEAD
-=======
-import { Config } from '../Config'
->>>>>>> 44a518fed77d515f35be39ab127d14a9184258f7
 import HTMLView from 'react-native-htmlview'
 import { title } from 'react-navigation'
 import { NavigationActions } from 'react-navigation'
