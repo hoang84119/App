@@ -9,7 +9,8 @@ import {
   ScrollView,
   Image,
   TextInput,
-  Button
+  Button,
+  ToastAndroid
 } from "react-native";
 import {
   RichTextEditor,
