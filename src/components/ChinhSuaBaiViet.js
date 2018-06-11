@@ -48,32 +48,31 @@ class CTBaiBao extends Component {
     var formData = new FormData();
     let title = await this.richtext.getTitleHtml();
     let content = await this.richtext.getContentHtml();
-    formData.append("title",title);
-    formData.append("content",content);
+    formData.append("title", title);
+    formData.append("content", content);
     fetch(
-        API.getURL() +
-          "/thuctap/wp-json/wp/v2/posts/" +
-          this.props.navigation.getParam("id", ""),{
-              headers:{
-                'Authorization': 'Basic '+Base64.btoa('admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok'), 
-              },
-              body:formData,
-              method:'POST',
-
-          }
-      )
-        .then(response => {
-            var t = response.status;
-            if(response.status=="200") Alert.alert("Thông báo","Đã lưu thành công");
-            else Alert.alert("Lỗi","Thất bại");
-        });
+      API.getURL() +
+      "/thuctap/wp-json/wp/v2/posts/" +
+      this.props.navigation.getParam("id", ""), {
+        headers: {
+          'Authorization': 'Basic ' + Base64.btoa('admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok'),
+        },
+        body: formData,
+        method: 'POST',
+      }
+    )
+      .then(response => {
+        var t = response.status;
+        if (response.status == "200") Alert.alert("Thông báo", "Đã lưu thành công");
+        else Alert.alert("Lỗi", "Thất bại");
+      });
   }
 
   async loadData() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", "")
+      "/thuctap/wp-json/wp/v2/posts/" +
+      this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
       .then(responeJson => {
@@ -158,23 +157,23 @@ const myStyle = StyleSheet.create({
 
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 const Base64 = {
-  btoa: (input)  => {
+  btoa: (input) => {
     let str = input;
     let output = '';
 
     for (let block = 0, charCode, i = 0, map = chars;
-    str.charAt(i | 0) || (map = '=', i % 1);
-    output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
+      str.charAt(i | 0) || (map = '=', i % 1);
+      output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
 
-      charCode = str.charCodeAt(i += 3/4);
+      charCode = str.charCodeAt(i += 3 / 4);
 
       if (charCode > 0xFF) {
         throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
       }
-      
+
       block = block << 8 | charCode;
     }
-    
+
     return output;
   },
 
