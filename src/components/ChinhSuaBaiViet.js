@@ -64,9 +64,11 @@ class CTBaiBao extends Component {
       }
     ).then(response => {
       var t = response.status;
-      if (response.status == "200")
-        Alert.alert("Thông báo", "Đã lưu thành công");
-      else Alert.alert("Lỗi", "Thất bại");
+      if (response.status == "200") {
+        ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
+        //DSBaiBao.loadData();
+        this.props.navigation.navigate("main");
+      } else Alert.alert("Lỗi", "Thất bại");
     });
   }
 

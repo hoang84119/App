@@ -50,27 +50,21 @@ class ThemBaiViet extends Component {
     let content = await this.richtext.getContentHtml();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("status","publish");
-    fetch(
-      API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/",
-      {
-        headers: {
-          Authorization:
-            "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
-        },
-        body: formData,
-        method: "POST"
-      }
-    ).then(response => {
+    formData.append("status", "publish");
+    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/", {
+      headers: {
+        Authorization:
+          "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+      },
+      body: formData,
+      method: "POST"
+    }).then(response => {
       var t = response.status;
-      if (response.status == 201)
-      {
+      if (response.status == 201) {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
         //DSBaiBao.loadData();
         this.props.navigation.navigate("main");
-      }
-      else Alert.alert("Lỗi", "Thất bại");
+      } else Alert.alert("Lỗi", "Thất bại");
     });
   }
 
