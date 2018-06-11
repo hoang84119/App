@@ -4,10 +4,9 @@ import {
   Text,
   StyleSheet,
   Alert,
-  Header,
   ScrollView,
   Image,
-  Button
+  TouchableOpacity
 } from "react-native";
 import API from "../API";
 import HTMLView from "react-native-htmlview";
@@ -32,23 +31,29 @@ class CTBaiBao extends Component {
     //   //textAlign: 'center',alignSelf:'center'
     // }
     //let headerTitle = navigation.state.params.title;
-    let headerRight = <Button title="Chỉnh sửa" onPress={() => {
+    let headerRight = <TouchableOpacity onPress={() => {
       this.props.navigation.navigate("chinhsua", { id: this.props.navigation.getParam("id", "") });
-    }} />;
+    }}
+      style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <Image
+        style={{ width: 21, height: 21 }}
+        source={require("../image/ic_edit.png")} />
+      <Text style={{ fontWeight: 'bold', fontSize: 18, margin: 5, color: 'black' }}>Chỉnh sửa</Text>
+    </TouchableOpacity>
     return { headerRight };
   };
   async loadData() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", "")
+      "/thuctap/wp-json/wp/v2/posts/" +
+      this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
-          this.setState({ noidung: responseJson});
+          this.setState({ noidung: responseJson });
           this.loadTacGia();
         }
       });
