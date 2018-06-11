@@ -188,42 +188,43 @@ const htmlTitleStyle = StyleSheet.create({
   }
 });
 const myStyle = StyleSheet.create({
-  title: {
-    color: "#088A4B",
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
-    marginBottom: 0,
-    fontSize: 18
-  },
-  excerpt: {
-    color: "#088A4B",
-    paddingLeft: 10
-  },
-  edit: {
-    borderTopWidth: 1,
-    borderColor: "#efefef",
-    padding: 7,
-    backgroundColor: "rgba(210,210,210,0.1)",
-    flexDirection: "row",
-    borderBottomStartRadius: 8,
-    borderBottomEndRadius: 8
-  },
-  textEdit: {
-    //fontWeight: 'bold',
-    flex: 1,
-    color: "#36BC63",
-    alignItems: "center"
-  },
-  baibao: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    marginTop: 5,
-    marginRight: 5,
-    marginLeft: 5,
-    backgroundColor: "#fff"
-  }
+    title: {
+        color: '#088A4B',
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        marginBottom: 0,
+        fontSize: 18
+    },
+    excerpt: {
+        //color: '#088A4B',
+        paddingLeft: 10,
+    },
+    edit: {
+        borderTopWidth: 1,
+        borderColor: '#efefef',
+        padding: 7,
+        backgroundColor: 'rgba(210,210,210,0.1)',
+        flexDirection: 'row',
+        borderBottomStartRadius: 8,
+        borderBottomEndRadius: 8
+    },
+    textEdit: {
+        fontWeight: 'bold',
+        flex: 1,
+        color: '#36BC63',
+        //color: "lightgreen",
+        alignItems: 'center'
+    },
+    baibao: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        marginTop: 5,
+        marginRight: 5,
+        marginLeft: 5,
+        backgroundColor: '#fff',
+    }
 });
 
 const chars =
