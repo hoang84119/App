@@ -32,29 +32,29 @@ class CTBaiBao extends Component {
     }
   });
   async loadData() {
-    // fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
-    //     .then((response) => response.json())
-    //     .then(responeJson => {
-    //         if (responeJson == null) {
-    //             Alert.alert("Lỗi", "Không có nội dung");
-    //         } else {
-    //             this.setState({ noidung: responeJson, loaded: true });
-    //             this.loadTacGia();
+    fetch(API.getURL()+'/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
+        .then((response) => response.json())
+        .then(responeJson => {
+            if (responeJson == null) {
+                Alert.alert("Lỗi", "Không có nội dung");
+            } else {
+                this.setState({ noidung: responeJson, loaded: true });
+                this.loadTacGia();
 
-    //         }
-    //     })
-    API.getCTBaiBao(this.props.navigation.getParam("id", "")).then(response => {
-      if (response == null) {
-        Alert.alert("Lỗi", "Không có nội dung");
-      } else {
-        this.setState({ noidung: response, loaded: true });
-        this.loadTacGia();
-      }
-    });
+            }
+        })
+    // API.getCTBaiBao(this.props.navigation.getParam("id", "")).then(response => {
+    //   if (response == null) {
+    //     Alert.alert("Lỗi", "Không có nội dung");
+    //   } else {
+    //     this.setState({ noidung: response, loaded: true });
+    //     this.loadTacGia();
+    //   }
+    // });
   }
   loadTacGia() {
     fetch(
-      "http://192.168.1.192//thuctap/wp-json/wp/v2/users/" +
+      API.getURL()+"/thuctap/wp-json/wp/v2/users/" +
         this.state.noidung.author
     )
       .then(response => response.json())
@@ -72,8 +72,6 @@ class CTBaiBao extends Component {
   }
 
   render() {
-    //var h = this.state.noidung.content.toString();
-    //var html= h.replace("http://localhost","http://192.168.1.103");
     return (
       <View style={{ flex: 1, padding: 5 }}>
         {this.state.loaded === false && (
@@ -94,9 +92,6 @@ class CTBaiBao extends Component {
                 stylesheet={htmlTitleStyle}
               />
             )
-            // <HTML
-            //     tagStyle={myStyle.title  }
-            //     html={this.state.noidung.title.rendered} />
             }
             {this.state.loaded && (
               <HTMLView
@@ -121,14 +116,11 @@ class CTBaiBao extends Component {
               <HTMLView
                 value={this.state.noidung.content.rendered.replace(
                   "http://localhost",
-                  "http://192.168.1.192"
+                  API.getURL()
                 )}
                 stylesheet={htmlTitleStyle}
               />
             )
-            // <HTML
-            // // tagStyle : {p: {fontStyle:'italic'}}
-            // html={this.state.noidung.content.rendered.replace("http://localhost","http://192.168.1.103")}/>
             }
           </View>
         </ScrollView>

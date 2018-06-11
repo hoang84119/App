@@ -30,23 +30,13 @@ class DSBaiBao extends Component {
     }
     async loadData() {
         this.setState({ refeshing: true });
-        // fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
-        //     if (responeJson == null) {
-        //         Alert.alert("Lỗi", "Không có nội dung");
-        //     } else {
-        //         this.setState({ noidung: responeJson, refeshing: false });
-        //     }
-        // })
-        API.getAllPost().then(
-            (response)=>{
-                if (response == null) {
-                    Alert.alert("Lỗi", "Không có nội dung");
-                } else {
-                    this.setState({ noidung: response, refeshing: false });
-                }
+        fetch(API.getURL()+'/thuctap/wp-json/wp/v2/posts').then((response) => response.json()).then(responeJson => {
+            if (responeJson == null) {
+                Alert.alert("Lỗi", "Không có nội dung");
+            } else {
+                this.setState({ noidung: responeJson, refeshing: false });
             }
-        );
-        //this.LoadData();
+        })
     }
 
     componentDidMount() {
@@ -55,14 +45,13 @@ class DSBaiBao extends Component {
     }
 
     xem(i, t) {
-        //Alert.alert(t+"");
         this.props.navigation.navigate("chitiet", { id: i, title: t });
     }
     xoa(i, t) {
         Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?",
             [{
                 text: 'Xóa', onPress: () => {
-                    fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts/' + i, {
+                    fetch(API.getURL()+'/thuctap/wp-json/wp/v2/posts/' + i, {
                         "method":"DELETE",
                         "headers":{
                             "Accept":"application/json",

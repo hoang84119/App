@@ -20,15 +20,8 @@ export default class App extends Component {
 	async LoadData() {
 		try {
 			const response = await fetch
-				//("http://192.168.1.103/thuctap/wp-json/custom-plugin/login?username="+this.state.user+"&password="+this.state.pass);
-				( 'http://192.168.1.192/thuctap/wp-json/custom-plugin/login?username=admin&password=123456789');
+			( 'http://192.168.1.192/thuctap/wp-json/custom-plugin/login?username=admin&password=123456789');
 			const responseJson = await response.json();
-			//Alert.alert(responseJson.data.user_email);
-			// this.setState({data:responseJson.data});
-			//  axios.get('http://192.168.1.103/thuctap/wp-json/custom-plugin/login?username=admin&password=123456789').then(res => {
-			// 	const d = res.data;
-			// 	this.setState({ data: d });
-			//   });
 			this.setState({ data: responseJson.data.user_email });
 		}
 		catch (error) {
@@ -43,25 +36,14 @@ export default class App extends Component {
 			fetch(API.getURL()+'/thuctap/wp-json/custom-plugin/login?username=' + this.state.user + '&password=' + this.state.pass, )
 				.then((response) => response.json())
 				.then(responeJson => {
-					// console.log(responseJson.data);
-					// this.setState({
-					//   kq:responseJson["message"]
-					// });
-					//Alert.alert(JsonRespone.data.user_email);
 					if (responeJson.data == null) {
 						Alert.alert("Lỗi", "Sai tên đăng nhập hoặc mật khẩu");
 					}
 					else {
-						//Alert.alert("Thông báo","Đăng nhập thành công "+ responeJson.data.user_email);
 						this.setState({ data: responeJson.data });
 						this.props.navigation.navigate('MainScreen');
-						// this.props.navigation.dispatch(NavigationActions.reset({
-						// 	index:0,
-						// 	actions:[NavigationActions.navigate({routeName:"MainScreen"})]
-						// }))
 					}
 				})
-			//this.LoadData();
 		}
 
 	}

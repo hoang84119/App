@@ -25,7 +25,7 @@ class CTBaiBao extends Component {
         //const { navigation } = this.props;
     }
     async loadData() {
-        fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
+        fetch(API.getURL()+'/thuctap/wp-json/wp/v2/posts/' + this.props.navigation.getParam("id", ""))
             .then((response) => response.json())
             .then(responeJson => {
                 if (responeJson == null) {
