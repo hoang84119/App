@@ -10,4 +10,4 @@ class App  extends Component {
     }
 }
 
-export default PostTo;
+export default LogiToPost;

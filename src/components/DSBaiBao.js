@@ -8,7 +8,11 @@ import {
     TouchableOpacity,
     Text,
 } from 'react-native';
+<<<<<<< HEAD
 import {Config} from '../API'
+=======
+import { Config } from '../Config'
+>>>>>>> 44a518fed77d515f35be39ab127d14a9184258f7
 import HTMLView from 'react-native-htmlview';
 import API from '../API'
 class DSBaiBao extends Component {
@@ -59,8 +63,29 @@ class DSBaiBao extends Component {
         //Alert.alert(t+"");
         this.props.navigation.navigate("chitiet", { id: i, title: t });
     }
+    xoa(i, t) {
+        Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?",
+            [{
+                text: 'Xóa', onPress: () => {
+                    fetch('http://192.168.1.192/thuctap/wp-json/wp/v2/posts/' + i, {
+                        "method":"DELETE",
+                        "headers":{
+                            "Accept":"application/json",
+                            "Content-Type":"application/json",
+                            "X-App-Token":"blablatoken",
+                            "Authorization":"JWT blablasuperlongtoken"
+                    }}).then(response => response.json());
+                    this.setState({ refeshing: true });
+                    Alert.alert("Thông báo", "Xóa thành công!(chưa xóa được)");
+
+                }
+            },
+            { text: 'Hủy', style: 'cancel' }],
+            { cancelable: false });
+        return true;
+    }
     chinhsua(i) {
-        this.props.navigation.navigate("chinhsua", { id: i});
+        this.props.navigation.navigate("chinhsua", { id: i });
     }
     render() {
         const { navigate } = this.props.navigation;
@@ -95,7 +120,7 @@ class DSBaiBao extends Component {
                                 <Text style={myStyle.textEdit}>Xem</Text>
                             </TouchableOpacity>
                             <Text>|</Text>
-                            <TouchableOpacity style={myStyle.textEdit}>
+                            <TouchableOpacity onPress={() => this.xoa(item.id, item.title.rendered)} style={myStyle.textEdit}>
                                 <Text style={myStyle.textEdit}>Xóa</Text>
                             </TouchableOpacity>
                             <Text>|</Text>
