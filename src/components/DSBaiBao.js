@@ -7,6 +7,7 @@ import {
     View,
     TouchableOpacity,
     Text,
+    ToastAndroid
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 import API from '../API'
@@ -59,8 +60,8 @@ class DSBaiBao extends Component {
 
                     }).then(response => {
                         var t = response.status;
-                        if (response.status == "200") {
-                            ToastAndroid.show('Xóa thành công !', ToastAndroid.SHORT);
+                        if (response.status == 200) {
+                            ToastAndroid.show('Xóa thành công !', ToastAndroid.LONG);
                             this.loadData();
                         }
                         else Alert.alert("Cảnh báo", "Xóa thất bại!");
@@ -167,7 +168,7 @@ const myStyle = StyleSheet.create({
         borderBottomEndRadius: 8
     },
     textEdit: {
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         flex: 1,
         color: '#36BC63',
         alignItems: 'center'
