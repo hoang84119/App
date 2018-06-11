@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import {
-  ActivityIndicator,
+  Image,
   View,
   Text,
   StyleSheet,
   Alert,
-  Button,
+  TouchableOpacity,
   ToastAndroid
 } from "react-native";
 import {
@@ -32,12 +32,12 @@ class ThemBaiViet extends Component {
     //let headerTitle = navigation.state.params.title;
     const { params = {} } = navigation.state;
     let headerRight = (
-      <Button
-        title="Thêm"
-        onPress={() => {
-          params.onAdd();
-        }}
-      />
+      <TouchableOpacity onPress={() => params.onAdd()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <Image
+          style={{ width: 26, height: 26 }}
+          source={require("../image/ic_edit.png")} />
+        <Text style={{ fontWeight: 'bold', fontSize: 18, margin: 5, color: 'black' }}>Đăng bài</Text>
+      </TouchableOpacity>
     );
     return { headerRight };
   };
@@ -107,13 +107,13 @@ const myStyle = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
+    paddingTop: 15
   },
   richText: {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent"
-    //paddingTop: 20
   }
 });
 

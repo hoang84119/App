@@ -148,13 +148,13 @@ const myStyle = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    paddingTop: 15,
     backgroundColor: "#ffffff"
   },
   richText: {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent"
-    //paddingTop: 20
   }
 });
 
