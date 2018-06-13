@@ -1,6 +1,6 @@
 export const url = "http://192.168.1.135";
 module.exports = API = {
-  getURL(){
+  getURL() {
     return url;
   },
   getAllPost() {
@@ -25,6 +25,15 @@ module.exports = API = {
       })
       .catch(error => {
         console.error(error);
+      });
+  },
+  login(username, password) {
+    return fetch(`${url}/thuctap/api/auth/generate_auth_cookie/?username=${username}&password=${password}&insecure=cool`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        return json;
       });
   }
 };
