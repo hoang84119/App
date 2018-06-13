@@ -24,10 +24,10 @@ class App extends Component {
 
   render() {
     let loadingView = (
-      <View style={myStyle.nen}>
+      <View style={{ flex: 1, padding: 5 }}>
         <View style={myStyle.khung}>
           <ActivityIndicator size="large" color="white" />
-          <Text>Đang tải dữ liệu</Text>
+          <Text style={{color:"white"}}>Đang tải dữ liệu...</Text>
         </View>
       </View>
     );
@@ -44,14 +44,9 @@ class App extends Component {
 
 export default App;
 const myStyle = StyleSheet.create({
-  nen: {
-    flex: 1,
-    backgroundColor: "#36BC63"
-  },
   khung: {
-    flex: 0.4,
-    height: 100,
-    flexDirection: "row",
-    justifyContent: "center"
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
