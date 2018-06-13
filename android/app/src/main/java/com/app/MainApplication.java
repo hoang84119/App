@@ -11,6 +11,7 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
+import com.imagepicker.ImagePickerPackage;
 import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -25,7 +26,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-          new WebViewBridgePackage()
+          new WebViewBridgePackage(),
+          new ImagePickerPackage()
       );
     }
 
