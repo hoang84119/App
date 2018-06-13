@@ -35,7 +35,7 @@ export default class App extends Component {
       Alert.alert("Lỗi", "Mật khẩu không được rỗng");
     } else {
       try {
-        API.login(this.state.user, this.state.pass).then(async response => {
+        API.generate_auth_cookie(this.state.user, this.state.pass).then(async response => {
           if (response.status == "error") {
             Alert.alert("Lỗi", "Sai tên đăng nhập hoặc mật khẩu");
             this.setState({

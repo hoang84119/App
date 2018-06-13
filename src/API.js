@@ -1,4 +1,5 @@
 export const url = "http://192.168.1.135";
+import { AsyncStorage } from "react-native";
 module.exports = API = {
   getURL() {
     return url;
@@ -27,13 +28,27 @@ module.exports = API = {
         console.error(error);
       });
   },
-  login(username, password) {
-    return fetch(`${url}/thuctap/api/auth/generate_auth_cookie/?username=${username}&password=${password}&insecure=cool`)
+  generate_auth_cookie(username, password) {
+    return fetch(
+      `${url}/thuctap/api/auth/generate_auth_cookie/?username=${username}&password=${password}&seconds=30&insecure=cool`
+    )
       .then(response => {
         return response.json();
       })
       .then(json => {
         return json;
       });
+  },
+  validate_auth_cookie: async function() {
+    try{
+      var cookie = await AsyncStorage.getItem("Cookie");
+    } catch(e)
+    {
+      console.log(e);
+    }
+    if (cookie == "") return false;
+    let response = await fetch(`${url}/thuctap/api/auth/validate_auth_cookie/?cookie=${cookie}&insecure=cool`);
+    let json = await response.json();
+    return json.valid; 
   }
 };
