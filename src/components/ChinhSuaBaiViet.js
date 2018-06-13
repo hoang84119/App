@@ -16,6 +16,19 @@ import {
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
 
+var ImagePicker = require('react-native-image-picker');
+
+var options = {
+  title: 'Select Avatar',
+  customButtons: [
+      { name: 'fb', title: 'Choose Photo from Facebook' },
+  ],
+  storageOptions: {
+      skipBackup: true,
+      path: 'images'
+  }
+};
+
 class CTBaiBao extends Component {
   constructor(props) {
     super(props);
@@ -71,6 +84,10 @@ class CTBaiBao extends Component {
     });
   }
 
+  showImg(){
+    pick(source => this.setState({avatarSource :  source}));
+  }
+
   async loadData() {
     fetch(
       API.getURL() +
@@ -99,6 +116,10 @@ class CTBaiBao extends Component {
   }
 
   render() {
+
+    let img = this.state.avatarSource == null? null:
+    <Image source = {this.state.avatarSource} style={{height:200, width:200}}/>
+
     return (
       <View style={myStyle.container}>
         {this.state.loaded && (
@@ -113,7 +134,25 @@ class CTBaiBao extends Component {
           />
         )}
         {this.state.loaded && (
-          <RichTextToolbar getEditor={() => this.richtext} />
+          <RichTextToolbar 
+          onPressAddImage = {() => {
+            ImagePicker.showImagePicker(options, (response) => {
+              //console.log('Response = ', response);
+              if (response.didCancel) {
+                  ToastAndroid.show("Đã hủy", ToastAndroid.SHORT);
+              }
+              else if (response.error) {
+                  ToastAndroid.show("Lỗi Image Picker: " + response.error, ToastAndroid.SHORT);
+              }
+              // else if (response.customButton) {
+              //     console.log('User tapped custom button: ', response.customButton);
+              // }
+              else {
+                  this.richtext.insertImage({src: response.path});
+              }
+          });
+          }} 
+          getEditor={() => this.richtext} />
         )}
         {this.state.loaded === false && (
           <ActivityIndicator size="large" color="#0000ff" />
