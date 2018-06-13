@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 import API from "../API";
@@ -15,47 +16,44 @@ export default class App extends Component {
   state = {
     user: "",
     pass: "",
-    data: [],
     isLoading: false
   };
 
-  async LoadData() {
-    try {
-      const response = await fetch(
-        "http://192.168.1.192/thuctap/wp-json/custom-plugin/login?username=admin&password=123456789"
-      );
-      const responseJson = await response.json();
-      this.setState({ data: responseJson.data.user_email });
-    } catch (error) {
-      Alert.alert(error);
-    }
-  }
-
   async loginNow() {
-	this.setState({
-		isLoading:true
-	})
-    if (this.state.user == "")
+    this.setState({
+      isLoading: true
+    });
+    if (this.state.user == "") {
+      this.setState({
+        isLoading: false
+      });
       Alert.alert("Lỗi", "Tên đăng nhập không được rỗng");
-    else if (this.state.pass == "")
+    } else if (this.state.pass == "") {
+      this.setState({
+        isLoading: false
+      });
       Alert.alert("Lỗi", "Mật khẩu không được rỗng");
-    else {
-      fetch(
-        `${API.getURL()}/thuctap/wp-json/custom-plugin/login?username=${this.state.user}&password=${this.state.pass}`)
-        .then(response => response.json())
-        .then(responeJson => {
-          if (responeJson.data == null) {
-			Alert.alert("Lỗi", "Sai tên đăng nhập hoặc mật khẩu");
-			this.setState({
-				isLoading:false
-			})
+    } else {
+      try {
+        API.login(this.state.user, this.state.pass).then(async response => {
+          if (response.status == "error") {
+            Alert.alert("Lỗi", "Sai tên đăng nhập hoặc mật khẩu");
+            this.setState({
+              isLoading: false
+            });
           } else {
-            this.setState({ data: responeJson.data, isLoading:false });
+            this.setState({ isLoading: false });
+            await AsyncStorage.setItem("Cookie", response.cookie);
+            let value = await AsyncStorage.getItem("Cookie");
             this.props.navigation.navigate("MainScreen");
           }
         });
+      } catch (e) {
+        Alert.alert("Lỗi");
+      }
     }
   }
+
   render() {
     return (
       <View style={myStyle.nen}>
@@ -81,16 +79,18 @@ export default class App extends Component {
             placeholder="Mật khẩu"
             secureTextEntry={true}
           />
-
-          <View style={{ height: 50, alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() => {
-                this.loginNow();
-              }}
-            >
-              <Text style={myStyle.ctmBottom}>Đăng nhập</Text>
-            </TouchableOpacity>
-          </View>
+          {this.state.isLoading ===
+            false &&(
+              <View style={{ height: 50, alignItems: "center" }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.loginNow();
+                  }}
+                >
+                  <Text style={myStyle.ctmBottom}>Đăng nhập</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           {this.state.isLoading && (
             <ActivityIndicator size="large" color="white" />
           )}
