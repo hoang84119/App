@@ -3,7 +3,6 @@ import { View, ActivityIndicator, Text, StyleSheet } from "react-native";
 import LoginToPost from "./src/navigations/LogiToPost";
 import PostTo from "./src/navigations/PostTo";
 import API from "./src/API";
-import { validate_auth_cookie } from "./src/API";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,16 +13,6 @@ class App extends Component {
     console.log("constructor");
   }
 
-  // componentWillMountMount(){
-  //     this.setState({
-  //         logged: API.validate_auth_cookie()
-  //     })
-  // }
-  async test() {
-    console.log("test");
-    var r = await API.validate_auth_cookie();
-    console.log(r);
-  }
   componentDidMount() {
     API.validate_auth_cookie().then(response => {
       this.setState({
