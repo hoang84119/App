@@ -10,16 +10,16 @@ class App extends Component {
       loading: true,
       logged: false
     };
-    console.log("constructor");
   }
 
   componentDidMount() {
     API.validate_auth_cookie().then(response => {
       this.setState({
-        logged: API.validate_auth_cookie(),
+        logged: response,
         loading: false
       });
     });
+
   }
 
   render() {
