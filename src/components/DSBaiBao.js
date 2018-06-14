@@ -26,30 +26,20 @@ class DSBaiBao extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     let headerRight = (
-      <View>
-        <Button title="Đăng xuất" onPress={() => params.onLogout()} />
+      <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
           onPress={() => params.onAdd()}
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
         >
           <Image
-            style={{ width: 26, height: 26 }}
-            source={require("../image/ic_add.png")}
+            style={{ width: 32, height: 32 }}
+            source={require("../image/ic_post.png")}
           />
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 18,
-              margin: 5,
-              color: "black"
-            }}
-          >
-            Thêm mới
-          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => params.onLogout()}>
+        <Image
+            style={{ width: 32, height: 32 }}
+            source={require("../image/ic_logout.png")}
+          />
         </TouchableOpacity>
       </View>
     );
