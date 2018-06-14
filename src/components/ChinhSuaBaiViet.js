@@ -183,7 +183,11 @@ class CTBaiBao extends Component {
                   API.UploadImage(file).then(pathImage => {
                     console.log(pathImage);
                     if (pathImage != "")
+                    {
+                      pathImage = pathImage.replace("http://localhost",API.getURL());
                       this.richtext.insertImage({ src: pathImage });
+                    }
+                      
                   });
                 }
               });
