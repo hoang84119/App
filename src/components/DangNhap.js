@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 import API from "../API";
@@ -59,7 +60,10 @@ export default class App extends Component {
       <View style={myStyle.nen}>
         <View style={myStyle.khungDangNhap} />
         <View style={{ height: 130, alignItems: "center" }}>
-          <Text style={myStyle.header}> Đăng nhập </Text>
+          <Image
+            style={{ width: 100, height: 100, marginBottom: 40 }}
+            source={require("../image/logo.png")}
+          />
           <TextInput
             placeholderTextColor="white"
             underlineColorAndroid="rgba(0,0,0,0)"
@@ -80,7 +84,7 @@ export default class App extends Component {
             secureTextEntry={true}
           />
           {this.state.isLoading ===
-            false &&(
+            false && (
               <View style={{ height: 50, alignItems: "center" }}>
                 <TouchableOpacity
                   onPress={() => {
