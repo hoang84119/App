@@ -16,16 +16,14 @@ import {
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
 
-var ImagePicker = require('react-native-image-picker');
+var ImagePicker = require("react-native-image-picker");
 
 var options = {
-  title: 'Select Avatar',
-  customButtons: [
-      { name: 'fb', title: 'Choose Photo from Facebook' },
-  ],
+  title: "Select Avatar",
+  customButtons: [{ name: "fb", title: "Choose Photo from Facebook" }],
   storageOptions: {
-      skipBackup: true,
-      path: 'images'
+    skipBackup: true,
+    path: "images"
   }
 };
 
@@ -43,12 +41,30 @@ class CTBaiBao extends Component {
     //let headerTitle = navigation.state.params.title;
     const { params = {} } = navigation.state;
     let headerRight = (
-      <TouchableOpacity onPress={() => { params.onSave(); }}
-        style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <TouchableOpacity
+        onPress={() => {
+          params.onSave();
+        }}
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
         <Image
           style={{ width: 21, height: 21 }}
-          source={require("../image/ic_edit.png")} />
-        <Text style={{ fontWeight: 'bold', fontSize: 18, margin: 5, color: 'black' }}>Lưu</Text>
+          source={require("../image/ic_edit.png")}
+        />
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 18,
+            margin: 5,
+            color: "black"
+          }}
+        >
+          Lưu
+        </Text>
       </TouchableOpacity>
     );
     return { headerRight };
@@ -64,8 +80,8 @@ class CTBaiBao extends Component {
     formData.append("content", content);
     fetch(
       API.getURL() +
-      "/thuctap/wp-json/wp/v2/posts/" +
-      this.props.navigation.getParam("id", ""),
+        "/thuctap/wp-json/wp/v2/posts/" +
+        this.props.navigation.getParam("id", ""),
       {
         headers: {
           Authorization:
@@ -84,15 +100,15 @@ class CTBaiBao extends Component {
     });
   }
 
-  showImg(){
-    pick(source => this.setState({avatarSource :  source}));
+  showImg() {
+    pick(source => this.setState({ avatarSource: source }));
   }
 
   async loadData() {
     fetch(
       API.getURL() +
-      "/thuctap/wp-json/wp/v2/posts/" +
-      this.props.navigation.getParam("id", "")
+        "/thuctap/wp-json/wp/v2/posts/" +
+        this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -116,9 +132,13 @@ class CTBaiBao extends Component {
   }
 
   render() {
-
-    let img = this.state.avatarSource == null? null:
-    <Image source = {this.state.avatarSource} style={{height:200, width:200}}/>
+    let img =
+      this.state.avatarSource == null ? null : (
+        <Image
+          source={this.state.avatarSource}
+          style={{ height: 200, width: 200 }}
+        />
+      );
 
     return (
       <View style={myStyle.container}>
@@ -134,25 +154,33 @@ class CTBaiBao extends Component {
           />
         )}
         {this.state.loaded && (
-          <RichTextToolbar 
-          onPressAddImage = {() => {
-            ImagePicker.showImagePicker(options, (response) => {
-              //console.log('Response = ', response);
-              if (response.didCancel) {
+          <RichTextToolbar
+            onPressAddImage={() => {
+              ImagePicker.showImagePicker(options, response => {
+                //console.log('Response = ', response);
+                if (response.didCancel) {
                   ToastAndroid.show("Đã hủy", ToastAndroid.SHORT);
-              }
-              else if (response.error) {
-                  ToastAndroid.show("Lỗi Image Picker: " + response.error, ToastAndroid.SHORT);
-              }
-              // else if (response.customButton) {
-              //     console.log('User tapped custom button: ', response.customButton);
-              // }
-              else {
-                  this.richtext.insertImage({src: response.path});
-              }
-          });
-          }} 
-          getEditor={() => this.richtext} />
+                } else if (response.error) {
+                  ToastAndroid.show(
+                    "Lỗi Image Picker: " + response.error,
+                    ToastAndroid.SHORT
+                  );
+                }
+                // else if (response.customButton) {
+                //     console.log('User tapped custom button: ', response.customButton);
+                // }
+                else {
+                  console.log(response.path);
+                  API.UploadImage(response.path).then(pathImage => {
+                    console.log(pathImage);
+                    if (pathImage != "")
+                      this.richtext.insertImage({ src: pathImage });
+                  });
+                }
+              });
+            }}
+            getEditor={() => this.richtext}
+          />
         )}
         {this.state.loaded === false && (
           <ActivityIndicator size="large" color="#0000ff" />

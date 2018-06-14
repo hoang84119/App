@@ -24,7 +24,7 @@ class App extends Component {
 
   render() {
     let loadingView = (
-      <View style={{ flex: 1, padding: 5 }}>
+      <View style={{ flex: 1, padding: 5, backgroundColor:'#36BC63' }}>
         <View style={myStyle.khung}>
           <ActivityIndicator size="large" color="white" />
           <Text style={{color:"white"}}>Đang tải dữ liệu...</Text>
@@ -47,6 +47,7 @@ const myStyle = StyleSheet.create({
   khung: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    
   }
 });

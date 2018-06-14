@@ -40,15 +40,42 @@ module.exports = API = {
       });
   },
   validate_auth_cookie: async function() {
-    try{
+    try {
       var cookie = await AsyncStorage.getItem("Cookie");
-    } catch(e)
-    {
+    } catch (e) {
       console.log(e);
     }
     if (cookie == "") return false;
-    let response = await fetch(`${url}/thuctap/api/auth/validate_auth_cookie/?cookie=${cookie}&insecure=cool`);
+    let response = await fetch(
+      `${url}/thuctap/api/auth/validate_auth_cookie/?cookie=${cookie}&insecure=cool`
+    );
     let json = await response.json();
-    return json.valid; 
+    return json.valid;
+  },
+  UploadImage: async function(path) {
+    try {
+      let formData = new FormData();
+      formData.append("file", path);
+      let response = await fetch(
+        API.getURL() +
+          "/thuctap/wp-json/wp/v2/media/" +
+          this.props.navigation.getParam("id", ""),
+        {
+          headers: {
+            Authorization:
+              "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+          },
+          body: formData,
+          method: "POST"
+        }
+      );
+      if(response.status= 201 ){
+        let json = await response.json();
+        return json.guid.rendered;
+      }
+      return "";
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
