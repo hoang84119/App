@@ -61323,7 +61323,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         loading: true,
         logged: false
       };
-      console.log("constructor");
       return _this;
     }
 
@@ -61333,11 +61332,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var _this2 = this;
 
         _API2.default.validate_auth_cookie().then(function (response) {
-          var r = response;
-          console.log(r);
-
           _this2.setState({
-            logged: r,
+            logged: response,
             loading: false
           });
         });
@@ -61348,10 +61344,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var loadingView = _react3.default.createElement(
           _reactNative.View,
           {
-            style: myStyle.nen,
+            style: {
+              flex: 1,
+              padding: 5,
+              backgroundColor: '#36BC63'
+            },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 30
+              lineNumber: 27
             }
           },
           _react3.default.createElement(
@@ -61360,7 +61360,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.khung,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 31
+                lineNumber: 28
               }
             },
             _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -61368,18 +61368,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               color: "white",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 32
+                lineNumber: 29
               }
             }),
             _react3.default.createElement(
               _reactNative.Text,
               {
+                style: {
+                  color: "white"
+                },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 33
+                  lineNumber: 30
                 }
               },
-              "\u0110ang t\u1EA3i d\u1EEF li\u1EC7u"
+              "\u0110ang t\u1EA3i d\u1EEF li\u1EC7u..."
             )
           )
         );
@@ -61387,12 +61390,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var mainView = this.state.loading ? loadingView : this.state.logged ? _react3.default.createElement(_PostTo2.default, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 40
+            lineNumber: 37
           }
         }) : _react3.default.createElement(_LogiToPost2.default, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 42
+            lineNumber: 39
           }
         });
         return mainView;
@@ -61405,15 +61408,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   exports.default = App;
 
   var myStyle = _reactNative.StyleSheet.create({
-    nen: {
-      flex: 1,
-      backgroundColor: "#36BC63"
-    },
     khung: {
-      flex: 0.4,
-      height: 100,
-      flexDirection: "row",
-      justifyContent: "center"
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center"
     }
   });
 },491,[118,179,12,492,600,599],"App.js");
@@ -79011,7 +79009,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       });
     },
     generate_auth_cookie: function generate_auth_cookie(username, password) {
-      return fetch(url + "/thuctap/api/auth/generate_auth_cookie/?username=" + username + "&password=" + password + "&seconds=30&insecure=cool").then(function (response) {
+      return fetch(url + "/thuctap/api/auth/generate_auth_cookie/?username=" + username + "&password=" + password + "&seconds=300&insecure=cool").then(function (response) {
         return response.json();
       }).then(function (json) {
         return json;
@@ -79029,44 +79027,128 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
             case 3:
               cookie = _context.sent;
-              console.log(cookie);
-              _context.next = 10;
+              _context.next = 9;
               break;
 
-            case 7:
-              _context.prev = 7;
+            case 6:
+              _context.prev = 6;
               _context.t0 = _context["catch"](0);
               console.log(_context.t0);
 
-            case 10:
+            case 9:
               if (!(cookie == "")) {
-                _context.next = 12;
+                _context.next = 11;
                 break;
               }
 
               return _context.abrupt("return", false);
 
-            case 12:
-              _context.next = 14;
+            case 11:
+              _context.next = 13;
               return regeneratorRuntime.awrap(fetch(url + "/thuctap/api/auth/validate_auth_cookie/?cookie=" + cookie + "&insecure=cool"));
 
-            case 14:
+            case 13:
               response = _context.sent;
-              console.log(response);
-              _context.next = 18;
+              _context.next = 16;
               return regeneratorRuntime.awrap(response.json());
 
-            case 18:
+            case 16:
               json = _context.sent;
-              console.log(json);
               return _context.abrupt("return", json.valid);
 
-            case 21:
+            case 18:
             case "end":
               return _context.stop();
           }
         }
-      }, null, this, [[0, 7]]);
+      }, null, this, [[0, 6]]);
+    },
+    UploadImage: function UploadImage(path) {
+      var formData, response, json;
+      return regeneratorRuntime.async(function UploadImage$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              console.log();
+              formData = new FormData();
+              formData.append("file", path);
+              _context2.next = 6;
+              return regeneratorRuntime.awrap(fetch(API.getURL() + "/thuctap/wp-json/wp/v2/media/", {
+                headers: {
+                  Authorization: "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok"),
+                  'Content-Type': 'multipart/form-data'
+                },
+                body: formData,
+                method: "POST"
+              }));
+
+            case 6:
+              response = _context2.sent;
+              console.log(response);
+
+              if (!(response.status = 201)) {
+                _context2.next = 15;
+                break;
+              }
+
+              _context2.next = 11;
+              return regeneratorRuntime.awrap(response.json());
+
+            case 11:
+              json = _context2.sent;
+              console.log(json);
+              console.log(json.guid.rendered);
+              return _context2.abrupt("return", json.guid.rendered);
+
+            case 15:
+              console.log("Lỗi");
+              return _context2.abrupt("return", "");
+
+            case 19:
+              _context2.prev = 19;
+              _context2.t0 = _context2["catch"](0);
+              console.log(_context2.t0);
+
+            case 22:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this, [[0, 19]]);
+    }
+  };
+  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+  var Base64 = {
+    btoa: function btoa(input) {
+      var str = input;
+      var output = "";
+
+      for (var block = 0, charCode, i = 0, map = chars; str.charAt(i | 0) || (map = "=", i % 1); output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
+        charCode = str.charCodeAt(i += 3 / 4);
+
+        if (charCode > 0xff) {
+          throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+        }
+
+        block = block << 8 | charCode;
+      }
+
+      return output;
+    },
+    atob: function atob(input) {
+      var str = input.replace(/=+$/, "");
+      var output = "";
+
+      if (str.length % 4 == 1) {
+        throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+      }
+
+      for (var bc = 0, bs = 0, buffer, i = 0; buffer = str.charAt(i++); ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+        buffer = chars.indexOf(buffer);
+      }
+
+      return output;
     }
   };
 },599,[12],"src\\API.js");
@@ -79122,7 +79204,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   });
   exports.default = PostTo;
-},600,[493,601,637,654,655],"src\\navigations\\PostTo.js");
+},600,[493,601,637,654,656],"src\\navigations\\PostTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -85739,17 +85821,17 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     };
   }
 
-  var ImagePicker = _require(_dependencyMap[5], 'react-native-image-picker');
+  var ImagePicker = _require(_dependencyMap[5], "react-native-image-picker");
 
   var options = {
-    title: 'Select Avatar',
+    title: "Select Avatar",
     customButtons: [{
-      name: 'fb',
-      title: 'Choose Photo from Facebook'
+      name: "fb",
+      title: "Choose Photo from Facebook"
     }],
     storageOptions: {
       skipBackup: true,
-      path: 'images'
+      path: "images"
     }
   };
 
@@ -85889,7 +85971,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 121
+            lineNumber: 137
           }
         });
         return _react3.default.createElement(
@@ -85898,7 +85980,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 124
+              lineNumber: 144
             }
           },
           this.state.loaded && _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextEditor, {
@@ -85910,7 +85992,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             initialContentHTML: this.state.noidung.content.rendered.replace("http://localhost", API.getURL()),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 126
+              lineNumber: 146
             }
           }),
           this.state.loaded && _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -85921,8 +86003,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 } else if (response.error) {
                   _reactNative.ToastAndroid.show("Lỗi Image Picker: " + response.error, _reactNative.ToastAndroid.SHORT);
                 } else {
-                    _this5.richtext.insertImage({
-                      src: response.path
+                    console.log(response);
+                    console.log(response.path);
+                    var file = {
+                      uri: response.uri,
+                      name: response.fileName,
+                      fileName: response.path,
+                      type: response.type
+                    };
+                    API.UploadImage(file).then(function (pathImage) {
+                      console.log(pathImage);
+                      if (pathImage != "") _this5.richtext.insertImage({
+                        src: pathImage
+                      });
                     });
                   }
               });
@@ -85932,7 +86025,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 137
+              lineNumber: 157
             }
           }),
           this.state.loaded === false && _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -85940,7 +86033,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: "#0000ff",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 158
+              lineNumber: 193
             }
           })
         );
@@ -86000,13 +86093,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           params.onSave();
         },
         style: {
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center'
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center"
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46
+          lineNumber: 44
         }
       },
       _react3.default.createElement(_reactNative.Image, {
@@ -86017,21 +86110,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         source: _require(_dependencyMap[6], "../image/ic_edit.png"),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 48
+          lineNumber: 54
         }
       }),
       _react3.default.createElement(
         _reactNative.Text,
         {
           style: {
-            fontWeight: 'bold',
+            fontWeight: "bold",
             fontSize: 18,
             margin: 5,
-            color: 'black'
+            color: "black"
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 51
+            lineNumber: 58
           }
         },
         "L\u01B0u"
@@ -87943,541 +88036,578 @@ __d(function (global, _require2, module, exports, _dependencyMap) {
   });
 },653,[12],"node_modules\\react-native-image-picker\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
 
-    var _react2 = _require(_dependencyMap[0], "react");
+  var _react2 = _require(_dependencyMap[0], "react");
 
-    var _react3 = _interopRequireDefault(_react2);
+  var _react3 = _interopRequireDefault(_react2);
 
-    var _index = _require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
+  var _index = _require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
 
-    var _index2 = _interopRequireDefault(_index);
+  var _index2 = _interopRequireDefault(_index);
 
-    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    var _class,
-        _temp,
-        _jsxFileName = "D:\\SourceCode\\React native\\App\\src\\components\\DSBaiBao.js";
+  var _class,
+      _temp,
+      _jsxFileName = "D:\\SourceCode\\React native\\App\\src\\components\\DSBaiBao.js";
 
-    var _reactNative = _require(_dependencyMap[2], "react-native");
+  var _reactNative = _require(_dependencyMap[2], "react-native");
 
-    var _reactNativeHtmlview = _require(_dependencyMap[3], "react-native-htmlview");
+  var _reactNativeHtmlview = _require(_dependencyMap[3], "react-native-htmlview");
 
-    var _reactNativeHtmlview2 = _interopRequireDefault(_reactNativeHtmlview);
+  var _reactNativeHtmlview2 = _interopRequireDefault(_reactNativeHtmlview);
 
-    var _API = _require(_dependencyMap[4], "../API");
+  var _API = _require(_dependencyMap[4], "../API");
 
-    var _API2 = _interopRequireDefault(_API);
+  var _API2 = _interopRequireDefault(_API);
 
-    var _ThemBaiViet = _require(_dependencyMap[5], "./ThemBaiViet");
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    var _ThemBaiViet2 = _interopRequireDefault(_ThemBaiViet);
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  var _components = {
+    DSBaiBao: {
+      displayName: "DSBaiBao"
+    }
+  };
 
-    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "D:/SourceCode/React native/App/src/components/DSBaiBao.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
 
-    var _components = {
-        DSBaiBao: {
-            displayName: "DSBaiBao"
-        }
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
     };
+  }
 
-    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
-        filename: "D:/SourceCode/React native/App/src/components/DSBaiBao.js",
-        components: _components,
-        locals: [module],
-        imports: [_react3.default]
-    });
+  var DSBaiBao = _wrapComponent("DSBaiBao")((_temp = _class = function (_Component) {
+    _inherits(DSBaiBao, _Component);
 
-    function _wrapComponent(id) {
-        return function (Component) {
-            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
-        };
+    function DSBaiBao(props) {
+      _classCallCheck(this, DSBaiBao);
+
+      var _this = _possibleConstructorReturn(this, (DSBaiBao.__proto__ || Object.getPrototypeOf(DSBaiBao)).call(this, props));
+
+      _this.onBackButtonPress = function () {
+        _reactNative.Alert.alert("Thoát", "Bạn muốn thoát không", [{
+          text: "Đồng ý",
+          onPress: function onPress() {
+            return _reactNative.BackHandler.exitApp();
+          }
+        }, {
+          text: "Hủy",
+          style: "cancel"
+        }], {
+          cancelable: false
+        });
+
+        return true;
+      };
+
+      _this.state = {
+        noidung: "",
+        refreshing: true
+      };
+      return _this;
     }
 
-    var DSBaiBao = _wrapComponent("DSBaiBao")((_temp = _class = function (_Component) {
-        _inherits(DSBaiBao, _Component);
+    _createClass(DSBaiBao, [{
+      key: "_onLogout",
+      value: function _onLogout() {
+        _reactNative.AsyncStorage.removeItem("Cookie").then(function () {
+          _reactNative.ToastAndroid.show("Đã đăng xuất", _reactNative.ToastAndroid.LONG);
 
-        function DSBaiBao(props) {
-            _classCallCheck(this, DSBaiBao);
+          _reactNative.BackHandler.exitApp();
+        });
+      }
+    }, {
+      key: "_onAdd",
+      value: function _onAdd() {
+        this.props.navigation.navigate("thembaiviet");
+      }
+    }, {
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this.loadData();
+        this.props.navigation.setParams({
+          onAdd: this._onAdd.bind(this),
+          onLogout: this._onLogout.bind(this)
+        });
+      }
+    }, {
+      key: "loadData",
+      value: function loadData() {
+        var _this2 = this;
 
-            var _this = _possibleConstructorReturn(this, (DSBaiBao.__proto__ || Object.getPrototypeOf(DSBaiBao)).call(this, props));
-
-            _this.onBackButtonPress = function () {
-                _reactNative.Alert.alert("Thoát", "Bạn muốn thoát không", [{
-                    text: "Đồng ý",
-                    onPress: function onPress() {
-                        return _reactNative.BackHandler.exitApp();
-                    }
-                }, {
-                    text: "Hủy",
-                    style: "cancel"
-                }], {
-                    cancelable: false
+        return regeneratorRuntime.async(function loadData$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.setState({
+                  refreshing: true
+                });
+                fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/posts").then(function (response) {
+                  return response.json();
+                }).then(function (responseJson) {
+                  if (responseJson == null) {
+                    _reactNative.Alert.alert("Lỗi", "Không có nội dung");
+                  } else {
+                    _this2.setState({
+                      noidung: responseJson,
+                      refreshing: false
+                    });
+                  }
                 });
 
-                return true;
-            };
-
-            _this.state = {
-                noidung: "",
-                refreshing: true
-            };
-            return _this;
-        }
-
-        _createClass(DSBaiBao, [{
-            key: "_onAdd",
-            value: function _onAdd() {
-                this.props.navigation.navigate("thembaiviet");
+              case 2:
+              case "end":
+                return _context.stop();
             }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "xem",
+      value: function xem(i, t) {
+        this.props.navigation.navigate("chitiet", {
+          id: i
+        });
+      }
+    }, {
+      key: "xoa",
+      value: function xoa(i, t) {
+        var _this3 = this;
+
+        _reactNative.Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?", [{
+          text: "Xóa",
+          onPress: function onPress() {
+            fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
+              headers: {
+                Authorization: "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+              },
+              method: "DELETE"
+            }).then(function (response) {
+              var t = response.status;
+
+              if (response.status == 200) {
+                _reactNative.ToastAndroid.show("Xóa thành công !", _reactNative.ToastAndroid.LONG);
+
+                _this3.loadData();
+              } else _reactNative.Alert.alert("Cảnh báo", "Xóa thất bại!");
+            });
+          }
         }, {
-            key: "componentDidMount",
-            value: function componentDidMount() {
-                this.loadData();
-                this.props.navigation.setParams({
-                    onAdd: this._onAdd.bind(this)
-                });
+          text: "Hủy",
+          style: "cancel"
+        }], {
+          cancelable: false
+        });
+
+        return true;
+      }
+    }, {
+      key: "chinhsua",
+      value: function chinhsua(i) {
+        this.props.navigation.navigate("chinhsua", {
+          id: i
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this4 = this;
+
+        var navigate = this.props.navigation.navigate;
+        var kieu = {
+          tagsStyles: {
+            div: {
+              textAlign: "center",
+              fontStyle: "italic",
+              color: "grey"
             }
-        }, {
-            key: "loadData",
-            value: function loadData() {
-                var _this2 = this;
-
-                return regeneratorRuntime.async(function loadData$(_context) {
-                    while (1) {
-                        switch (_context.prev = _context.next) {
-                            case 0:
-                                this.setState({
-                                    refreshing: true
-                                });
-                                fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/posts").then(function (response) {
-                                    return response.json();
-                                }).then(function (responseJson) {
-                                    if (responseJson == null) {
-                                        _reactNative.Alert.alert("Lỗi", "Không có nội dung");
-                                    } else {
-                                        _this2.setState({
-                                            noidung: responseJson,
-                                            refreshing: false
-                                        });
-                                    }
-                                });
-
-                            case 2:
-                            case "end":
-                                return _context.stop();
-                        }
-                    }
-                }, null, this);
+          },
+          classesStyles: {
+            "last-paragraph": {
+              textAlign: "right",
+              color: "teal",
+              fontWeight: "800"
             }
-        }, {
-            key: "xem",
-            value: function xem(i, t) {
-                this.props.navigation.navigate("chitiet", {
-                    id: i
-                });
-            }
-        }, {
-            key: "xoa",
-            value: function xoa(i, t) {
-                var _this3 = this;
-
-                _reactNative.Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?", [{
-                    text: "Xóa",
-                    onPress: function onPress() {
-                        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
-                            headers: {
-                                Authorization: "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
-                            },
-                            method: "DELETE"
-                        }).then(function (response) {
-                            var t = response.status;
-
-                            if (response.status == 200) {
-                                _reactNative.ToastAndroid.show("Xóa thành công !", _reactNative.ToastAndroid.LONG);
-
-                                _this3.loadData();
-                            } else _reactNative.Alert.alert("Cảnh báo", "Xóa thất bại!");
-                        });
-                    }
-                }, {
-                    text: "Hủy",
-                    style: "cancel"
-                }], {
-                    cancelable: false
-                });
-
-                return true;
-            }
-        }, {
-            key: "chinhsua",
-            value: function chinhsua(i) {
-                this.props.navigation.navigate("chinhsua", {
-                    id: i
-                });
-            }
-        }, {
-            key: "render",
-            value: function render() {
-                var _this4 = this;
-
-                var navigate = this.props.navigation.navigate;
-                var kieu = {
-                    tagsStyles: {
-                        div: {
-                            textAlign: "center",
-                            fontStyle: "italic",
-                            color: "grey"
-                        }
-                    },
-                    classesStyles: {
-                        "last-paragraph": {
-                            textAlign: "right",
-                            color: "teal",
-                            fontWeight: "800"
-                        }
-                    }
-                };
-                return _react3.default.createElement(_reactNative.FlatList, {
-                    refreshing: this.state.refreshing,
-                    onRefresh: function onRefresh() {
-                        return _this4.refresh();
-                    },
-                    data: this.state.noidung,
-                    keyExtractor: function keyExtractor(x, i) {
-                        return i.toString();
-                    },
-                    renderItem: function renderItem(_ref) {
-                        var item = _ref.item;
-                        return _react3.default.createElement(
-                            _reactNative.View,
-                            {
-                                style: myStyle.baibao,
-                                __source: {
-                                    fileName: _jsxFileName,
-                                    lineNumber: 123
-                                }
-                            },
-                            _react3.default.createElement(
-                                _reactNative.TouchableOpacity,
-                                {
-                                    onPress: function onPress() {
-                                        return _this4.xem(item.id, item.title.rendered);
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 124
-                                    }
-                                },
-                                _react3.default.createElement(
-                                    _reactNative.View,
-                                    {
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 127
-                                        }
-                                    },
-                                    _react3.default.createElement(_reactNativeHtmlview2.default, {
-                                        value: "<span>" + item.title.rendered + "</span>",
-                                        stylesheet: htmlTitleStyle,
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 128
-                                        }
-                                    })
-                                ),
-                                _react3.default.createElement(
-                                    _reactNative.View,
-                                    {
-                                        style: myStyle.excerpt,
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 133
-                                        }
-                                    },
-                                    _react3.default.createElement(_reactNativeHtmlview2.default, {
-                                        value: item.excerpt.rendered,
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 134
-                                        }
-                                    })
-                                )
-                            ),
-                            _react3.default.createElement(
-                                _reactNative.View,
-                                {
-                                    style: myStyle.edit,
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 137
-                                    }
-                                },
-                                _react3.default.createElement(
-                                    _reactNative.TouchableOpacity,
-                                    {
-                                        onPress: function onPress() {
-                                            return _this4.xem(item.id, item.title.rendered);
-                                        },
-                                        style: {
-                                            flex: 1,
-                                            alignItems: 'center'
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 138
-                                        }
-                                    },
-                                    _react3.default.createElement(
-                                        _reactNative.Text,
-                                        {
-                                            style: myStyle.textEdit,
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 141
-                                            }
-                                        },
-                                        "Xem"
-                                    )
-                                ),
-                                _react3.default.createElement(
-                                    _reactNative.Text,
-                                    {
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 143
-                                        }
-                                    },
-                                    "|"
-                                ),
-                                _react3.default.createElement(
-                                    _reactNative.TouchableOpacity,
-                                    {
-                                        onPress: function onPress() {
-                                            return _this4.xoa(item.id, item.title.rendered);
-                                        },
-                                        style: {
-                                            flex: 1,
-                                            alignItems: 'center'
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 144
-                                        }
-                                    },
-                                    _react3.default.createElement(
-                                        _reactNative.Text,
-                                        {
-                                            style: myStyle.textEdit,
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 147
-                                            }
-                                        },
-                                        "X\xF3a"
-                                    )
-                                ),
-                                _react3.default.createElement(
-                                    _reactNative.Text,
-                                    {
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 149
-                                        }
-                                    },
-                                    "|"
-                                ),
-                                _react3.default.createElement(
-                                    _reactNative.TouchableOpacity,
-                                    {
-                                        onPress: function onPress() {
-                                            return _this4.chinhsua(item.id);
-                                        },
-                                        style: {
-                                            flex: 1,
-                                            alignItems: 'center'
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 150
-                                        }
-                                    },
-                                    _react3.default.createElement(
-                                        _reactNative.Text,
-                                        {
-                                            style: myStyle.textEdit,
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 153
-                                            }
-                                        },
-                                        "Ch\u1EC9nh s\u1EEDa"
-                                    )
-                                )
-                            )
-                        );
-                    },
-                    __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 117
-                    }
-                });
-            }
-        }, {
-            key: "refresh",
-            value: function refresh() {
-                this.loadData();
-            }
-        }]);
-
-        return DSBaiBao;
-    }(_react2.Component), _class.navigationOptions = function (_ref2) {
-        var navigation = _ref2.navigation;
-        var _navigation$state$par = navigation.state.params,
-            params = _navigation$state$par === undefined ? {} : _navigation$state$par;
-
-        var headerRight = _react3.default.createElement(
-            _reactNative.TouchableOpacity,
-            {
-                onPress: function onPress() {
-                    return params.onAdd();
-                },
-                style: {
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                },
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 28
-                }
-            },
-            _react3.default.createElement(_reactNative.Image, {
-                style: {
-                    width: 26,
-                    height: 26
-                },
-                source: _require(_dependencyMap[6], "../image/ic_add.png"),
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 29
-                }
-            }),
-            _react3.default.createElement(
-                _reactNative.Text,
-                {
-                    style: {
-                        fontWeight: 'bold',
-                        fontSize: 18,
-                        margin: 5,
-                        color: 'black'
-                    },
-                    __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 32
-                    }
-                },
-                "Th\xEAm m\u1EDBi"
-            )
-        );
-
-        return {
-            headerRight: headerRight
+          }
         };
-    }, _temp));
-
-    var htmlTitleStyle = _reactNative.StyleSheet.create({
-        span: {
-            color: "#088A4B",
-            paddingLeft: 10,
-            paddingRight: 10,
-            paddingTop: 10,
-            marginBottom: 0,
-            fontSize: 18
-        }
-    });
-
-    var myStyle = _reactNative.StyleSheet.create({
-        title: {
-            color: '#088A4B',
-            paddingLeft: 10,
-            paddingRight: 10,
-            paddingTop: 10,
-            marginBottom: 0,
-            fontSize: 18
-        },
-        excerpt: {
-            paddingLeft: 10
-        },
-        edit: {
-            borderTopWidth: 1,
-            borderColor: '#efefef',
-            padding: 7,
-            backgroundColor: 'rgba(210,210,210,0.1)',
-            flexDirection: 'row',
-            borderBottomStartRadius: 8,
-            borderBottomEndRadius: 8
-        },
-        textEdit: {
-            fontWeight: 'bold',
-            flex: 1,
-            color: '#36BC63',
-            alignItems: 'center'
-        },
-        baibao: {
-            borderWidth: 1,
-            borderColor: '#ddd',
-            borderRadius: 8,
-            marginTop: 5,
-            marginRight: 5,
-            marginLeft: 5,
-            backgroundColor: '#fff'
-        }
-    });
-
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    var Base64 = {
-        btoa: function btoa(input) {
-            var str = input;
-            var output = "";
-
-            for (var block = 0, charCode, i = 0, map = chars; str.charAt(i | 0) || (map = "=", i % 1); output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
-                charCode = str.charCodeAt(i += 3 / 4);
-
-                if (charCode > 0xff) {
-                    throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+        return _react3.default.createElement(_reactNative.FlatList, {
+          refreshing: this.state.refreshing,
+          onRefresh: function onRefresh() {
+            return _this4.refresh();
+          },
+          data: this.state.noidung,
+          keyExtractor: function keyExtractor(x, i) {
+            return i.toString();
+          },
+          renderItem: function renderItem(_ref) {
+            var item = _ref.item;
+            return _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: myStyle.baibao,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 153
                 }
+              },
+              _react3.default.createElement(
+                _reactNative.TouchableOpacity,
+                {
+                  onPress: function onPress() {
+                    return _this4.xem(item.id, item.title.rendered);
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 154
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 157
+                    }
+                  },
+                  _react3.default.createElement(_reactNativeHtmlview2.default, {
+                    value: "<span>" + item.title.rendered + "</span>",
+                    stylesheet: htmlTitleStyle,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 158
+                    }
+                  })
+                ),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: myStyle.excerpt,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 163
+                    }
+                  },
+                  _react3.default.createElement(_reactNativeHtmlview2.default, {
+                    value: item.excerpt.rendered,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 164
+                    }
+                  })
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: myStyle.edit,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 167
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.TouchableOpacity,
+                  {
+                    onPress: function onPress() {
+                      return _this4.xem(item.id, item.title.rendered);
+                    },
+                    style: {
+                      flex: 1,
+                      alignItems: "center"
+                    },
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 168
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: myStyle.textEdit,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 172
+                      }
+                    },
+                    "Xem"
+                  )
+                ),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 174
+                    }
+                  },
+                  "|"
+                ),
+                _react3.default.createElement(
+                  _reactNative.TouchableOpacity,
+                  {
+                    onPress: function onPress() {
+                      return _this4.xoa(item.id, item.title.rendered);
+                    },
+                    style: {
+                      flex: 1,
+                      alignItems: "center"
+                    },
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 175
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: myStyle.textEdit,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 179
+                      }
+                    },
+                    "X\xF3a"
+                  )
+                ),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 181
+                    }
+                  },
+                  "|"
+                ),
+                _react3.default.createElement(
+                  _reactNative.TouchableOpacity,
+                  {
+                    onPress: function onPress() {
+                      return _this4.chinhsua(item.id);
+                    },
+                    style: {
+                      flex: 1,
+                      alignItems: "center"
+                    },
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 182
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: myStyle.textEdit,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 186
+                      }
+                    },
+                    "Ch\u1EC9nh s\u1EEDa"
+                  )
+                )
+              )
+            );
+          },
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 147
+          }
+        });
+      }
+    }, {
+      key: "refresh",
+      value: function refresh() {
+        this.loadData();
+      }
+    }]);
 
-                block = block << 8 | charCode;
-            }
+    return DSBaiBao;
+  }(_react2.Component), _class.navigationOptions = function (_ref2) {
+    var navigation = _ref2.navigation;
+    var _navigation$state$par = navigation.state.params,
+        params = _navigation$state$par === undefined ? {} : _navigation$state$par;
 
-            return output;
-        },
-        atob: function atob(input) {
-            var str = input.replace(/=+$/, "");
-            var output = "";
-
-            if (str.length % 4 == 1) {
-                throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
-            }
-
-            for (var bc = 0, bs = 0, buffer, i = 0; buffer = str.charAt(i++); ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
-                buffer = chars.indexOf(buffer);
-            }
-
-            return output;
+    var headerRight = _react3.default.createElement(
+      _reactNative.View,
+      {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 29
         }
+      },
+      _react3.default.createElement(_reactNative.Button, {
+        title: "\u0110\u0103ng xu\u1EA5t",
+        onPress: function onPress() {
+          return params.onLogout();
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 30
+        }
+      }),
+      _react3.default.createElement(
+        _reactNative.TouchableOpacity,
+        {
+          onPress: function onPress() {
+            return params.onAdd();
+          },
+          style: {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          },
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 31
+          }
+        },
+        _react3.default.createElement(_reactNative.Image, {
+          style: {
+            width: 26,
+            height: 26
+          },
+          source: _require(_dependencyMap[5], "../image/ic_add.png"),
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 39
+          }
+        }),
+        _react3.default.createElement(
+          _reactNative.Text,
+          {
+            style: {
+              fontWeight: "bold",
+              fontSize: 18,
+              margin: 5,
+              color: "black"
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 43
+            }
+          },
+          "Th\xEAm m\u1EDBi"
+        )
+      )
+    );
+
+    return {
+      headerRight: headerRight
     };
-    exports.default = DSBaiBao;
-},654,[118,179,12,602,599,655,656],"src\\components\\DSBaiBao.js");
+  }, _temp));
+
+  var htmlTitleStyle = _reactNative.StyleSheet.create({
+    span: {
+      color: "#088A4B",
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 10,
+      marginBottom: 0,
+      fontSize: 18
+    }
+  });
+
+  var myStyle = _reactNative.StyleSheet.create({
+    title: {
+      color: "#088A4B",
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 10,
+      marginBottom: 0,
+      fontSize: 18
+    },
+    excerpt: {
+      paddingLeft: 10
+    },
+    edit: {
+      borderTopWidth: 1,
+      borderColor: "#efefef",
+      padding: 7,
+      backgroundColor: "rgba(210,210,210,0.1)",
+      flexDirection: "row",
+      borderBottomStartRadius: 8,
+      borderBottomEndRadius: 8
+    },
+    textEdit: {
+      fontWeight: "bold",
+      flex: 1,
+      color: "#36BC63",
+      alignItems: "center"
+    },
+    baibao: {
+      borderWidth: 1,
+      borderColor: "#ddd",
+      borderRadius: 8,
+      marginTop: 5,
+      marginRight: 5,
+      marginLeft: 5,
+      backgroundColor: "#fff"
+    }
+  });
+
+  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+  var Base64 = {
+    btoa: function btoa(input) {
+      var str = input;
+      var output = "";
+
+      for (var block = 0, charCode, i = 0, map = chars; str.charAt(i | 0) || (map = "=", i % 1); output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
+        charCode = str.charCodeAt(i += 3 / 4);
+
+        if (charCode > 0xff) {
+          throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+        }
+
+        block = block << 8 | charCode;
+      }
+
+      return output;
+    },
+    atob: function atob(input) {
+      var str = input.replace(/=+$/, "");
+      var output = "";
+
+      if (str.length % 4 == 1) {
+        throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+      }
+
+      for (var bc = 0, bs = 0, buffer, i = 0; buffer = str.charAt(i++); ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+        buffer = chars.indexOf(buffer);
+      }
+
+      return output;
+    }
+  };
+  exports.default = DSBaiBao;
+},654,[118,179,12,602,599,655],"src\\components\\DSBaiBao.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/src/image",
+    "width": 30,
+    "height": 30,
+    "scales": [1],
+    "hash": "9739f48133a53277323af907b6f6d2ed",
+    "name": "ic_add",
+    "type": "png"
+  });
+},655,[164],"src\\image\\ic_add.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -88794,19 +88924,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   };
   exports.default = ThemBaiViet;
-},655,[118,179,12,638,654,636],"src\\components\\ThemBaiViet.js");
-__d(function (global, _require, module, exports, _dependencyMap) {
-  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
-    "__packager_asset": true,
-    "httpServerLocation": "/assets/src/image",
-    "width": 30,
-    "height": 30,
-    "scales": [1],
-    "hash": "9739f48133a53277323af907b6f6d2ed",
-    "name": "ic_add",
-    "type": "png"
-  });
-},656,[164],"src\\image\\ic_add.png");
+},656,[118,179,12,638,654,636],"src\\components\\ThemBaiViet.js");
 require(44);
 require(11);
 //# sourceMappingURL=index.map
