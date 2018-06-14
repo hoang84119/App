@@ -19,12 +19,14 @@ import { NavigationActions } from "react-navigation";
 var ImagePicker = require("react-native-image-picker");
 
 var options = {
-  title: "Select Avatar",
-  customButtons: [{ name: "fb", title: "Choose Photo from Facebook" }],
+  title: "Chọn hình ảnh",
   storageOptions: {
     skipBackup: true,
     path: "images"
-  }
+  },
+  takePhotoButtonTitle: "Máy ảnh",
+  chooseFromLibraryButtonTitle: "Chọn ảnh từ thư viện",
+  cancelButtonTitle: "Hủy"
 };
 
 class CTBaiBao extends Component {
@@ -172,12 +174,12 @@ class CTBaiBao extends Component {
                 else {
                   console.log(response);
                   console.log(response.path);
-                  var file ={
+                  var file = {
                     uri: response.uri,
                     name: response.fileName,
                     fileName: response.path,
                     type: response.type
-                  }
+                  };
                   API.UploadImage(file).then(pathImage => {
                     console.log(pathImage);
                     if (pathImage != "")
