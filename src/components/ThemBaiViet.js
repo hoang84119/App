@@ -81,8 +81,8 @@ class ThemBaiViet extends Component {
         <RichTextEditor
           ref={r => (this.richtext = r)}
           style={myStyle.richText}
-          initialTitleHTML={"Tiêu đề bài viết"}
-          initialContentHTML={"Nội dung bài viết"}
+          titlePlaceholder={"Tiêu đề bài viết"}
+          contentPlaceholder={"Nội dung bài viết"}
         />
         <RichTextToolbar getEditor={() => this.richtext} />
       </View>
