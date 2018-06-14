@@ -170,8 +170,15 @@ class CTBaiBao extends Component {
                 //     console.log('User tapped custom button: ', response.customButton);
                 // }
                 else {
+                  console.log(response);
                   console.log(response.path);
-                  API.UploadImage(response.path).then(pathImage => {
+                  var file ={
+                    uri: response.uri,
+                    name: response.fileName,
+                    fileName: response.path,
+                    type: response.type
+                  }
+                  API.UploadImage(file).then(pathImage => {
                     console.log(pathImage);
                     if (pathImage != "")
                       this.richtext.insertImage({ src: pathImage });
