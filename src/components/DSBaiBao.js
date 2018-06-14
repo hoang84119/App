@@ -37,7 +37,7 @@ class DSBaiBao extends Component {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => params.onLogout()}>
         <Image
-            style={{ width: 32, height: 32 }}
+            style={{ width: 32, height: 32, marginLeft:5,marginRight:15 }}
             source={require("../image/ic_logout.png")}
           />
         </TouchableOpacity>
