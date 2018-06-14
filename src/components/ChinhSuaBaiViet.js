@@ -19,9 +19,7 @@ import { NavigationActions } from "react-navigation";
 var ImagePicker = require("react-native-image-picker");
 
 var options = {
-  title: "Select Avatar",
-  customButtons: [{ name: "fb", title: "Choose Photo from Facebook" }],
-  storageOptions: {
+  title: "Chọn hình ảnh",storageOptions: {
     skipBackup: true,
     path: "images"
   }
@@ -80,8 +78,8 @@ class CTBaiBao extends Component {
     formData.append("content", content);
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", ""),
+      "/thuctap/wp-json/wp/v2/posts/" +
+      this.props.navigation.getParam("id", ""),
       {
         headers: {
           Authorization:
@@ -107,8 +105,8 @@ class CTBaiBao extends Component {
   async loadData() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", "")
+      "/thuctap/wp-json/wp/v2/posts/" +
+      this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -172,7 +170,7 @@ class CTBaiBao extends Component {
                 else {
                   console.log(response);
                   console.log(response.path);
-                  var file ={
+                  var file = {
                     uri: response.uri,
                     name: response.fileName,
                     fileName: response.path,
@@ -187,6 +185,55 @@ class CTBaiBao extends Component {
               });
             }}
             getEditor={() => this.richtext}
+
+            registerToolbar={{
+              setTitleHtml: 'SET_TITLE_HTML',
+              setContentHtml: 'SET_CONTENT_HTML',
+              getTitleHtml: 'GET_TITLE_HTML',
+              getTitleText: 'GET_TITLE_TEXT',
+              getContentHtml: 'GET_CONTENT_HTML',
+              getSelectedText: 'GET_SELECTED_TEXT',
+              blurTitleEditor: 'BLUR_TITLE_EDITOR',
+              blurContentEditor: 'BLUR_CONTENT_EDITOR',
+              focusTitle: 'FOCUS_TITLE',
+              focusContent: 'FOCUS_CONTENT',
+
+              setBold: 'bold',
+              setItalic: 'italic',
+              setUnderline: 'underline',
+              heading1: 'h1',
+              heading2: 'h2',
+              heading3: 'h3',
+              heading4: 'h4',
+              heading5: 'h5',
+              heading6: 'h6',
+              setParagraph: 'SET_PARAGRAPH',
+              removeFormat: 'REMOVE_FORMAT',
+              alignLeft: 'justifyLeft',
+              alignCenter: 'justifyCenter',
+              alignRight: 'justifyRight',
+              alignFull: 'justifyFull',
+              insertBulletsList: 'unorderedList',
+              insertOrderedList: 'orderedList',
+              insertLink: 'INST_LINK',
+              updateLink: 'UPDATE_LINK',
+              insertImage: 'INST_IMAGE',
+              setSubscript: 'subscript',
+              setSuperscript: 'superscript',
+              setStrikethrough: 'strikeThrough',
+              setHR: 'horizontalRule',
+              setIndent: 'indent',
+              setOutdent: 'outdent',
+              setTitlePlaceholder: 'SET_TITLE_PLACEHOLDER',
+              setContentPlaceholder: 'SET_CONTENT_PLACEHOLDER',
+              setTitleFocusHandler: 'SET_TITLE_FOCUS_HANDLER',
+              setContentFocusHandler: 'SET_CONTENT_FOCUS_HANDLER',
+              prepareInsert: 'PREPARE_INSERT',
+              restoreSelection: 'RESTORE_SELECTION',
+              setCustomCSS: 'SET_CUSTOM_CSS',
+              setTextColor: 'SET_TEXT_COLOR',
+              setBackgroundColor: 'SET_BACKGROUND_COLOR',
+            }}
           />
         )}
         {this.state.loaded === false && (

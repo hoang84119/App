@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ActivityIndicator, Text, StyleSheet } from "react-native";
+import { Image,View, ActivityIndicator, Text, StyleSheet } from "react-native";
 import LoginToPost from "./src/navigations/LogiToPost";
 import PostTo from "./src/navigations/PostTo";
 import API from "./src/API";
@@ -24,10 +24,13 @@ class App extends Component {
 
   render() {
     let loadingView = (
-      <View style={{ flex: 1, padding: 5, backgroundColor:'#36BC63' }}>
+      <View style={{ flex: 1, padding: 5, backgroundColor: '#36BC63' }}>
         <View style={myStyle.khung}>
+          <Image
+            style={{ width: 100, height: 100, marginBottom: 25 }}
+            source={require("./src/image/logo.png")}
+          />
           <ActivityIndicator size="large" color="white" />
-          <Text style={{color:"white"}}>Đang tải dữ liệu...</Text>
         </View>
       </View>
     );
@@ -36,8 +39,8 @@ class App extends Component {
     ) : this.state.logged ? (
       <PostTo />
     ) : (
-      <LoginToPost />
-    );
+          <LoginToPost />
+        );
     return mainView;
   }
 }
@@ -48,6 +51,6 @@ const myStyle = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    
+
   }
 });
