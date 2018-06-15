@@ -3,6 +3,8 @@ import { Image,View, ActivityIndicator, Text, StyleSheet } from "react-native";
 import LoginToPost from "./src/navigations/LogiToPost";
 import PostTo from "./src/navigations/PostTo";
 import API from "./src/API";
+import Media from "./src/components/Media"
+
 class App extends Component {
   constructor(props) {
     super(props);
