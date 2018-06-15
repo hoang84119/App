@@ -12,6 +12,7 @@
     "react-native-htmlview": "^0.12.1",
     "react-native-image-picker": "^0.26.10",
     "react-native-render-html": "^3.10.0",
+    "react-native-scalable-image": "^0.4.0",
     "react-native-webview-bridge": "^0.33.0",
     "react-native-zss-rich-text-editor": "^1.1.0",
     "react-navigation": "^2.2.0"
