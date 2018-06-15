@@ -136,6 +136,7 @@ class CTBaiBao extends Component {
     });
     this.loadData();
     this.setState({linkIMG: this.props.navigation.getParam("linkHA")})
+    //alert(""+this.props.navigation.getParam("linkHA"))
     try {
       this.richtext.insertImage({ src: this.state.linkIMG });
       this.setState({linkIMG: ''})
@@ -179,6 +180,7 @@ class CTBaiBao extends Component {
                 }
                 else if (response.customButton) {
                     this.props.navigation.navigate("scmedia");
+                    alert(""+this.props.navigation.getParam("linkHA"))
                 }
                 else {
                   console.log(response);

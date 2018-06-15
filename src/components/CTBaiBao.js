@@ -155,7 +155,7 @@ class CTBaiBao extends Component {
 function renderNode(node, index, siblings, parent, defaultRenderer) {
   if (node.name == 'img') {
       const a = node.attribs;
-      return ( <Image style={{width: pw, height: 600, resizeMode: 'contain' }} source={{uri: a.src}}/> );
+      return ( <Image style={{width: pw, height: 500, resizeMode: 'contain' }} source={{uri: a.src}}/> );
   }
 }
 const pw = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').width);
