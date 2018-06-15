@@ -20,12 +20,15 @@ var ImagePicker = require("react-native-image-picker");
 
 var options = {
   title: "Chọn hình ảnh",
+  customButtons: [
+    {name: 'tv', title: 'Chọn ảnh từ thư viện của bạn'},
+  ],
   storageOptions: {
     skipBackup: true,
     path: "images"
   },
   takePhotoButtonTitle: "Máy ảnh",
-  chooseFromLibraryButtonTitle: "Chọn ảnh từ thư viện",
+  chooseFromLibraryButtonTitle: "Chọn hình ảnh sẵn có",
   cancelButtonTitle: "Hủy"
 };
 
@@ -36,6 +39,7 @@ class CTBaiBao extends Component {
     this.setFocusHandlers = this.setFocusHandlers.bind(this);
     this.state = {
       noidung: [],
+      linkIMG: '',
       loaded: false
     };
   }
@@ -131,6 +135,11 @@ class CTBaiBao extends Component {
       isSaving: false
     });
     this.loadData();
+    this.setState({linkIMG: this.props.navigation.getParam("linkHA")})
+    try {
+      this.richtext.insertImage({ src: this.state.linkIMG });
+      this.setState({linkIMG: ''})
+    } catch (error) {}
   }
 
   render() {
@@ -168,9 +177,9 @@ class CTBaiBao extends Component {
                     ToastAndroid.SHORT
                   );
                 }
-                // else if (response.customButton) {
-                //     console.log('User tapped custom button: ', response.customButton);
-                // }
+                else if (response.customButton) {
+                    this.props.navigation.navigate("scmedia");
+                }
                 else {
                   console.log(response);
                   console.log(response.path);
