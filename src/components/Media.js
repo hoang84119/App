@@ -7,29 +7,7 @@ import {
 import API from "../API";
 import HTMLView from "react-native-htmlview";
 export default class Media extends Component {
-    // static navigationOptions = ({ navigation }) => {
-    //     const { params = {} } = navigation.state;
-    //     let headerRight = (
-    //       <View style={{flexDirection: 'row'}}>
-    //         <TouchableOpacity
-    //           onPress={() => params.onAdd()}
-    //         >
-    //           <Image
-    //             style={{ width: 32, height: 32 }}
-    //             source={require("../image/ic_post.png")}
-    //           />
-    //         </TouchableOpacity>
-    //         <TouchableOpacity onPress={() => params.onLogout()}>
-    //         <Image
-    //             style={{ width: 32, height: 32, marginLeft:5,marginRight:15 }}
-    //             source={require("../image/ic_logout.png")}
-    //           />
-    //         </TouchableOpacity>
-    //       </View>
-    //     );
-    //     return { headerRight };
-    //   };
-
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -52,9 +30,9 @@ export default class Media extends Component {
                 }
             });
     }
-    showPic(a){
-        this.props.navigation.navigate("scchitiet", { id: a });
-        ToastAndroid.show(a+'', ToastAndroid.SHORT);
+    showPic(i,x){
+        this.props.navigation.navigate("scchitiet", { id: i });
+        ToastAndroid.show(x+'', ToastAndroid.SHORT);
     }
     render() {
         const { navigate } = this.props.navigation;
@@ -67,7 +45,7 @@ export default class Media extends Component {
                 keyExtractor={(x, i) => i.toString()}
                 renderItem={({ item }) => (
                     <View style={{  flex:1, margin: 2 }}>
-                        <TouchableOpacity onPress = {()=>this.showPic(item.id)}>
+                        <TouchableOpacity onPress = {()=>this.showPic(item.id, item.title.rendered)}>
                         <Image source={{ uri: item.guid.rendered.replace("http://localhost", API.getURL()) }}
                             style={{ weight: 1, height: 200, resizeMode: 'cover' }}
                         />
