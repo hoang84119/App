@@ -30,7 +30,7 @@ module.exports = API = {
   },
   generate_auth_cookie(username, password) {
     return fetch(
-      `${url}/thuctap/api/auth/generate_auth_cookie/?username=${username}&password=${password}&seconds=300&insecure=cool`
+      `${url}/thuctap/api/auth/generate_auth_cookie/?username=${username}&password=${password}&seconds=86400&insecure=cool`
     )
       .then(response => {
         return response.json();

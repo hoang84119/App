@@ -3,10 +3,11 @@ import CTBaiBao from "../components/CTBaiBao";
 import ChinhSuaBaiViet from "../components/ChinhSuaBaiViet";
 import DSBaiBao from "../components/DSBaiBao";
 import ThemBaiViet from "../components/ThemBaiViet";
+import DSBaiViet from "../components/DSBaiViet"
 
 const PostTo = StackNavigator({
   main: {
-    screen: DSBaiBao,
+    screen: DSBaiViet,
     navigationOptions: {
       headerTitle: "Bài viết"
     }

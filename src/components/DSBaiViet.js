@@ -147,71 +147,10 @@ class DSBaiBao extends Component {
     return content.length > 100 ? content.substring(0, 100)+"...</p>" : content;
   }
   render() {
-    const { navigate } = this.props.navigation;
-    const kieu = {
-      tagsStyles: {
-        div: { textAlign: "center", fontStyle: "italic", color: "grey" }
-      },
-      classesStyles: {
-        "last-paragraph": {
-          textAlign: "right",
-          color: "teal",
-          fontWeight: "800"
-        }
-      }
-    };
-
     return (
-      <FlatList
-        refreshing={this.state.refreshing}
-        onRefresh={() => this.refresh()}
-        data={this.state.noidung}
-        keyExtractor={(x, i) => i.toString()}
-        renderItem={({ item }) => (
-          <View style={myStyle.baibao}>
-            <TouchableOpacity
-              onPress={() => this.xem(item.id, item.title.rendered)}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ paddingLeft:5, alignItems:'center', justifyContent:'center'}}>
-                  <Image
-                    style={myStyle.hinh}
-                    source={{ uri: this.getSrcImage(item.content.rendered) }}
-                  />
-                </View>
-                <View style={{paddingLeft:5}}>
-                  <HTMLView
-                    value={"<span>" + item.title.rendered + "</span>"}
-                    stylesheet={htmlStyle}
-                  />
-                  <HTMLView stylesheet={htmlStyle} value={this.formatExcerpt(item.excerpt.rendered)} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <View style={myStyle.edit}>
-              <TouchableOpacity
-                onPress={() => this.xem(item.id, item.content.rendered)}
-                style={{ flex: 1, alignItems: "center" }}
-              >
-                <Text style={myStyle.textEdit}>Xem</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.xoa(item.id, item.title.rendered)}
-                style={{ flex: 1, alignItems: "center" }}
-              >
-                <Text style={myStyle.textEdit}>Xóa</Text>
-              </TouchableOpacity>
-              <Text>|</Text>
-              <TouchableOpacity
-                onPress={() => this.chinhsua(item.id)}
-                style={{ flex: 1, alignItems: "center" }}
-              >
-                <Text style={myStyle.textEdit}>Chỉnh sửa</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-      />
+      <View style={myStyle.nen}>
+
+      </View>
     );
   }
 
@@ -246,47 +185,9 @@ const htmlStyle = StyleSheet.create({
   }
 });
 const myStyle = StyleSheet.create({
-  title: {
-    color: "#088A4B",
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
-    marginBottom: 0,
-    fontSize: 18
-  },
-  excerpt: {
-    //color: '#088A4B',
-    paddingLeft: 10
-  },
-  edit: {
-    borderTopWidth: 1,
-    borderColor: "#efefef",
-    padding: 7,
-    backgroundColor: "rgba(210,210,210,0.1)",
-    flexDirection: "row",
-    borderBottomStartRadius: 8,
-    borderBottomEndRadius: 8
-  },
-  textEdit: {
-    fontWeight: "bold",
-    flex: 1,
-    color: "#36BC63",
-    //color: "lightgreen",
-    alignItems: "center"
-  },
-  baibao: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    marginTop: 5,
-    marginRight: 5,
-    marginLeft: 5,
-    backgroundColor: "#fff"
-  },
-  hinh: {
-    borderRadius: 5,
-    width: 90,
-    height: 90
+  nen:{
+    color: 'black',
+    height:'800'
   }
 });
 
