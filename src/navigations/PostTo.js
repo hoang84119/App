@@ -3,7 +3,6 @@ import CTBaiBao from "../components/CTBaiBao";
 import ChinhSuaBaiViet from "../components/ChinhSuaBaiViet";
 import DSBaiBao from "../components/DSBaiBao";
 import ThemBaiViet from "../components/ThemBaiViet";
-import DSBaiViet from "../components/DSBaiViet"
 import Media from "../components/Media"
 import MediaDetail from "../components/MediaDetail"
 
