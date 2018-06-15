@@ -6,7 +6,9 @@ import {
   Alert,
   ScrollView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions,
+  PixelRatio
 } from "react-native";
 import API from "../API";
 import HTMLView from "react-native-htmlview";
@@ -134,11 +136,14 @@ class CTBaiBao extends Component {
           <View style={myStyle.content}>
             {this.state.loaded && (
               <HTMLView
-                value={this.state.noidung.content.rendered.replace(
+                value={this.state.noidung.content.rendered
+                .replace(
                   "http://localhost",
                   API.getURL()
-                )}
+                )
+                }
                 stylesheet={htmlTitleStyle}
+                renderNode={renderNode}
               />
             )}
           </View>
@@ -147,6 +152,14 @@ class CTBaiBao extends Component {
     );
   }
 }
+function renderNode(node, index, siblings, parent, defaultRenderer) {
+  if (node.name == 'img') {
+      const a = node.attribs;
+      return ( <Image style={{width: pw, height: 600, resizeMode: 'contain' }} source={{uri: a.src}}/> );
+  }
+}
+const pw = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').width);
+const ph =PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height);
 const htmlTitleStyle = StyleSheet.create({
   span: {
     borderRadius: 8,
@@ -156,10 +169,10 @@ const htmlTitleStyle = StyleSheet.create({
   p: {
     fontSize: 16
   },
-  img: {
-    width: 800,
-    height: 400
-  }
+  // img: {
+  //   width: 800,
+  //   height: 400
+  // }
 });
 const myStyle = StyleSheet.create({
   container: {
