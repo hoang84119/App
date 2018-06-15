@@ -7,7 +7,8 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  PixelRatio
 } from "react-native";
 import API from "../API";
 import HTMLView from "react-native-htmlview";
@@ -154,12 +155,11 @@ class CTBaiBao extends Component {
 function renderNode(node, index, siblings, parent, defaultRenderer) {
   if (node.name == 'img') {
       const a = node.attribs;
-      console.log(w);
-      //console.log(width);
-      return ( <Image style={{width: 380, height: 380 }} source={{uri: a.src}}/> );
+      return ( <Image style={{width: pw, height: 600, resizeMode: 'contain' }} source={{uri: a.src}}/> );
   }
 }
-const w = Dimensions.get('window').width;
+const pw = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').width);
+const ph =PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height);
 const htmlTitleStyle = StyleSheet.create({
   span: {
     borderRadius: 8,

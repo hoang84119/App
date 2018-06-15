@@ -26,18 +26,16 @@ class DSBaiBao extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     let headerRight = (
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity
-          onPress={() => params.onAdd()}
-        >
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity onPress={() => params.onAdd()}>
           <Image
             style={{ width: 32, height: 32 }}
             source={require("../image/ic_post.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => params.onLogout()}>
-        <Image
-            style={{ width: 32, height: 32, marginLeft:5,marginRight:15 }}
+          <Image
+            style={{ width: 32, height: 32, marginLeft: 5, marginRight: 15 }}
             source={require("../image/ic_logout.png")}
           />
         </TouchableOpacity>
@@ -50,7 +48,7 @@ class DSBaiBao extends Component {
     AsyncStorage.removeItem("Cookie").then(() => {
       //this.props.navigation.navigate("login");
       //Alert.alert("Đã đăng xuất");
-      ToastAndroid.show("Đã đăng xuất",ToastAndroid.LONG);
+      ToastAndroid.show("Đã đăng xuất", ToastAndroid.LONG);
       BackHandler.exitApp();
     });
   }
@@ -84,6 +82,7 @@ class DSBaiBao extends Component {
   }
 
   xem(i, t) {
+    this.getSrcImage(t);
     this.props.navigation.navigate("chitiet", { id: i });
   }
   xoa(i, t) {
@@ -118,6 +117,14 @@ class DSBaiBao extends Component {
   chinhsua(i) {
     this.props.navigation.navigate("chinhsua", { id: i });
   }
+  getSrcImage(content) // lấy nguồn hình ảnh từ content html
+  {
+    let indexImg = context.toString().indexOf("<img") //tìm thẻ img đầu tiên
+    let indexSrcStart = context.toString().indexOf("src",indexImg)+6; // tìm vị trí mở src
+    let indexSrcEnd = context.toString().indexOf('"',indexSrcStart);
+    let src = content.substring(indexSrcStart,indexSrcEnd);
+    console.log(src);
+  }
   render() {
     const { navigate } = this.props.navigation;
     const kieu = {
@@ -144,6 +151,9 @@ class DSBaiBao extends Component {
             <TouchableOpacity
               onPress={() => this.xem(item.id, item.title.rendered)}
             >
+            <View>
+              <Image ></Image>
+            </View>
               <View>
                 <HTMLView
                   value={"<span>" + item.title.rendered + "</span>"}
@@ -156,7 +166,7 @@ class DSBaiBao extends Component {
             </TouchableOpacity>
             <View style={myStyle.edit}>
               <TouchableOpacity
-                onPress={() => this.xem(item.id, item.title.rendered)}
+                onPress={() => this.xem(item.id, item.content.rendered)}
                 style={{ flex: 1, alignItems: "center" }}
               >
                 <Text style={myStyle.textEdit}>Xem</Text>
