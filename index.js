@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
-import MediaToDetail from './src/navigations/MediaToDetail'
-AppRegistry.registerComponent('App', () => MediaToDetail);
+import PostTo from './src/navigations/PostTo'
+AppRegistry.registerComponent('App', () => PostTo);
 console.disableYellowBox = true;

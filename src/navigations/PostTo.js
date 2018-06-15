@@ -3,6 +3,8 @@ import CTBaiBao from "../components/CTBaiBao";
 import ChinhSuaBaiViet from "../components/ChinhSuaBaiViet";
 import DSBaiBao from "../components/DSBaiBao";
 import ThemBaiViet from "../components/ThemBaiViet";
+import Media from "../components/Media"
+import MediaDetail from "../components/MediaDetail"
 
 const PostTo = StackNavigator({
   main: {
@@ -27,6 +29,18 @@ const PostTo = StackNavigator({
     screen: ThemBaiViet,
     navigationOptions: {
       headerTitle: "Thêm bài viết"
+    }
+  },
+  scmedia: {
+    screen: Media,
+    navigationOptions: {
+      headerTitle: "Chọn hình ảnh"
+    }
+  },
+  scchitiet: {
+    screen: MediaDetail,
+    navigationOptions: {
+      headerTitle: "Chi tiết hình ảnh"
     }
   }
 });
