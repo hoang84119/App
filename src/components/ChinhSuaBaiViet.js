@@ -1,18 +1,8 @@
 import React, { Component } from "react";
 import {
-  ActivityIndicator,
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  Image,
-  ToastAndroid,
-  TouchableOpacity
+  ActivityIndicator, View, Text, StyleSheet, Alert, Image, ToastAndroid, TouchableOpacity
 } from "react-native";
-import {
-  RichTextEditor,
-  RichTextToolbar
-} from "react-native-zss-rich-text-editor";
+import { RichTextEditor, RichTextToolbar } from "react-native-zss-rich-text-editor";
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
 
@@ -43,6 +33,11 @@ class CTBaiBao extends Component {
       loaded: false
     };
   }
+
+  myCallback = (dataFromChild) => { 
+    this.setState ({linkIMG: dataFromChild}); 
+  }
+
   static navigationOptions = ({ navigation }) => {
     //let headerTitle = navigation.state.params.title;
     const { params = {} } = navigation.state;
@@ -183,7 +178,7 @@ class CTBaiBao extends Component {
                     alert(""+this.props.navigation.getParam("linkHA"))
                 }
                 else {
-                  console.log(response);
+                  console.log(response); 
                   console.log(response.path);
                   var file = {
                     uri: response.uri,
