@@ -9,8 +9,7 @@ import {
   ActivityIndicator,
   AsyncStorage,
   Image,
-  ImageBackground,
-  StatusBar
+  ImageBackground
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 import API from "../API";
@@ -58,10 +57,7 @@ export default class App extends Component {
   render() {
     return (
       <ImageBackground style={{flex:1}} source={require('../image/background.png')}>
-      <StatusBar
-     translucent
-     //barStyle="light-content"
-   />
+     
         <View style={myStyle.nen}>
           <View style={myStyle.khungDangNhap} />
           <View style={{alignItems: "center" }}>

@@ -27,7 +27,7 @@ class App extends Component {
 
   render() {
     let loadingView = (
-      <ImageBackground style={{flex:1, marginTop: -30}} source={require('./src/image/background_blur.png')}>
+      <ImageBackground style={{flex:1}} source={require('./src/image/background_blur.png')}>
         <View style={{ flex: 1, padding: 5}}>
           <View style={myStyle.khung}>
             <Image

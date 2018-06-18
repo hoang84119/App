@@ -15,6 +15,7 @@ import {
 import HTMLView from "react-native-htmlview";
 import HTML from "react-native-render-html"
 import API from "../API";
+import IonIcon from 'react-native-vector-icons/Ionicons';
 class DSBaiBao extends Component {
   constructor(props) {
     super(props);
@@ -27,18 +28,20 @@ class DSBaiBao extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     let headerRight = (
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", alignItems: 'center' }}>
         <TouchableOpacity onPress={() => params.onAdd()}>
-          <Image
+          {/* <Image
             style={{ width: 32, height: 32 }}
             source={require("../image/ic_post.png")}
-          />
+          /> */}
+          <IonIcon style={{ marginLeft: 10, marginRight: 10 }} name="ios-add-outline" size={42} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => params.onLogout()}>
-          <Image
+          {/* <Image
             style={{ width: 32, height: 32, marginLeft: 5, marginRight: 15 }}
             source={require("../image/ic_logout.png")}
-          />
+          /> */}
+          <IonIcon style={{ marginLeft: 5, marginRight: 10 }} name="ios-log-out-outline" size={32} />
         </TouchableOpacity>
       </View>
     );
@@ -146,7 +149,7 @@ class DSBaiBao extends Component {
   formatExcerpt(content) {
     //Mỗi trích đoạn chỉ lấy tối đa 100 ký tự
     //content = this.removeLink(content);
-    return content.length > 100 ? content.substring(0, 100)+"...</p>" : content;
+    return content.length > 100 ? content.substring(0, 100) + "...</p>" : content;
   }
   render() {
     const { navigate } = this.props.navigation;
@@ -170,45 +173,52 @@ class DSBaiBao extends Component {
         data={this.state.noidung}
         keyExtractor={(x, i) => i.toString()}
         renderItem={({ item }) => (
-          <View style={myStyle.baibao}>
-            <TouchableOpacity
-              onPress={() => this.xem(item.id, item.title.rendered)}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ paddingLeft:5, alignItems:'center', justifyContent:'center'}}>
-                  <Image
-                    style={myStyle.hinh}
-                    source={{ uri: this.getSrcImage(item.content.rendered) }}
-                  />
-                </View>
-                <View style={{paddingLeft:5}}>
-                  <HTML
-                    html={"<span>" + item.title.rendered + "</span>"}
-                    tagsStyles={htmlStyle}
-                  />
-                  <HTML tagsStyles={htmlStyle} html={this.formatExcerpt(item.excerpt.rendered)} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <View style={myStyle.edit}>
+          <View style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
+            <View style={myStyle.baibao}>
               <TouchableOpacity
+                onPress={() => this.xem(item.id, item.title.rendered)}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <Image
+                      style={myStyle.hinh}
+                      source={{ uri: this.getSrcImage(item.content.rendered) }}
+                    />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <View style={myStyle.TieuDe}>
+                      <HTML
+                        html={"<span>" + item.title.rendered + "</span>"}
+                        tagsStyles={htmlStyle}
+                      />
+                    </View>
+
+                    {/* Chú thích bài báo
+                  <HTML tagsStyles={htmlStyle} html={this.formatExcerpt(item.excerpt.rendered)} /> */}
+                    <View style={myStyle.edit}>
+                      {/* <TouchableOpacity
                 onPress={() => this.xem(item.id, item.content.rendered)}
                 style={{ flex: 1, alignItems: "center" }}
               >
                 <Text style={myStyle.textEdit}>Xem</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.xoa(item.id, item.title.rendered)}
-                style={{ flex: 1, alignItems: "center" }}
-              >
-                <Text style={myStyle.textEdit}>Xóa</Text>
-              </TouchableOpacity>
-              <Text>|</Text>
-              <TouchableOpacity
-                onPress={() => this.chinhsua(item.id)}
-                style={{ flex: 1, alignItems: "center" }}
-              >
-                <Text style={myStyle.textEdit}>Chỉnh sửa</Text>
+              </TouchableOpacity> */}
+                      <TouchableOpacity
+                        onPress={() => this.xoa(item.id, item.title.rendered)}
+                        style={{ paddingLeft: 5,flex: 1, alignItems: "center", flexDirection: 'row' }}
+                      >
+                        <IonIcon name="ios-trash-outline" size={20} />
+                        <Text style={myStyle.textEdit}>  Xóa</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => this.chinhsua(item.id)}
+                        style={{ flex: 1, alignItems: "center", flexDirection: 'row' }}
+                      >
+                        <IonIcon name="ios-create-outline" size={20} />
+                        <Text style={myStyle.textEdit}>  Chỉnh sửa</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
               </TouchableOpacity>
             </View>
           </View>
@@ -243,52 +253,52 @@ const htmlStyle = {
     marginBottom: 0,
     fontSize: 15
   },
-  p:{
-    paddingRight:20
+  p: {
+    paddingRight: 20
   }
 };
 const myStyle = StyleSheet.create({
-  title: {
-    color: "#088A4B",
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
-    marginBottom: 0,
-    fontSize: 18
+  TieuDe: {
+    paddingLeft: 5,
+    paddingRight: 5,
+    height: 70,
+    fontSize: 20
   },
   excerpt: {
     //color: '#088A4B',
     paddingLeft: 10
   },
   edit: {
+    height:34,
     borderTopWidth: 1,
-    borderColor: "#efefef",
+    borderColor: "#fafafa",
     padding: 7,
-    backgroundColor: "rgba(210,210,210,0.1)",
+    backgroundColor: "#fdfdfd",
     flexDirection: "row",
-    borderBottomStartRadius: 8,
-    borderBottomEndRadius: 8
+    // borderBottomStartRadius: 8,
+    // borderBottomEndRadius: 8
   },
   textEdit: {
-    fontWeight: "bold",
+    fontSize: 12,
+    fontWeight: "100",
     flex: 1,
-    color: "#36BC63",
-    //color: "lightgreen",
-    alignItems: "center"
+    //color: "#36BC63",
+    color: "#6f6f6f",
+    justifyContent: 'center',
+    alignItems: "center",
   },
   baibao: {
+    //borderWidth: 1,
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
+    borderColor: "#f6f6f6",
     marginTop: 5,
     marginRight: 5,
     marginLeft: 5,
     backgroundColor: "#fff"
   },
   hinh: {
-    borderRadius: 5,
-    width: 90,
-    height: 90
+    width: 150,
+    height: 104
   }
 });
 
