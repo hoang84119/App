@@ -144,13 +144,61 @@ class DSBaiBao extends Component {
   formatExcerpt(content) {
     //Mỗi trích đoạn chỉ lấy tối đa 100 ký tự
     //content = this.removeLink(content);
-    return content.length > 100 ? content.substring(0, 100)+"...</p>" : content;
+    return content.length > 100
+      ? content.substring(0, 100) + "...</p>"
+      : content;
   }
   render() {
     return (
-      <View style={myStyle.nen}>
-
-      </View>
+      <FlatList
+        style={myStyle.nen}
+        refreshing={this.state.refreshing}
+        onRefresh={() => this.refresh()}
+        data={this.state.noidung}
+        keyExtractor={(x, i) => i.toString()}
+        renderItem={({ item }) => (
+          <View style={myStyle.baibao}>
+            <TouchableOpacity
+              onPress={() => this.xem(item.id, item.title.rendered)}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <View style={myStyle.trai}>
+                  <Image
+                    style={myStyle.hinh}
+                    source={{ uri: this.getSrcImage(item.content.rendered) }}
+                  />
+                </View>
+                <View style={myStyle.phai}>
+                  <View style={myStyle.noidung}>
+                    <HTMLView
+                      value={"<span>" + item.title.rendered + "</span>"}
+                      stylesheet={htmlStyle}
+                    />
+                    {/* <HTMLView
+                      //stylesheet={htmlStyle}
+                      value={this.formatExcerpt(item.excerpt.rendered)}
+                    /> */}
+                  </View>
+                  <View style={myStyle.edit}>
+                    <TouchableOpacity
+                      onPress={() => this.xoa(item.id, item.title.rendered)}
+                      style={{}}
+                    >
+                      <Image  source={require("../image/ic_delete.png")} style={{tintColor:'gray'}}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => this.chinhsua(item.id)}
+                      style={{}}
+                    >
+                      <Image  source={require("../image/ic_edit.png")} style={{tintColor:'gray'}}/>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     );
   }
 
@@ -173,21 +221,58 @@ class DSBaiBao extends Component {
 }
 const htmlStyle = StyleSheet.create({
   span: {
-    color: "#088A4B",
-    paddingLeft: 0,
-    paddingRight: 5,
-    paddingTop: 5,
-    marginBottom: 0,
-    fontSize: 15
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold"
   },
-  p:{
-    paddingRight:20
+  p: {
+    paddingRight: 20
   }
 });
 const myStyle = StyleSheet.create({
-  nen:{
-    color: 'black',
-    height:'800'
+  nen: {
+    backgroundColor: "white"
+  },
+  trai: {
+    padding: 15,
+    flexDirection: "column"
+  },
+  hinh: {
+    borderRadius: 10,
+    width: 80,
+    height: 80
+  },
+  phai: {
+    //padding: 
+    //paddingLeft: 5,
+    //alignItems: "center",
+    //justifyContent: "center"
+  },
+  noidung:{ 
+    //paddingLeft: 5 ,
+    flex:2
+  },
+  edit: {
+    //borderTopWidth: 1,
+    //borderColor: "#efefef",
+    //padding: 7,
+    //backgroundColor: "rgba(210,210,210,0.1)",
+    flex:1,
+    flexDirection: "row",
+    //justifyContent: "flex-start"
+    //borderBottomStartRadius: 8,
+    //borderBottomEndRadius: 8
+  },
+  baibao: {
+    borderBottomWidth: 1,
+    //borderWidth: 1,
+    borderColor: "#ddd",
+    //borderRadius: 8,
+    //backgroundColor: "#fff"
+  },
+  excerpt: {
+    //color: '#088A4B',
+    paddingLeft: 10
   }
 });
 

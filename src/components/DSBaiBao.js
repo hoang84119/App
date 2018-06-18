@@ -13,6 +13,7 @@ import {
   Button
 } from "react-native";
 import HTMLView from "react-native-htmlview";
+import HTML from "react-native-render-html"
 import API from "../API";
 class DSBaiBao extends Component {
   constructor(props) {
@@ -180,11 +181,11 @@ class DSBaiBao extends Component {
                   />
                 </View>
                 <View style={{paddingLeft:5}}>
-                  <HTMLView
-                    value={"<span>" + item.title.rendered + "</span>"}
-                    stylesheet={htmlStyle}
+                  <HTML
+                    html={"<span>" + item.title.rendered + "</span>"}
+                    tagsStyles={htmlStyle}
                   />
-                  <HTMLView stylesheet={htmlStyle} value={this.formatExcerpt(item.excerpt.rendered)} />
+                  <HTML tagsStyles={htmlStyle} html={this.formatExcerpt(item.excerpt.rendered)} />
                 </View>
               </View>
             </TouchableOpacity>
@@ -232,7 +233,7 @@ class DSBaiBao extends Component {
     return true;
   };
 }
-const htmlStyle = StyleSheet.create({
+const htmlStyle = {
   span: {
     color: "#088A4B",
     paddingLeft: 0,
@@ -244,7 +245,7 @@ const htmlStyle = StyleSheet.create({
   p:{
     paddingRight:20
   }
-});
+};
 const myStyle = StyleSheet.create({
   title: {
     color: "#088A4B",

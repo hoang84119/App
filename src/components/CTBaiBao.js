@@ -11,7 +11,7 @@ import {
   PixelRatio
 } from "react-native";
 import API from "../API";
-import HTMLView from "react-native-htmlview";
+import HTML from "react-native-render-html"
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
 
@@ -26,13 +26,6 @@ class CTBaiBao extends Component {
     //const { navigation } = this.props;
   }
   static navigationOptions = ({ navigation }) => {
-    //title: `${navigation.state.params.title}`,
-    // headerTitleStyle: {
-    //   fontSize: 18,
-    //   backgroundColor: "white"
-    //   //textAlign: 'center',alignSelf:'center'
-    // }
-    //let headerTitle = navigation.state.params.title;
     const { params = {} } = navigation.state;
     let headerRight = <TouchableOpacity onPress={() => {
       params.onEdit();
@@ -64,14 +57,6 @@ class CTBaiBao extends Component {
           this.loadTacGia();
         }
       });
-    // API.getCTBaiBao(this.props.navigation.getParam("id", "")).then(response => {
-    //   if (response == null) {
-    //     Alert.alert("Lỗi", "Không có nội dung");
-    //   } else {
-    //     this.setState({ noidung: response, loaded: true });
-    //     this.loadTacGia();
-    //   }
-    // });
   }
   async loadTacGia() {
     fetch(
@@ -110,24 +95,25 @@ class CTBaiBao extends Component {
         <ScrollView style={myStyle.container}>
           <View style={myStyle.content}>
             {this.state.loaded && (
-              <HTMLView
-                value={"<span>" + this.state.noidung.title.rendered + "</span>"}
-                stylesheet={htmlTitleStyle}
+              <HTML
+                html={"<span>" + this.state.noidung.title.rendered + "</span>"}
+                tagsStyles = {htmlTitleStyle}
+                //stylesheet={htmlTitleStyle}
               />
             )}
             {this.state.loaded && (
-              <HTMLView
-                value={
+              <HTML
+                html={
                   "<i>Cập nhật lúc: <b>" +
                   this.state.noidung.modified.replace("T", "   ") +
                   "</b></i>"
                 }
-                stylesheet={htmlTitleStyle}
+                //stylesheet={htmlTitleStyle}
               />
             )}
             {this.state.loaded && (
-              <HTMLView
-                value={
+              <HTML
+                html={
                   "<i>Người đăng: <b>" + this.state.tacgia.name + "</i></b>"
                 }
               />
@@ -135,16 +121,11 @@ class CTBaiBao extends Component {
           </View>
           <View style={myStyle.content}>
             {this.state.loaded && (
-              <HTMLView
-                value={this.state.noidung.content.rendered
+              <HTML html={this.state.noidung.content.rendered
                 .replace(
                   "http://localhost",
                   API.getURL()
-                )
-                }
-                stylesheet={htmlTitleStyle}
-                renderNode={renderNode}
-              />
+                )} imagesMaxWidth={Dimensions.get('window').width-30} />
             )}
           </View>
         </ScrollView>
@@ -152,19 +133,14 @@ class CTBaiBao extends Component {
     );
   }
 }
-function renderNode(node, index, siblings, parent, defaultRenderer) {
-  if (node.name == 'img') {
-      const a = node.attribs;
-      return ( <Image style={{width: pw, height: 600, resizeMode: 'contain' }} source={{uri: a.src}}/> );
-  }
-}
 const pw = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').width);
 const ph =PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height);
-const htmlTitleStyle = StyleSheet.create({
+const htmlTitleStyle ={
   span: {
     borderRadius: 8,
-    color: "#088A4B",
-    fontSize: 18
+    fontWeight:"bold",
+    color: "black",
+    fontSize: 17
   },
   p: {
     fontSize: 16
@@ -173,7 +149,7 @@ const htmlTitleStyle = StyleSheet.create({
   //   width: 800,
   //   height: 400
   // }
-});
+};
 const myStyle = StyleSheet.create({
   container: {
     flex: 1,
