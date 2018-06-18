@@ -7,7 +7,8 @@ import {
   Alert,
   Image,
   ToastAndroid,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar
 } from "react-native";
 import {
   RichTextEditor,
@@ -15,14 +16,13 @@ import {
 } from "react-native-zss-rich-text-editor";
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
+import DSBaiBao from "./DSBaiBao";
 
 var ImagePicker = require("react-native-image-picker");
 
 var options = {
   title: "Chọn hình ảnh",
-  customButtons: [
-    {name: 'tv', title: 'Chọn ảnh từ thư viện của bạn'},
-  ],
+  customButtons: [{ name: "tv", title: "Chọn ảnh từ thư viện của bạn" }],
   storageOptions: {
     skipBackup: true,
     path: "images"
@@ -39,7 +39,7 @@ class CTBaiBao extends Component {
     this.setFocusHandlers = this.setFocusHandlers.bind(this);
     this.state = {
       noidung: [],
-      linkIMG: '',
+      linkIMG: "",
       loaded: false
     };
   }
@@ -71,6 +71,7 @@ class CTBaiBao extends Component {
         >
           Lưu
         </Text>
+        <DSBaiBao ref={ref => (this._dsBaiBao = ref)} />
       </TouchableOpacity>
     );
     return { headerRight };
@@ -86,8 +87,8 @@ class CTBaiBao extends Component {
     formData.append("content", content);
     fetch(
       API.getURL() +
-      "/thuctap/wp-json/wp/v2/posts/" +
-      this.props.navigation.getParam("id", ""),
+        "/thuctap/wp-json/wp/v2/posts/" +
+        this.props.navigation.getParam("id", ""),
       {
         headers: {
           Authorization:
@@ -100,7 +101,8 @@ class CTBaiBao extends Component {
       var t = response.status;
       if (response.status == "200") {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
-        //DSBaiBao.loadData();
+        this._dsBaiBao.loadData();
+        //DSBaiBao.setState({refreshing: true});
         this.props.navigation.navigate("main");
       } else Alert.alert("Lỗi", "Thất bại");
     });
@@ -113,8 +115,8 @@ class CTBaiBao extends Component {
   async loadData() {
     fetch(
       API.getURL() +
-      "/thuctap/wp-json/wp/v2/posts/" +
-      this.props.navigation.getParam("id", "")
+        "/thuctap/wp-json/wp/v2/posts/" +
+        this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -135,11 +137,11 @@ class CTBaiBao extends Component {
       isSaving: false
     });
     this.loadData();
-    this.setState({linkIMG: this.props.navigation.getParam("linkHA")})
+    this.setState({ linkIMG: this.props.navigation.getParam("linkHA") });
     //alert(""+this.props.navigation.getParam("linkHA"))
     try {
       this.richtext.insertImage({ src: this.state.linkIMG });
-      this.setState({linkIMG: ''})
+      this.setState({ linkIMG: "" });
     } catch (error) {}
   }
 
@@ -177,12 +179,10 @@ class CTBaiBao extends Component {
                     "Lỗi Image Picker: " + response.error,
                     ToastAndroid.SHORT
                   );
-                }
-                else if (response.customButton) {
-                    this.props.navigation.navigate("scmedia");
-                    alert(""+this.props.navigation.getParam("linkHA"))
-                }
-                else {
+                } else if (response.customButton) {
+                  this.props.navigation.navigate("scmedia");
+                  alert("" + this.props.navigation.getParam("linkHA"));
+                } else {
                   console.log(response);
                   console.log(response.path);
                   var file = {
@@ -193,12 +193,13 @@ class CTBaiBao extends Component {
                   };
                   API.UploadImage(file).then(pathImage => {
                     console.log(pathImage);
-                    if (pathImage != "")
-                    {
-                      pathImage = pathImage.replace("http://localhost",API.getURL());
+                    if (pathImage != "") {
+                      pathImage = pathImage.replace(
+                        "http://localhost",
+                        API.getURL()
+                      );
                       this.richtext.insertImage({ src: pathImage });
                     }
-                      
                   });
                 }
               });
