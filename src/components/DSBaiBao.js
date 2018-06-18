@@ -15,12 +15,13 @@ import {
 import HTMLView from "react-native-htmlview";
 import HTML from "react-native-render-html"
 import API from "../API";
+import {connect} from 'react-redux'
 class DSBaiBao extends Component {
   constructor(props) {
     super(props);
     this.state = {
       noidung: "",
-      refreshing: true
+      refreshing:true
     };
   }
 
@@ -61,8 +62,11 @@ class DSBaiBao extends Component {
 
 
   componentDidMount() {
-    this.loadData();
+    //this.loadData();
     //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
+    this.props.navigation.addListener('willFocus', ()=>{
+      this.loadData();
+    });
     this.props.navigation.setParams({
       onAdd: this._onAdd.bind(this),
       onLogout: this._onLogout.bind(this)
@@ -72,6 +76,7 @@ class DSBaiBao extends Component {
 
   async loadData() {
     this.setState({ refreshing: true });
+    //this.props.dispatch({type:'RefreshPost'});
     fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts")
       .then(response => response.json())
       .then(responseJson => {
@@ -79,6 +84,8 @@ class DSBaiBao extends Component {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
           this.setState({ noidung: responseJson, refreshing: false });
+          // this.setState({ noidung: responseJson});
+          // this.props.dispatch({type:'DidRefreshPost'});
         }
       });
   }
@@ -166,6 +173,7 @@ class DSBaiBao extends Component {
     return (
       <FlatList
         refreshing={this.state.refreshing}
+        //refreshing={this.props.refreshing}
         onRefresh={() => this.refresh()}
         data={this.state.noidung}
         keyExtractor={(x, i) => i.toString()}
@@ -342,3 +350,8 @@ const Base64 = {
 };
 
 export default DSBaiBao;
+
+// function mapStateToProps(state){
+//   return {refreshing: state.refreshingPosts}
+// }
+// export default connect(mapStateToProps)(DSBaiBao);

@@ -5,7 +5,8 @@ import {
 import { RichTextEditor, RichTextToolbar } from "react-native-zss-rich-text-editor";
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
-import DSBaiBao from "./DSBaiBao";
+import {connect} from "react-redux";
+
 
 var ImagePicker = require("react-native-image-picker");
 
@@ -21,20 +22,15 @@ var options = {
   cancelButtonTitle: "Hủy"
 };
 
-class CTBaiBao extends Component {
+class ChinhSuaBaiViet extends Component {
   constructor(props) {
     super(props);
     this.getHTML = this.getHTML.bind(this);
     this.setFocusHandlers = this.setFocusHandlers.bind(this);
     this.state = {
       noidung: [],
-      linkIMG: "",
       loaded: false
     };
-  }
-
-  myCallback = (dataFromChild) => { 
-    this.setState ({linkIMG: dataFromChild}); 
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -94,14 +90,10 @@ class CTBaiBao extends Component {
       var t = response.status;
       if (response.status == "200") {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
-        //DSBaiBao.setState({refreshing: true});
+        //this.props.dispatch({type:'RefreshPost'});
         this.props.navigation.navigate("main");
       } else Alert.alert("Lỗi", "Thất bại");
     });
-  }
-
-  showImg() {
-    pick(source => this.setState({ avatarSource: source }));
   }
 
   async loadData() {
@@ -135,6 +127,14 @@ class CTBaiBao extends Component {
       this.richtext.insertImage({ src: this.state.linkIMG });
       this.setState({ linkIMG: "" });
     } catch (error) {}
+    this.props.navigation.addListener('willFocus', ()=>{
+      let srcImage = this.props.navigation.getParam("srcImage", "");
+      if(srcImage != "")
+      {
+        this.richtext.insertImage({ src: srcImage });
+        this.props.navigation.setParams({srcImage: ""});
+      }
+    });
   }
 
   render() {
@@ -174,11 +174,8 @@ class CTBaiBao extends Component {
                 }
                 else if (response.customButton) {
                     this.props.navigation.navigate("scmedia");
-                    alert(""+this.props.navigation.getParam("linkHA"))
                 }
                 else {
-                  console.log(response); 
-                  console.log(response.path);
                   var file = {
                     uri: response.uri,
                     name: response.fileName,
@@ -186,7 +183,6 @@ class CTBaiBao extends Component {
                     type: response.type
                   };
                   API.UploadImage(file).then(pathImage => {
-                    console.log(pathImage);
                     if (pathImage != "") {
                       pathImage = pathImage.replace(
                         "http://localhost",
@@ -293,4 +289,5 @@ const Base64 = {
   }
 };
 
-export default CTBaiBao;
+export default ChinhSuaBaiViet;
+//export default connect()(CTBaiBao);

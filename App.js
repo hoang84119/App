@@ -4,7 +4,18 @@ import LoginToPost from "./src/navigations/LogiToPost";
 import PostTo from "./src/navigations/PostTo";
 import Tab from "./src/navigations/TabNavigator"
 import API from "./src/API";
+import { createStore } from 'redux';
+import {Provider} from 'react-redux'
 import Media from "./src/components/Media"
+
+//Tạo store trong redux
+// const defaultState={refreshingPosts: true};
+// const reducer = (state = defaultState, action)=>{
+//   if(action.type==='RefreshPost') return {refreshingPosts:true};
+//   if(action.type==='DidRefreshPost') return {refreshingPosts:false}
+//   return state;
+// }
+//const store = createStore(reducer);
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +58,8 @@ class App extends Component {
           <LoginToPost />
         );
     return mainView;
+      //<Provider store={store}>
+      //</Provider>
   }
 }
 

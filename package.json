@@ -17,7 +17,9 @@
     "react-native-vector-icons": "^4.6.0",
     "react-native-webview-bridge": "^0.33.0",
     "react-native-zss-rich-text-editor": "^1.1.0",
-    "react-navigation": "^2.2.0"
+    "react-navigation": "^2.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
   },
   "devDependencies": {
     "babel-jest": "23.0.1",
