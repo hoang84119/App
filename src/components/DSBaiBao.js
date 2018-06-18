@@ -16,7 +16,6 @@ import HTMLView from "react-native-htmlview";
 import HTML from "react-native-render-html"
 import API from "../API";
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import {connect} from 'react-redux'
 class DSBaiBao extends Component {
   constructor(props) {
     super(props);

@@ -5,7 +5,6 @@ import {
 import { RichTextEditor, RichTextToolbar } from "react-native-zss-rich-text-editor";
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
-import {connect} from "react-redux";
 
 
 var ImagePicker = require("react-native-image-picker");
