@@ -65,7 +65,6 @@ class CTBaiBao extends Component {
         >
           Lưu
         </Text>
-        <DSBaiBao ref={ref => (this._dsBaiBao = ref)} />
       </TouchableOpacity>
     );
     return { headerRight };
@@ -95,7 +94,6 @@ class CTBaiBao extends Component {
       var t = response.status;
       if (response.status == "200") {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
-        this._dsBaiBao.loadData();
         //DSBaiBao.setState({refreshing: true});
         this.props.navigation.navigate("main");
       } else Alert.alert("Lỗi", "Thất bại");
