@@ -25,7 +25,8 @@ export default class MediaDetail extends Component {
         return { headerRight };
     };
     _onChinhSua(){
-        Alert.alert("T", this.state.hinhanh.replace("http://localhost", API.getURL()));
+        //Alert.alert("T", this.state.hinhanh.replace("http://localhost", API.getURL()));
+        this.props.callbackFromParent (hinhanh);
         this.props.navigation.navigate("chinhsua" , {linkHA : this.state.hinhanh.replace("http://localhost", API.getURL())});
     }
 

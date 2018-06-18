@@ -1,19 +1,8 @@
 import React, { Component } from "react";
 import {
-  ActivityIndicator,
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  Image,
-  ToastAndroid,
-  TouchableOpacity,
-  StatusBar
+  ActivityIndicator, View, Text, StyleSheet, Alert, Image, ToastAndroid, TouchableOpacity
 } from "react-native";
-import {
-  RichTextEditor,
-  RichTextToolbar
-} from "react-native-zss-rich-text-editor";
+import { RichTextEditor, RichTextToolbar } from "react-native-zss-rich-text-editor";
 import { title } from "react-navigation";
 import { NavigationActions } from "react-navigation";
 import DSBaiBao from "./DSBaiBao";
@@ -43,6 +32,11 @@ class CTBaiBao extends Component {
       loaded: false
     };
   }
+
+  myCallback = (dataFromChild) => { 
+    this.setState ({linkIMG: dataFromChild}); 
+  }
+
   static navigationOptions = ({ navigation }) => {
     //let headerTitle = navigation.state.params.title;
     const { params = {} } = navigation.state;
@@ -179,11 +173,13 @@ class CTBaiBao extends Component {
                     "Lỗi Image Picker: " + response.error,
                     ToastAndroid.SHORT
                   );
-                } else if (response.customButton) {
-                  this.props.navigation.navigate("scmedia");
-                  alert("" + this.props.navigation.getParam("linkHA"));
-                } else {
-                  console.log(response);
+                }
+                else if (response.customButton) {
+                    this.props.navigation.navigate("scmedia");
+                    alert(""+this.props.navigation.getParam("linkHA"))
+                }
+                else {
+                  console.log(response); 
                   console.log(response.path);
                   var file = {
                     uri: response.uri,

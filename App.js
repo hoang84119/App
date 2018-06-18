@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image,View, ActivityIndicator, Text, StyleSheet } from "react-native";
+import { ImageBackground, Image, View, ActivityIndicator, Text, StyleSheet } from "react-native";
 import LoginToPost from "./src/navigations/LogiToPost";
 import PostTo from "./src/navigations/PostTo";
 import Tab from "./src/navigations/TabNavigator"
@@ -27,15 +27,17 @@ class App extends Component {
 
   render() {
     let loadingView = (
-      <View style={{ flex: 1, padding: 5, backgroundColor: '#36BC63' }}>
-        <View style={myStyle.khung}>
-          <Image
-            style={{ width: 100, height: 100, marginBottom: 25 }}
-            source={require("./src/image/logo.png")}
-          />
-          <ActivityIndicator size="large" color="white" />
+      <ImageBackground style={{flex:1, marginTop: -30}} source={require('./src/image/background_blur.png')}>
+        <View style={{ flex: 1, padding: 5}}>
+          <View style={myStyle.khung}>
+            <Image
+              style={{ width: 100, height: 100, marginBottom: 25 }}
+              source={require("./src/image/logo.png")}
+            />
+            <ActivityIndicator size="large" color="white" />
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     );
     let mainView = this.state.loading ? (
       loadingView
