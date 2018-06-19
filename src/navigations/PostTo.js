@@ -11,39 +11,69 @@ const PostTo = StackNavigator({
   main: {
     screen: DSBaiBao,
     navigationOptions: {
-      headerTitle: "Bài viết"
+      headerTitle: "Bài viết",
+      headerStyle: {
+        height:40
+      },
+      tabBarVisible: true
     }
   },
   chitiet: {
     screen: CTBaiBao,
     navigationOptions: {
-      headerTitle: "Chi tiết bài viết"
+      headerTitle: "Chi tiết bài viết",
+      headerStyle: {
+        height:40
+      }
     }
   },
   chinhsua: {
     screen: ChinhSuaBaiViet,
     navigationOptions: {
-      headerTitle: "Chỉnh sửa"
+      headerTitle: "Chỉnh sửa",
+      headerStyle: {
+        height:40
+      }
     }
   },
   thembaiviet: {
     screen: ThemBaiViet,
     navigationOptions: {
-      headerTitle: "Thêm bài viết"
+      headerTitle: "Thêm bài viết",
+      headerStyle: {
+        height:40
+      }
     }
   },
   scmedia: {
     screen: Media,
     navigationOptions: {
-      headerTitle: "Chọn hình ảnh"
+      headerTitle: "Chọn hình ảnh",
+      headerStyle: {
+        height:40
+      }
     }
   },
   scchitiet: {
     screen: MediaDetail,
     navigationOptions: {
-      headerTitle: "Chi tiết hình ảnh"
+      headerTitle: "Chi tiết hình ảnh",
+      headerStyle: {
+        height:40
+      }
     }
   }
 });
+
+//cài đặt để ẩn thanh tab khi vào màn hình con
+PostTo.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarVisible,
+  };
+};
 
 export default PostTo;

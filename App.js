@@ -51,7 +51,7 @@ class App extends Component {
     let mainView = this.state.loading ? (
       loadingView
     ) : this.state.logged ? (
-      <PostTo />
+      <Tab />
     ) : (
           <LoginToPost />
         );

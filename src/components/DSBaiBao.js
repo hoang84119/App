@@ -66,7 +66,7 @@ class DSBaiBao extends Component {
   componentDidMount() {
     //this.loadData();
     //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
-    this.props.navigation.addListener('willFocus', ()=>{
+    this.props.navigation.addListener('didFocus', ()=>{
       this.loadData();
     });
     this.props.navigation.setParams({
