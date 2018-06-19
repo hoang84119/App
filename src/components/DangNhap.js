@@ -56,11 +56,11 @@ export default class App extends Component {
   }
   render() {
     return (
-      <ImageBackground style={{flex:1}} source={require('../image/background.png')}>
-     
+      <ImageBackground style={{ flex: 1 }} source={require('../image/background.png')}>
+
         <View style={myStyle.nen}>
           <View style={myStyle.khungDangNhap} />
-          <View style={{alignItems: "center" }}>
+          <View style={{ alignItems: "center" }}>
             <Image
               style={{ width: 120, height: 120, marginBottom: 50 }}
               source={require("../image/logo.png")}
