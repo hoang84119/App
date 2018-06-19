@@ -20,7 +20,7 @@ export default class Media extends Component {
     }
     async loadData() {
         this.setState({ refreshing: true });
-        fetch("http://192.168.1.135/thuctap/wp-json/wp/v2/media/")
+        fetch(API.getURL() + "/thuctap/wp-json/wp/v2/media/")
             .then(response => response.json())
             .then(responseJson => {
                 if (responseJson == null) {
