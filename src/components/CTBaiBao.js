@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-  PixelRatio
+  View, Text, StyleSheet, Alert, ScrollView, Image,
+  TouchableOpacity, Dimensions, PixelRatio,
+  ImageBackground, ActivityIndicator
 } from "react-native";
 import API from "../API";
 import HTML from "react-native-render-html"
-import { title } from "react-navigation";
-import { NavigationActions } from "react-navigation";
+import IonIcon from "react-native-vector-icons/Ionicons"
 
 class CTBaiBao extends Component {
   constructor(props) {
@@ -31,15 +24,15 @@ class CTBaiBao extends Component {
       params.onEdit();
     }}
       style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-      <Image
+      {/* <Image
         style={{ width: 21, height: 21 }}
-        source={require("../image/ic_edit.png")} />
-      <Text style={{ fontWeight: 'bold', fontSize: 18, margin: 5, color: 'black' }}>Chỉnh sửa</Text>
+        source={require("../image/ic_edit.png")} /> */}
+        <IonIcon style={{ marginLeft: 5, marginRight: 10, color: '#088A4B' }} name="ios-create-outline" size={32} />
     </TouchableOpacity>
     return { headerRight };
   };
 
-  _onEdit(){
+  _onEdit() {
     this.props.navigation.navigate("chinhsua", { id: this.props.navigation.getParam("id", "") });
   }
   async loadData() {
@@ -79,71 +72,103 @@ class CTBaiBao extends Component {
     });
   }
 
+  getSrcImage(content) {
+    //tìm thẻ img đầu tiên
+    let indexImg = content.toString().indexOf("<img");
+    //không tìm thấy trả về đường dẫn mặc định
+    if (indexImg == -1)
+      return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
+    // tìm vị trí mở src
+    let indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
+    //tìm vị trí đóng src
+    let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
+    //lấy đường dẫn
+    let src = content.substring(indexSrcStart, indexSrcEnd);
+    return src.replace("http://localhost", API.getURL());
+  }
+
   render() {
     return (
-      <View style={{ flex: 1, padding: 5 }}>
-        {this.state.loaded === false && (
+      <View style={{ flex: 1 }}>
+        {this.state.loaded == false && (
           <View style={myStyle.loadingContainer}>
-            <Image
+            {/* <Image
               style={{ width: 32, height: 32 }}
               source={require("../image/loading.gif")}
-            />
-            <Text>Đang tải</Text>
+            /> */}
+            <ActivityIndicator size="large" color="#088A4B" />
+            <Text style={{color: "#088A4B"}}>Đang tải</Text>
           </View>
-        )}
-
-        <ScrollView style={myStyle.container}>
-          <View style={myStyle.content}>
-            {this.state.loaded && (
-              <HTML
-                html={"<span>" + this.state.noidung.title.rendered + "</span>"}
-                tagsStyles = {htmlTitleStyle}
-                //stylesheet={htmlTitleStyle}
-              />
-            )}
-            {this.state.loaded && (
-              <HTML
-                html={
-                  "<i>Cập nhật lúc: <b>" +
-                  this.state.noidung.modified.replace("T", "   ") +
-                  "</b></i>"
-                }
-                //stylesheet={htmlTitleStyle}
-              />
-            )}
-            {this.state.loaded && (
-              <HTML
-                html={
-                  "<i>Người đăng: <b>" + this.state.tacgia.name + "</i></b>"
-                }
-              />
-            )}
-          </View>
-          <View style={myStyle.content}>
-            {this.state.loaded && (
-              <HTML html={this.state.noidung.content.rendered
-                .replace(
-                  "http://localhost",
-                  API.getURL()
-                )} imagesMaxWidth={Dimensions.get('window').width-30} />
-            )}
-          </View>
-        </ScrollView>
+        )
+        }
+        {
+          this.state.loaded &&
+          <ScrollView style={myStyle.container}>
+            <ImageBackground
+              style={{ paddingTop: 70, flex: 1, minHeight: 10, resizeMode: "cover" }}
+              source={require("../image/header.png")}>
+              <View style={myStyle.title}>
+                {this.state.loaded && (
+                  <HTML
+                    html={"<span>" + this.state.noidung.title.rendered + "</span>"}
+                    tagsStyles={htmlTitleStyle}
+                  //stylesheet={htmlTitleStyle}
+                  />
+                )}
+              </View>
+            </ImageBackground>
+            <View style={{ paddingLeft: 5, paddingRight: 5 }}>
+              <View style={myStyle.content}>
+                {this.state.loaded && (
+                  <HTML
+                    html={
+                      "<i>Cập nhật lúc: <b>" +
+                      this.state.noidung.modified.replace("T", "   ") +
+                      "</b></i>"
+                    }
+                  //stylesheet={htmlTitleStyle}
+                  />
+                )}
+                {this.state.loaded && (
+                  <HTML
+                    html={
+                      "<i>Người đăng: <b>" + this.state.tacgia.name + "</i></b>"
+                    }
+                  />
+                )}
+              </View>
+              <View style={{ alignItems: "center", flex: 1, margin: 10 }}>
+                <Image
+                  style={{ width: 150, height: 11 }}
+                  source={require("../image/line.png")} />
+              </View>
+              <View style={myStyle.content}>
+                {this.state.loaded && (
+                  <HTML html={this.state.noidung.content.rendered
+                    .replace(
+                      "http://localhost",
+                      API.getURL()
+                    )} imagesMaxWidth={Dimensions.get('window').width - 30} />
+                )}
+              </View>
+            </View>
+          </ScrollView>
+        }
       </View>
     );
   }
 }
 const pw = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').width);
-const ph =PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height);
-const htmlTitleStyle ={
+const ph = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height);
+const htmlTitleStyle = {
   span: {
-    borderRadius: 8,
-    fontWeight:"bold",
-    color: "black",
-    fontSize: 17
+    padding: 5,
+    fontWeight: "bold",
+    color: "white",
+    fontSize: 20
   },
   p: {
-    fontSize: 16
+    fontSize: 18
   },
   // img: {
   //   width: 800,
@@ -156,12 +181,10 @@ const myStyle = StyleSheet.create({
     //marginTop: (Platform.OS === 'ios') ? 60 : 50,
     borderWidth: 1,
     borderColor: "#dfdfdf",
-    borderRadius: 8,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   content: {
-    padding: 10,
-    borderColor: 8,
+    padding: 5,
     flex: 1
   },
   header: {
@@ -174,6 +197,7 @@ const myStyle = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
+    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center"
   }

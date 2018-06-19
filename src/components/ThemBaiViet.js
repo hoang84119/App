@@ -12,7 +12,7 @@ import {
   RichTextEditor,
   RichTextToolbar
 } from "react-native-zss-rich-text-editor";
-import DSBaiBao from "./DSBaiBao";
+import IonIcon from "react-native-vector-icons/Ionicons"
 
 class ThemBaiViet extends Component {
   constructor(props) {
@@ -33,10 +33,7 @@ class ThemBaiViet extends Component {
     const { params = {} } = navigation.state;
     let headerRight = (
       <TouchableOpacity onPress={() => params.onAdd()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <Image
-          style={{ width: 26, height: 26 }}
-          source={require("../image/ic_edit.png")} />
-        <Text style={{ fontWeight: 'bold', fontSize: 18, margin: 5, color: 'black' }}>Đăng bài</Text>
+        <IonIcon style={{ marginLeft: 5, marginRight: 10, color: '#088A4B' }} name="ios-paper-outline" size={28} />
       </TouchableOpacity>
     );
     return { headerRight };

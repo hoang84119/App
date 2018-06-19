@@ -28,16 +28,16 @@ class DSBaiBao extends Component {
     let headerRight = (
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity onPress={() => params.onAdd()}>
-          <Image
+          {/* <Image
             style={{ width: 32, height: 32 }}
             source={require("../image/ic_post.png")}
-          />
+          /> */}
         </TouchableOpacity>
         <TouchableOpacity onPress={() => params.onLogout()}>
-          <Image
+          {/* <Image
             style={{ width: 32, height: 32, marginLeft: 5, marginRight: 15 }}
             source={require("../image/ic_logout.png")}
-          />
+          /> */}
         </TouchableOpacity>
       </View>
     );
@@ -184,13 +184,13 @@ class DSBaiBao extends Component {
                       onPress={() => this.xoa(item.id, item.title.rendered)}
                       style={{}}
                     >
-                      <Image  source={require("../image/ic_delete.png")} style={{tintColor:'gray'}}/>
+                      {/* <Image  source={require("../image/ic_delete.png")} style={{tintColor:'gray'}}/> */}
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => this.chinhsua(item.id)}
                       style={{}}
                     >
-                      <Image  source={require("../image/ic_edit.png")} style={{tintColor:'gray'}}/>
+                      {/* <Image  source={require("../image/ic_edit.png")} style={{tintColor:'gray'}}/> */}
                     </TouchableOpacity>
                   </View>
                 </View>

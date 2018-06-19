@@ -13,7 +13,7 @@ const PostTo = StackNavigator({
     navigationOptions: {
       headerTitle: "Bài viết",
       headerStyle: {
-        height:40
+        height:46
       },
       tabBarVisible: true
     }
@@ -23,7 +23,7 @@ const PostTo = StackNavigator({
     navigationOptions: {
       headerTitle: "Chi tiết bài viết",
       headerStyle: {
-        height:40
+        height:46
       }
     }
   },
@@ -32,16 +32,16 @@ const PostTo = StackNavigator({
     navigationOptions: {
       headerTitle: "Chỉnh sửa",
       headerStyle: {
-        height:40
+        height:46
       }
     }
   },
   thembaiviet: {
     screen: ThemBaiViet,
     navigationOptions: {
-      headerTitle: "Thêm bài viết",
+      headerTitle:"Thêm bài viết",
       headerStyle: {
-        height:40
+        height:46
       }
     }
   },
@@ -50,7 +50,7 @@ const PostTo = StackNavigator({
     navigationOptions: {
       headerTitle: "Chọn hình ảnh",
       headerStyle: {
-        height:40
+        height:50
       }
     }
   },
@@ -59,7 +59,7 @@ const PostTo = StackNavigator({
     navigationOptions: {
       headerTitle: "Chi tiết hình ảnh",
       headerStyle: {
-        height:40
+        height:50
       }
     }
   }

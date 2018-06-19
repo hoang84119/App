@@ -3,8 +3,7 @@ import {
   ActivityIndicator, View, Text, StyleSheet, Alert, Image, ToastAndroid, TouchableOpacity
 } from "react-native";
 import { RichTextEditor, RichTextToolbar } from "react-native-zss-rich-text-editor";
-import { title } from "react-navigation";
-import { NavigationActions } from "react-navigation";
+import IonIcon from "react-native-vector-icons/Ionicons"
 
 
 var ImagePicker = require("react-native-image-picker");
@@ -46,20 +45,7 @@ class ChinhSuaBaiViet extends Component {
           alignItems: "center"
         }}
       >
-        <Image
-          style={{ width: 21, height: 21 }}
-          source={require("../image/ic_edit.png")}
-        />
-        <Text
-          style={{
-            fontWeight: "bold",
-            fontSize: 18,
-            margin: 5,
-            color: "black"
-          }}
-        >
-          Lưu
-        </Text>
+        <IonIcon style={{ marginLeft: 5, marginRight: 10, color: '#088A4B' }} name="ios-paper-outline" size={28} />
       </TouchableOpacity>
     );
     return { headerRight };
@@ -183,6 +169,7 @@ class ChinhSuaBaiViet extends Component {
                   };
                   API.UploadImage(file).then(pathImage => {
                     if (pathImage != "") {
+                      
                       pathImage = pathImage.replace(
                         "http://localhost",
                         API.getURL()

@@ -34,14 +34,14 @@ class DSBaiBao extends Component {
             style={{ width: 32, height: 32 }}
             source={require("../image/ic_post.png")}
           /> */}
-          <IonIcon style={{ marginLeft: 10, marginRight: 10 }} name="ios-add-outline" size={42} />
+          <IonIcon style={{ marginLeft: 10, marginRight: 10, color: '#088A4B' }} name="ios-add-outline" size={42} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => params.onLogout()}>
           {/* <Image
             style={{ width: 32, height: 32, marginLeft: 5, marginRight: 15 }}
             source={require("../image/ic_logout.png")}
           /> */}
-          <IonIcon style={{ marginLeft: 5, marginRight: 10 }} name="ios-log-out-outline" size={32} />
+          <IonIcon style={{ marginLeft: 5, marginRight: 10, color: '#088A4B' }} name="ios-log-out-outline" size={32} />
         </TouchableOpacity>
       </View>
     );
@@ -91,7 +91,7 @@ class DSBaiBao extends Component {
   }
 
   xem(i, t) {
-    this.getSrcImage(t);
+    //this.getSrcImage(t);
     this.props.navigation.navigate("chitiet", { id: i });
   }
   xoa(i, t) {
