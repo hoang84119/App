@@ -1,4 +1,4 @@
-export const url = "http://192.168.1.135";
+export const url = "http://192.168.1.125";
 import { AsyncStorage } from "react-native";
 module.exports = API = {
   getURL() {
