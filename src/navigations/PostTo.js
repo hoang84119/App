@@ -65,6 +65,7 @@ const PostTo = StackNavigator({
   }
 });
 
+//cài đặt để ẩn thanh tab khi vào màn hình con
 PostTo.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
