@@ -1,17 +1,17 @@
 import React from 'react';
 import PostTo from "./PostTo";
-import Media from "../components/Media";
 import Account from "../components/Account";
 import { TabNavigator, TabBarBottom } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Image } from "react-native";
+
+import MediaTo from "./MediaTo";
 
 //tạo thanh Tab
 export default TabNavigator(
   {
     //Định nghĩa các màn hình 
     Post: {screen: PostTo},
-    Media: {screen: Media},
+    Media: {screen: MediaTo},
     User: {screen: Account}
   },
   {
