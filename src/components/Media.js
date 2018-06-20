@@ -7,7 +7,7 @@ import {
 import API from "../API";
 import HTMLView from "react-native-htmlview";
 export default class Media extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +16,9 @@ export default class Media extends Component {
         };
     }
     componentDidMount() {
-        this.loadData();
+        this.props.navigation.addListener('didFocus', () => {
+            this.loadData();
+        });
     }
     async loadData() {
         this.setState({ refreshing: true });
@@ -30,26 +32,26 @@ export default class Media extends Component {
                 }
             });
     }
-    showPic(i,x){
+    showPic(i, x) {
         this.props.navigation.navigate("scchitiet", { id: i });
-        ToastAndroid.show(x+'', ToastAndroid.SHORT);
+        ToastAndroid.show(x + '', ToastAndroid.SHORT);
     }
     render() {
         const { navigate } = this.props.navigation;
         return (
             <FlatList
-                numColumns = {3}
+                numColumns={3}
                 refreshing={this.state.refreshing}
                 onRefresh={() => this.refresh()}
                 data={this.state.noidung}
                 keyExtractor={(x, i) => i.toString()}
                 renderItem={({ item }) => (
-                    <View style={{  flex:1, margin: 2 }}>
-                        <TouchableOpacity onPress = {()=>this.showPic(item.id, item.title.rendered)}>
-                        <Image source={{ uri: item.guid.rendered.replace("http://localhost", API.getURL()) }}
-                            style={{ weight: 1, height: 200, resizeMode: 'cover' }}
-                        />
-                        <Text style={{padding: 2,height: 22,marginTop: -50, backgroundColor: 'rgba(255,255,255,0.3)'}}>{item.title.rendered}</Text>
+                    <View style={{ flex: 1, margin: 2 }}>
+                        <TouchableOpacity onPress={() => this.showPic(item.id, item.title.rendered)}>
+                            <Image source={{ uri: item.guid.rendered.replace("http://localhost", API.getURL()) }}
+                                style={{ weight: 1, height: 200, resizeMode: 'cover' }}
+                            />
+                            <Text style={{ padding: 2, height: 22, marginTop: -50, backgroundColor: 'rgba(255,255,255,0.3)' }}>{item.title.rendered}</Text>
                         </TouchableOpacity>
                     </View>
                 )}
