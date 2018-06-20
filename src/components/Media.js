@@ -1,64 +1,158 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import {
-    View, Text, StyleSheet, Alert,
-    Image, ToastAndroid, TouchableOpacity, FlatList
-}
-    from 'react-native'
+  Alert,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  View,
+  StyleSheet,
+  ToastAndroid,
+} from "react-native";
 import API from "../API";
-import HTMLView from "react-native-htmlview";
-export default class Media extends Component {
+import ItemImage from "./items/ItemImage";
+import IonIcon from "react-native-vector-icons/Ionicons";
+import Base64 from '../Base64'
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            noidung: [],
-            refreshing: true
-        };
-    }
-    componentDidMount() {
-        this.props.navigation.addListener('didFocus', () => {
-            this.loadData();
-        });
-    }
-    async loadData() {
-        this.setState({ refreshing: true });
-        fetch(API.getURL() + "/thuctap/wp-json/wp/v2/media/")
-            .then(response => response.json())
-            .then(responseJson => {
-                if (responseJson == null) {
-                    Alert.alert("Lỗi", "Không có nội dung");
-                } else {
-                    this.setState({ noidung: responseJson, refreshing: false });
-                }
-            });
-    }
-    showPic(i, x) {
-        this.props.navigation.navigate("scchitiet", { id: i });
-        ToastAndroid.show(x + '', ToastAndroid.SHORT);
-    }
-    render() {
-        const { navigate } = this.props.navigation;
-        return (
-            <FlatList
-                numColumns={3}
-                refreshing={this.state.refreshing}
-                onRefresh={() => this.refresh()}
-                data={this.state.noidung}
-                keyExtractor={(x, i) => i.toString()}
-                renderItem={({ item }) => (
-                    <View style={{ flex: 1, margin: 2 }}>
-                        <TouchableOpacity onPress={() => this.showPic(item.id, item.title.rendered)}>
-                            <Image source={{ uri: item.guid.rendered.replace("http://localhost", API.getURL()) }}
-                                style={{ weight: 1, height: 200, resizeMode: 'cover' }}
-                            />
-                            <Text style={{ padding: 2, height: 22, marginTop: -50, backgroundColor: 'rgba(255,255,255,0.3)' }}>{item.title.rendered}</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
-            />
-        );
-    }
-    refresh() {
-        this.loadData();
-    }
+export default class Media extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      noidung: [],
+      refreshing: true,
+      selected: new Set(),
+      page: 1
+    };
+  }
+
+  componentDidMount() {
+    this.props.navigation.addListener("didFocus", () => {
+      this.refresh();
+    });
+  }
+  async loadData() {
+    this.setState({ refreshing: true});
+    fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/?page=${this.state.page}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson == null) {
+          Alert.alert("Lỗi", "Không có nội dung");
+        } else {
+          this.setState({ noidung:[...this.state.noidung, ...responseJson] , refreshing: false });
+        }
+      });
+  }
+
+  //_loadMore = () =>
+  _loadMore(){
+    this.setState({page:this.state.page+1});
+    this.loadData();
+  }
+
+  //xử lý khi nhấn lâu vào một item
+  _onLongPressItem = id => {
+    this.setState(state => {
+      const selected = new Set(state.selected);
+      this.state.selected.has(id) ? selected.delete(id) : selected.add(id);
+      //selected.set(id, !selected.get(id));
+      return { selected };
+    });
+  };
+
+  _renderItem = ({ item }) => (
+    <ItemImage
+      id={item.id}
+      guid={item.media_details.sizes.medium.source_url.replace("http://localhost", API.getURL())}
+      title={item.title.rendered}
+      onLongPressItem={this._onLongPressItem}
+      selected={this.state.selected.has(item.id)}
+      hasSelected={this.state.selected.size === 0 ? false : true}
+      navigation={this.props.navigation}
+    />
+  );
+
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={{ flexDirection: "column" }}>
+        <FlatList
+          numColumns={3}
+          refreshing={this.state.refreshing}
+          onRefresh={() => this.refresh()}
+          data={this.state.noidung}
+          keyExtractor={(x, i) => x.id}
+          extraData={this.state.selected}
+          renderItem={this._renderItem}
+          onEndReachedThreshold={0.2}
+          onEndReached={()=>{this._loadMore()}}
+        />
+        {this.state.selected.size != 0 && (
+          <TouchableOpacity onPress={this._before_Delete} style={myStyle.button}>
+            <IonIcon style={{ color: "white" }} name="md-trash" size={27} />
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  }
+
+  _delete= () =>{
+    this.state.selected.forEach(value => {
+      fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/${value}?force=true`, {
+        headers: {
+          Authorization:
+            "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")//MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+        },
+        method: "DELETE"
+      }).then(response => {
+        var t = response.status;
+        if (response.status == 200) {
+          this.state.selected.clear();
+          ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
+          this.refresh();
+        } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+      })
+    });
+  }
+
+  _before_Delete = ()=> {
+    Alert.alert(
+      "Thông báo",
+      "Bạn sẽ xóa vĩnh viễn những hình này trong trang web của bạn",
+      [
+        {
+          text: "Xóa",
+          onPress: this._delete
+        },
+        { text: "Hủy", style: "cancel" }
+      ],
+      { cancelable: false }
+    );
+   return true
+  }
+
+  refresh() {
+    this.setState({page:1,noidung:[]});
+    this.loadData();
+  }
 }
+
+const myStyle = StyleSheet.create({
+  button: {
+    flexDirection: "row",
+    position: "absolute",
+    width: 50,
+    height: 50,
+    bottom: 0,
+    right: 0,
+    backgroundColor: "#088A4B",
+    zIndex: 0,
+    margin: 10,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 20, height: 20 },
+    shadowOpacity: 1.0,
+    shadowRadius: 10,
+    elevation: 5
+  }
+});
