@@ -6,9 +6,8 @@ const MediaTo = StackNavigator({
   scmedia: {
     screen: Media,
     navigationOptions: {
-      headerTitle: "Chọn hình ảnh",
       headerStyle: {
-        height:50
+        height:0
       }
     }
   },
