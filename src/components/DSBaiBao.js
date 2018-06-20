@@ -105,7 +105,7 @@ class DSBaiBao extends Component {
             fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
               headers: {
                 Authorization:
-                  "Basic " + Base64.btoa("admin:SO1H sjHe BmAm jzX1 wQZc 5LlD")//MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")//MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
               },
               method: "DELETE"
             }).then(response => {
