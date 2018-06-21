@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-  AsyncStorage,
-  Image,
+  Text, View, StyleSheet, TextInput, TouchableOpacity,
+  Alert, ActivityIndicator, AsyncStorage, Image,
   ImageBackground
 } from "react-native";
-import { NavigationActions } from "react-navigation";
-import API from "../API";
+import API from "../../API";
 
 export default class App extends Component {
   state = {

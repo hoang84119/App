@@ -1,7 +1,7 @@
+// Hiển thị hình ảnh trong media
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Image, ToastAndroid, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import IonIcon from "react-native-vector-icons/Ionicons"
-
 
 class ItemImage extends Component {
   _onLongPress = () => {
@@ -11,11 +11,9 @@ class ItemImage extends Component {
     if (this.props.hasSelected) this.props.onLongPressItem(this.props.id);
     else {
       this.props.navigation.navigate("scchitiet", { id: this.props.id });
-      //ToastAndroid.show(this.props.title + "", ToastAndroid.SHORT);
-    }
+  }
   };
   render() {
-    const ColorSelected = this.props.selected ? "red" : "rgba(255,255,255,0)";
     const zIndexAuTo = this.props.selected? 1:-1
 
     return (
@@ -49,7 +47,6 @@ class ItemImage extends Component {
                 height: 22,
                 marginTop: -50,
                 backgroundColor: "rgba(255,255,255,0.3)"
-                //backgroundColor: ColorSelected
               }}
             >
               {this.props.title}
