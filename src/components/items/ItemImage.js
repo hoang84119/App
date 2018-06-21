@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,TouchableOpacity,Text,Image,ToastAndroid } from 'react-native';
+import { View,TouchableOpacity,Text,Image,ToastAndroid,TouchableWithoutFeedback } from 'react-native';
 
 class ItemImage extends Component {
   _onLongPress = () => {
@@ -15,12 +15,13 @@ class ItemImage extends Component {
   render() {
     const ColorSelected = this.props.selected ? "red" : "rgba(255,255,255,0.3)";
     return (
-      <View style={{ flex: 1, margin: 2 }}>
-        <TouchableOpacity
+      <View style={{ flex: 1, margin: 2, borderColor: ColorSelected,borderWidth:2 }}>
+        <TouchableWithoutFeedback
           onLongPress={this._onLongPress}
           onPress={this._onPress}
         >
-          <Image
+        <View>
+        <Image
             source={{
               uri: this.props.guid
             }}
@@ -32,12 +33,14 @@ class ItemImage extends Component {
               height: 22,
               marginTop: -50,
               //backgroundColor: "rgba(255,255,255,0.3)"
-              backgroundColor: ColorSelected
+              //backgroundColor: ColorSelected
             }}
           >
             {this.props.title}
           </Text>
-        </TouchableOpacity>
+        </View>
+          
+        </TouchableWithoutFeedback>
       </View>
     );
   }

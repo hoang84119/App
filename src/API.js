@@ -54,7 +54,6 @@ module.exports = API = {
   },
   UploadImage: async function(path) {
     try {
-      console.log()
       let formData = new FormData();
       formData.append("file", path);
       let response = await fetch(
@@ -70,11 +69,8 @@ module.exports = API = {
           method: "POST"
         }
       );
-      console.log(response);
       if(response.status= 201 ){
         let json = await response.json();
-        console.log(json);
-        console.log(json.guid.rendered);
         return json.guid.rendered;
       }
       console.log("Lỗi");
