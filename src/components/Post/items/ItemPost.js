@@ -1,25 +1,42 @@
 import React, { Component } from "react";
-import {View, TouchableOpacity, Image, StyleSheet, ToastAndroid, Text} from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  ToastAndroid,
+  Text,
+  Alert
+} from "react-native";
 import HTML from "react-native-render-html";
-import Base64 from '../../../config/Base64';
-import IonIcon from 'react-native-vector-icons/Ionicons';
+import Base64 from "../../../config/Base64";
+import IonIcon from "react-native-vector-icons/Ionicons";
 class ItemPost extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { featured_media: "" };
+  }
+  // componentWillMount() {
+  //   this._getFeaturedMedia();
+  // }
+
+  componentWillReceiveProps(){
+    this._getFeaturedMedia();
   }
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
         <View style={myStyle.baibao}>
           <TouchableOpacity
-            onPress={() => this.xem(this.props.data.id, this.props.data.title.rendered)}
+            onPress={() =>
+              this.xem(this.props.data.id, this.props.data.title.rendered)
+            }
           >
             <View style={{ flexDirection: "row" }}>
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <Image
                   style={myStyle.hinh}
-                  source={{ uri: this.getSrcImage(this.props.data.content.rendered) }}
+                  source={{ uri: this.state.featured_media }}
                 />
               </View>
               <View style={{ flex: 1 }}>
@@ -31,7 +48,12 @@ class ItemPost extends Component {
                 </View>
                 <View style={myStyle.edit}>
                   <TouchableOpacity
-                    onPress={() => this.xoa(this.props.data.id, this.props.data.title.rendered)}
+                    onPress={() =>
+                      this.props.delete(
+                        this.props.data.id,
+                        this.props.data.title.rendered
+                      )
+                    }
                     style={{
                       paddingLeft: 5,
                       flex: 1,
@@ -67,50 +89,54 @@ class ItemPost extends Component {
     this.props.navigation.navigate("chitiet", { id: i });
   }
   xoa(i, t) {
-    Alert.alert(
-      "Thông báo",
-      "Bạn có thật sự muốn xóa ''" + t + "'' không?",
-      [
-        {
-          text: "Xóa",
-          onPress: () => {
-            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
-              headers: {
-                Authorization:
-                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
-              },
-              method: "DELETE"
-            }).then(response => {
-              if (response.status == 200) {
-                ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-                this.loadData();
-              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
-            });
-          }
-        },
-        { text: "Hủy", style: "cancel" }
-      ],
-      { cancelable: false }
-    );
-    return true;
+    this.props.delete(i,t);
   }
   chinhsua(i) {
     this.props.navigation.navigate("chinhsua", { id: i });
   }
+  _getFeaturedMedia() {
+    if (this.props.data.featured_media != 0) {
+      let idImage = this.props.data.featured_media;
+      fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/${idImage}`)
+        .then(response => response.json())
+        .then(responseJson => {
+          if (responseJson == null) {
+            this.setState({
+              featured_media:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe"
+            });
+          } else {
+            let src = responseJson.media_details.sizes.medium.source_url;
+            console.log("src:" + src);
+            this.setState({
+              featured_media: src.replace("http://localhost", API.getURL())
+            });
+          }
+        });
+    } else {
+      this.getSrcImage();
+    }
+  }
   // lấy nguồn hình ảnh từ content html
-  getSrcImage(content) {
+  async getSrcImage() {
+    //if(this.props.data.featured_media!=0) return this._getFeaturedMedia(this.props.data.featured_media);
+    let content = this.props.data.content.rendered;
     //tìm thẻ img đầu tiên
     let indexImg = content.toString().indexOf("<img");
+    var src =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
     //không tìm thấy trả về đường dẫn mặc định
-    if (indexImg == -1)
-      return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
-    // tìm vị trí mở src
-    let indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
-    //tìm vị trí đóng src
-    let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
-    //lấy đường dẫn
-    let src = content.substring(indexSrcStart, indexSrcEnd);
-    return src.replace("http://localhost", API.getURL());
+    if (indexImg != -1) {
+      // tìm vị trí mở src
+      let indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
+      //tìm vị trí đóng src
+      let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
+      //lấy đường dẫn
+      src = content.substring(indexSrcStart, indexSrcEnd).replace("http://localhost", API.getURL());
+      let response = await fetch(src);
+      if(response.status!=200) src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
+    }
+    this.setState({ featured_media: src });
   }
   // Xóa link trong nội dung
   removeLink(content) {

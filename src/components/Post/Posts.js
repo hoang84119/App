@@ -11,6 +11,7 @@ import {
 import API from "../../config/API";
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import ItemPost from "./items/ItemPost";
+import Base64 from "../../config/Base64";
 
 class Posts extends Component {
   constructor(props) {
@@ -59,9 +60,37 @@ class Posts extends Component {
         data={this.state.noidung}
         keyExtractor={(x, i) => i.toString()}
         renderItem={({ item }) => (
-          <ItemPost data={item} navigation={this.props.navigation}/>
+          <ItemPost data={item} navigation={this.props.navigation} delete={this._delete}/>
         )}
       />
+    );
+  }
+
+  _delete = (i, t)=> {
+    Alert.alert(
+      "Thông báo",
+      "Bạn có thật sự muốn xóa ''" + t + "'' không?",
+      [
+        {
+          text: "Xóa",
+          onPress: () => {
+            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
+              headers: {
+                Authorization:
+                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+              },
+              method: "DELETE"
+            }).then(response => {
+              if (response.status == 200) {
+                ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
+                this.refresh();
+              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+            });
+          }
+        },
+        { text: "Hủy", style: "cancel" }
+      ],
+      { cancelable: false }
     );
   }
 
@@ -69,7 +98,7 @@ class Posts extends Component {
     this._loadData();
   }
 
-  async _loadData() {
+  _loadData() {
     this.setState({ refreshing: true });
     //this.props.dispatch({type:'RefreshPost'});
     fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts")
@@ -96,11 +125,6 @@ class Posts extends Component {
     // this.props.navigation.setParams({ isAdding: true });
     this.props.navigation.navigate("thembaiviet");
   }
-
-  // async _getFeaturedMedia()
-  // {
-  //   let response = await fetch(`${API}`))
-  // }
 
   onBackButtonPress = () => {
     Alert.alert(
