@@ -5,17 +5,11 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
-  Image,
   TouchableOpacity,
-  Dimensions,
-  PixelRatio,
-  ImageBackground,
   ActivityIndicator,
   FlatList,
-  ToastAndroid
 } from "react-native";
-import API from "../API";
-import HTML from "react-native-render-html";
+import API from "../../API";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";

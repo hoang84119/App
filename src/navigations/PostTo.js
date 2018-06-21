@@ -1,10 +1,10 @@
 import { StackNavigator } from "react-navigation";
-import PostDetail from "../components/PostDetail";
-import EditPost from "../components/EditPost";
-import Posts from "../components/Posts";
+import PostDetail from "../components/Post/PostDetail";
+import EditPost from "../components/Post/EditPost";
+import Posts from "../components/Post/Posts";
 import AddPost from "../components/Post/AddPost";
-import Media from "../components/Media"
-import MediaDetail from "../components/MediaDetail"
+import Media from "../components/Media/Media"
+import MediaDetail from "../components/Media/MediaDetail"
 
 const PostTo = StackNavigator({
   main: {
