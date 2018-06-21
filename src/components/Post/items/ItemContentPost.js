@@ -14,7 +14,7 @@ class ItemContentPost extends Component {
             minHeight: 10,
             resizeMode: "cover"
           }}
-          source={require("../../image/header.png")}
+          source={require("../../../image/header.png")}
         >
           <View style={myStyle.title}>
             {this.props.loaded && (
@@ -48,7 +48,7 @@ class ItemContentPost extends Component {
           <View style={{ alignItems: "center", flex: 1, margin: 10 }}>
             <Image
               style={{ width: 150, height: 11 }}
-              source={require("../../image/line.png")}
+              source={require("../../../image/line.png")}
             />
           </View>
           <View style={myStyle.content}>

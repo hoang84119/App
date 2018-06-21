@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {
-  Image,
   View,
-  Text,
   StyleSheet,
   Alert,
   TouchableOpacity,
@@ -24,7 +22,6 @@ class AddPost extends Component {
   async getHTML() {
     const titleHtml = await this.richtext.getTitleHtml();
     const contentHtml = await this.richtext.getContentHtml();
-    var html = contentHtml;
     alert(titleHtml + " " + contentHtml);
   }
 
