@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {ToastAndroid, Alert, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 import ImageZoom from 'react-native-image-pan-zoom';
-import API from "../../API";
+import API from "../../components/Config/API";
 
 export default class MediaDetail extends Component {
     static navigationOptions = ({ navigation }) => {

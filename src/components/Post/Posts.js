@@ -8,7 +8,7 @@ import {
   ToastAndroid,
   AsyncStorage,
 } from "react-native";
-import API from "../../API";
+import API from "../../components/Config/API";
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import ItemPost from "./items/ItemPost";
 

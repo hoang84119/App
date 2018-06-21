@@ -3,7 +3,7 @@ import { ImageBackground, Image, View, ActivityIndicator, Text, StyleSheet } fro
 import LoginToPost from "./src/navigations/LogiToPost";
 //import PostTo from "./src/navigations/PostTo";
 import Tab from "./src/navigations/TabNavigator"
-import API from "./src/API";
+import API from "./src/components/Config/API";
 
 //Tạo store trong redux
 // const defaultState={refreshingPosts: true};

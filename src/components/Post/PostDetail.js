@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import API from "../../API";
+import API from "../../components/Config/API";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
