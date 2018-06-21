@@ -169,7 +169,7 @@ class CTBaiBao extends Component {
                       <View style={myStyle.khungAvatar}>
                         <Image
                           style={myStyle.avatar}
-                          source={{uri: item.author_avatar_urls }} />
+                          source={{uri: item.author_avatar_urls[96] }} />
                       </View>
                       <View style={{ marginLeft: 5, borderWidth: 1, borderColor: "#f6f6f6", flex: 1, borderRadius: 10 }}>
                         {/* Thông tin user */}
