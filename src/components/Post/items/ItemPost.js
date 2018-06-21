@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {View, TouchableOpacity, Image, StyleSheet, ToastAndroid, Text} from "react-native";
 import HTML from "react-native-render-html";
-import Base64 from '..../Base64';
+import Base64 from '../../../Base64';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 class ItemPost extends Component {
   constructor(props) {

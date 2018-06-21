@@ -1,6 +1,6 @@
 import React from 'react';
 import PostTo from "./PostTo";
-import Account from "../components/Account";
+import Account from "../components/User/Account";
 import { TabNavigator, TabBarBottom } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 

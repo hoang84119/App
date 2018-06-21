@@ -4,7 +4,6 @@ import LoginToPost from "./src/navigations/LogiToPost";
 //import PostTo from "./src/navigations/PostTo";
 import Tab from "./src/navigations/TabNavigator"
 import API from "./src/API";
-import Media from "./src/components/Media"
 
 //Tạo store trong redux
 // const defaultState={refreshingPosts: true};

@@ -1,6 +1,6 @@
 import { StackNavigator } from "react-navigation";
-import Media from "../components/Media"
-import MediaDetail from "../components/MediaDetail"
+import Media from "../components/Media/Media"
+import MediaDetail from "../components/Media/MediaDetail"
 
 const MediaTo = StackNavigator({
   scmedia: {

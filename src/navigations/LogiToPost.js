@@ -1,5 +1,5 @@
 import {StackNavigator} from 'react-navigation'
-import DangNhap from '../components/DangNhap'
+import DangNhap from '../components/User/DangNhap'
 import PostTo from './PostTo'
 const LoginToPost=StackNavigator({
     Login:{
