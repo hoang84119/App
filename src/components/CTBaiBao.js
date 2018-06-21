@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   View, Text, StyleSheet, Alert, ScrollView, Image,
   TouchableOpacity, Dimensions, PixelRatio,
-  ImageBackground, ActivityIndicator
+  ImageBackground, ActivityIndicator,FlatList,ToastAndroid
 } from "react-native";
 import API from "../API";
 import HTML from "react-native-render-html"
@@ -14,7 +14,9 @@ class CTBaiBao extends Component {
     this.state = {
       noidung: [],
       tacgia: [],
-      loaded: false
+      binhluan: [],
+      loaded: false,
+      refreshing:true
     };
     //const { navigation } = this.props;
   }
@@ -67,24 +69,24 @@ class CTBaiBao extends Component {
 
   componentDidMount() {
     this.loadData();
+    this.loadComments();
     this.props.navigation.setParams({
       onEdit: this._onEdit.bind(this)
     });
   }
 
-  getSrcImage(content) {
-    //tìm thẻ img đầu tiên
-    let indexImg = content.toString().indexOf("<img");
-    //không tìm thấy trả về đường dẫn mặc định
-    if (indexImg == -1)
-      return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
-    // tìm vị trí mở src
-    let indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
-    //tìm vị trí đóng src
-    let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
-    //lấy đường dẫn
-    let src = content.substring(indexSrcStart, indexSrcEnd);
-    return src.replace("http://localhost", API.getURL());
+  loadComments() {
+    fetch(
+      API.getURL() + "/thuctap/wp-json/wp/v2/comments?post=" + this.props.navigation.getParam("id", "")
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson == null) {
+          Alert.alert("Lỗi", "Không có nội dung");
+        } else {
+          this.setState({ binhluan: responseJson, refreshing: false });
+        }
+      });
   }
 
   render() {
@@ -153,54 +155,63 @@ class CTBaiBao extends Component {
               </View>
             </View>
             {/* Bình luận bài viết */}
-            <View style={{padding: 5}}>
-              <Text style={{padding: 5, fontSize: 20, color: '#088A4B' }}>Bình luận</Text>
-              <View>
-                <View style={{ flexDirection: "row", margin: 5 }}>
-                  {/* Avatar */}
-                  <View style={myStyle.khungAvatar}>
-                    <Image
-                      style={myStyle.avatar}
-                      source={require("../image/header.png")} />
-                  </View>
-                  <View style={{ marginLeft: 5, borderWidth: 1, borderColor: "#f6f6f6", flex: 1, borderRadius: 10 }}>
-                    {/* Thông tin user */}
-                    <View style={{flex: 1, height: 50, paddingLeft: 10, paddingRight: 10 }}>
-                      <Text style={{ color: '#088A4B', fontWeight: 'bold', fontSize: 16 }}>admin</Text>
-                      <Text style={{marginTop: 3}}>2018-06-20T13:46:19</Text>
-                    </View>
-                    {/* Comment */}
-                    <View style={{padding:5, flex: 1, marginBottom: 5, marginLeft: 5, marginRight: 5}}>
-                      <Text style={{ fontSize: 18 }}>Đây là comment</Text>
-                    </View>
+            <View style={{ padding: 5 }}>
+              <Text style={{ padding: 5, fontSize: 20, color: '#088A4B' }}>Bình luận</Text>
+              <FlatList
+                refreshing={this.state.refreshing}
+                //refreshing={this.props.refreshing}
+                onRefresh={() => this.refresh()}
+                data={this.state.binhluan}
+                keyExtractor={(x, i) => i.toString()}
+                renderItem={({ item }) => (
+                    <View style={{ flexDirection: "row", margin: 5 }}>
+                      {/* Avatar */}
+                      <View style={myStyle.khungAvatar}>
+                        <Image
+                          style={myStyle.avatar}
+                          source={{uri: item.author_avatar_urls }} />
+                      </View>
+                      <View style={{ marginLeft: 5, borderWidth: 1, borderColor: "#f6f6f6", flex: 1, borderRadius: 10 }}>
+                        {/* Thông tin user */}
+                        <View style={{ flex: 1, height: 50, paddingLeft: 10, paddingRight: 10 }}>
+                          <Text style={{ color: '#088A4B', fontWeight: 'bold', fontSize: 16 }}>{item.author_name}</Text>
+                          <Text style={{ marginTop: 3 }}>2018-06-20T13:46:19</Text>
+                        </View>
+                        {/* Comment */}
+                        <View style={{ padding: 5, flex: 1, marginBottom: 5, marginLeft: 5, marginRight: 5 }}>
+                          <Text style={{ fontSize: 18 }}>{item.content.rendered}</Text>
+                        </View>
 
-                    {/* Tùy chọn comment */}
-                    <View style={{borderTopWidth: 1, borderColor: "#f6f6f6", flexDirection: 'row',alignContent:'center', flex: 1 }}>
-                      <View style={{paddingTop: 7, paddingBottom: 7, flexDirection: 'row',justifyContent: 'center', flex: 1, alignItems: 'center' }}>
-                          <IonIcon style={{color: '#088A4B' }} name="ios-heart-outline" size={15}> Thích</IonIcon>
-                      </View>
-                      <View style={{paddingTop: 7, paddingBottom: 7, flexDirection: 'row',justifyContent: 'center', flex: 1, alignItems: 'center' }}>
-                          <IonIcon style={{color: '#088A4B' }} name="ios-chatbubbles-outline" size={15}> Trả lời</IonIcon>
-                      </View>
-                      <View style={{paddingTop: 7, paddingBottom: 7, flexDirection: 'row',justifyContent: 'center', flex: 1, alignItems: 'center' }}>
-                          <IonIcon style={{color: '#088A4B' }} name="ios-create-outline" size={15}> Sửa</IonIcon>
-                      </View>
-                      <View style={{paddingTop: 7, paddingBottom: 7, flexDirection: 'row',justifyContent: 'center', flex: 1, alignItems: 'center' }}>
-                          <IonIcon style={{color: '#088A4B' }} name="ios-trash-outline" size={15}> Xóa</IonIcon>
+                        {/* Tùy chọn comment */}
+                        <View style={{ borderTopWidth: 1, borderColor: "#f6f6f6", flexDirection: 'row', alignContent: 'center', flex: 1 }}>
+                          <View style={{ paddingTop: 7, paddingBottom: 7, flexDirection: 'row', justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+                            <IonIcon style={{ color: '#088A4B' }} name="ios-heart-outline" size={15}> Thích</IonIcon>
+                          </View>
+                          <View style={{ paddingTop: 7, paddingBottom: 7, flexDirection: 'row', justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+                            <IonIcon style={{ color: '#088A4B' }} name="ios-chatbubbles-outline" size={15}> Trả lời</IonIcon>
+                          </View>
+                          <View style={{ paddingTop: 7, paddingBottom: 7, flexDirection: 'row', justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+                            <IonIcon style={{ color: '#088A4B' }} name="ios-create-outline" size={15}> Sửa</IonIcon>
+                          </View>
+                          <View style={{ paddingTop: 7, paddingBottom: 7, flexDirection: 'row', justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+                            <IonIcon style={{ color: '#088A4B' }} name="ios-trash-outline" size={15}> Xóa</IonIcon>
+                          </View>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </View>
-                {/* Nội dung comment */}
-
-              </View>
+                )}
+              />
             </View>
           </ScrollView>
         }
       </View>
     );
   }
+  refresh() {
+    this.loadComments();
+  }
 }
+
 const pw = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').width);
 const ph = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height);
 const htmlTitleStyle = {
