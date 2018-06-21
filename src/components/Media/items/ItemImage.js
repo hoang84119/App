@@ -1,7 +1,7 @@
 // Hiển thị hình ảnh trong media
-import React, { Component } from 'react';
-import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
-import IonIcon from "react-native-vector-icons/Ionicons"
+import React, { Component } from "react";
+import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
+import IonIcon from "react-native-vector-icons/Ionicons";
 
 class ItemImage extends Component {
   _onLongPress = () => {
@@ -11,13 +11,13 @@ class ItemImage extends Component {
     if (this.props.hasSelected) this.props.onLongPressItem(this.props.id);
     else {
       this.props.navigation.navigate("scchitiet", { id: this.props.id });
-  }
+    }
   };
   render() {
-    const zIndexAuTo = this.props.selected? 1:-1
+    //const zIndexAuTo = this.props.selected ? 1 : -1;
 
     return (
-      <View style={{ margin: 2,flex: 1, }}>
+      <View style={{ margin: 2, flex: 1 }}>
         <TouchableWithoutFeedback
           onLongPress={this._onLongPress}
           onPress={this._onPress}
@@ -29,17 +29,25 @@ class ItemImage extends Component {
               }}
               style={{ weight: 1, height: 200, resizeMode: "cover" }}
             />
-            <View style={{
-              weight: 1,
-              height: 200,
-              marginTop: -200,
-              zIndex: zIndexAuTo,
-              backgroundColor: "rgba(255,255,255,0.9)",
-              justifyContent: "center",
-              alignItems: "center",
-            }}>
-              <IonIcon style={{marginTop:-25, color: '#afafaf'}} name= "ios-close-circle-outline" size ={50}/>
-            </View>
+            {this.props.selected && (
+              <View
+                style={{
+                  weight: 1,
+                  height: 200,
+                  marginTop: -200,
+                  zIndex: 1,
+                  backgroundColor: "rgba(255,255,255,0.9)",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <IonIcon
+                  style={{ marginTop: -25, color: "#afafaf" }}
+                  name="ios-close-circle-outline"
+                  size={50}
+                />
+              </View>
+            )}
             <Text
               style={{
                 zIndex: 0,
@@ -51,13 +59,11 @@ class ItemImage extends Component {
             >
               {this.props.title}
             </Text>
-            
           </View>
-
         </TouchableWithoutFeedback>
       </View>
     );
   }
 }
 
-export default ItemImage
+export default ItemImage;
