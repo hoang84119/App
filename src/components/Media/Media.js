@@ -81,15 +81,6 @@ export default class Media extends Component {
       Alert.alert("Lỗi", "Không có nội dung");
       this.setState({refreshing: false,loading:false});
     }
-    // fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/?page=${this.state.page}`)
-    //   .then(response => response.json())
-    //   .then(responseJson => {
-    //     if (responseJson == null) {
-    //       Alert.alert("Lỗi", "Không có nội dung");
-    //     } else {
-    //       this.setState({ noidung:[...this.state.noidung, ...responseJson] , refreshing: false });
-    //     }
-    //   });
   }
 
   _renderFooter = ()=>{
