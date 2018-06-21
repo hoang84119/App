@@ -20,7 +20,7 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
 
-class CTBaiBao extends Component {
+class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -169,4 +169,4 @@ const myStyle = StyleSheet.create({
     alignItems: "center"
   }
 });
-export default CTBaiBao;
+export default PostDetail;

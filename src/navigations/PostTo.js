@@ -1,15 +1,14 @@
 import { StackNavigator } from "react-navigation";
-import CTBaiBao from "../components/CTBaiBao";
-import ChinhSuaBaiViet from "../components/ChinhSuaBaiViet";
-import DSBaiBao from "../components/DSBaiBao";
-import ThemBaiViet from "../components/ThemBaiViet";
+import PostDetail from "../components/PostDetail";
+import EditPost from "../components/EditPost";
+import Posts from "../components/Posts";
+import AddPost from "../components/Post/AddPost";
 import Media from "../components/Media"
 import MediaDetail from "../components/MediaDetail"
-import DSBaiViet from "../components/DSBaiViet"
 
 const PostTo = StackNavigator({
   main: {
-    screen: DSBaiBao,
+    screen: Posts,
     navigationOptions: {
       headerTitle: "Bài viết",
       headerStyle: {
@@ -19,7 +18,7 @@ const PostTo = StackNavigator({
     }
   },
   chitiet: {
-    screen: CTBaiBao,
+    screen: PostDetail,
     navigationOptions: {
       headerTitle: "Chi tiết bài viết",
       headerStyle: {
@@ -28,7 +27,7 @@ const PostTo = StackNavigator({
     }
   },
   chinhsua: {
-    screen: ChinhSuaBaiViet,
+    screen: EditPost,
     navigationOptions: {
       headerTitle: "Chỉnh sửa",
       headerStyle: {
@@ -37,7 +36,7 @@ const PostTo = StackNavigator({
     }
   },
   thembaiviet: {
-    screen: ThemBaiViet,
+    screen: AddPost,
     navigationOptions: {
       headerTitle:"Thêm bài viết",
       headerStyle: {

@@ -142,7 +142,7 @@ export default class Media extends Component {
         if (response.status == 200) {
           this.state.selected.clear();
           ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-          this.refresh();
+          this._refresh();
         } else Alert.alert("Cảnh báo", "Xóa thất bại!");
       })
     });

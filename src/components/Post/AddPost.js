@@ -14,7 +14,7 @@ import {
 } from "react-native-zss-rich-text-editor";
 import IonIcon from "react-native-vector-icons/Ionicons"
 
-class ThemBaiViet extends Component {
+class AddPost extends Component {
   constructor(props) {
     super(props);
     this.getHTML = this.getHTML.bind(this);
@@ -59,7 +59,6 @@ class ThemBaiViet extends Component {
       var t = response.status;
       if (response.status == 201) {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
-        //DSBaiBao.loadData();
         this.props.navigation.navigate("main");
       } else Alert.alert("Lỗi", "Thất bại");
     });
@@ -163,4 +162,4 @@ const Base64 = {
   }
 };
 
-export default ThemBaiViet;
+export default AddPost;

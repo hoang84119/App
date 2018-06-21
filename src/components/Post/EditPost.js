@@ -20,7 +20,7 @@ var options = {
   cancelButtonTitle: "Hủy"
 };
 
-class ChinhSuaBaiViet extends Component {
+class EditPost extends Component {
   constructor(props) {
     super(props);
     this.getHTML = this.getHTML.bind(this);
@@ -275,5 +275,5 @@ const Base64 = {
   }
 };
 
-export default ChinhSuaBaiViet;
+export default EditPost;
 //export default connect()(CTBaiBao);
