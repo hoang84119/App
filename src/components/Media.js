@@ -7,6 +7,7 @@ import {
   View,
   StyleSheet,
   ToastAndroid,
+  ActivityIndicator
 } from "react-native";
 import API from "../API";
 import ItemImage from "./items/ItemImage";
@@ -19,34 +20,94 @@ export default class Media extends Component {
     this.state = {
       noidung: [],
       refreshing: true,
+      loading: false,
       selected: new Set(),
-      page: 1
+      page: 1,
+      over:false,
     };
   }
 
   componentDidMount() {
     this.props.navigation.addListener("didFocus", () => {
-      this.refresh();
+      this._refresh();
     });
   }
+
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={{ flexDirection: "column" }}>
+        <FlatList
+          numColumns={3}
+          refreshing={this.state.refreshing}
+          onRefresh={() => this._refresh()}
+          data={this.state.noidung}
+          keyExtractor={(x, i) => x.id}
+          extraData={this.state.selected}
+          renderItem={this._renderItem}
+          onEndReachedThreshold={0.1}
+          onEndReached={()=>{this._loadMore()}}
+          ListFooterComponent={this._renderFooter}
+        />
+        {this.state.selected.size != 0 && (
+          <TouchableOpacity onPress={this._before_Delete} style={myStyle.button}>
+            <IonIcon style={{ color: "white" }} name="md-trash" size={27} />
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  }
+
+  _refresh() {
+    this.setState({page:1,noidung:[],refreshing: true},()=>{this.loadData()});
+    //console.log(this.state);
+    //this.loadData();
+  }
+
+  _loadMore(){
+    if(!this.state.over)
+     this.setState({page:this.state.page+1,loading:true},()=>{this.loadData()});
+    //this.loadData();
+  }
+
   async loadData() {
-    this.setState({ refreshing: true});
-    fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/?page=${this.state.page}`)
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson == null) {
-          Alert.alert("Lỗi", "Không có nội dung");
-        } else {
-          this.setState({ noidung:[...this.state.noidung, ...responseJson] , refreshing: false });
-        }
-      });
+    //this.setState({ refreshing: true});
+    console.log(this.state);
+    let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/?page=${this.state.page}`);
+    if(response.status===200){
+      let responseJson = await response.json();
+      this.setState({ noidung:[...this.state.noidung, ...responseJson] , refreshing: false, loading:false, over:false });
+    }
+    else if(response.status===400){
+      ToastAndroid.show("Hết nội dung", ToastAndroid.LONG);
+      this.setState({refreshing: false,loading:false, over:true});
+    }
+    else{
+      Alert.alert("Lỗi", "Không có nội dung");
+      this.setState({refreshing: false,loading:false});
+    }
+    // fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/?page=${this.state.page}`)
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     if (responseJson == null) {
+    //       Alert.alert("Lỗi", "Không có nội dung");
+    //     } else {
+    //       this.setState({ noidung:[...this.state.noidung, ...responseJson] , refreshing: false });
+    //     }
+    //   });
+  }
+
+  _renderFooter = ()=>{
+    if(!this.state.loading) return null
+    return(
+      <View style={{paddingVertical: 10, borderTopWidth:1,borderBottomColor: "white"}}>
+        <ActivityIndicator animating size="large"/>
+      </View>
+    );
   }
 
   //_loadMore = () =>
-  _loadMore(){
-    this.setState({page:this.state.page+1});
-    this.loadData();
-  }
+  
 
   //xử lý khi nhấn lâu vào một item
   _onLongPressItem = id => {
@@ -69,30 +130,6 @@ export default class Media extends Component {
       navigation={this.props.navigation}
     />
   );
-
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View style={{ flexDirection: "column" }}>
-        <FlatList
-          numColumns={3}
-          refreshing={this.state.refreshing}
-          onRefresh={() => this.refresh()}
-          data={this.state.noidung}
-          keyExtractor={(x, i) => x.id}
-          extraData={this.state.selected}
-          renderItem={this._renderItem}
-          onEndReachedThreshold={0.2}
-          onEndReached={()=>{this._loadMore()}}
-        />
-        {this.state.selected.size != 0 && (
-          <TouchableOpacity onPress={this._before_Delete} style={myStyle.button}>
-            <IonIcon style={{ color: "white" }} name="md-trash" size={27} />
-          </TouchableOpacity>
-        )}
-      </View>
-    );
-  }
 
   _delete= () =>{
     this.state.selected.forEach(value => {
@@ -127,11 +164,6 @@ export default class Media extends Component {
       { cancelable: false }
     );
    return true
-  }
-
-  refresh() {
-    this.setState({page:1,noidung:[]});
-    this.loadData();
   }
 }
 

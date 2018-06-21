@@ -61431,7 +61431,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       alignItems: "center"
     }
   });
-},491,[118,179,12,492,739,599,732,742,601],"App.js");
+},491,[118,179,12,492,741,599,732,744,601],"App.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -79099,10 +79099,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              console.log();
               formData = new FormData();
               formData.append("file", path);
-              _context2.next = 6;
+              _context2.next = 5;
               return regeneratorRuntime.awrap(fetch(API.getURL() + "/thuctap/wp-json/wp/v2/media/", {
                 headers: {
                   Authorization: "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok"),
@@ -79112,39 +79111,36 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 method: "POST"
               }));
 
-            case 6:
+            case 5:
               response = _context2.sent;
-              console.log(response);
 
               if (!(response.status = 201)) {
-                _context2.next = 15;
+                _context2.next = 11;
                 break;
               }
 
-              _context2.next = 11;
+              _context2.next = 9;
               return regeneratorRuntime.awrap(response.json());
 
-            case 11:
+            case 9:
               json = _context2.sent;
-              console.log(json);
-              console.log(json.guid.rendered);
               return _context2.abrupt("return", json.guid.rendered);
 
-            case 15:
+            case 11:
               console.log("Lỗi");
               return _context2.abrupt("return", "");
 
-            case 19:
-              _context2.prev = 19;
+            case 15:
+              _context2.prev = 15;
               _context2.t0 = _context2["catch"](0);
               console.log(_context2.t0);
 
-            case 22:
+            case 18:
             case "end":
               return _context2.stop();
           }
         }
-      }, null, this, [[0, 19]]);
+      }, null, this, [[0, 15]]);
     }
   };
   var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
@@ -79314,7 +79310,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = PostTo;
-},602,[493,603,702,719,731,732,733,738],"src\\navigations\\PostTo.js");
+},602,[493,603,702,719,731,732,735,740],"src\\navigations\\PostTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -79642,6 +79638,305 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   }
                 })
               )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: {
+                  padding: 5
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 156
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: {
+                    padding: 5,
+                    fontSize: 20,
+                    color: '#088A4B'
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 157
+                  }
+                },
+                "B\xECnh lu\u1EADn"
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 158
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: {
+                      flexDirection: "row",
+                      margin: 5
+                    },
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 159
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: myStyle.khungAvatar,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 161
+                      }
+                    },
+                    _react3.default.createElement(_reactNative.Image, {
+                      style: myStyle.avatar,
+                      source: _require(_dependencyMap[6], "../image/header.png"),
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 162
+                      }
+                    })
+                  ),
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: {
+                        marginLeft: 5,
+                        borderWidth: 1,
+                        borderColor: "#f6f6f6",
+                        flex: 1,
+                        borderRadius: 10
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 166
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: {
+                          flex: 1,
+                          height: 50,
+                          paddingLeft: 10,
+                          paddingRight: 10
+                        },
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 168
+                        }
+                      },
+                      _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: {
+                            color: '#088A4B',
+                            fontWeight: 'bold',
+                            fontSize: 16
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 169
+                          }
+                        },
+                        "admin"
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: {
+                            marginTop: 3
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 170
+                          }
+                        },
+                        "2018-06-20T13:46:19"
+                      )
+                    ),
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: {
+                          padding: 5,
+                          flex: 1,
+                          marginBottom: 5,
+                          marginLeft: 5,
+                          marginRight: 5
+                        },
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 173
+                        }
+                      },
+                      _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: {
+                            fontSize: 18
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 174
+                          }
+                        },
+                        "\u0110\xE2y l\xE0 comment"
+                      )
+                    ),
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: {
+                          borderTopWidth: 1,
+                          borderColor: "#f6f6f6",
+                          flexDirection: 'row',
+                          alignContent: 'center',
+                          flex: 1
+                        },
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 178
+                        }
+                      },
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: {
+                            paddingTop: 7,
+                            paddingBottom: 7,
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            flex: 1,
+                            alignItems: 'center'
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 179
+                          }
+                        },
+                        _react3.default.createElement(
+                          _Ionicons2.default,
+                          {
+                            style: {
+                              color: '#088A4B'
+                            },
+                            name: "ios-heart-outline",
+                            size: 15,
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 180
+                            }
+                          },
+                          " Th\xEDch"
+                        )
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: {
+                            paddingTop: 7,
+                            paddingBottom: 7,
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            flex: 1,
+                            alignItems: 'center'
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 182
+                          }
+                        },
+                        _react3.default.createElement(
+                          _Ionicons2.default,
+                          {
+                            style: {
+                              color: '#088A4B'
+                            },
+                            name: "ios-chatbubbles-outline",
+                            size: 15,
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 183
+                            }
+                          },
+                          " Tr\u1EA3 l\u1EDDi"
+                        )
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: {
+                            paddingTop: 7,
+                            paddingBottom: 7,
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            flex: 1,
+                            alignItems: 'center'
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 185
+                          }
+                        },
+                        _react3.default.createElement(
+                          _Ionicons2.default,
+                          {
+                            style: {
+                              color: '#088A4B'
+                            },
+                            name: "ios-create-outline",
+                            size: 15,
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 186
+                            }
+                          },
+                          " S\u1EEDa"
+                        )
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: {
+                            paddingTop: 7,
+                            paddingBottom: 7,
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            flex: 1,
+                            alignItems: 'center'
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 188
+                          }
+                        },
+                        _react3.default.createElement(
+                          _Ionicons2.default,
+                          {
+                            style: {
+                              color: '#088A4B'
+                            },
+                            name: "ios-trash-outline",
+                            size: 15,
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 189
+                            }
+                          },
+                          " X\xF3a"
+                        )
+                      )
+                    )
+                  )
+                )
+              )
             )
           )
         );
@@ -79730,6 +80025,29 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       backgroundColor: "#fff",
       justifyContent: "center",
       alignItems: "center"
+    },
+    khungAvatar: {
+      borderWidth: 1,
+      borderColor: '#cfcfcf',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 50,
+      height: 50,
+      borderRadius: 30,
+      overflow: 'hidden',
+      shadowOffset: {
+        width: 2,
+        height: 2
+      },
+      shadowColor: 'black',
+      shadowOpacity: 0,
+      shadowRadius: 2,
+      elevation: 5
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+      resizeMode: 'cover'
     }
   });
 
@@ -97569,6 +97887,32 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
       var _this = _possibleConstructorReturn(this, (Media.__proto__ || Object.getPrototypeOf(Media)).call(this, props));
 
+      _this._renderFooter = function () {
+        if (!_this.state.loading) return null;
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              paddingVertical: 20,
+              borderTopWidth: 1,
+              borderBottomColor: "white"
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 103
+            }
+          },
+          _react3.default.createElement(_reactNative.ActivityIndicator, {
+            animating: true,
+            size: "large",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 104
+            }
+          })
+        );
+      };
+
       _this._onLongPressItem = function (id) {
         _this.setState(function (state) {
           var selected = new Set(state.selected);
@@ -97591,7 +97935,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           navigation: _this.props.navigation,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 62
+            lineNumber: 123
           }
         });
       };
@@ -97634,8 +97978,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _this.state = {
         noidung: [],
         refreshing: true,
+        loading: false,
         selected: new Set(),
-        page: 1
+        page: 1,
+        over: false
       };
       return _this;
     }
@@ -97646,53 +97992,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var _this2 = this;
 
         this.props.navigation.addListener("didFocus", function () {
-          _this2.refresh();
+          _this2._refresh();
         });
-      }
-    }, {
-      key: "loadData",
-      value: function loadData() {
-        var _this3 = this;
-
-        return regeneratorRuntime.async(function loadData$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.setState({
-                  refreshing: true
-                });
-                fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/media/?page=" + this.state.page).then(function (response) {
-                  return response.json();
-                }).then(function (responseJson) {
-                  if (responseJson == null) {
-                    _reactNative.Alert.alert("Lỗi", "Không có nội dung");
-                  } else {
-                    _this3.setState({
-                      noidung: [].concat(_toConsumableArray(_this3.state.noidung), _toConsumableArray(responseJson)),
-                      refreshing: false
-                    });
-                  }
-                });
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, null, this);
-      }
-    }, {
-      key: "_loadMore",
-      value: function _loadMore() {
-        this.setState({
-          page: this.state.page + 1
-        });
-        this.loadData();
       }
     }, {
       key: "render",
       value: function render() {
-        var _this4 = this;
+        var _this3 = this;
 
         var navigate = this.props.navigation.navigate;
         return _react3.default.createElement(
@@ -97703,14 +98009,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 76
+              lineNumber: 39
             }
           },
           _react3.default.createElement(_reactNative.FlatList, {
             numColumns: 3,
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
-              return _this4.refresh();
+              return _this3._refresh();
             },
             data: this.state.noidung,
             keyExtractor: function keyExtractor(x, i) {
@@ -97718,13 +98024,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             extraData: this.state.selected,
             renderItem: this._renderItem,
-            onEndReachedThreshold: 0.2,
+            onEndReachedThreshold: 0.1,
             onEndReached: function onEndReached() {
-              _this4._loadMore();
+              _this3._loadMore();
             },
+            ListFooterComponent: this._renderFooter,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 77
+              lineNumber: 40
             }
           }),
           this.state.selected.size != 0 && _react3.default.createElement(
@@ -97734,7 +98041,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.button,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 89
+                lineNumber: 53
               }
             },
             _react3.default.createElement(_Ionicons2.default, {
@@ -97745,20 +98052,95 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 27,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 90
+                lineNumber: 54
               }
             })
           )
         );
       }
     }, {
-      key: "refresh",
-      value: function refresh() {
+      key: "_refresh",
+      value: function _refresh() {
+        var _this4 = this;
+
         this.setState({
           page: 1,
-          noidung: []
+          noidung: [],
+          refreshing: true
+        }, function () {
+          _this4.loadData();
         });
-        this.loadData();
+      }
+    }, {
+      key: "_loadMore",
+      value: function _loadMore() {
+        var _this5 = this;
+
+        if (!over) this.setState({
+          page: this.state.page + 1,
+          loading: true
+        }, function () {
+          _this5.loadData();
+        });
+      }
+    }, {
+      key: "loadData",
+      value: function loadData() {
+        var response, responseJson;
+        return regeneratorRuntime.async(function loadData$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log(this.state);
+                _context.next = 3;
+                return regeneratorRuntime.awrap(fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/media/?page=" + this.state.page));
+
+              case 3:
+                response = _context.sent;
+
+                if (!(response.status === 200)) {
+                  _context.next = 11;
+                  break;
+                }
+
+                _context.next = 7;
+                return regeneratorRuntime.awrap(response.json());
+
+              case 7:
+                responseJson = _context.sent;
+                this.setState({
+                  noidung: [].concat(_toConsumableArray(this.state.noidung), _toConsumableArray(responseJson)),
+                  refreshing: false,
+                  loading: false,
+                  over: false
+                });
+                _context.next = 12;
+                break;
+
+              case 11:
+                if (response.status === 400) {
+                  _reactNative.ToastAndroid.show("Hết nội dung", _reactNative.ToastAndroid.LONG);
+
+                  this.setState({
+                    refreshing: false,
+                    loading: false,
+                    over: true
+                  });
+                } else {
+                  _reactNative.Alert.alert("Lỗi", "Không có nội dung");
+
+                  this.setState({
+                    refreshing: false,
+                    loading: false
+                  });
+                }
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, this);
       }
     }]);
 
@@ -97791,7 +98173,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       elevation: 5
     }
   });
-},732,[118,179,12,599,744,651,745],"src\\components\\Media.js");
+},732,[118,179,12,599,733,651,734],"src\\components\\Media.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -97872,7 +98254,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           {
             style: {
               flex: 1,
-              margin: 2
+              margin: 2,
+              borderColor: ColorSelected,
+              borderWidth: 2
             },
             __source: {
               fileName: _jsxFileName,
@@ -97880,7 +98264,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             }
           },
           _react3.default.createElement(
-            _reactNative.TouchableOpacity,
+            _reactNative.TouchableWithoutFeedback,
             {
               onLongPress: this._onLongPress,
               onPress: this._onPress,
@@ -97889,35 +98273,43 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 lineNumber: 19
               }
             },
-            _react3.default.createElement(_reactNative.Image, {
-              source: {
-                uri: this.props.guid
-              },
-              style: {
-                weight: 1,
-                height: 200,
-                resizeMode: "cover"
-              },
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 23
-              }
-            }),
             _react3.default.createElement(
-              _reactNative.Text,
+              _reactNative.View,
               {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 23
+                }
+              },
+              _react3.default.createElement(_reactNative.Image, {
+                source: {
+                  uri: this.props.guid
+                },
                 style: {
-                  padding: 2,
-                  height: 22,
-                  marginTop: -50,
-                  backgroundColor: ColorSelected
+                  weight: 1,
+                  height: 200,
+                  resizeMode: "cover"
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 29
+                  lineNumber: 24
                 }
-              },
-              this.props.title
+              }),
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: {
+                    padding: 2,
+                    height: 22,
+                    marginTop: -50
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 30
+                  }
+                },
+                this.props.title
+              )
             )
           )
         );
@@ -97928,7 +98320,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }(_react2.Component));
 
   exports.default = ItemImage;
-},744,[118,179,12],"src\\components\\items\\ItemImage.js");
+},733,[118,179,12],"src\\components\\items\\ItemImage.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -97967,7 +98359,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   };
   exports.default = Base64;
-},745,[],"src\\Base64.js");
+},734,[],"src\\Base64.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -98276,7 +98668,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             return output;
         }
     };
-},733,[118,179,12,734,599],"src\\components\\MediaDetail.js");
+},735,[118,179,12,736,599],"src\\components\\MediaDetail.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -98287,7 +98679,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var image_zoom_component_1 = _require(_dependencyMap[0], "./image-zoom/image-zoom.component");
 
   exports.default = image_zoom_component_1.default;
-},734,[735],"node_modules\\react-native-image-pan-zoom\\built\\index.js");
+},736,[737],"node_modules\\react-native-image-pan-zoom\\built\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -98884,7 +99276,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }(React.Component);
 
     exports.default = ImageViewer;
-},735,[118,12,736,737],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.component.js");
+},737,[118,12,738,739],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.component.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -98900,7 +99292,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     exports.default = {
         container: container
     };
-},736,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.style.js");
+},738,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.style.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -98958,7 +99350,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }();
 
   exports.State = State;
-},737,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.type.js");
+},739,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.type.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -99430,7 +99822,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   };
   exports.default = DSBaiBao;
-},738,[118,179,12,720,599],"src\\components\\DSBaiViet.js");
+},740,[118,179,12,720,599],"src\\components\\DSBaiViet.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -99513,7 +99905,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     animationEnabled: true,
     swipeEnabled: true
   });
-},739,[118,602,740,493,651,741],"src\\navigations\\TabNavigator.js");
+},741,[118,602,742,493,651,743],"src\\navigations\\TabNavigator.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -99589,7 +99981,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }(_react2.Component));
 
     exports.default = Account;
-},740,[118,179,12],"src\\components\\Account.js");
+},742,[118,179,12],"src\\components\\Account.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -99641,7 +100033,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = MediaTo;
-},741,[493,732,733],"src\\navigations\\MediaTo.js");
+},743,[493,732,735],"src\\navigations\\MediaTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -99653,7 +100045,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "background_blur",
     "type": "png"
   });
-},742,[164],"src\\image\\background_blur.png");
+},744,[164],"src\\image\\background_blur.png");
 require(44);
 require(11);
 //# sourceMappingURL=index.map
