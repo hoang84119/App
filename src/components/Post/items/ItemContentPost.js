@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ImageBackground, View, Image,StyleSheet,Dimensions } from "react-native";
 import HTML from "react-native-render-html";
-import API from "../../../components/Config/API";
+import API from "../../../Config/API";
 
 class ItemContentPost extends Component {
   render() {
