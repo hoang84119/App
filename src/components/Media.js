@@ -66,6 +66,7 @@ export default class Media extends Component {
 
   _loadMore(){
     if(!this.state.over)
+    if(!this.state.loading)
      this.setState({page:this.state.page+1,loading:true},()=>{this.loadData()});
     //this.loadData();
   }
@@ -105,9 +106,6 @@ export default class Media extends Component {
       </View>
     );
   }
-
-  //_loadMore = () =>
-  
 
   //xử lý khi nhấn lâu vào một item
   _onLongPressItem = id => {

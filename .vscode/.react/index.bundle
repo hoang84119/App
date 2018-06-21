@@ -79382,7 +79382,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _this.state = {
         noidung: [],
         tacgia: [],
-        loaded: false
+        binhluan: [],
+        loaded: false,
+        refreshing: true
       };
       return _this;
     }
@@ -79457,23 +79459,34 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       key: "componentDidMount",
       value: function componentDidMount() {
         this.loadData();
+        this.loadComments();
         this.props.navigation.setParams({
           onEdit: this._onEdit.bind(this)
         });
       }
     }, {
-      key: "getSrcImage",
-      value: function getSrcImage(content) {
-        var indexImg = content.toString().indexOf("<img");
-        if (indexImg == -1) return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
-        var indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
-        var indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
-        var src = content.substring(indexSrcStart, indexSrcEnd);
-        return src.replace("http://localhost", _API2.default.getURL());
+      key: "loadComments",
+      value: function loadComments() {
+        var _this4 = this;
+
+        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/comments?post=" + this.props.navigation.getParam("id", "")).then(function (response) {
+          return response.json();
+        }).then(function (responseJson) {
+          if (responseJson == null) {
+            _reactNative.Alert.alert("Lỗi", "Không có nội dung");
+          } else {
+            _this4.setState({
+              binhluan: responseJson,
+              refreshing: false
+            });
+          }
+        });
       }
     }, {
       key: "render",
       value: function render() {
+        var _this5 = this;
+
         return _react3.default.createElement(
           _reactNative.View,
           {
@@ -79482,7 +79495,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 92
+              lineNumber: 94
             }
           },
           this.state.loaded == false && _react3.default.createElement(
@@ -79491,7 +79504,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.loadingContainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 94
+                lineNumber: 96
               }
             },
             _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -79499,7 +79512,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               color: "#088A4B",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 99
+                lineNumber: 101
               }
             }),
             _react3.default.createElement(
@@ -79510,7 +79523,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 100
+                  lineNumber: 102
                 }
               },
               "\u0110ang t\u1EA3i"
@@ -79522,7 +79535,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.container,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 106
+                lineNumber: 108
               }
             },
             _react3.default.createElement(
@@ -79537,7 +79550,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 source: _require(_dependencyMap[6], "../image/header.png"),
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 107
+                  lineNumber: 109
                 }
               },
               _react3.default.createElement(
@@ -79546,7 +79559,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.title,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 110
+                    lineNumber: 112
                   }
                 },
                 this.state.loaded && _react3.default.createElement(_reactNativeRenderHtml2.default, {
@@ -79554,7 +79567,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   tagsStyles: htmlTitleStyle,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 112
+                    lineNumber: 114
                   }
                 })
               )
@@ -79568,7 +79581,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 120
+                  lineNumber: 122
                 }
               },
               _react3.default.createElement(
@@ -79577,21 +79590,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.content,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 121
+                    lineNumber: 123
                   }
                 },
                 this.state.loaded && _react3.default.createElement(_reactNativeRenderHtml2.default, {
                   html: "<i>Cập nhật lúc: <b>" + this.state.noidung.modified.replace("T", "   ") + "</b></i>",
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 123
+                    lineNumber: 125
                   }
                 }),
                 this.state.loaded && _react3.default.createElement(_reactNativeRenderHtml2.default, {
                   html: "<i>Người đăng: <b>" + this.state.tacgia.name + "</i></b>",
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 133
+                    lineNumber: 135
                   }
                 })
               ),
@@ -79605,7 +79618,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 140
+                    lineNumber: 142
                   }
                 },
                 _react3.default.createElement(_reactNative.Image, {
@@ -79616,7 +79629,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   source: _require(_dependencyMap[7], "../image/line.png"),
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 141
+                    lineNumber: 143
                   }
                 })
               ),
@@ -79626,7 +79639,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.content,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 145
+                    lineNumber: 147
                   }
                 },
                 this.state.loaded && _react3.default.createElement(_reactNativeRenderHtml2.default, {
@@ -79634,7 +79647,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   imagesMaxWidth: _reactNative.Dimensions.get('window').width - 30,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 147
+                    lineNumber: 149
                   }
                 })
               )
@@ -79647,7 +79660,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 156
+                  lineNumber: 158
                 }
               },
               _react3.default.createElement(
@@ -79660,292 +79673,307 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 157
+                    lineNumber: 159
                   }
                 },
                 "B\xECnh lu\u1EADn"
               ),
-              _react3.default.createElement(
-                _reactNative.View,
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 158
-                  }
+              _react3.default.createElement(_reactNative.FlatList, {
+                refreshing: this.state.refreshing,
+                onRefresh: function onRefresh() {
+                  return _this5.refresh();
                 },
-                _react3.default.createElement(
-                  _reactNative.View,
-                  {
-                    style: {
-                      flexDirection: "row",
-                      margin: 5
-                    },
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 159
-                    }
-                  },
-                  _react3.default.createElement(
-                    _reactNative.View,
-                    {
-                      style: myStyle.khungAvatar,
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 161
-                      }
-                    },
-                    _react3.default.createElement(_reactNative.Image, {
-                      style: myStyle.avatar,
-                      source: _require(_dependencyMap[6], "../image/header.png"),
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 162
-                      }
-                    })
-                  ),
-                  _react3.default.createElement(
+                data: this.state.binhluan,
+                keyExtractor: function keyExtractor(x, i) {
+                  return i.toString();
+                },
+                renderItem: function renderItem(_ref) {
+                  var item = _ref.item;
+                  return _react3.default.createElement(
                     _reactNative.View,
                     {
                       style: {
-                        marginLeft: 5,
-                        borderWidth: 1,
-                        borderColor: "#f6f6f6",
-                        flex: 1,
-                        borderRadius: 10
+                        flexDirection: "row",
+                        margin: 5
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 166
+                        lineNumber: 167
                       }
                     },
                     _react3.default.createElement(
                       _reactNative.View,
                       {
-                        style: {
-                          flex: 1,
-                          height: 50,
-                          paddingLeft: 10,
-                          paddingRight: 10
+                        style: myStyle.khungAvatar,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 169
+                        }
+                      },
+                      _react3.default.createElement(_reactNative.Image, {
+                        style: myStyle.avatar,
+                        source: {
+                          uri: item.author_avatar_urls[96]
                         },
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 168
+                          lineNumber: 170
                         }
-                      },
-                      _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                          style: {
-                            color: '#088A4B',
-                            fontWeight: 'bold',
-                            fontSize: 16
-                          },
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 169
-                          }
-                        },
-                        "admin"
-                      ),
-                      _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                          style: {
-                            marginTop: 3
-                          },
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 170
-                          }
-                        },
-                        "2018-06-20T13:46:19"
-                      )
+                      })
                     ),
                     _react3.default.createElement(
                       _reactNative.View,
                       {
                         style: {
-                          padding: 5,
-                          flex: 1,
-                          marginBottom: 5,
                           marginLeft: 5,
-                          marginRight: 5
-                        },
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 173
-                        }
-                      },
-                      _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                          style: {
-                            fontSize: 18
-                          },
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 174
-                          }
-                        },
-                        "\u0110\xE2y l\xE0 comment"
-                      )
-                    ),
-                    _react3.default.createElement(
-                      _reactNative.View,
-                      {
-                        style: {
-                          borderTopWidth: 1,
+                          borderWidth: 1,
                           borderColor: "#f6f6f6",
-                          flexDirection: 'row',
-                          alignContent: 'center',
-                          flex: 1
+                          flex: 1,
+                          borderRadius: 10
                         },
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 178
+                          lineNumber: 174
                         }
                       },
                       _react3.default.createElement(
                         _reactNative.View,
                         {
                           style: {
-                            paddingTop: 7,
-                            paddingBottom: 7,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
                             flex: 1,
-                            alignItems: 'center'
+                            height: 50,
+                            paddingLeft: 10,
+                            paddingRight: 10
                           },
                           __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 179
+                            lineNumber: 176
                           }
                         },
                         _react3.default.createElement(
-                          _Ionicons2.default,
+                          _reactNative.Text,
                           {
                             style: {
-                              color: '#088A4B'
+                              color: '#088A4B',
+                              fontWeight: 'bold',
+                              fontSize: 16
                             },
-                            name: "ios-heart-outline",
-                            size: 15,
                             __source: {
                               fileName: _jsxFileName,
-                              lineNumber: 180
+                              lineNumber: 177
                             }
                           },
-                          " Th\xEDch"
+                          item.author_name
+                        ),
+                        _react3.default.createElement(
+                          _reactNative.Text,
+                          {
+                            style: {
+                              marginTop: 3
+                            },
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 178
+                            }
+                          },
+                          "2018-06-20T13:46:19"
                         )
                       ),
                       _react3.default.createElement(
                         _reactNative.View,
                         {
                           style: {
-                            paddingTop: 7,
-                            paddingBottom: 7,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
+                            padding: 5,
                             flex: 1,
-                            alignItems: 'center'
+                            marginBottom: 5,
+                            marginLeft: 5,
+                            marginRight: 5
                           },
                           __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 182
+                            lineNumber: 181
                           }
                         },
                         _react3.default.createElement(
-                          _Ionicons2.default,
+                          _reactNative.Text,
                           {
                             style: {
-                              color: '#088A4B'
+                              fontSize: 18
                             },
-                            name: "ios-chatbubbles-outline",
-                            size: 15,
                             __source: {
                               fileName: _jsxFileName,
-                              lineNumber: 183
+                              lineNumber: 182
                             }
                           },
-                          " Tr\u1EA3 l\u1EDDi"
+                          item.content.rendered
                         )
                       ),
                       _react3.default.createElement(
                         _reactNative.View,
                         {
                           style: {
-                            paddingTop: 7,
-                            paddingBottom: 7,
+                            borderTopWidth: 1,
+                            borderColor: "#f6f6f6",
                             flexDirection: 'row',
-                            justifyContent: 'center',
-                            flex: 1,
-                            alignItems: 'center'
+                            alignContent: 'center',
+                            flex: 1
                           },
                           __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 185
+                            lineNumber: 186
                           }
                         },
                         _react3.default.createElement(
-                          _Ionicons2.default,
+                          _reactNative.View,
                           {
                             style: {
-                              color: '#088A4B'
+                              paddingTop: 7,
+                              paddingBottom: 7,
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              flex: 1,
+                              alignItems: 'center'
                             },
-                            name: "ios-create-outline",
-                            size: 15,
                             __source: {
                               fileName: _jsxFileName,
-                              lineNumber: 186
+                              lineNumber: 187
                             }
                           },
-                          " S\u1EEDa"
-                        )
-                      ),
-                      _react3.default.createElement(
-                        _reactNative.View,
-                        {
-                          style: {
-                            paddingTop: 7,
-                            paddingBottom: 7,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            flex: 1,
-                            alignItems: 'center'
-                          },
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 188
-                          }
-                        },
+                          _react3.default.createElement(
+                            _Ionicons2.default,
+                            {
+                              style: {
+                                color: '#088A4B'
+                              },
+                              name: "ios-heart-outline",
+                              size: 15,
+                              __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 188
+                              }
+                            },
+                            " Th\xEDch"
+                          )
+                        ),
                         _react3.default.createElement(
-                          _Ionicons2.default,
+                          _reactNative.View,
                           {
                             style: {
-                              color: '#088A4B'
+                              paddingTop: 7,
+                              paddingBottom: 7,
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              flex: 1,
+                              alignItems: 'center'
                             },
-                            name: "ios-trash-outline",
-                            size: 15,
                             __source: {
                               fileName: _jsxFileName,
-                              lineNumber: 189
+                              lineNumber: 190
                             }
                           },
-                          " X\xF3a"
+                          _react3.default.createElement(
+                            _Ionicons2.default,
+                            {
+                              style: {
+                                color: '#088A4B'
+                              },
+                              name: "ios-chatbubbles-outline",
+                              size: 15,
+                              __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 191
+                              }
+                            },
+                            " Tr\u1EA3 l\u1EDDi"
+                          )
+                        ),
+                        _react3.default.createElement(
+                          _reactNative.View,
+                          {
+                            style: {
+                              paddingTop: 7,
+                              paddingBottom: 7,
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              flex: 1,
+                              alignItems: 'center'
+                            },
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 193
+                            }
+                          },
+                          _react3.default.createElement(
+                            _Ionicons2.default,
+                            {
+                              style: {
+                                color: '#088A4B'
+                              },
+                              name: "ios-create-outline",
+                              size: 15,
+                              __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 194
+                              }
+                            },
+                            " S\u1EEDa"
+                          )
+                        ),
+                        _react3.default.createElement(
+                          _reactNative.View,
+                          {
+                            style: {
+                              paddingTop: 7,
+                              paddingBottom: 7,
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              flex: 1,
+                              alignItems: 'center'
+                            },
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 196
+                            }
+                          },
+                          _react3.default.createElement(
+                            _Ionicons2.default,
+                            {
+                              style: {
+                                color: '#088A4B'
+                              },
+                              name: "ios-trash-outline",
+                              size: 15,
+                              __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 197
+                              }
+                            },
+                            " X\xF3a"
+                          )
                         )
                       )
                     )
-                  )
-                )
-              )
+                  );
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 160
+                }
+              })
             )
           )
         );
       }
+    }, {
+      key: "refresh",
+      value: function refresh() {
+        this.loadComments();
+      }
     }]);
 
     return CTBaiBao;
-  }(_react2.Component), _class.navigationOptions = function (_ref) {
-    var navigation = _ref.navigation;
+  }(_react2.Component), _class.navigationOptions = function (_ref2) {
+    var navigation = _ref2.navigation;
     var _navigation$state$par = navigation.state.params,
         params = _navigation$state$par === undefined ? {} : _navigation$state$par;
 
@@ -79962,7 +79990,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 23
+          lineNumber: 25
         }
       },
       _react3.default.createElement(_Ionicons2.default, {
@@ -79975,7 +80003,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         size: 32,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 30
+          lineNumber: 32
         }
       })
     );
@@ -97893,7 +97921,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _reactNative.View,
           {
             style: {
-              paddingVertical: 20,
+              paddingVertical: 10,
               borderTopWidth: 1,
               borderBottomColor: "white"
             },
@@ -98076,7 +98104,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       value: function _loadMore() {
         var _this5 = this;
 
-        if (!over) this.setState({
+        if (!this.state.over) this.setState({
           page: this.state.page + 1,
           loading: true
         }, function () {
