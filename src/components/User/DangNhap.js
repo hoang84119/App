@@ -4,7 +4,7 @@ import {
   Alert, ActivityIndicator, AsyncStorage, Image,
   ImageBackground
 } from "react-native";
-import API from "../../Config/API";
+import API from "../../config/API";
 
 export default class App extends Component {
   state = {

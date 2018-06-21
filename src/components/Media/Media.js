@@ -3,10 +3,10 @@ import {
   Alert,FlatList,TouchableOpacity,View,StyleSheet,
   ToastAndroid,ActivityIndicator
 } from "react-native";
-import API from "../../Config/API";
+import API from "../../config/API";
 import ItemImage from "./items/ItemImage";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import Base64 from '../../Config/Base64'
+import Base64 from '../../config/Base64'
 
 export default class Media extends Component {
   constructor(props) {
