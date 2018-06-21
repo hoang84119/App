@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View,TouchableOpacity,Text,Image,ToastAndroid,TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableOpacity, Text, Image, ToastAndroid, TouchableWithoutFeedback } from 'react-native';
+import IonIcon from "react-native-vector-icons/Ionicons"
+
 
 class ItemImage extends Component {
   _onLongPress = () => {
@@ -13,33 +15,48 @@ class ItemImage extends Component {
     }
   };
   render() {
-    const ColorSelected = this.props.selected ? "red" : "rgba(255,255,255,0.3)";
+    const ColorSelected = this.props.selected ? "red" : "rgba(255,255,255,0)";
+    const zIndexAuTo = this.props.selected? 1:-1
+
     return (
-      <View style={{ flex: 1, margin: 2, borderColor: ColorSelected,borderWidth:2 }}>
+      <View style={{ margin: 2,flex: 1, }}>
         <TouchableWithoutFeedback
           onLongPress={this._onLongPress}
           onPress={this._onPress}
         >
-        <View>
-        <Image
-            source={{
-              uri: this.props.guid
-            }}
-            style={{ weight: 1, height: 200, resizeMode: "cover" }}
-          />
-          <Text
-            style={{
-              padding: 2,
-              height: 22,
-              marginTop: -50,
-              //backgroundColor: "rgba(255,255,255,0.3)"
-              //backgroundColor: ColorSelected
-            }}
-          >
-            {this.props.title}
-          </Text>
-        </View>
-          
+          <View>
+            <Image
+              source={{
+                uri: this.props.guid
+              }}
+              style={{ weight: 1, height: 200, resizeMode: "cover" }}
+            />
+            <View style={{
+              weight: 1,
+              height: 200,
+              marginTop: -200,
+              zIndex: zIndexAuTo,
+              backgroundColor: "rgba(255,255,255,0.9)",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+              <IonIcon style={{marginTop:-25, color: '#afafaf'}} name= "ios-close-circle-outline" size ={50}/>
+            </View>
+            <Text
+              style={{
+                zIndex: 0,
+                padding: 2,
+                height: 22,
+                marginTop: -50,
+                backgroundColor: "rgba(255,255,255,0.3)"
+                //backgroundColor: ColorSelected
+              }}
+            >
+              {this.props.title}
+            </Text>
+            
+          </View>
+
         </TouchableWithoutFeedback>
       </View>
     );
