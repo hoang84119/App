@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import {
-  Alert,
-  FlatList,
-  TouchableOpacity,
-  Text,
-  View,
-  StyleSheet,
-  ToastAndroid,
-  ActivityIndicator
+  Alert,FlatList,TouchableOpacity,View,StyleSheet,
+  ToastAndroid,ActivityIndicator
 } from "react-native";
-import API from "../API";
+import API from "../../API";
 import ItemImage from "./items/ItemImage";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import Base64 from '../Base64'
+import Base64 from '../../Base64'
 
 export default class Media extends Component {
   constructor(props) {
