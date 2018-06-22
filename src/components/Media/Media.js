@@ -7,6 +7,14 @@ import API from "../../config/API";
 import ItemImage from "./items/ItemImage";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import Base64 from '../../config/Base64'
+var ImagePicker = require("react-native-image-picker");
+
+var options = {
+  title: "Chọn hình ảnh",
+  takePhotoButtonTitle: "Máy ảnh",
+  chooseFromLibraryButtonTitle: "Chọn hình ảnh sẵn có",
+  cancelButtonTitle: "Hủy"
+};
 
 export default class Media extends Component {
   constructor(props) {
@@ -153,7 +161,37 @@ export default class Media extends Component {
   }
 
   _upload_Selected = () => {
-    ToastAndroid.show("Upload thành công!", ToastAndroid.SHORT)
+    ImagePicker.showImagePicker(options, response => {
+      //console.log('Response = ', response);
+      if (response.didCancel) {
+        ToastAndroid.show("Đã hủy", ToastAndroid.SHORT);
+      } else if (response.error) {
+        ToastAndroid.show(
+          "Lỗi Image Picker: " + response.error,
+          ToastAndroid.SHORT
+        );
+      }
+      else {
+        var file = {
+          uri: response.uri,
+          name: response.fileName,
+          fileName: response.path,
+          type: response.type
+        };
+        API.UploadImage(file).then(pathImage => {
+          if (pathImage != "") {
+            ToastAndroid.show("Đang xử lý...", ToastAndroid.LONG)
+            this._refresh();
+            ToastAndroid.show("Upload thành công!", ToastAndroid.SHORT)
+            // pathImage = pathImage.replace(
+            //   "http://localhost",
+            //   API.getURL()
+            // );
+          }
+        });
+      }
+    });
+    
   }
   _before_Delete = () => {
     Alert.alert(

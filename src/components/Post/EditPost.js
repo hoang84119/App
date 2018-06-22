@@ -107,12 +107,7 @@ class EditPost extends Component {
       isSaving: false
     });
     this.loadData();
-    this.setState({ linkIMG: this.props.navigation.getParam("linkHA") });
-    //alert(""+this.props.navigation.getParam("linkHA"))
-    try {
-      this.richtext.insertImage({ src: this.state.linkIMG });
-      this.setState({ linkIMG: "" });
-    } catch (error) {}
+    
     this.props.navigation.addListener('willFocus', ()=>{
       let srcImage = this.props.navigation.getParam("srcImage", "");
       if(srcImage != "")
