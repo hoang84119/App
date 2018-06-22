@@ -12,6 +12,7 @@ import API from "../../config/API";
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import ItemPost from "./items/ItemPost";
 import Base64 from "../../config/Base64";
+import {connect} from 'react-redux'
 
 class Posts extends Component {
   constructor(props) {
@@ -49,7 +50,6 @@ class Posts extends Component {
       onLogout: this._onLogout.bind(this)
       //,isAdding: false
     });
-    
   }
 
   render() {
@@ -62,7 +62,7 @@ class Posts extends Component {
         data={this.state.noidung}
         keyExtractor={(item, index) => item.id}
         renderItem={({ item }) => (
-          <ItemPost data={item} navigation={this.props.navigation} delete={this._delete}/>
+          <ItemPost data={item} navigation={this.props.navigation} delete={this._delete} userName={this.props.dataUser.name}/>
         )}
       />
       </View>
@@ -144,9 +144,9 @@ class Posts extends Component {
 }
 
 
-export default Posts;
+//export default Posts;
 
-// function mapStateToProps(state){
-//   return {refreshing: state.refreshingPosts}
-// }
-// export default connect(mapStateToProps)(DSBaiBao);
+function mapStateToProps(state){
+  return {dataUser: state.dataUser}
+}
+export default connect(mapStateToProps)(Posts);
