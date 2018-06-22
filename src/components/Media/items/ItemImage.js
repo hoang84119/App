@@ -10,10 +10,9 @@ class ItemImage extends Component {
   _onPress = () => {
     if (this.props.hasSelected) this.props.onLongPressItem(this.props.id);
     else {
-      if (this.props.navigation.getParam("checkPost") == true)
-        this.props.navigation.navigate("scchitiet", { id: this.props.id, checkMedia: true });
-      else
-        this.props.navigation.navigate("scchitiet", { id: this.props.id, checkMedia: false });
+      const check = this.props.navigation.getParam("checkPost",0)
+      alert('Media: ' + check)
+      this.props.navigation.navigate("scchitiet", { id: this.props.id, checkMedia: check });
     }
   };
   render() {

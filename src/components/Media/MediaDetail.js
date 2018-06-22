@@ -11,16 +11,14 @@ export default class MediaDetail extends Component {
                 <TouchableOpacity
                     onPress={() => params.onDelete()}
                 >
-                    {/* <Image
-                        style={{ width: 32, height: 32 }}
-                        source={require("../image/ic_post.png")}
-                    /> */}
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Xóa</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' , marginRight: 10}}>Xóa</Text>
                 </TouchableOpacity>
-                {this.props.navigation.getParam("checkMedia") &&
+                {navigation.getParam("checkMedia",0) ===1 &&
                 <TouchableOpacity onPress={() => params.onChinhSua()}>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 15, marginRight: 10 }}>Chọn hình</Text>
-                </TouchableOpacity>}
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn hình</Text>
+                </TouchableOpacity>
+           }
+                
             </View>
         );
         return { headerRight };
@@ -66,7 +64,8 @@ export default class MediaDetail extends Component {
             hinhanh: '',
             chieurong: 0,
             chieudai: 0,
-            link: ''
+            link: '',
+            //check: this.props.navigation.getParam("checkMedia", 0),
             //refreshing: true
         };
     }
