@@ -10,7 +10,10 @@ class ItemImage extends Component {
   _onPress = () => {
     if (this.props.hasSelected) this.props.onLongPressItem(this.props.id);
     else {
-      this.props.navigation.navigate("scchitiet", { id: this.props.id });
+      if (this.props.navigation.getParam("checkPost") == true)
+        this.props.navigation.navigate("scchitiet", { id: this.props.id, checkMedia: true });
+      else
+        this.props.navigation.navigate("scchitiet", { id: this.props.id, checkMedia: false });
     }
   };
   render() {
@@ -42,9 +45,9 @@ class ItemImage extends Component {
                 }}
               >
                 <IonIcon
-                  style={{ marginTop: -25, color: "#afafaf" }}
-                  name="ios-close-circle-outline"
-                  size={50}
+                  style={{ marginTop: -25, color: "#36BC63" }}
+                  name="md-checkmark-circle-outline"
+                  size={30}
                 />
               </View>
             )}

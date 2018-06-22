@@ -159,7 +159,8 @@ class EditPost extends Component {
                   );
                 }
                 else if (response.customButton) {
-                    this.props.navigation.navigate("scmedia");
+
+                    this.props.navigation.navigate("scmedia", {checkPost : true});
                 }
                 else {
                   var file = {

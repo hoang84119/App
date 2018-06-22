@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {ToastAndroid, Alert, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { ToastAndroid, Alert, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 import ImageZoom from 'react-native-image-pan-zoom';
 import API from "../../config/API";
 
@@ -17,9 +17,10 @@ export default class MediaDetail extends Component {
                     /> */}
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Xóa</Text>
                 </TouchableOpacity>
+                {this.props.navigation.getParam("checkMedia") &&
                 <TouchableOpacity onPress={() => params.onChinhSua()}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 15, marginRight: 10 }}>Chọn hình</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
         );
         return { headerRight };
@@ -61,7 +62,7 @@ export default class MediaDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ten:'',
+            ten: '',
             hinhanh: '',
             chieurong: 0,
             chieudai: 0,
@@ -114,50 +115,50 @@ export default class MediaDetail extends Component {
     }
 }
 const chars =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 const Base64 = {
-  btoa: input => {
-    let str = input;
-    let output = "";
+    btoa: input => {
+        let str = input;
+        let output = "";
 
-    for (
-      let block = 0, charCode, i = 0, map = chars;
-      str.charAt(i | 0) || ((map = "="), i % 1);
-      output += map.charAt(63 & (block >> (8 - (i % 1) * 8)))
-    ) {
-      charCode = str.charCodeAt((i += 3 / 4));
+        for (
+            let block = 0, charCode, i = 0, map = chars;
+            str.charAt(i | 0) || ((map = "="), i % 1);
+            output += map.charAt(63 & (block >> (8 - (i % 1) * 8)))
+        ) {
+            charCode = str.charCodeAt((i += 3 / 4));
 
-      if (charCode > 0xff) {
-        throw new Error(
-          "'btoa' failed: The string to be encoded contains characters outside of the Latin1 range."
-        );
-      }
+            if (charCode > 0xff) {
+                throw new Error(
+                    "'btoa' failed: The string to be encoded contains characters outside of the Latin1 range."
+                );
+            }
 
-      block = (block << 8) | charCode;
+            block = (block << 8) | charCode;
+        }
+
+        return output;
+    },
+
+    atob: input => {
+        let str = input.replace(/=+$/, "");
+        let output = "";
+
+        if (str.length % 4 == 1) {
+            throw new Error(
+                "'atob' failed: The string to be decoded is not correctly encoded."
+            );
+        }
+        for (
+            let bc = 0, bs = 0, buffer, i = 0;
+            (buffer = str.charAt(i++));
+            ~buffer && ((bs = bc % 4 ? bs * 64 + buffer : buffer), bc++ % 4)
+                ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6))))
+                : 0
+        ) {
+            buffer = chars.indexOf(buffer);
+        }
+
+        return output;
     }
-
-    return output;
-  },
-
-  atob: input => {
-    let str = input.replace(/=+$/, "");
-    let output = "";
-
-    if (str.length % 4 == 1) {
-      throw new Error(
-        "'atob' failed: The string to be decoded is not correctly encoded."
-      );
-    }
-    for (
-      let bc = 0, bs = 0, buffer, i = 0;
-      (buffer = str.charAt(i++));
-      ~buffer && ((bs = bc % 4 ? bs * 64 + buffer : buffer), bc++ % 4)
-        ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6))))
-        : 0
-    ) {
-      buffer = chars.indexOf(buffer);
-    }
-
-    return output;
-  }
 };

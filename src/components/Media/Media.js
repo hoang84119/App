@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
-  Alert,FlatList,TouchableOpacity,View,StyleSheet,
-  ToastAndroid,ActivityIndicator
+  Alert, FlatList, TouchableOpacity, View, StyleSheet,
+  ToastAndroid, ActivityIndicator,Text
 } from "react-native";
 import API from "../../config/API";
 import ItemImage from "./items/ItemImage";
@@ -17,7 +17,7 @@ export default class Media extends Component {
       loading: false,
       selected: new Set(),
       page: 1,
-      over:false,
+      over: false,
     };
   }
 
@@ -30,7 +30,7 @@ export default class Media extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{ flexDirection: "column" }}>
+      <View style={{ flexDirection: "column" , flex: 1}}>
         <FlatList
           numColumns={3}
           refreshing={this.state.refreshing}
@@ -40,12 +40,31 @@ export default class Media extends Component {
           extraData={this.state.selected}
           renderItem={this._renderItem}
           onEndReachedThreshold={0.1}
-          onEndReached={()=>{this._loadMore()}}
+          onEndReached={() => { this._loadMore() }}
           ListFooterComponent={this._renderFooter}
         />
         {this.state.selected.size != 0 && (
-          <TouchableOpacity onPress={this._before_Delete} style={myStyle.button}>
-            <IonIcon style={{ color: "white" }} name="md-trash" size={27} />
+          <TouchableOpacity onPress={this._before_Delete} style={myStyle.deleteSelect}>
+            <IonIcon style={{ color: "white" , marginLeft: 6}} name="md-trash" size={32}/>
+            <Text style={{
+              // borderWidth: 1,
+              // borderColor: "#FF3030",
+              marginLeft: -12,
+              marginBottom: -20,
+              width: 17,
+              height: 17,
+              textAlign: 'center',
+              backgroundColor: "#000",
+              color: "#fff",
+              borderRadius: 10,
+              padding: 1,
+              fontSize: 11
+            }}>{this.state.selected.size}</Text>
+          </TouchableOpacity>
+        )}
+        {this.state.selected.size == 0 && (
+          <TouchableOpacity onPress={this._upload_Selected} style={myStyle.uploadSelect}>
+            <IonIcon style={{ color: "white" }} name="ios-cloud-upload-outline" size={32} />
           </TouchableOpacity>
         )}
       </View>
@@ -53,15 +72,15 @@ export default class Media extends Component {
   }
 
   _refresh() {
-    this.setState({page:1,noidung:[],refreshing: true},()=>{this.loadData()});
+    this.setState({ page: 1, noidung: [], refreshing: true }, () => { this.loadData() });
     //console.log(this.state);
     //this.loadData();
   }
 
-  _loadMore(){
-    if(!this.state.over)
-    if(!this.state.loading)
-     this.setState({page:this.state.page+1,loading:true},()=>{this.loadData()});
+  _loadMore() {
+    if (!this.state.over)
+      if (!this.state.loading)
+        this.setState({ page: this.state.page + 1, loading: true }, () => { this.loadData() });
     //this.loadData();
   }
 
@@ -69,25 +88,25 @@ export default class Media extends Component {
     //this.setState({ refreshing: true});
     console.log(this.state);
     let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/?page=${this.state.page}`);
-    if(response.status===200){
+    if (response.status === 200) {
       let responseJson = await response.json();
-      this.setState({ noidung:[...this.state.noidung, ...responseJson] , refreshing: false, loading:false, over:false });
+      this.setState({ noidung: [...this.state.noidung, ...responseJson], refreshing: false, loading: false, over: false });
     }
-    else if(response.status===400){
-      ToastAndroid.show("Hết nội dung", ToastAndroid.LONG);
-      this.setState({refreshing: false,loading:false, over:true});
+    else if (response.status === 400) {
+      ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
+      this.setState({ refreshing: false, loading: false, over: true });
     }
-    else{
+    else {
       Alert.alert("Lỗi", "Không có nội dung");
-      this.setState({refreshing: false,loading:false});
+      this.setState({ refreshing: false, loading: false });
     }
   }
 
-  _renderFooter = ()=>{
-    if(!this.state.loading) return null
-    return(
-      <View style={{paddingVertical: 10, borderTopWidth:1,borderBottomColor: "white"}}>
-        <ActivityIndicator animating size="large"/>
+  _renderFooter = () => {
+    if (!this.state.loading) return null
+    return (
+      <View style={{ paddingVertical: 10, borderTopWidth: 1, borderBottomColor: "white" }}>
+        <ActivityIndicator animating size="large" />
       </View>
     );
   }
@@ -114,7 +133,7 @@ export default class Media extends Component {
     />
   );
 
-  _delete= () =>{
+  _delete = () => {
     this.state.selected.forEach(value => {
       fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/${value}?force=true`, {
         headers: {
@@ -133,7 +152,10 @@ export default class Media extends Component {
     });
   }
 
-  _before_Delete = ()=> {
+  _upload_Selected = () => {
+    ToastAndroid.show("Upload thành công!", ToastAndroid.SHORT)
+  }
+  _before_Delete = () => {
     Alert.alert(
       "Thông báo",
       "Bạn sẽ xóa vĩnh viễn những hình này trong trang web của bạn",
@@ -146,20 +168,39 @@ export default class Media extends Component {
       ],
       { cancelable: false }
     );
-   return true
+    return true
   }
 }
 
 const myStyle = StyleSheet.create({
-  button: {
+  deleteSelect: {
     flexDirection: "row",
     position: "absolute",
     width: 50,
     height: 50,
     bottom: 0,
     right: 0,
-    backgroundColor: "#088A4B",
-    zIndex: 0,
+    backgroundColor: "#FF3333",
+    zIndex: 1,
+    margin: 10,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 20, height: 20 },
+    shadowOpacity: 1.0,
+    shadowRadius: 10,
+    elevation: 5
+  },
+  uploadSelect: {
+    flexDirection: "row",
+    position: "absolute",
+    width: 50,
+    height: 50,
+    bottom: 0,
+    right: 0,
+    backgroundColor: "#36BC63",
+    zIndex: 1,
     margin: 10,
     borderRadius: 50,
     justifyContent: "center",
