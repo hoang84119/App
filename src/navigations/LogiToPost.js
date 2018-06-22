@@ -1,12 +1,13 @@
 import {StackNavigator} from 'react-navigation'
 import DangNhap from '../components/User/DangNhap'
 import PostTo from './PostTo'
+import Tab from './TabNavigator'
 const LoginToPost=StackNavigator({
     Login:{
         screen: DangNhap,
     },
     MainScreen:{
-        screen: PostTo,
+        screen: Tab,
         navigationOptions:{
             headerTitle: 'Danh sach',
             gesturesEnabled: false,

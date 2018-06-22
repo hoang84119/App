@@ -13,6 +13,20 @@ import {
 import IonIcon from "react-native-vector-icons/Ionicons";
 import Base64 from '../../config/Base64';
 
+var ImagePicker = require("react-native-image-picker");
+
+var options = {
+  title: "Chọn hình ảnh",
+  customButtons: [{ name: "tv", title: "Chọn ảnh từ thư viện của bạn" }],
+  storageOptions: {
+    skipBackup: true,
+    path: "images"
+  },
+  takePhotoButtonTitle: "Máy ảnh",
+  chooseFromLibraryButtonTitle: "Chọn hình ảnh sẵn có",
+  cancelButtonTitle: "Hủy"
+};
+
 class AddPost extends Component {
   constructor(props) {
     super(props);
@@ -67,6 +81,14 @@ class AddPost extends Component {
       onAdd: this._onAdd.bind(this),
       isAdding: false
     });
+    this.props.navigation.addListener('willFocus', ()=>{
+      let srcImage = this.props.navigation.getParam("srcImage", "");
+      if(srcImage != "")
+      {
+        this.richtext.insertImage({ src: srcImage });
+        this.props.navigation.setParams({srcImage: ""});
+      }
+    });
   }
 
   render() {
@@ -78,7 +100,45 @@ class AddPost extends Component {
           titlePlaceholder={"Tiêu đề bài viết"}
           contentPlaceholder={"Nội dung bài viết"}
         />
-        <RichTextToolbar getEditor={() => this.richtext} />
+        <RichTextToolbar
+
+          onPressAddImage={() => {
+            ImagePicker.showImagePicker(options, response => {
+              //console.log('Response = ', response);
+              if (response.didCancel) {
+                ToastAndroid.show("Đã hủy", ToastAndroid.SHORT);
+              } else if (response.error) {
+                ToastAndroid.show(
+                  "Lỗi Image Picker: " + response.error,
+                  ToastAndroid.SHORT
+                );
+              }
+              else if (response.customButton) {
+
+                this.props.navigation.navigate("scmedia", { src: "thembaiviet" });
+              }
+              else {
+                var file = {
+                  uri: response.uri,
+                  name: response.fileName,
+                  fileName: response.path,
+                  type: response.type
+                };
+                API.UploadImage(file).then(pathImage => {
+                  if (pathImage != "") {
+
+                    pathImage = pathImage.replace(
+                      "http://localhost",
+                      API.getURL()
+                    );
+                    this.richtext.insertImage({ src: pathImage });
+                  }
+                });
+              }
+            });
+          }}
+
+          getEditor={() => this.richtext} />
       </View>
     );
   }

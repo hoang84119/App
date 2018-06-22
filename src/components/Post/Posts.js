@@ -22,11 +22,11 @@ class Posts extends Component {
       featured_media: ""
     };
   }
-
+  
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     let headerRight = (
-      <View style={{ flexDirection: "row", alignItems: 'center' }}>
+      <View style={{ flexDirection: "row", alignItems: 'center', backgroundColor: "rgba(255,255,255,0)" }}>
         <TouchableOpacity onPress={() => params.onAdd()}>
           <IonIcon style={{ marginLeft: 10, marginRight: 10, color: '#088A4B' }} name="ios-add-outline" size={42} />
         </TouchableOpacity>
@@ -54,6 +54,7 @@ class Posts extends Component {
 
   render() {
     return (
+      <View style={{flex:1, backgroundColor: "#fcfcfc"}}>
       <FlatList
         refreshing={this.state.refreshing}
         //refreshing={this.props.refreshing}
@@ -64,6 +65,7 @@ class Posts extends Component {
           <ItemPost data={item} navigation={this.props.navigation} delete={this._delete}/>
         )}
       />
+      </View>
     );
   }
 

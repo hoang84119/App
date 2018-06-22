@@ -30,7 +30,7 @@ export default class Media extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{ flexDirection: "column" , flex: 1}}>
+      <View style={{ flexDirection: "column" , flex: 1, backgroundColor: "white"}}>
         <FlatList
           numColumns={3}
           refreshing={this.state.refreshing}

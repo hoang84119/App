@@ -11,14 +11,20 @@ export default class MediaDetail extends Component {
                 <TouchableOpacity
                     onPress={() => params.onDelete()}
                 >
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' , marginRight: 10}}>Xóa</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Xóa</Text>
                 </TouchableOpacity>
-                {navigation.getParam("checkMedia",0) ===1 &&
-                <TouchableOpacity onPress={() => params.onChinhSua()}>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn hình</Text>
-                </TouchableOpacity>
-           }
-                
+                {navigation.getParam("src", 0) === "chinhsua" &&
+                    <TouchableOpacity onPress={() => params.comeBack()}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn hình</Text>
+                    </TouchableOpacity>
+
+                }
+                {navigation.getParam("src", 0) === "thembaiviet" &&
+                    <TouchableOpacity onPress={() => params.comeBack()}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn hình</Text>
+                    </TouchableOpacity>
+
+                }
             </View>
         );
         return { headerRight };
@@ -52,9 +58,9 @@ export default class MediaDetail extends Component {
             { cancelable: false }
         );
     }
-    _onChinhSua() {
+    _comeBack() {
         //Alert.alert("T", this.state.hinhanh.replace("http://localhost", API.getURL()));
-        this.props.navigation.navigate("chinhsua", { srcImage: this.state.hinhanh.replace("http://localhost", API.getURL()) });
+        this.props.navigation.navigate(`${this.props.navigation.getParam("src")}`, { srcImage: this.state.hinhanh.replace("http://localhost", API.getURL()) });
     }
 
     constructor(props) {
@@ -92,9 +98,10 @@ export default class MediaDetail extends Component {
     componentDidMount() {
         this.loadData();
         this.props.navigation.setParams({
-            onChinhSua: this._onChinhSua.bind(this),
+            comeBack: this._comeBack.bind(this),
             onDelete: this._onDelete.bind(this)
         });
+        //alert(this.props.navigation.getParam("src","rong"))
     }
     render() {
         return (

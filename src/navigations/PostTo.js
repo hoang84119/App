@@ -11,8 +11,12 @@ const PostTo = StackNavigator({
     screen: Posts,
     navigationOptions: {
       headerTitle: "Bài viết",
+      headerTitleStyle:{
+        color: "#36BC63"
+      },
       headerStyle: {
-        height:46
+        height:46,
+        alignItems: "center",
       },
       tabBarVisible: true
     }
