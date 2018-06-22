@@ -1,5 +1,6 @@
 export const url = "http://192.168.1.128";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, ToastAndroid } from "react-native";
+import Base64 from "./Base64";
 module.exports = API = {
   getURL() {
     return url;
@@ -57,19 +58,18 @@ module.exports = API = {
       let formData = new FormData();
       formData.append("file", path);
       let response = await fetch(
-        API.getURL() +
-          "/thuctap/wp-json/wp/v2/media/",
+        API.getURL() + "/thuctap/wp-json/wp/v2/media/",
         {
           headers: {
             Authorization:
               "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok"),
-            'Content-Type': 'multipart/form-data'
+            "Content-Type": "multipart/form-data"
           },
           body: formData,
           method: "POST"
         }
       );
-      if(response.status= 201 ){
+      if ((response.status === 201)) {
         let json = await response.json();
         return json.guid.rendered;
       }
@@ -78,54 +78,29 @@ module.exports = API = {
     } catch (e) {
       console.log(e);
     }
-  }
-};
-
-const chars =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-const Base64 = {
-  btoa: input => {
-    let str = input;
-    let output = "";
-
-    for (
-      let block = 0, charCode, i = 0, map = chars;
-      str.charAt(i | 0) || ((map = "="), i % 1);
-      output += map.charAt(63 & (block >> (8 - (i % 1) * 8)))
-    ) {
-      charCode = str.charCodeAt((i += 3 / 4));
-
-      if (charCode > 0xff) {
-        throw new Error(
-          "'btoa' failed: The string to be encoded contains characters outside of the Latin1 range."
-        );
-      }
-
-      block = (block << 8) | charCode;
-    }
-
-    return output;
   },
-
-  atob: input => {
-    let str = input.replace(/=+$/, "");
-    let output = "";
-
-    if (str.length % 4 == 1) {
-      throw new Error(
-        "'atob' failed: The string to be decoded is not correctly encoded."
-      );
+  Login: async function(username, password) {
+    let base64=Base64.btoa(`${username}:${password}`);
+    let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/users/me`, {
+      headers: {
+        Authorization: "Basic " + base64,
+        "Content-Type": "multipart/form-data"
+      },
+      method: "GET"
+    });
+    if (response.status === 200) {
+      let json = await response.json();
+      await AsyncStorage.setItem("Base64", base64);
+      return json;
+    } else {
+      let json = await response.json();
+      if (json.code === "incorrect_password") {
+        ToastAndroid.show("Sai mật khẩu", ToastAndroid.LONG);
+        return null;
+      } else if (json.code === "invalid_username") {
+        ToastAndroid.show("Tên người dùng không hợp lệ", ToastAndroid.LONG);
+        return null;
+      }
     }
-    for (
-      let bc = 0, bs = 0, buffer, i = 0;
-      (buffer = str.charAt(i++));
-      ~buffer && ((bs = bc % 4 ? bs * 64 + buffer : buffer), bc++ % 4)
-        ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6))))
-        : 0
-    ) {
-      buffer = chars.indexOf(buffer);
-    }
-
-    return output;
   }
 };

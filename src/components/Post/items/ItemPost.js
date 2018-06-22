@@ -20,7 +20,7 @@ class ItemPost extends Component {
   }
 
   componentWillReceiveProps() {
-    this.setState({loaded:false},()=>{
+    this.setState({ loaded: false }, () => {
       this._getFeaturedMedia();
     });
   }
@@ -49,36 +49,38 @@ class ItemPost extends Component {
                     tagsStyles={htmlStyle}
                   />
                 </View>
-                <View style={myStyle.edit}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      this.props.delete(
-                        this.props.data.id,
-                        this.props.data.title.rendered
-                      )
-                    }
-                    style={{
-                      paddingLeft: 5,
-                      flex: 1,
-                      alignItems: "center",
-                      flexDirection: "row"
-                    }}
-                  >
-                    <IonIcon name="ios-trash-outline" size={20} />
-                    <Text style={myStyle.textEdit}> Xóa</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.chinhsua(this.props.data.id)}
-                    style={{
-                      flex: 1,
-                      alignItems: "center",
-                      flexDirection: "row"
-                    }}
-                  >
-                    <IonIcon name="ios-create-outline" size={20} />
-                    <Text style={myStyle.textEdit}> Chỉnh sửa</Text>
-                  </TouchableOpacity>
-                </View>
+                {this.props.userName === "admin" && (
+                  <View style={myStyle.edit}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.props.delete(
+                          this.props.data.id,
+                          this.props.data.title.rendered
+                        )
+                      }
+                      style={{
+                        paddingLeft: 5,
+                        flex: 1,
+                        alignItems: "center",
+                        flexDirection: "row"
+                      }}
+                    >
+                      <IonIcon name="ios-trash-outline" size={20} />
+                      <Text style={myStyle.textEdit}> Xóa</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => this.chinhsua(this.props.data.id)}
+                      style={{
+                        flex: 1,
+                        alignItems: "center",
+                        flexDirection: "row"
+                      }}
+                    >
+                      <IonIcon name="ios-create-outline" size={20} />
+                      <Text style={myStyle.textEdit}> Chỉnh sửa</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -137,7 +139,7 @@ class ItemPost extends Component {
       this.setState({ featured_media: src, loaded: true });
     }
   }
-  
+
   // Xóa link trong nội dung
   removeLink(content) {
     //tìm thẻ img đầu tiên

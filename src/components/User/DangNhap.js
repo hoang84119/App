@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import {
   Text, View, StyleSheet, TextInput, TouchableOpacity,
   Alert, ActivityIndicator, AsyncStorage, Image,
-  ImageBackground
+  ImageBackground, ToastAndroid
 } from "react-native";
 import API from "../../config/API";
 import IonIcons from "react-native-vector-icons/Ionicons"
-export default class App extends Component {
+import {connect} from 'react-redux'
+
+class App extends Component {
   state = {
     user: "",
     pass: "",
@@ -28,19 +30,38 @@ export default class App extends Component {
       Alert.alert("Lỗi", "Mật khẩu không được rỗng");
     } else {
       try {
-        API.generate_auth_cookie(this.state.user, this.state.pass).then(async response => {
-          if (response.status == "error") {
-            Alert.alert("Lỗi", "Sai tên đăng nhập hoặc mật khẩu");
-            this.setState({
-              isLoading: false
+        // API.generate_auth_cookie(this.state.user, this.state.pass).then(async response => {
+        //   if (response.status == "error") {
+        //     Alert.alert("Lỗi", "Sai tên đăng nhập hoặc mật khẩu");
+        //     this.setState({
+        //       isLoading: false
+        //     });
+        //   } else {
+        //     this.setState({ isLoading: false });
+        //     await AsyncStorage.setItem("Cookie", response.cookie);
+        //     let value = await AsyncStorage.getItem("Cookie");
+        //     this.props.navigation.navigate("MainScreen");
+        //   }
+        // });
+        API.Login(this.state.user, this.state.pass).then(response=>{
+          this.setState({ isLoading: false });
+          if(response!=null)
+          {
+            // let name = response.name;
+            // name = name.toString();
+            console.log(response);
+            //ToastAndroid.show(respone.name,ToastAndroid.LONG);
+            this.props.dispatch({
+              type: 'SetDataUser',
+              data: response
             });
-          } else {
-            this.setState({ isLoading: false });
-            await AsyncStorage.setItem("Cookie", response.cookie);
-            let value = await AsyncStorage.getItem("Cookie");
+            console.log("da luu");
             this.props.navigation.navigate("MainScreen");
           }
-        });
+          else{
+            //ToastAndroid.show(response.admin,ToastAndroid.LONG);
+          }
+        })
       } catch (e) {
         Alert.alert("Lỗi");
       }
@@ -108,6 +129,8 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect()(App);
 
 const myStyle = StyleSheet.create({
   vText:{
