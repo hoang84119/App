@@ -49,6 +49,7 @@ class Posts extends Component {
       onLogout: this._onLogout.bind(this)
       //,isAdding: false
     });
+    
   }
 
   render() {

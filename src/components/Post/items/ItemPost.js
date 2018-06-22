@@ -11,17 +11,26 @@ import {
 import HTML from "react-native-render-html";
 import Base64 from "../../../config/Base64";
 import IonIcon from "react-native-vector-icons/Ionicons";
+const featured_media_default =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
 class ItemPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { featured_media: "" };
+    this.state = { featured_media: "", loaded: false };
   }
   // componentWillMount() {
   //   this._getFeaturedMedia();
   // }
 
-  componentWillReceiveProps(){
-    this._getFeaturedMedia();
+  componentDidMount(){
+  }
+
+  componentWillReceiveProps() {
+    console.log("Will receive")
+    this.setState({loaded:false},()=>{
+      this._getFeaturedMedia();
+    });
+    //this._getFeaturedMedia();
   }
   render() {
     return (
@@ -34,10 +43,12 @@ class ItemPost extends Component {
           >
             <View style={{ flexDirection: "row" }}>
               <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <Image
-                  style={myStyle.hinh}
-                  source={{ uri: this.state.featured_media }}
-                />
+                {this.state.loaded && (
+                  <Image
+                    style={myStyle.hinh}
+                    source={{ uri: this.state.featured_media }}
+                  />
+                )}
               </View>
               <View style={{ flex: 1 }}>
                 <View style={myStyle.TieuDe}>
@@ -89,32 +100,70 @@ class ItemPost extends Component {
     this.props.navigation.navigate("chitiet", { id: i });
   }
   xoa(i, t) {
-    this.props.delete(i,t);
+    this.props.delete(i, t);
   }
   chinhsua(i) {
     this.props.navigation.navigate("chinhsua", { id: i });
   }
-  _getFeaturedMedia() {
+  async _getFeaturedMedia() {
+    // if (this.props.data.featured_media != 0) {
+    //   let idImage = this.props.data.featured_media;
+    //   fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/${idImage}`)
+    //     .then(response => response.json())
+    //     .then(responseJson => {
+    //       if (responseJson == null) {
+    //         this.setState({
+    //           featured_media:
+    //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe"
+    //         });
+    //       } else {
+    //         let src = responseJson.media_details.sizes.medium.source_url;
+    //         console.log("src:" + src);
+    //         this.setState({
+    //           featured_media: src.replace("http://localhost", API.getURL())
+    //         });
+    //       }
+    //     });
+    // } else {
+    //   this.getSrcImage();
+    // }
     if (this.props.data.featured_media != 0) {
       let idImage = this.props.data.featured_media;
-      fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/${idImage}`)
-        .then(response => response.json())
-        .then(responseJson => {
-          if (responseJson == null) {
-            this.setState({
-              featured_media:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe"
-            });
-          } else {
-            let src = responseJson.media_details.sizes.medium.source_url;
-            console.log("src:" + src);
-            this.setState({
-              featured_media: src.replace("http://localhost", API.getURL())
-            });
-          }
+      let response = await fetch(
+        `${API.getURL()}/thuctap/wp-json/wp/v2/media/${idImage}`
+      );
+      if (response.status === 200) {
+        let json = await response.json();
+        let src = json.media_details.sizes.medium.source_url;
+        this.setState({
+          featured_media: src.replace("http://localhost", API.getURL()),
+          loaded: true
         });
+      } else {
+        this.setState({
+          featured_media: featured_media_default,
+          loaded: true
+        });
+      }
     } else {
-      this.getSrcImage();
+      let content = this.props.data.content.rendered;
+      //tìm thẻ img đầu tiên
+      let indexImg = content.toString().indexOf("<img");
+      //không tìm thấy trả về đường dẫn mặc định
+      var src = featured_media_default;
+      if (indexImg != -1) {
+        // tìm vị trí mở src
+        let indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
+        //tìm vị trí đóng src
+        let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
+        //lấy đường dẫn
+        src = content
+          .substring(indexSrcStart, indexSrcEnd)
+          .replace("http://localhost", API.getURL());
+        let response = await fetch(src);
+        if (response.status != 200) src = featured_media_default;
+      }
+      this.setState({ featured_media: src, loaded: true });
     }
   }
   // lấy nguồn hình ảnh từ content html
@@ -132,9 +181,13 @@ class ItemPost extends Component {
       //tìm vị trí đóng src
       let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
       //lấy đường dẫn
-      src = content.substring(indexSrcStart, indexSrcEnd).replace("http://localhost", API.getURL());
+      src = content
+        .substring(indexSrcStart, indexSrcEnd)
+        .replace("http://localhost", API.getURL());
       let response = await fetch(src);
-      if(response.status!=200) src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
+      if (response.status != 200)
+        src =
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
     }
     this.setState({ featured_media: src });
   }
