@@ -18,19 +18,11 @@ class ItemPost extends Component {
     super(props);
     this.state = { featured_media: "", loaded: false };
   }
-  // componentWillMount() {
-  //   this._getFeaturedMedia();
-  // }
-
-  componentDidMount(){
-  }
 
   componentWillReceiveProps() {
-    console.log("Will receive")
     this.setState({loaded:false},()=>{
       this._getFeaturedMedia();
     });
-    //this._getFeaturedMedia();
   }
   render() {
     return (
@@ -106,27 +98,6 @@ class ItemPost extends Component {
     this.props.navigation.navigate("chinhsua", { id: i });
   }
   async _getFeaturedMedia() {
-    // if (this.props.data.featured_media != 0) {
-    //   let idImage = this.props.data.featured_media;
-    //   fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/${idImage}`)
-    //     .then(response => response.json())
-    //     .then(responseJson => {
-    //       if (responseJson == null) {
-    //         this.setState({
-    //           featured_media:
-    //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe"
-    //         });
-    //       } else {
-    //         let src = responseJson.media_details.sizes.medium.source_url;
-    //         console.log("src:" + src);
-    //         this.setState({
-    //           featured_media: src.replace("http://localhost", API.getURL())
-    //         });
-    //       }
-    //     });
-    // } else {
-    //   this.getSrcImage();
-    // }
     if (this.props.data.featured_media != 0) {
       let idImage = this.props.data.featured_media;
       let response = await fetch(
@@ -166,31 +137,7 @@ class ItemPost extends Component {
       this.setState({ featured_media: src, loaded: true });
     }
   }
-  // lấy nguồn hình ảnh từ content html
-  async getSrcImage() {
-    //if(this.props.data.featured_media!=0) return this._getFeaturedMedia(this.props.data.featured_media);
-    let content = this.props.data.content.rendered;
-    //tìm thẻ img đầu tiên
-    let indexImg = content.toString().indexOf("<img");
-    var src =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
-    //không tìm thấy trả về đường dẫn mặc định
-    if (indexImg != -1) {
-      // tìm vị trí mở src
-      let indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
-      //tìm vị trí đóng src
-      let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
-      //lấy đường dẫn
-      src = content
-        .substring(indexSrcStart, indexSrcEnd)
-        .replace("http://localhost", API.getURL());
-      let response = await fetch(src);
-      if (response.status != 200)
-        src =
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
-    }
-    this.setState({ featured_media: src });
-  }
+  
   // Xóa link trong nội dung
   removeLink(content) {
     //tìm thẻ img đầu tiên

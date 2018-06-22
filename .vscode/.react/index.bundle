@@ -92270,7 +92270,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   _reactNative.ToastAndroid.show("Lỗi Image Picker: " + response.error, _reactNative.ToastAndroid.SHORT);
                 } else if (response.customButton) {
                   _this5.props.navigation.navigate("scmedia", {
-                    checkPost: true
+                    checkPost: 1
                   });
                 } else {
                   var file = {
@@ -94659,14 +94659,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
 
     _createClass(ItemPost, [{
-      key: "componentDidMount",
-      value: function componentDidMount() {}
-    }, {
       key: "componentWillReceiveProps",
       value: function componentWillReceiveProps() {
         var _this2 = this;
 
-        console.log("Will receive");
         this.setState({
           loaded: false
         }, function () {
@@ -94687,7 +94683,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 37
+              lineNumber: 29
             }
           },
           _react3.default.createElement(
@@ -94696,7 +94692,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.baibao,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 38
+                lineNumber: 30
               }
             },
             _react3.default.createElement(
@@ -94707,7 +94703,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 39
+                  lineNumber: 31
                 }
               },
               _react3.default.createElement(
@@ -94718,7 +94714,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 44
+                    lineNumber: 36
                   }
                 },
                 _react3.default.createElement(
@@ -94730,7 +94726,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 45
+                      lineNumber: 37
                     }
                   },
                   this.state.loaded && _react3.default.createElement(_reactNative.Image, {
@@ -94740,7 +94736,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 47
+                      lineNumber: 39
                     }
                   })
                 ),
@@ -94752,7 +94748,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 53
+                      lineNumber: 45
                     }
                   },
                   _react3.default.createElement(
@@ -94761,7 +94757,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.TieuDe,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 54
+                        lineNumber: 46
                       }
                     },
                     _react3.default.createElement(_reactNativeRenderHtml2.default, {
@@ -94769,7 +94765,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       tagsStyles: htmlStyle,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 55
+                        lineNumber: 47
                       }
                     })
                   ),
@@ -94779,7 +94775,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.edit,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 60
+                        lineNumber: 52
                       }
                     },
                     _react3.default.createElement(
@@ -94796,7 +94792,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         },
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 61
+                          lineNumber: 53
                         }
                       },
                       _react3.default.createElement(_Ionicons2.default, {
@@ -94804,7 +94800,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         size: 20,
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 75
+                          lineNumber: 67
                         }
                       }),
                       _react3.default.createElement(
@@ -94813,7 +94809,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                           style: myStyle.textEdit,
                           __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 76
+                            lineNumber: 68
                           }
                         },
                         " X\xF3a"
@@ -94832,7 +94828,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         },
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 78
+                          lineNumber: 70
                         }
                       },
                       _react3.default.createElement(_Ionicons2.default, {
@@ -94840,7 +94836,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         size: 20,
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 86
+                          lineNumber: 78
                         }
                       }),
                       _react3.default.createElement(
@@ -94849,7 +94845,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                           style: myStyle.textEdit,
                           __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 87
+                            lineNumber: 79
                           }
                         },
                         " Ch\u1EC9nh s\u1EEDa"
@@ -94959,45 +94955,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               case 28:
               case "end":
                 return _context.stop();
-            }
-          }
-        }, null, this);
-      }
-    }, {
-      key: "getSrcImage",
-      value: function getSrcImage() {
-        var content, indexImg, src, indexSrcStart, indexSrcEnd, response;
-        return regeneratorRuntime.async(function getSrcImage$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                content = this.props.data.content.rendered;
-                indexImg = content.toString().indexOf("<img");
-                src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
-
-                if (!(indexImg != -1)) {
-                  _context2.next = 11;
-                  break;
-                }
-
-                indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
-                indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
-                src = content.substring(indexSrcStart, indexSrcEnd).replace("http://localhost", API.getURL());
-                _context2.next = 9;
-                return regeneratorRuntime.awrap(fetch(src));
-
-              case 9:
-                response = _context2.sent;
-                if (response.status != 200) src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
-
-              case 11:
-                this.setState({
-                  featured_media: src
-                });
-
-              case 12:
-              case "end":
-                return _context2.stop();
             }
           }
         }, null, this);
@@ -95847,12 +95804,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         _this.props.onLongPressItem(_this.props.id);
       }, _this._onPress = function () {
         if (_this.props.hasSelected) _this.props.onLongPressItem(_this.props.id);else {
-          if (_this.props.navigation.getParam("checkPost") == true) _this.props.navigation.navigate("scchitiet", {
+          var check = _this.props.navigation.getParam("checkPost", 0);
+
+          alert('Media: ' + check);
+
+          _this.props.navigation.navigate("scchitiet", {
             id: _this.props.id,
-            checkMedia: true
-          });else _this.props.navigation.navigate("scchitiet", {
-            id: _this.props.id,
-            checkMedia: false
+            checkMedia: check
           });
         }
       }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -95870,7 +95828,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 23
+              lineNumber: 22
             }
           },
           _react3.default.createElement(
@@ -95880,7 +95838,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               onPress: this._onPress,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 24
+                lineNumber: 23
               }
             },
             _react3.default.createElement(
@@ -95888,7 +95846,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 28
+                  lineNumber: 27
                 }
               },
               _react3.default.createElement(_reactNative.Image, {
@@ -95902,7 +95860,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 29
+                  lineNumber: 28
                 }
               }),
               this.props.selected && _react3.default.createElement(
@@ -95919,7 +95877,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 36
+                    lineNumber: 35
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -95931,7 +95889,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 30,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 47
+                    lineNumber: 46
                   }
                 })
               ),
@@ -95947,7 +95905,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 54
+                    lineNumber: 53
                   }
                 },
                 this.props.title
@@ -95980,8 +95938,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     var _class,
         _temp,
-        _jsxFileName = "D:\\SourceCode\\React native\\App\\src\\components\\Media\\MediaDetail.js",
-        _this4 = this;
+        _jsxFileName = "D:\\SourceCode\\React native\\App\\src\\components\\Media\\MediaDetail.js";
 
     var _reactNative = _require(_dependencyMap[2], "react-native");
 
@@ -96128,7 +96085,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         },
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 102
+                            lineNumber: 101
                         }
                     },
                     _react3.default.createElement(
@@ -96140,7 +96097,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                             imageHeight: this.state.chieudai,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 104
+                                lineNumber: 103
                             }
                         },
                         _react3.default.createElement(_reactNative.Image, {
@@ -96152,7 +96109,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                             },
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 109
+                                lineNumber: 108
                             }
                         })
                     )
@@ -96193,17 +96150,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     {
                         style: {
                             fontSize: 18,
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
+                            marginRight: 10
                         },
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 18
+                            lineNumber: 14
                         }
                     },
                     "X\xF3a"
                 )
             ),
-            _this4.props.navigation.getParam("checkMedia") && _react3.default.createElement(
+            navigation.getParam("checkMedia", 0) === 1 && _react3.default.createElement(
                 _reactNative.TouchableOpacity,
                 {
                     onPress: function onPress() {
@@ -96211,7 +96169,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 21
+                        lineNumber: 17
                     }
                 },
                 _react3.default.createElement(
@@ -96220,12 +96178,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         style: {
                             fontSize: 18,
                             fontWeight: 'bold',
-                            marginLeft: 15,
                             marginRight: 10
                         },
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 22
+                            lineNumber: 18
                         }
                     },
                     "Ch\u1ECDn h\xECnh"
