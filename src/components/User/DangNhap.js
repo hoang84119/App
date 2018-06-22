@@ -5,7 +5,7 @@ import {
   ImageBackground
 } from "react-native";
 import API from "../../config/API";
-
+import IonIcons from "react-native-vector-icons/Ionicons"
 export default class App extends Component {
   state = {
     user: "",
@@ -57,6 +57,11 @@ export default class App extends Component {
               style={{ width: 120, height: 120, marginBottom: 50 }}
               source={require("../../image/logo.png")}
             />
+            <View style={myStyle.vText}>
+            <View style={{width: 30, alignItems: 'center'}}>
+              <IonIcons name="ios-contact-outline" size={32} style={{color: "white"}}/>
+            </View>
+              
             <TextInput
               placeholderTextColor="white"
               underlineColorAndroid="rgba(0,0,0,0)"
@@ -66,6 +71,11 @@ export default class App extends Component {
               }}
               placeholder="Tên tài khoản"
             />
+            </View>
+            <View style={myStyle.vText}>
+            <View style={{width: 30, alignItems: 'center'}}>
+              <IonIcons name="ios-lock-outline" size={31} style={{color: "white"}}/>
+            </View>
             <TextInput
               placeholderTextColor="white"
               underlineColorAndroid="rgba(0,0,0,0)"
@@ -76,6 +86,7 @@ export default class App extends Component {
               placeholder="Mật khẩu"
               secureTextEntry={true}
             />
+            </View>
             {this.state.isLoading ===
               false && (
                 <View style={{ height: 50, alignItems: "center" }}>
@@ -99,28 +110,35 @@ export default class App extends Component {
 }
 
 const myStyle = StyleSheet.create({
+  vText:{
+    borderRadius: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: 240,
+    alignItems: 'center',
+    marginBottom: 15,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255,255,255,0.1)'
+  },
   ctmBottom: {
     borderRadius: 40,
     fontSize: 20,
     //color: "#36BC63",
     color: "#A0522D",
     paddingTop: 10,
-    paddingLeft: 20,
+    paddingLeft: 10,
     paddingBottom: 10,
-    paddingRight: 20,
+    paddingRight: 10,
     backgroundColor: "white",
     textAlign: "center",
-    width: 250
+    width: 240
   },
   ctmInput: {
-    marginBottom: 15,
-    backgroundColor: "rgba(255,255,255,0.1)",
+    backgroundColor: "rgba(255,255,255,0)",
     fontSize: 20,
-    height: 45,
-    width: 250,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 40,
+    flex:1,
+    paddingLeft: 10,
+    paddingRight: 10,
     color: "white"
   },
   nen: {
