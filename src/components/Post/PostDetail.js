@@ -27,6 +27,7 @@ class PostDetail extends Component {
       loaded: false,
       refreshing: true,
       repcmt: false,
+      rep: ''
     };
     //const { navigation } = this.props;
   }
@@ -75,7 +76,7 @@ class PostDetail extends Component {
             onChangeText={u => {
               this.setState({ user: u });
             }}
-            placeholder='Trả lời'
+            placeholder={'Trả lời "' + this.state.rep + '"'}
           />
           <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
         </View >
@@ -83,7 +84,9 @@ class PostDetail extends Component {
     else
       return (
         <View style={myStyle.canLe} >
-          <IonIcon style={{ color: "#088A4B", padding: 13, backgroundColor: "rgba(240,240,240,0.9)", }} name="ios-chatbubbles-outline" size={28} />
+          <TouchableOpacity onPress={() => { height_cmt: 100 }}>
+            <IonIcon style={{ color: "#088A4B", padding: 13, backgroundColor: "rgba(240,240,240,0.9)", }} name="ios-chatbubbles-outline" size={28} />
+          </TouchableOpacity>
           <TextInput
             multiline={true}
             placeholderTextColor="#bfbfbf"
@@ -112,7 +115,7 @@ class PostDetail extends Component {
             <ItemContentPost noidung={this.state.noidung} tacgia={this.state.tacgia} loaded={this.state.loaded} />
             {/* Bình luận bài viết */}
             <View style={{ padding: 5 }}>
-              <Text style={{margin: 5, paddingLeft: 5, marginBottom:10, fontSize: 20, color: "#088A4B" , borderBottomWidth: 3, borderBottomColor: "#088A4B"}}>
+              <Text style={{ margin: 5, paddingLeft: 5, marginBottom: 10, fontSize: 20, color: "#088A4B", borderBottomWidth: 3, borderBottomColor: "#088A4B" }}>
                 Bình luận
               </Text>
               <FlatList
@@ -121,7 +124,7 @@ class PostDetail extends Component {
                 onRefresh={() => this._loadComments()}
                 data={this.state.binhluan}
                 keyExtractor={(x, i) => i.toString()}
-                renderItem={({ item }) => <ItemComment data={item} onClickCmt={this._onClickCmt} loaded={this.state.loaded}/>}
+                renderItem={({ item }) => <ItemComment data={item} onClickCmt={this._onClickCmt} loaded={this.state.loaded} />}
               />
             </View>
           </ScrollView>
@@ -132,8 +135,8 @@ class PostDetail extends Component {
     );
   }
 
-  _onClickCmt = () =>{
-    this.setState({repcmt: true})
+  _onClickCmt = (a) => {
+    this.setState({ repcmt: true, rep: a })
   }
 
   _onEdit() {
@@ -175,7 +178,7 @@ class PostDetail extends Component {
     fetch(
       API.getURL() +
       "/thuctap/wp-json/wp/v2/comments?post=" +
-      this.props.navigation.getParam("id", "") +"&parent=0"
+      this.props.navigation.getParam("id", "") + "&parent=0"
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -186,9 +189,9 @@ class PostDetail extends Component {
         }
       });
   }
-  
-}
 
+}
+const height_cmt = 49;
 const pw = Dimensions.get('window').width;
 //const ph = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get("window").height);
 const myStyle = StyleSheet.create({
@@ -220,7 +223,7 @@ const myStyle = StyleSheet.create({
     flex: 1,
     position: "absolute",
     width: pw,
-    height: 49,
+    height: 50,
     bottom: 0,
     zIndex: 1,
     backgroundColor: "rgba(240,240,240,0.0)",

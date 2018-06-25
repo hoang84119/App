@@ -9,7 +9,7 @@ class ItemCommentChild extends Component {
   render() {
     return (
       <View>
-        <View style={{ flexDirection: "row", marginLeft: 55, margin: 5 }}>
+        <View style={{ flexDirection: "row", marginLeft: 65, margin: 5 }}>
 
           {/* Avatar */}
 

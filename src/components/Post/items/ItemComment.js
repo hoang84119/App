@@ -73,7 +73,7 @@ class ItemComment extends Component {
                 flex: 1,
                 alignItems: "center"
               }} onPress={() => {
-                this.props.onClickCmt();
+                this.props.onClickCmt(this.props.data.author_name);
               }}>
                 <IonIcon
                   style={{ color: "#088A4B" }}
