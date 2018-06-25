@@ -58,7 +58,7 @@ class ItemContentPost extends Component {
                   "http://localhost",
                   API.getURL()
                 )}
-                imagesMaxWidth={Dimensions.get("window").width - 30}
+                imagesMaxWidth={Dimensions.get("window").width - 20}
               />
             )}
           </View>

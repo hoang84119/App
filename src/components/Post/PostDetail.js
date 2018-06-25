@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  TextInput,
   View,
   Text,
   StyleSheet,
@@ -8,6 +9,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   FlatList,
+  PixelRatio,
+  Dimensions
 } from "react-native";
 import API from "../../config/API";
 import IonIcon from "react-native-vector-icons/Ionicons";
@@ -22,7 +25,8 @@ class PostDetail extends Component {
       tacgia: [],
       binhluan: [],
       loaded: false,
-      refreshing: true
+      refreshing: true,
+      repcmt: false,
     };
     //const { navigation } = this.props;
   }
@@ -56,7 +60,44 @@ class PostDetail extends Component {
       onEdit: this._onEdit.bind(this)
     });
   }
-
+  _renderComment() {
+    if (this.state.repcmt == true)
+      return (
+        <View style={myStyle.canLe}>
+          <TouchableOpacity onPress={() => this.setState({ repcmt: false })}>
+            <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-arrow-round-back" size={28} />
+          </TouchableOpacity>
+          <TextInput
+            multiline={true}
+            placeholderTextColor="#bfbfbf"
+            underlineColorAndroid="rgba(0,0,0,0)"
+            style={myStyle.ctmInput}
+            onChangeText={u => {
+              this.setState({ user: u });
+            }}
+            placeholder='Trả lời'
+          />
+          <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
+        </View >
+      )
+    else
+      return (
+        <View style={myStyle.canLe} >
+          <IonIcon style={{ color: "#088A4B", padding: 13, backgroundColor: "rgba(240,240,240,0.9)", }} name="ios-chatbubbles-outline" size={28} />
+          <TextInput
+            multiline={true}
+            placeholderTextColor="#bfbfbf"
+            underlineColorAndroid="rgba(0,0,0,0)"
+            style={myStyle.ctmInput}
+            onChangeText={u => {
+              this.setState({ user: u });
+            }}
+            placeholder="Bình luận"
+          />
+          <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
+        </View>
+      )
+  }
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -68,10 +109,10 @@ class PostDetail extends Component {
         )}
         {this.state.loaded && (
           <ScrollView style={myStyle.container}>
-            <ItemContentPost noidung={this.state.noidung} tacgia={this.state.tacgia} loaded={this.state.loaded}/>
+            <ItemContentPost noidung={this.state.noidung} tacgia={this.state.tacgia} loaded={this.state.loaded} />
             {/* Bình luận bài viết */}
             <View style={{ padding: 5 }}>
-              <Text style={{ padding: 5, fontSize: 20, color: "#088A4B" }}>
+              <Text style={{margin: 5, paddingLeft: 5, marginBottom:10, fontSize: 20, color: "#088A4B" , borderBottomWidth: 3, borderBottomColor: "#088A4B"}}>
                 Bình luận
               </Text>
               <FlatList
@@ -80,13 +121,19 @@ class PostDetail extends Component {
                 onRefresh={() => this._loadComments()}
                 data={this.state.binhluan}
                 keyExtractor={(x, i) => i.toString()}
-                renderItem={({ item }) => <ItemComment data={item} />}
+                renderItem={({ item }) => <ItemComment data={item} onClickCmt={this._onClickCmt} loaded={this.state.loaded}/>}
               />
             </View>
           </ScrollView>
         )}
+
+        {this._renderComment()}
       </View>
     );
+  }
+
+  _onClickCmt = () =>{
+    this.setState({repcmt: true})
   }
 
   _onEdit() {
@@ -97,8 +144,8 @@ class PostDetail extends Component {
   _loadData() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", "")
+      "/thuctap/wp-json/wp/v2/posts/" +
+      this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -127,8 +174,8 @@ class PostDetail extends Component {
   _loadComments() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/comments?post=" +
-        this.props.navigation.getParam("id", "")
+      "/thuctap/wp-json/wp/v2/comments?post=" +
+      this.props.navigation.getParam("id", "") +"&parent=0"
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -139,19 +186,19 @@ class PostDetail extends Component {
         }
       });
   }
+  
 }
 
-// const pw = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get("window").width);
-// const ph = PixelRatio.getPixelSizeForLayoutSize(
-//   Dimensions.get("window").height
-// );
+const pw = Dimensions.get('window').width;
+//const ph = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get("window").height);
 const myStyle = StyleSheet.create({
   container: {
     flex: 1,
     //marginTop: (Platform.OS === 'ios') ? 60 : 50,
     borderWidth: 1,
     borderColor: "#dfdfdf",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    marginBottom: 48
   },
   header: {
     padding: 5
@@ -161,6 +208,24 @@ const myStyle = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center"
+  },
+  ctmInput: {
+    backgroundColor: "rgba(255,255,255,0.9)",
+    fontSize: 18,
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  canLe: {
+    flex: 1,
+    position: "absolute",
+    width: pw,
+    height: 49,
+    bottom: 0,
+    zIndex: 1,
+    backgroundColor: "rgba(240,240,240,0.0)",
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });
 export default PostDetail;
