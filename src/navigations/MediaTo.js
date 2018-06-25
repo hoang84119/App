@@ -1,8 +1,8 @@
-import { StackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 import Media from "../components/Media/Media"
 import MediaDetail from "../components/Media/MediaDetail"
 
-const MediaTo = StackNavigator({
+const MediaTo = createStackNavigator({
   scmedia: {
     screen: Media,
     navigationOptions: {

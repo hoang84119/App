@@ -40,18 +40,25 @@ module.exports = API = {
         return json;
       });
   },
-  validate_auth_cookie: async function() {
+  validate_account: async function() {
     try {
-      var cookie = await AsyncStorage.getItem("Cookie");
+      var base64 = await AsyncStorage.getItem("Base64","");
     } catch (e) {
       console.log(e);
     }
-    if (cookie == "") return false;
-    let response = await fetch(
-      `${url}/thuctap/api/auth/validate_auth_cookie/?cookie=${cookie}&insecure=cool`
-    );
-    let json = await response.json();
-    return json.valid;
+    if (base64 == "") return null;
+    let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/users/me`, {
+      headers: {
+        Authorization: "Basic " + base64,
+      },
+      method: "GET"
+    });
+    if (response.status === 200) {
+      let json = await response.json();
+      return json;
+    } else {
+      return null;
+    }
   },
   UploadImage: async function(path) {
     try {
@@ -84,7 +91,6 @@ module.exports = API = {
     let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/users/me`, {
       headers: {
         Authorization: "Basic " + base64,
-        "Content-Type": "multipart/form-data"
       },
       method: "GET"
     });

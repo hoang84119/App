@@ -1,12 +1,13 @@
-import { StackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 import PostDetail from "../components/Post/PostDetail";
 import EditPost from "../components/Post/EditPost";
 import Posts from "../components/Post/Posts";
 import AddPost from "../components/Post/AddPost";
 import Media from "../components/Media/Media"
 import MediaDetail from "../components/Media/MediaDetail"
+import DangNhap from '../components/User/DangNhap'
 
-const PostTo = StackNavigator({
+const PostTo = createStackNavigator({
   main: {
     screen: Posts,
     navigationOptions: {
@@ -65,7 +66,18 @@ const PostTo = StackNavigator({
         height:50
       }
     }
+  },
+  login:{
+    screen: DangNhap,
+    navigationOptions: {
+      headerStyle: {
+        height:0
+      }
+    }
   }
+},
+{
+  headerMode: 'none',
 });
 
 //cài đặt để ẩn thanh tab khi vào màn hình con

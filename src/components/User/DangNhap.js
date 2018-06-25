@@ -56,7 +56,7 @@ class App extends Component {
               data: response
             });
             console.log("da luu");
-            this.props.navigation.navigate("MainScreen");
+            this.props.navigation.navigate("main");
           }
           else{
             //ToastAndroid.show(response.admin,ToastAndroid.LONG);

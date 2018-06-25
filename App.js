@@ -1,22 +1,29 @@
 import React, { Component } from "react";
-import { ImageBackground, Image, View, ActivityIndicator, Text, StyleSheet } from "react-native";
+import {
+  ImageBackground,
+  Image,
+  View,
+  ActivityIndicator,
+  Text,
+  StyleSheet
+} from "react-native";
 import LoginToPost from "./src/navigations/LogiToPost";
-//import PostTo from "./src/navigations/PostTo";
-import Tab from "./src/navigations/TabNavigator"
+import Tab from "./src/navigations/TabNavigator";
 import API from "./src/config/API";
-import {createStore} from 'redux';
-import {Provider} from 'react-redux'
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import PostTo from "./src/navigations/PostTo";
 
 //Tạo store trong redux
-const defaultState={dataUser: []};
-const reducer = (state = defaultState, action)=>{
-  if(action.type==='SetDataUser') {
-    return {dataUser:action.data};
+const defaultState = { dataUser: [] };
+const reducer = (state = defaultState, action) => {
+  if (action.type === "SetDataUser") {
+    return { dataUser: action.data };
     //{...,dataUser:action.data}
   }
-  if(action.type==='DeleteDataUser') return {dataUser:[]}
+  if (action.type === "DeleteDataUser") return { dataUser: [] };
   return state;
-}
+};
 const store = createStore(reducer);
 
 class App extends Component {
@@ -29,19 +36,33 @@ class App extends Component {
   }
 
   componentDidMount() {
-    API.validate_auth_cookie().then(response => {
-      this.setState({
-        logged: response,
-        loading: false
-      });
+    API.validate_account().then(response => {
+      if (response != null) {
+        store.dispatch({
+          type: "SetDataUser",
+          data: response
+        });
+        this.setState({
+          loading: false,
+          logged: true
+        });
+      }
+      else {
+        this.setState({
+          loading: false,
+          logged: false
+        });
+      }
     });
-
   }
 
   render() {
     let loadingView = (
-      <ImageBackground style={{flex:1}} source={require('./src/image/background_blur.png')}>
-        <View style={{ flex: 1, padding: 5}}>
+      <ImageBackground
+        style={{ flex: 1 }}
+        source={require("./src/image/background_blur.png")}
+      >
+        <View style={{ flex: 1, padding: 5 }}>
           <View style={myStyle.khung}>
             <Image
               style={{ width: 100, height: 100, marginBottom: 25 }}
@@ -54,18 +75,17 @@ class App extends Component {
     );
     let mainView = this.state.loading ? (
       loadingView
-    ) : (<Tab/>)
-    // : this.state.logged ? (
-    //   <Tab />
-    // ) : (
-    //       <LoginToPost />
-    //     );
-    return(
-       <Provider store={store}>
-          {mainView}
+    ) : this.state.logged ? (
+      <Tab />
+    ) : (
+      <PostTo />
+    );
+    return (
+      <Provider store={store}>
+        {/* {mainView} */}
+        {mainView}
       </Provider>
-    )
-     
+    );
   }
 }
 
@@ -74,7 +94,6 @@ const myStyle = StyleSheet.create({
   khung: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-
+    alignItems: "center"
   }
 });
