@@ -1,8 +1,8 @@
-import {StackNavigator} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation'
 import DangNhap from '../components/User/DangNhap'
 import PostTo from './PostTo'
 import Tab from './TabNavigator'
-const LoginToPost=StackNavigator({
+const LoginToPost=createStackNavigator({
     Login:{
         screen: DangNhap,
     },

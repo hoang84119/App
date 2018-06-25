@@ -11,37 +11,21 @@ import {
 } from "react-native";
 import API from "../../config/API";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import ItemPost from "./items/ItemPost";
+import ItemCategory from "./items/ItemCategory";
 import Base64 from "../../config/Base64";
 import { connect } from "react-redux";
 
-class Posts extends Component {
+class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      noidung: "",
-      refreshing: true,
-      featured_media: ""
+      data: "",
+      refreshing: true
     };
   }
-
   componentDidMount() {
-    //this._loadData();
-    //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
-    if (this.props.dataUser.name === "admin")
-      this.props.navigation.addListener("didFocus", () => {
-        this._loadData();
-      });
-    else this._loadData();
-    // this.props.navigation.setParams({
-    //   onAdd: this._onAdd.bind(this),
-    //   onLogout: this._onLogout.bind(this),
-    //   onLogin: this._onLogin.bind(this),
-    //   userName: this.props.dataUser.name
-    //   //,isAdding: false
-    // });
+    this._loadData();
   }
-
   render() {
     let ButtonRight =
       this.props.dataUser.name === "admin" ? (
@@ -84,7 +68,6 @@ class Posts extends Component {
           </TouchableOpacity>
         </View>
       );
-
     return (
       <View style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
         <View
@@ -100,12 +83,11 @@ class Posts extends Component {
         </View>
         <FlatList
           refreshing={this.state.refreshing}
-          //refreshing={this.props.refreshing}
-          onRefresh={() => this.refresh()}
-          data={this.state.noidung}
+          onRefresh={() => this._loadData()}
+          data={this.state.data}
           keyExtractor={(item, index) => item.id}
           renderItem={({ item }) => (
-            <ItemPost
+            <ItemCategory
               data={item}
               navigation={this.props.navigation}
               delete={this._delete}
@@ -117,6 +99,19 @@ class Posts extends Component {
     );
   }
 
+  _loadData() {
+    this.setState({ refreshing: true });
+    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories")
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson == null) {
+          Alert.alert("Lỗi", "Không có nội dung");
+        } else {
+          this.setState({ data: responseJson, refreshing: false });
+        }
+      });
+  }
+
   _delete = (i, t) => {
     Alert.alert(
       "Thông báo",
@@ -125,7 +120,7 @@ class Posts extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
+            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories/" + i, {
               headers: {
                 Authorization:
                   "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
@@ -134,7 +129,7 @@ class Posts extends Component {
             }).then(response => {
               if (response.status == 200) {
                 ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-                this.refresh();
+                this._loadData();
               } else Alert.alert("Cảnh báo", "Xóa thất bại!");
             });
           }
@@ -144,61 +139,9 @@ class Posts extends Component {
       { cancelable: false }
     );
   };
-
-  refresh() {
-    this._loadData();
-  }
-
-  _loadData() {
-    this.setState({ refreshing: true });
-    //this.props.dispatch({type:'RefreshPost'});
-    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts")
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson == null) {
-          Alert.alert("Lỗi", "Không có nội dung");
-        } else {
-          this.setState({ noidung: responseJson, refreshing: false });
-        }
-      });
-  }
-
-  _onLogin() {
-    this.props.navigation.navigate("login");
-  }
-
-  _onLogout() {
-    AsyncStorage.removeItem("Base64").then(() => {
-      this.props.dispatch({
-        type: "DeleteDataUser"
-      });
-      ToastAndroid.show("Đã đăng xuất", ToastAndroid.LONG);
-      //BackHandler.exitApp();
-    });
-  }
-  _onAdd() {
-    // if (this.props.navigation.state.params.isAdding == true) return;
-    // this.props.navigation.setParams({ isAdding: true });
-    this.props.navigation.navigate("thembaiviet");
-  }
-
-  onBackButtonPress = () => {
-    Alert.alert(
-      "Thoát",
-      "Bạn muốn thoát không",
-      [
-        { text: "Đồng ý", onPress: () => BackHandler.exitApp() },
-        { text: "Hủy", style: "cancel" }
-      ],
-      { cancelable: false }
-    );
-    return true;
-  };
 }
-
-//export default Posts;
 
 function mapStateToProps(state) {
   return { dataUser: state.dataUser };
 }
-export default connect(mapStateToProps)(Posts);
+export default connect(mapStateToProps)(Categories);
