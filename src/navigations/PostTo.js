@@ -11,15 +11,15 @@ const PostTo = createStackNavigator({
   main: {
     screen: Posts,
     navigationOptions: {
-      headerTitle: "Bài viết",
-      headerTitleStyle:{
-        color: "#36BC63"
-      },
-      headerStyle: {
-        height:46,
-        alignItems: "center",
-      },
-      tabBarVisible: true
+      // headerTitle: "Bài viết",
+      // headerTitleStyle:{
+      //   color: "#36BC63"
+      // },
+      // headerStyle: {
+      //   height:46,
+      //   alignItems: "center",
+      // },
+      //tabBarVisible: true
     }
   },
   chitiet: {
@@ -77,7 +77,7 @@ const PostTo = createStackNavigator({
   }
 },
 {
-  headerMode: 'none',
+  //headerMode: 'none',
 });
 
 //cài đặt để ẩn thanh tab khi vào màn hình con
