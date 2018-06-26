@@ -6,29 +6,67 @@ import {
   StyleSheet,
   ToastAndroid,
   Text,
-  Alert
+  Alert,
+  FlatList
 } from "react-native";
 import HTML from "react-native-render-html";
 import Base64 from "../../../config/Base64";
+import API from "../../../config/API";
 import IonIcon from "react-native-vector-icons/Ionicons";
 
-class ItemPost extends Component {
+class ItemCategory extends Component {
   constructor(props) {
     super(props);
-    this.state = { featured_media: "", loaded: false };
+    this.state = {
+      featured_media: "",
+      loaded: false,
+      hasChild: false,
+      dataChild: []
+    };
+  }
+
+  componentDidMount() {
+    this._checkChild();
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.data!=this.props.data) {
+      this._checkChild();
+    }
+  }
+
+  _checkChild() {
+    this.setState({ loaded: false });
+    fetch(
+      `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=${
+        this.props.data.id
+      }`
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson == null) {
+          //this.setState(da)
+        } else {
+          this.setState({ dataChild: responseJson, loaded: true });
+        }
+      });
   }
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
-        <View style={myStyle.noidung}>
-          <TouchableOpacity
-            onPress={() =>
-              this.xem(this.props.data.id, this.props.data.name)
-            }
-          >
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
+      <View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#fcfcfc",
+            marginLeft: 20 * this.props.level
+          }}
+        >
+          <View style={myStyle.noidung}>
+            <TouchableOpacity
+              onPress={() => this.xem(this.props.data.id, this.props.data.name)}
+            >
+              <View style={{ flexDirection: "column" }}>
                 <View style={myStyle.TieuDe}>
                   <Text>{this.props.data.name}</Text>
                 </View>
@@ -38,7 +76,7 @@ class ItemPost extends Component {
                       onPress={() =>
                         this.props.delete(
                           this.props.data.id,
-                          this.props.data.title.rendered
+                          this.props.data.name
                         )
                       }
                       style={{
@@ -65,9 +103,30 @@ class ItemPost extends Component {
                   </View>
                 )}
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
         </View>
+        {this.state.loaded && (
+          <FlatList
+            //refreshing={!this.state.loaded}
+            //onRefresh={() => this._checkChild()}
+            data={this.state.dataChild}
+            keyExtractor={(item, index) => item.id}
+            renderItem={
+              ({ item }) => (
+                //item.parent === 0 && (
+                <ItemCategory
+                  data={item}
+                  navigation={this.props.navigation}
+                  delete={(id, title) => this.props.delete(id, title)}
+                  userName={this.props.userName}
+                  level={this.props.level + 1}
+                />
+              )
+              //)
+            }
+          />
+        )}
       </View>
     );
   }
@@ -129,4 +188,4 @@ const myStyle = StyleSheet.create({
   }
 });
 
-export default ItemPost;
+export default ItemCategory;

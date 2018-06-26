@@ -86,6 +86,30 @@ module.exports = API = {
       console.log(e);
     }
   },
+  RemoveCategory: async function(id) {
+    try {
+      var base64 = await AsyncStorage.getItem("Base64","");
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/categories/${id}?force=true`,
+        {
+          headers: {
+            Authorization:
+              "Basic " + base64
+          },
+          method: "DELETE"
+        }
+      );
+      if ((response.status === 200)) {
+        return true;
+      }
+      return false
+    } catch (e) {
+      console.log(e);
+    }
+  },
   Login: async function(username, password) {
     let base64=Base64.btoa(`${username}:${password}`);
     let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/users/me`, {
