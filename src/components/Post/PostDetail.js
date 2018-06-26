@@ -68,26 +68,17 @@ class PostDetail extends Component {
           <TouchableOpacity onPress={() => this.setState({ repcmt: false })}>
             <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-arrow-round-back" size={28} />
           </TouchableOpacity>
-          <TextInput
-            multiline={true}
-            placeholderTextColor="#bfbfbf"
-            underlineColorAndroid="rgba(0,0,0,0)"
-            style={myStyle.ctmInput}
-            onChangeText={u => {
-              this.setState({ user: u });
-            }}
-            placeholder={'Trả lời "' + this.state.rep + '"'}
-          />
+          <Text style={{ backgroundColor: "#rgba(255,255,255,0.5)" }}>Bình luận</Text>
           <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
         </View >
       )
     else
       return (
         <View style={myStyle.canLe} >
-          <TouchableOpacity onPress={() => { height_cmt: 100 }}>
-            <IonIcon style={{ color: "#088A4B", padding: 13, backgroundColor: "rgba(240,240,240,0.9)", }} name="ios-chatbubbles-outline" size={28} />
-          </TouchableOpacity>
-          <TextInput
+          <IonIcon style={{ color: "#088A4B", padding: 10, backgroundColor: "rgba(250,250,250,0.9)", }} name="ios-chatbubbles-outline" size={27} />
+          <TouchableOpacity style={{padding:10, fontSize: 16, flex: 1, backgroundColor: "#rgba(255,255,255,0.8)" }} onPress={() => { height_cmt: 100 }}>
+
+            {/* <TextInput
             multiline={true}
             placeholderTextColor="#bfbfbf"
             underlineColorAndroid="rgba(0,0,0,0)"
@@ -96,8 +87,10 @@ class PostDetail extends Component {
               this.setState({ user: u });
             }}
             placeholder="Bình luận"
-          />
-          <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
+          /> */}
+            <Text style={{ fontSize: 18}}>Bình luận</Text>
+          </TouchableOpacity>
+          <IonIcon style={{ color: "#088A4B", padding: 10, backgroundColor: "rgba(250,250,250,0.9)", }} name="md-send" size={28} />
         </View>
       )
   }
@@ -201,7 +194,7 @@ const myStyle = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dfdfdf",
     backgroundColor: "#fff",
-    marginBottom: 48
+    marginBottom: 38
   },
   header: {
     padding: 5
@@ -220,13 +213,15 @@ const myStyle = StyleSheet.create({
     paddingRight: 10,
   },
   canLe: {
+    borderColor: "#f1f1f1",
+    borderTopWidth:1,
     flex: 1,
     position: "absolute",
     width: pw,
-    height: 50,
+    height: 42,
     bottom: 0,
     zIndex: 1,
-    backgroundColor: "rgba(240,240,240,0.0)",
+    backgroundColor: "rgba(250,250,250,0.9)",
     flexDirection: 'row',
     alignItems: 'center'
   }

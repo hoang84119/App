@@ -26,7 +26,7 @@ class ItemPost extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
+      <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <View style={myStyle.baibao}>
           <TouchableOpacity
             onPress={() =>
@@ -36,10 +36,12 @@ class ItemPost extends Component {
             <View style={{ flexDirection: "row" }}>
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 {this.state.loaded && (
-                  <Image
-                    style={myStyle.hinh}
-                    source={{ uri: this.state.featured_media }}
-                  />
+                  <View style={myStyle.hinh}>
+                    <Image
+                      style={myStyle.hinh}
+                      source={{ uri: this.state.featured_media }}
+                    />
+                  </View>
                 )}
               </View>
               <View style={{ flex: 1 }}>
@@ -65,7 +67,7 @@ class ItemPost extends Component {
                         flexDirection: "row"
                       }}
                     >
-                      <IonIcon name="ios-trash-outline" size={20} />
+                      <IonIcon name="ios-trash-outline" size={16} />
                       <Text style={myStyle.textEdit}> Xóa</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -76,7 +78,7 @@ class ItemPost extends Component {
                         flexDirection: "row"
                       }}
                     >
-                      <IonIcon name="ios-create-outline" size={20} />
+                      <IonIcon name="ios-create-outline" size={16} />
                       <Text style={myStyle.textEdit}> Chỉnh sửa</Text>
                     </TouchableOpacity>
                   </View>
@@ -161,7 +163,7 @@ class ItemPost extends Component {
 const htmlStyle = {
   span: {
     color: "#088A4B",
-    paddingLeft: 0,
+    paddingLeft: 5,
     paddingRight: 5,
     paddingTop: 5,
     marginBottom: 0,
@@ -185,15 +187,13 @@ const myStyle = StyleSheet.create({
   edit: {
     height: 34,
     borderTopWidth: 1,
-    borderColor: "#fafafa",
+    borderColor: "#fefefe",
     padding: 7,
-    backgroundColor: "#fdfdfd",
+    backgroundColor: "#fefefe",
     flexDirection: "row"
-    // borderBottomStartRadius: 8,
-    // borderBottomEndRadius: 8
   },
   textEdit: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: "100",
     flex: 1,
     //color: "#36BC63",
@@ -204,7 +204,7 @@ const myStyle = StyleSheet.create({
   baibao: {
     //borderWidth: 1,
     borderWidth: 1,
-    borderColor: "#f6f6f6",
+    borderColor: "#fefefe",
     marginTop: 5,
     marginRight: 5,
     marginLeft: 5,
