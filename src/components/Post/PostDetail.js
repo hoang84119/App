@@ -16,6 +16,7 @@ import API from "../../config/API";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
+import ModalComment from "./items/ModalComment"
 
 class PostDetail extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class PostDetail extends Component {
       repcmt: false,
       rep: ''
     };
+    this._onOpenModal = this._onOpenModal.bind(this)
     //const { navigation } = this.props;
   }
   static navigationOptions = ({ navigation }) => {
@@ -61,39 +63,25 @@ class PostDetail extends Component {
       onEdit: this._onEdit.bind(this)
     });
   }
-  _renderComment() {
-    if (this.state.repcmt == true)
-      return (
-        <View style={myStyle.canLe}>
-          <TouchableOpacity onPress={() => this.setState({ repcmt: false })}>
-            <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-arrow-round-back" size={28} />
-          </TouchableOpacity>
-          <Text style={{ backgroundColor: "#rgba(255,255,255,0.5)" }}>Bình luận</Text>
-          <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
-        </View >
-      )
-    else
-      return (
-        <View style={myStyle.canLe} >
-          <IonIcon style={{ color: "#088A4B", padding: 10, backgroundColor: "rgba(250,250,250,0.9)", }} name="ios-chatbubbles-outline" size={27} />
-          <TouchableOpacity style={{padding:10, fontSize: 16, flex: 1, backgroundColor: "#rgba(255,255,255,0.8)" }} onPress={() => { height_cmt: 100 }}>
+  // _renderComment() {
+  //   if (this.state.repcmt == true)
+  //     return (
+  //       <View style={myStyle.canLe}>
+  //         <TouchableOpacity onPress={() => this.setState({ repcmt: false })}>
+  //           <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-arrow-round-back" size={28} />
+  //         </TouchableOpacity>
+  //         <Text style={{ backgroundColor: "#rgba(255,255,255,0.5)" }}>Bình luận</Text>
+  //         <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
+  //       </View >
+  //     )
+  //   else
+  //     return (
+  //       <TouchableOpacity style={myStyle.canLe} >
+  //         <IonIcon style={{ color: "#fff"}} name="ios-chatbubbles-outline" size={24} />
 
-            {/* <TextInput
-            multiline={true}
-            placeholderTextColor="#bfbfbf"
-            underlineColorAndroid="rgba(0,0,0,0)"
-            style={myStyle.ctmInput}
-            onChangeText={u => {
-              this.setState({ user: u });
-            }}
-            placeholder="Bình luận"
-          /> */}
-            <Text style={{ fontSize: 18}}>Bình luận</Text>
-          </TouchableOpacity>
-          <IonIcon style={{ color: "#088A4B", padding: 10, backgroundColor: "rgba(250,250,250,0.9)", }} name="md-send" size={28} />
-        </View>
-      )
-  }
+  //       </TouchableOpacity>
+  //     )
+  // }
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -104,30 +92,38 @@ class PostDetail extends Component {
           </View>
         )}
         {this.state.loaded && (
-          <ScrollView style={myStyle.container}>
-            <ItemContentPost noidung={this.state.noidung} tacgia={this.state.tacgia} loaded={this.state.loaded} />
-            {/* Bình luận bài viết */}
-            <View style={{ padding: 5 }}>
-              <Text style={{ margin: 5, paddingLeft: 5, marginBottom: 10, fontSize: 20, color: "#088A4B", borderBottomWidth: 3, borderBottomColor: "#088A4B" }}>
-                Bình luận
+          <View style={{ flex: 1 }}>
+            <ScrollView style={myStyle.container}>
+              <ItemContentPost noidung={this.state.noidung} tacgia={this.state.tacgia} loaded={this.state.loaded} />
+              {/* Bình luận bài viết */}
+              <View style={{ padding: 5 }}>
+                <Text style={{ margin: 5, paddingLeft: 5, marginBottom: 10, fontSize: 20, color: "#088A4B", borderBottomWidth: 3, borderBottomColor: "#088A4B" }}>
+                  Bình luận
               </Text>
-              <FlatList
-                refreshing={this.state.refreshing}
-                //refreshing={this.props.refreshing}
-                onRefresh={() => this._loadComments()}
-                data={this.state.binhluan}
-                keyExtractor={(x, i) => i.toString()}
-                renderItem={({ item }) => <ItemComment data={item} onClickCmt={this._onClickCmt} loaded={this.state.loaded} />}
-              />
-            </View>
-          </ScrollView>
+                <FlatList
+                  refreshing={this.state.refreshing}
+                  //refreshing={this.props.refreshing}
+                  onRefresh={() => this._loadComments()}
+                  data={this.state.binhluan}
+                  keyExtractor={(x, i) => i.toString()}
+                  renderItem={({ item }) => <ItemComment data={item} onClickCmt={this._onClickCmt} loaded={this.state.loaded} />}
+                />
+              </View>
+            </ScrollView>
+            <ModalComment ref={'addModal'} />
+          </View>
         )}
 
-        {this._renderComment()}
+        <TouchableOpacity style={myStyle.canLe} onPress={() => this._onOpenModal()}>
+          <IonIcon style={{ color: "#fff" }} name="ios-chatbubbles-outline" size={28} />
+
+        </TouchableOpacity>
       </View>
     );
   }
-
+  _onOpenModal() {
+    this.refs.addModal.showModal()
+  }
   _onClickCmt = (a) => {
     this.setState({ repcmt: true, rep: a })
   }
@@ -193,8 +189,7 @@ const myStyle = StyleSheet.create({
     //marginTop: (Platform.OS === 'ios') ? 60 : 50,
     borderWidth: 1,
     borderColor: "#dfdfdf",
-    backgroundColor: "#fff",
-    marginBottom: 38
+    backgroundColor: "#fff"
   },
   header: {
     padding: 5
@@ -213,17 +208,23 @@ const myStyle = StyleSheet.create({
     paddingRight: 10,
   },
   canLe: {
-    borderColor: "#f1f1f1",
-    borderTopWidth:1,
-    flex: 1,
+    flexDirection: "row",
     position: "absolute",
-    width: pw,
-    height: 42,
+    width: 45,
+    height: 45,
     bottom: 0,
+    right: 0,
+    backgroundColor: "#36BC63",
     zIndex: 1,
-    backgroundColor: "rgba(250,250,250,0.9)",
-    flexDirection: 'row',
-    alignItems: 'center'
+    margin: 10,
+    borderRadius: 45,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 20, height: 20 },
+    shadowOpacity: 1.0,
+    shadowRadius: 10,
+    elevation: 5
   }
 });
 export default PostDetail;
