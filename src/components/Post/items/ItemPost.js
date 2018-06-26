@@ -19,10 +19,15 @@ class ItemPost extends Component {
     this.state = { featured_media: "", loaded: false };
   }
 
-  componentWillReceiveProps() {
-    this.setState({ loaded: false }, () => {
-      this._getFeaturedMedia();
-    });
+  componentDidMount() {
+    this._getFeaturedMedia();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // this.setState({ loaded: false }, () => {
+    //   this._getFeaturedMedia();
+    // });
+    if(nextProps.data!=this.props.data) this._getFeaturedMedia();
   }
   render() {
     return (

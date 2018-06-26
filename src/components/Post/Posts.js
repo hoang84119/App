@@ -25,6 +25,10 @@ class Posts extends Component {
     };
   }
 
+  static navigationOptions = {
+    header  : null,
+  };
+
   componentDidMount() {
     //this._loadData();
     //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
