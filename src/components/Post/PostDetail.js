@@ -109,7 +109,7 @@ class PostDetail extends Component {
                 />
               </View>
             </ScrollView>
-            <ModalComment ref={'addModal'} />
+            <ModalComment ref={'addModal'} style={{zIndex: 1}} noidung={this.state.noidung}/>
           </View>
         )}
         {this.state.loaded && (
