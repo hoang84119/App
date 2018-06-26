@@ -86,14 +86,17 @@ class Categories extends Component {
           onRefresh={() => this._loadData()}
           data={this.state.data}
           keyExtractor={(item, index) => item.id}
-          renderItem={({ item }) => (
-            <ItemCategory
-              data={item}
-              navigation={this.props.navigation}
-              delete={this._delete}
-              userName={this.props.dataUser.name}
-            />
-          )}
+          renderItem={({ item }) =>
+            item.parent === 0 && (
+              <ItemCategory
+                data={item}
+                navigation={this.props.navigation}
+                delete={this._delete}
+                userName={this.props.dataUser.name}
+                level={0}
+              />
+            )
+          }
         />
       </View>
     );
@@ -113,6 +116,7 @@ class Categories extends Component {
   }
 
   _delete = (i, t) => {
+
     Alert.alert(
       "Thông báo",
       "Bạn có thật sự muốn xóa ''" + t + "'' không?",
@@ -120,14 +124,8 @@ class Categories extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories/" + i, {
-              headers: {
-                Authorization:
-                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
-              },
-              method: "DELETE"
-            }).then(response => {
-              if (response.status == 200) {
+            API.RemoveCategory(i).then(response => {
+              if (response === true) {
                 ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
                 this._loadData();
               } else Alert.alert("Cảnh báo", "Xóa thất bại!");
