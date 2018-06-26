@@ -78,7 +78,6 @@ class PostDetail extends Component {
   //     return (
   //       <TouchableOpacity style={myStyle.canLe} >
   //         <IonIcon style={{ color: "#fff"}} name="ios-chatbubbles-outline" size={24} />
-
   //       </TouchableOpacity>
   //     )
   // }
@@ -113,11 +112,11 @@ class PostDetail extends Component {
             <ModalComment ref={'addModal'} />
           </View>
         )}
-
-        <TouchableOpacity style={myStyle.canLe} onPress={() => this._onOpenModal()}>
-          <IonIcon style={{ color: "#fff" }} name="ios-chatbubbles-outline" size={28} />
-
-        </TouchableOpacity>
+        {this.state.loaded && (
+          <TouchableOpacity style={myStyle.canLe} onPress={() => this._onOpenModal()}>
+            <IonIcon style={{ color: "#fff" }} name="ios-chatbubbles-outline" size={28} />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -215,7 +214,7 @@ const myStyle = StyleSheet.create({
     bottom: 0,
     right: 0,
     backgroundColor: "#36BC63",
-    zIndex: 1,
+    zIndex: 0,
     margin: 10,
     borderRadius: 45,
     justifyContent: "center",
