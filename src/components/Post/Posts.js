@@ -68,36 +68,51 @@ class Posts extends Component {
           </TouchableOpacity>
         </View>
       ) : (
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "rgba(255,255,255,0)"
-          }}
-        >
-          <TouchableOpacity onPress={() => this._onLogin()}>
-            <IonIcon
-              style={{ marginLeft: 10, marginRight: 10, color: "black" }}
-              name="md-contact"
-              size={36}
-            />
-          </TouchableOpacity>
-        </View>
-      );
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "rgba(255,255,255,0)"
+            }}
+          >
+            <TouchableOpacity onPress={() => this._onLogin()}>
+              <IonIcon
+                style={{ marginLeft: 10, marginRight: 10, color: "black" }}
+                name="md-contact"
+                size={36}
+              />
+            </TouchableOpacity>
+          </View>
+        );
 
     return (
-      <View style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
-        <View
-          style={{
-            height: 50,
-            color: "white",
-            justifyContent: "space-between",
+      <View style={{ flex: 1}}>
+
+        {/* Thanh bar */}
+        <View style={{ backgroundColor: "#fff", borderBottomColor: "#fafafa", borderBottomWidth: 1 }}>
+          <View style={{
+            alignItems: "center",
+            height: 45,
+            justifyContent: "center",
             flexDirection: "row"
-          }}
-        >
-          <Text style={{ justifyContent: "center" }}>Bài viết</Text>
-          {ButtonRight}
+          }}>
+            <Text style={{ fontSize: 18, color: "#000", fontWeight: "bold" }}>Bài viết</Text>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              height: 45,
+              justifyContent: "flex-end",
+              flexDirection: "row",
+              marginTop: -45
+            }}
+          >
+            {ButtonRight}
+          </View>
         </View>
+
+        {/* Noi dung */}
+
         <FlatList
           refreshing={this.state.refreshing}
           //refreshing={this.props.refreshing}
