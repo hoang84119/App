@@ -46,7 +46,7 @@ class ItemComment extends Component {
             {/* Thông tin user */}
 
             <View style={{ flex: 1, height: 50, paddingLeft: 10, paddingRight: 10 }}>
-              <Text style={{ color: "#088A4B", fontWeight: "bold", fontSize: 16 }}>
+              <Text style={{ color: "#36BC63", fontWeight: "bold", fontSize: 16 }}>
                 {this.props.data.author_name}
               </Text>
               <Text style={{ marginTop: 3, fontSize: 12 }}>{this.props.data.date.replace("T", "   ")}</Text>
@@ -76,7 +76,7 @@ class ItemComment extends Component {
                 this.props.onClickCmt(this.props.data.author_name);
               }}>
                 <IonIcon
-                  style={{ color: "#088A4B" }}
+                  style={{ color: "#36BC63" }}
                   name="ios-chatbubbles-outline"
                   size={15}
                 >
@@ -95,7 +95,7 @@ class ItemComment extends Component {
                 }}
               >
                 <IonIcon
-                  style={{ color: "#088A4B" }}
+                  style={{ color: "#36BC63" }}
                   name="ios-create-outline"
                   size={15}
                 >
@@ -114,7 +114,7 @@ class ItemComment extends Component {
                 }}
               >
                 <IonIcon
-                  style={{ color: "#088A4B" }}
+                  style={{ color: "#36BC63" }}
                   name="ios-trash-outline"
                   size={15}
                 >

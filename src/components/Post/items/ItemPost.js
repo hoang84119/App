@@ -11,6 +11,7 @@ import {
 import HTML from "react-native-render-html";
 import Base64 from "../../../config/Base64";
 import IonIcon from "react-native-vector-icons/Ionicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 const featured_media_default =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
 class ItemPost extends Component {
@@ -52,7 +53,7 @@ class ItemPost extends Component {
               <View style={{ flex: 1 }}>
                 <View style={myStyle.TieuDe}>
                   <HTML
-                    html={"<span>" + this.props.data.title.rendered + "</span>"}
+                    html={"<span> " + this.props.data.title.rendered + "</span>"}
                     tagsStyles={htmlStyle}
                   />
                 </View>
@@ -66,25 +67,24 @@ class ItemPost extends Component {
                         )
                       }
                       style={{
-                        paddingLeft: 5,
-                        flex: 1,
                         alignItems: "center",
-                        flexDirection: "row"
+                        justifyContent: "center",
+                        borderRadius: 5
                       }}
                     >
-                      <IonIcon name="ios-trash-outline" size={16} />
-                      <Text style={myStyle.textEdit}> Xóa</Text>
+                      <FontAwesome style={{color: "#36BC63"}} name="trash" size={20} />
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => this.chinhsua(this.props.data.id)}
                       style={{
-                        flex: 1,
+                        justifyContent: "center",
                         alignItems: "center",
-                        flexDirection: "row"
+                        borderRadius: 5,
+                        paddingTop:3,
+                        marginLeft: 10
                       }}
                     >
-                      <IonIcon name="ios-create-outline" size={16} />
-                      <Text style={myStyle.textEdit}> Chỉnh sửa</Text>
+                      <FontAwesome style={{color: "#36BC63"}} name="edit" size={20} />
                     </TouchableOpacity>
                   </View>
                 )}
@@ -167,12 +167,13 @@ class ItemPost extends Component {
 
 const htmlStyle = {
   span: {
-    color: "#088A4B",
+    color: "#36BC63",
     paddingLeft: 5,
     paddingRight: 5,
     paddingTop: 5,
     marginBottom: 0,
-    fontSize: 15
+    fontSize: 18,
+    fontWeight: "500"
   },
   p: {
     paddingRight: 20
@@ -191,28 +192,17 @@ const myStyle = StyleSheet.create({
   },
   edit: {
     height: 34,
-    borderTopWidth: 1,
-    borderColor: "#fefefe",
+    //borderTopWidth: 1,
+    //: "#fefefe",
     padding: 7,
-    backgroundColor: "#fefefe",
-    flexDirection: "row"
-  },
-  textEdit: {
-    fontSize: 11,
-    fontWeight: "100",
-    flex: 1,
-    //color: "#36BC63",
-    color: "#6f6f6f",
-    justifyContent: "center",
-    alignItems: "center"
+    //backgroundColor: "#fefefe",
+    flexDirection: "row",
+    justifyContent: "flex-end"
   },
   baibao: {
-    //borderWidth: 1,
-    borderWidth: 1,
-    borderColor: "#fefefe",
-    marginTop: 5,
-    marginRight: 5,
-    marginLeft: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+    padding: 7,
     backgroundColor: "#fff"
   },
   hinh: {
