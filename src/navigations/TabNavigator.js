@@ -1,11 +1,13 @@
 import React from 'react';
 import PostTo from "./PostTo";
+import MediaTo from "./MediaTo";
 import Account from "../components/User/Account";
 import { TabNavigator, TabBarBottom } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Categories from '../components/Category/Categories'
+import Categories from '../components/Category/Categories';
+import CategoryTo from './CategoryTo';
 
-import MediaTo from "./MediaTo";
+
 
 //tạo thanh Tab
 export default TabNavigator(
@@ -13,7 +15,7 @@ export default TabNavigator(
     //Định nghĩa các màn hình 
     Post: {screen: PostTo},
     Media: {screen: MediaTo},
-    Category:{screen:Categories},
+    Category:{screen:CategoryTo},
     User: {screen: Account},
   },
   {
@@ -45,6 +47,7 @@ export default TabNavigator(
       inactiveTintColor: "gray", // màu khi màn hình không được chọn
       style: {height:40}
     },
+    initialRouteName: 'Category',
     animationEnabled: true, //hiệu ứng chuyển tab
     swipeEnabled: true,// cho phép vuốt để chuyển
   }

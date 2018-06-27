@@ -23,8 +23,14 @@ class Categories extends Component {
       refreshing: true
     };
   }
+  static navigationOptions = {
+    header  : null,
+  };
+  
   componentDidMount() {
-    this._loadData();
+    this.props.navigation.addListener("didFocus", () => {
+      this._loadData();
+    });
   }
   render() {
     let ButtonRight =
@@ -70,17 +76,40 @@ class Categories extends Component {
       );
     return (
       <View style={{ flex: 1, backgroundColor: "#fcfcfc" }}>
+        {/* Thanh bar */}
         <View
           style={{
-            height: 50,
-            color: "white",
-            justifyContent: "space-between",
-            flexDirection: "row"
+            backgroundColor: "#fff",
+            borderBottomColor: "#fafafa",
+            borderBottomWidth: 1
           }}
         >
-          <Text style={{ justifyContent: "center" }}>Bài viết</Text>
-          {ButtonRight}
+          <View
+            style={{
+              alignItems: "center",
+              height: 45,
+              justifyContent: "center",
+              flexDirection: "row"
+            }}
+          >
+            <Text style={{ fontSize: 18, color: "#000", fontWeight: "bold" }}>
+              Chuyên mục
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              height: 45,
+              justifyContent: "flex-end",
+              flexDirection: "row",
+              marginTop: -45
+            }}
+          >
+            {ButtonRight}
+          </View>
         </View>
+
+        {/* Noi dung */}
         <FlatList
           refreshing={this.state.refreshing}
           onRefresh={() => this._loadData()}
@@ -115,8 +144,11 @@ class Categories extends Component {
       });
   }
 
-  _delete = (i, t) => {
+  _onAdd() {
+    this.props.navigation.navigate("AddCategory");
+  }
 
+  _delete = (i, t) => {
     Alert.alert(
       "Thông báo",
       "Bạn có thật sự muốn xóa ''" + t + "'' không?",

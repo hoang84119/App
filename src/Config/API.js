@@ -42,14 +42,14 @@ module.exports = API = {
   },
   validate_account: async function() {
     try {
-      var base64 = await AsyncStorage.getItem("Base64","");
+      var base64 = await AsyncStorage.getItem("Base64", "");
     } catch (e) {
       console.log(e);
     }
     if (base64 == "") return null;
-    let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/users/me`, {
+    let response = await fetch(`${url}/thuctap/wp-json/wp/v2/users/me`, {
       headers: {
-        Authorization: "Basic " + base64,
+        Authorization: "Basic " + base64
       },
       method: "GET"
     });
@@ -64,19 +64,16 @@ module.exports = API = {
     try {
       let formData = new FormData();
       formData.append("file", path);
-      let response = await fetch(
-        API.getURL() + "/thuctap/wp-json/wp/v2/media/",
-        {
-          headers: {
-            Authorization:
-              "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok"),
-            "Content-Type": "multipart/form-data"
-          },
-          body: formData,
-          method: "POST"
-        }
-      );
-      if ((response.status === 201)) {
+      let response = await fetch(url + "/thuctap/wp-json/wp/v2/media/", {
+        headers: {
+          Authorization:
+            "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok"),
+          "Content-Type": "multipart/form-data"
+        },
+        body: formData,
+        method: "POST"
+      });
+      if (response.status === 201) {
         let json = await response.json();
         return json.guid.rendered;
       }
@@ -88,33 +85,57 @@ module.exports = API = {
   },
   RemoveCategory: async function(id) {
     try {
-      var base64 = await AsyncStorage.getItem("Base64","");
+      var base64 = await AsyncStorage.getItem("Base64", "");
     } catch (e) {
       console.log(e);
     }
     try {
-      let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/categories/${id}?force=true`,
+      let response = await fetch(
+        `${url}/thuctap/wp-json/wp/v2/categories/${id}?force=true`,
         {
           headers: {
-            Authorization:
-              "Basic " + base64
+            Authorization: "Basic " + base64
           },
           method: "DELETE"
         }
       );
-      if ((response.status === 200)) {
+      if (response.status === 200) {
         return true;
       }
-      return false
+      return false;
     } catch (e) {
       console.log(e);
     }
   },
-  Login: async function(username, password) {
-    let base64=Base64.btoa(`${username}:${password}`);
-    let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/users/me`, {
+  SaveCategory: async function(id, name, slug, description, parent) {
+    var urlTemp = `${url}/thuctap/wp-json/wp/v2/categories`;
+    var base64 = await AsyncStorage.getItem("Base64", "");
+    var formData = new FormData();
+    formData.append("name", name);
+    formData.append("slug", slug);
+    formData.append("description", description);
+    formData.append("parent", parent);
+    if (id != "") urlTemp = `${urlTemp}/${id}`;
+    let response = await fetch(`${urlTemp}`, {
       headers: {
-        Authorization: "Basic " + base64,
+        Authorization: "Basic " + base64
+      },
+      body: formData,
+      method: "POST"
+    });
+    if (response.status === 200) {
+      return true;
+    } else if (response.status === 201){
+      return true
+    } else {
+      return response.json();
+    }
+  },
+  Login: async function(username, password) {
+    let base64 = Base64.btoa(`${username}:${password}`);
+    let response = await fetch(`${url}/thuctap/wp-json/wp/v2/users/me`, {
+      headers: {
+        Authorization: "Basic " + base64
       },
       method: "GET"
     });

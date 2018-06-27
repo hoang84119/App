@@ -29,8 +29,8 @@ class ItemCategory extends Component {
     this._checkChild();
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.data!=this.props.data) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data != this.props.data) {
       this._checkChild();
     }
   }
@@ -67,8 +67,13 @@ class ItemCategory extends Component {
               onPress={() => this.xem(this.props.data.id, this.props.data.name)}
             >
               <View style={{ flexDirection: "column" }}>
-                <View style={myStyle.TieuDe}>
-                  <Text>{this.props.data.name}</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center"
+                  }}
+                >
+                  <Text style={myStyle.TieuDe}>{this.props.data.name}</Text>
                 </View>
                 {this.props.userName === "admin" && (
                   <View style={myStyle.edit}>
@@ -133,22 +138,24 @@ class ItemCategory extends Component {
 
   xem(i, t) {
     //this.getSrcImage(t);
-    this.props.navigation.navigate("chitiet", { id: i });
+    //this.props.navigation.navigate("chitiet", { id: i });
   }
   xoa(i, t) {
     this.props.delete(i, t);
   }
   chinhsua(i) {
-    this.props.navigation.navigate("chinhsua", { id: i });
+    this.props.navigation.navigate("EditCategory", { id: i });
   }
 }
 
 const myStyle = StyleSheet.create({
   TieuDe: {
-    paddingLeft: 5,
-    paddingRight: 5,
-    height: 70,
-    fontSize: 20
+    // paddingLeft: 5,
+    // paddingRight: 5,
+    //height: 70,
+    padding:10,
+    fontSize: 20,
+    fontWeight: "bold"
   },
   excerpt: {
     //color: '#088A4B',

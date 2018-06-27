@@ -27,7 +27,13 @@ class ItemPost extends Component {
     // this.setState({ loaded: false }, () => {
     //   this._getFeaturedMedia();
     // });
-    if(nextProps.data!=this.props.data) this._getFeaturedMedia();
+    if (nextProps.data != this.props.data)
+    {
+      this.setState({ loaded: false }, () => {
+        this._getFeaturedMedia();
+      });
+    }
+     
   }
   render() {
     return (
