@@ -10,10 +10,11 @@ import {
   Text
 } from "react-native";
 import API from "../../config/API";
-import IonIcon from "react-native-vector-icons/Ionicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ItemPost from "./items/ItemPost";
 import Base64 from "../../config/Base64";
 import { connect } from "react-redux";
+import Feather from "react-native-vector-icons/Feather";
 
 class Posts extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Posts extends Component {
   }
 
   static navigationOptions = {
-    header  : null,
+    header: null,
   };
 
   componentDidMount() {
@@ -57,17 +58,17 @@ class Posts extends Component {
           }}
         >
           <TouchableOpacity onPress={() => this._onAdd()}>
-            <IonIcon
-              style={{ marginLeft: 10, marginRight: 10, color: "#088A4B" }}
-              name="ios-add-outline"
-              size={42}
+            <Feather
+              style={{ marginRight: 5, color: "#36BC63" }}
+              name="plus"
+              size={34}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this._onLogout()}>
-            <IonIcon
-              style={{ marginLeft: 5, marginRight: 10, color: "#088A4B" }}
-              name="ios-log-out-outline"
-              size={32}
+            <Feather
+              style={{ marginRight: 5, color: "#36BC63" }}
+              name="log-out"
+              size={24}
             />
           </TouchableOpacity>
         </View>
@@ -90,17 +91,27 @@ class Posts extends Component {
         );
 
     return (
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1 }}>
 
         {/* Thanh bar */}
-        <View style={{ backgroundColor: "#fff", borderBottomColor: "#fafafa", borderBottomWidth: 1 }}>
+        <View style={{
+          backgroundColor: "#fff",
+          // borderBottomColor: "#fafafa",
+          // borderBottomWidth: 1,
+          shadowColor: "#efefef",
+          shadowOffset: {width: 10, height: 10 },
+          shadowOpacity: 0.1,
+          // shadowRadius: 10,
+          elevation: 3,
+          zIndex:0
+        }}>
           <View style={{
             alignItems: "center",
             height: 45,
             justifyContent: "center",
             flexDirection: "row"
           }}>
-            <Text style={{ fontSize: 18, color: "#000", fontWeight: "bold" }}>Bài viết</Text>
+            <Text style={{ fontSize: 20, color: "#000", fontWeight: "bold" }}>Bài viết</Text>
           </View>
           <View
             style={{

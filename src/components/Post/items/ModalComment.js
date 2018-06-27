@@ -1,21 +1,55 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Image, Dimensions, TextInput, TouchableOpacity } from "react-native";
+import { Alert, ToastAndroid, StyleSheet, View, Text, Image, Dimensions, TextInput, TouchableOpacity } from "react-native";
 import Modal from "react-native-modalbox"
+import API from "../../../config/API";
+import Base64 from '../../../config/Base64';
 
 var screen = Dimensions.get('window');
 export default class ModalComment extends Component {
       constructor(props) {
             super(props);
+            this.state = {
+                  name: '',
+                  email: '',
+                  content: '',
+            }
       }
       showModal = () => {
             this.refs.myModal.open();
+      }
+      _comment() {
+            // alert("" + this.props.noidung.id + "\n" + this.state.content)
+            // this.refs.myModal.close();
+            fetch(
+                  API.getURL() +
+                  "/thuctap/wp-json/wp/v2/comments?post="
+                  + this.props.noidung.id
+                  + "&author_name=" + this.state.name
+                  + "&content=" + this.state.content
+                  + "&author_email=" + this.state.email, {
+                        headers: {
+                              Authorization:
+                                    "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+                        },
+                        method: "POST"
+                  })
+                  .then(response => {
+                        var t = response.status;
+                        if (response.status == 201) {
+                              ToastAndroid.show("OK!\nBình luận của bạn đang chờ quản trị viên xét duyệt!", ToastAndroid.LONG);
+                              this.refs.myModal.close();
+                        } else {
+                              return response.json()
+                        }
+                  }).then(function (object) {
+                        Alert.alert("Cảnh báo", object.message);
+                  });
       }
       render() {
             return (
                   <Modal
                         ref={"myModal"}
                         style={{
-                              zIndex: 1,
                               justifyContent: "center",
                               borderRadius: 15,
                               shadowRadius: 10,
@@ -34,8 +68,8 @@ export default class ModalComment extends Component {
                                     placeholderTextColor="#cfcfcf"
                                     underlineColorAndroid="rgba(0,0,0,0)"
                                     style={myStyle.ctmInput}
-                                    onChangeText={u => {
-                                          this.setState({ user: u });
+                                    onChangeText={n => {
+                                          this.setState({ name: n });
                                     }}
                                     placeholder="(*)Tên của bạn"
                               />
@@ -43,8 +77,8 @@ export default class ModalComment extends Component {
                                     placeholderTextColor="#cfcfcf"
                                     underlineColorAndroid="rgba(0,0,0,0)"
                                     style={myStyle.ctmInput}
-                                    onChangeText={u => {
-                                          this.setState({ user: u });
+                                    onChangeText={e => {
+                                          this.setState({ email: e });
                                     }}
                                     placeholder="(*)Email của bạn"
                               />
@@ -53,15 +87,19 @@ export default class ModalComment extends Component {
                                     underlineColorAndroid="rgba(0,0,0,0)"
                                     multiline={true}
                                     style={myStyle.ctmInputContent}
-                                    onChangeText={u => {
-                                          this.setState({ user: u });
+                                    onChangeText={c => {
+                                          this.setState({ content: c });
                                     }}
                                     placeholder="(*)Nội dung bình luận"
                               />
-                              <View style={{ alignItems: "flex-end" }}>
-                                    <TouchableOpacity style={myStyle.ctmBottom}>
-                                          <Text style={{ color: "white", fontSize: 18 }}> Bình luận </Text>
-                                    </TouchableOpacity>
+                              <View style={{ marginTop: 20}}>
+                                    <Text style={{ marginBottom: -35, color: "red", fontStyle: "italic" }}>Chú ý: (*) Bắt buộc</Text>
+                                    <View style={{ alignItems: "flex-end" }}>
+
+                                          <TouchableOpacity style={myStyle.ctmBottom} onPress={() => this._comment()}>
+                                                <Text style={{ color: "white", fontSize: 18 }}> Bình luận </Text>
+                                          </TouchableOpacity>
+                                    </View>
                               </View>
                         </View>
                   </Modal>
@@ -82,8 +120,8 @@ const myStyle = StyleSheet.create({
             height: 100,
             backgroundColor: "#fafafa",
             fontSize: 18,
-            paddingTop:1,
-            paddingBottom:1,
+            paddingTop: 1,
+            paddingBottom: 1,
             paddingLeft: 10,
             paddingRight: 10,
             borderRadius: 10,

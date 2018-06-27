@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import API from "../../config/API";
 import IonIcon from "react-native-vector-icons/Ionicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
 import ModalComment from "./items/ModalComment"
@@ -46,9 +47,9 @@ class PostDetail extends Component {
           alignItems: "center"
         }}
       >
-        <IonIcon
-          style={{ marginLeft: 5, marginRight: 10, color: "#088A4B" }}
-          name="ios-create-outline"
+        <FontAwesome
+          style={{ marginLeft: 5, marginRight: 5, color: "#36BC63" }}
+          name="edit"
           size={32}
         />
       </TouchableOpacity>
@@ -96,7 +97,7 @@ class PostDetail extends Component {
               <ItemContentPost noidung={this.state.noidung} tacgia={this.state.tacgia} loaded={this.state.loaded} />
               {/* Bình luận bài viết */}
               <View style={{ padding: 5 }}>
-                <Text style={{ margin: 5, paddingLeft: 5, marginBottom: 10, fontSize: 20, color: "#088A4B", borderBottomWidth: 3, borderBottomColor: "#088A4B" }}>
+                <Text style={{ margin: 5, paddingLeft: 5, marginBottom: 10, fontSize: 20, color: "#36BC63", borderBottomWidth: 3, borderBottomColor: "#36BC63" }}>
                   Bình luận
               </Text>
                 <FlatList
@@ -109,7 +110,7 @@ class PostDetail extends Component {
                 />
               </View>
             </ScrollView>
-            <ModalComment ref={'addModal'} />
+            <ModalComment ref={'addModal'} style={{zIndex: 1}} noidung={this.state.noidung}/>
           </View>
         )}
         {this.state.loaded && (

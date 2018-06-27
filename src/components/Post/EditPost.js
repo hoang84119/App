@@ -3,7 +3,7 @@ import {
   ActivityIndicator, View, Text, StyleSheet, Alert, Image, ToastAndroid, TouchableOpacity
 } from "react-native";
 import { RichTextEditor, RichTextToolbar } from "react-native-zss-rich-text-editor";
-import IonIcon from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 import Base64 from '../../config/Base64';
 
 
@@ -46,7 +46,7 @@ class EditPost extends Component {
           alignItems: "center"
         }}
       >
-        <IonIcon style={{ marginLeft: 5, marginRight: 10, color: '#088A4B' }} name="ios-paper-outline" size={28} />
+        <Feather style={{ marginLeft: 5, marginRight: 5, color: '#36BC63' }} name="save" size={28} />
       </TouchableOpacity>
     );
     return { headerRight };
