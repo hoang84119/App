@@ -190,7 +190,7 @@ const myStyle = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     height: 70,
-    fontSize: 20
+    //fontSize: 20
   },
   excerpt: {
     //color: '#088A4B',

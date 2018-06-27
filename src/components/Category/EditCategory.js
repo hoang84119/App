@@ -101,12 +101,14 @@ class EditCategory extends Component {
             <View style={myStyle.card}>
               <Text style={myStyle.title}>Chuyên mục hiện tại</Text>
               <Picker
-                style={{ height: 50, width: 300 }}
+                style={myStyle.picker}
+                itemStyle={myStyle.itemStyle}
                 selectedValue={this.state.selectedIdItem}
                 onValueChange={value => {
                   this.setState({ selectedIdItem: value });
                 }}
               >
+                <Picker.Item label="Trống" key={0} value={0} />
                 {this.state.categories.map(item => {
                   return (
                     <Picker.Item
@@ -207,6 +209,8 @@ const myStyle = StyleSheet.create({
     fontSize: 15,
     marginBottom: 5
   },
+  picker: {},
+  itemStyle: {},
   note: {
     fontStyle: "italic"
   },

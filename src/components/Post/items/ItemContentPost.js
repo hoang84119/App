@@ -12,7 +12,7 @@ class ItemContentPost extends Component {
             paddingTop: 70,
             flex: 1,
             minHeight: 10,
-            resizeMode: "cover"
+            //resizeMode: "cover"
           }}
           source={require("../../../image/header.png")}
         >
@@ -89,8 +89,6 @@ const myStyle = StyleSheet.create({
     flex: 1
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
     margin: 10
   },
 });

@@ -94,7 +94,6 @@ export default class Media extends Component {
 
   async loadData() {
     //this.setState({ refreshing: true});
-    console.log(this.state);
     let response = await fetch(`${API.getURL()}/thuctap/wp-json/wp/v2/media/?page=${this.state.page}`);
     if (response.status === 200) {
       let responseJson = await response.json();

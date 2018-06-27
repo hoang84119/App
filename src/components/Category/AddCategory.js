@@ -19,7 +19,7 @@ class AddCategory extends Component {
     this.state = {
       categories: [],
       loaded: false,
-      selectedIdItem: "",
+      selectedIdItem: 0,
       ten: "",
       duongDan: "",
       moTa: ""
@@ -103,6 +103,7 @@ class AddCategory extends Component {
                   this.setState({ selectedIdItem: value });
                 }}
               >
+                <Picker.Item label="Trống" key={0} value={0} />
                 {this.state.categories.map(item => {
                   return (
                     <Picker.Item
@@ -145,7 +146,7 @@ class AddCategory extends Component {
     this.props.navigation.setParams({ isSaving: true });
     let { ten, duongDan, moTa, selectedIdItem } = this.state;
     API.SaveCategory("", ten, duongDan, moTa, selectedIdItem).then(response => {
-      if (response===true) {
+      if (response === true) {
         ToastAndroid.show("Thêm thành công", ToastAndroid.LONG);
         this.props.navigation.navigate("Categories");
       } else {
@@ -163,7 +164,6 @@ class AddCategory extends Component {
     if (categoriesJson != null) {
       this.setState({
         categories: categoriesJson,
-        selectedIdItem: categoriesJson[0].id,
         loaded: true
       });
     }

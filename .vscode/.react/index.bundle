@@ -61479,7 +61479,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       alignItems: "center"
     }
   });
-},491,[118,179,12,492,754,599,660,650,671,761,670],"App.js");
+},491,[118,179,12,492,758,599,660,650,671,766,670],"App.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -61516,7 +61516,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         headerMode: 'none'
     });
     exports.default = LoginToPost;
-},492,[493,598,671,754],"src\\navigations\\LogiToPost.js");
+},492,[493,598,671,758],"src\\navigations\\LogiToPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     get createNavigationContainer() {
@@ -83810,7 +83810,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = PostTo;
-},671,[493,672,727,744,746,747,749,598],"src\\navigations\\PostTo.js");
+},671,[493,672,729,748,750,751,753,598],"src\\navigations\\PostTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -83840,15 +83840,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _Ionicons2 = _interopRequireDefault(_Ionicons);
 
-  var _ItemComment = _require(_dependencyMap[5], "./items/ItemComment");
+  var _FontAwesome = _require(_dependencyMap[5], "react-native-vector-icons/FontAwesome");
+
+  var _FontAwesome2 = _interopRequireDefault(_FontAwesome);
+
+  var _ItemComment = _require(_dependencyMap[6], "./items/ItemComment");
 
   var _ItemComment2 = _interopRequireDefault(_ItemComment);
 
-  var _ItemContentPost = _require(_dependencyMap[6], "./items/ItemContentPost");
+  var _ItemContentPost = _require(_dependencyMap[7], "./items/ItemContentPost");
 
   var _ItemContentPost2 = _interopRequireDefault(_ItemContentPost);
 
-  var _ModalComment = _require(_dependencyMap[7], "./items/ModalComment");
+  var _ModalComment = _require(_dependencyMap[8], "./items/ModalComment");
 
   var _ModalComment2 = _interopRequireDefault(_ModalComment);
 
@@ -83931,7 +83935,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 86
+              lineNumber: 87
             }
           },
           this.state.loaded == false && _react3.default.createElement(
@@ -83940,7 +83944,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.loadingContainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 88
+                lineNumber: 89
               }
             },
             _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -83948,7 +83952,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               color: "#088A4B",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 89
+                lineNumber: 90
               }
             }),
             _react3.default.createElement(
@@ -83959,7 +83963,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 90
+                  lineNumber: 91
                 }
               },
               "\u0110ang t\u1EA3i"
@@ -83973,7 +83977,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 94
+                lineNumber: 95
               }
             },
             _react3.default.createElement(
@@ -83982,7 +83986,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.container,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 95
+                  lineNumber: 96
                 }
               },
               _react3.default.createElement(_ItemContentPost2.default, {
@@ -83991,7 +83995,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 loaded: this.state.loaded,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 96
+                  lineNumber: 97
                 }
               }),
               _react3.default.createElement(
@@ -84002,7 +84006,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 98
+                    lineNumber: 99
                   }
                 },
                 _react3.default.createElement(
@@ -84013,13 +84017,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       paddingLeft: 5,
                       marginBottom: 10,
                       fontSize: 20,
-                      color: "#088A4B",
+                      color: "#36BC63",
                       borderBottomWidth: 3,
-                      borderBottomColor: "#088A4B"
+                      borderBottomColor: "#36BC63"
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 99
+                      lineNumber: 100
                     }
                   },
                   "B\xECnh lu\u1EADn"
@@ -84041,22 +84045,26 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       loaded: _this2.state.loaded,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 108
+                        lineNumber: 109
                       }
                     });
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 102
+                    lineNumber: 103
                   }
                 })
               )
             ),
             _react3.default.createElement(_ModalComment2.default, {
               ref: 'addModal',
+              style: {
+                zIndex: 1
+              },
+              noidung: this.state.noidung,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 112
+                lineNumber: 113
               }
             })
           ),
@@ -84069,7 +84077,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 116
+                lineNumber: 117
               }
             },
             _react3.default.createElement(_Ionicons2.default, {
@@ -84080,7 +84088,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 28,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 117
+                lineNumber: 118
               }
             })
           )
@@ -84174,20 +84182,20 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 39
+          lineNumber: 40
         }
       },
-      _react3.default.createElement(_Ionicons2.default, {
+      _react3.default.createElement(_FontAwesome2.default, {
         style: {
           marginLeft: 5,
-          marginRight: 10,
-          color: "#088A4B"
+          marginRight: 5,
+          color: "#36BC63"
         },
-        name: "ios-create-outline",
+        name: "edit",
         size: 32,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 49
+          lineNumber: 50
         }
       })
     );
@@ -84249,7 +84257,821 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = PostDetail;
-},672,[118,179,12,599,601,673,722,725],"src\\components\\Post\\PostDetail.js");
+},672,[118,179,12,599,601,673,675,724,727],"src\\components\\Post\\PostDetail.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.getImageSource = exports.ToolbarAndroid = exports.TabBarItemIOS = exports.TabBarItem = exports.Button = undefined;
+
+  var _createIconSet = _require(_dependencyMap[0], "./lib/create-icon-set");
+
+  var _createIconSet2 = _interopRequireDefault(_createIconSet);
+
+  var _FontAwesome = _require(_dependencyMap[1], "./glyphmaps/FontAwesome.json");
+
+  var _FontAwesome2 = _interopRequireDefault(_FontAwesome);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var iconSet = (0, _createIconSet2.default)(_FontAwesome2.default, 'FontAwesome', 'FontAwesome.ttf');
+  exports.default = iconSet;
+  var Button = exports.Button = iconSet.Button;
+  var TabBarItem = exports.TabBarItem = iconSet.TabBarItem;
+  var TabBarItemIOS = exports.TabBarItemIOS = iconSet.TabBarItemIOS;
+  var ToolbarAndroid = exports.ToolbarAndroid = iconSet.ToolbarAndroid;
+  var getImageSource = exports.getImageSource = iconSet.getImageSource;
+},673,[602,674],"node_modules\\react-native-vector-icons\\FontAwesome.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = {
+    "glass": 61440,
+    "music": 61441,
+    "search": 61442,
+    "envelope-o": 61443,
+    "heart": 61444,
+    "star": 61445,
+    "star-o": 61446,
+    "user": 61447,
+    "film": 61448,
+    "th-large": 61449,
+    "th": 61450,
+    "th-list": 61451,
+    "check": 61452,
+    "remove": 61453,
+    "close": 61453,
+    "times": 61453,
+    "search-plus": 61454,
+    "search-minus": 61456,
+    "power-off": 61457,
+    "signal": 61458,
+    "gear": 61459,
+    "cog": 61459,
+    "trash-o": 61460,
+    "home": 61461,
+    "file-o": 61462,
+    "clock-o": 61463,
+    "road": 61464,
+    "download": 61465,
+    "arrow-circle-o-down": 61466,
+    "arrow-circle-o-up": 61467,
+    "inbox": 61468,
+    "play-circle-o": 61469,
+    "rotate-right": 61470,
+    "repeat": 61470,
+    "refresh": 61473,
+    "list-alt": 61474,
+    "lock": 61475,
+    "flag": 61476,
+    "headphones": 61477,
+    "volume-off": 61478,
+    "volume-down": 61479,
+    "volume-up": 61480,
+    "qrcode": 61481,
+    "barcode": 61482,
+    "tag": 61483,
+    "tags": 61484,
+    "book": 61485,
+    "bookmark": 61486,
+    "print": 61487,
+    "camera": 61488,
+    "font": 61489,
+    "bold": 61490,
+    "italic": 61491,
+    "text-height": 61492,
+    "text-width": 61493,
+    "align-left": 61494,
+    "align-center": 61495,
+    "align-right": 61496,
+    "align-justify": 61497,
+    "list": 61498,
+    "dedent": 61499,
+    "outdent": 61499,
+    "indent": 61500,
+    "video-camera": 61501,
+    "photo": 61502,
+    "image": 61502,
+    "picture-o": 61502,
+    "pencil": 61504,
+    "map-marker": 61505,
+    "adjust": 61506,
+    "tint": 61507,
+    "edit": 61508,
+    "pencil-square-o": 61508,
+    "share-square-o": 61509,
+    "check-square-o": 61510,
+    "arrows": 61511,
+    "step-backward": 61512,
+    "fast-backward": 61513,
+    "backward": 61514,
+    "play": 61515,
+    "pause": 61516,
+    "stop": 61517,
+    "forward": 61518,
+    "fast-forward": 61520,
+    "step-forward": 61521,
+    "eject": 61522,
+    "chevron-left": 61523,
+    "chevron-right": 61524,
+    "plus-circle": 61525,
+    "minus-circle": 61526,
+    "times-circle": 61527,
+    "check-circle": 61528,
+    "question-circle": 61529,
+    "info-circle": 61530,
+    "crosshairs": 61531,
+    "times-circle-o": 61532,
+    "check-circle-o": 61533,
+    "ban": 61534,
+    "arrow-left": 61536,
+    "arrow-right": 61537,
+    "arrow-up": 61538,
+    "arrow-down": 61539,
+    "mail-forward": 61540,
+    "share": 61540,
+    "expand": 61541,
+    "compress": 61542,
+    "plus": 61543,
+    "minus": 61544,
+    "asterisk": 61545,
+    "exclamation-circle": 61546,
+    "gift": 61547,
+    "leaf": 61548,
+    "fire": 61549,
+    "eye": 61550,
+    "eye-slash": 61552,
+    "warning": 61553,
+    "exclamation-triangle": 61553,
+    "plane": 61554,
+    "calendar": 61555,
+    "random": 61556,
+    "comment": 61557,
+    "magnet": 61558,
+    "chevron-up": 61559,
+    "chevron-down": 61560,
+    "retweet": 61561,
+    "shopping-cart": 61562,
+    "folder": 61563,
+    "folder-open": 61564,
+    "arrows-v": 61565,
+    "arrows-h": 61566,
+    "bar-chart-o": 61568,
+    "bar-chart": 61568,
+    "twitter-square": 61569,
+    "facebook-square": 61570,
+    "camera-retro": 61571,
+    "key": 61572,
+    "gears": 61573,
+    "cogs": 61573,
+    "comments": 61574,
+    "thumbs-o-up": 61575,
+    "thumbs-o-down": 61576,
+    "star-half": 61577,
+    "heart-o": 61578,
+    "sign-out": 61579,
+    "linkedin-square": 61580,
+    "thumb-tack": 61581,
+    "external-link": 61582,
+    "sign-in": 61584,
+    "trophy": 61585,
+    "github-square": 61586,
+    "upload": 61587,
+    "lemon-o": 61588,
+    "phone": 61589,
+    "square-o": 61590,
+    "bookmark-o": 61591,
+    "phone-square": 61592,
+    "twitter": 61593,
+    "facebook-f": 61594,
+    "facebook": 61594,
+    "github": 61595,
+    "unlock": 61596,
+    "credit-card": 61597,
+    "feed": 61598,
+    "rss": 61598,
+    "hdd-o": 61600,
+    "bullhorn": 61601,
+    "bell": 61683,
+    "certificate": 61603,
+    "hand-o-right": 61604,
+    "hand-o-left": 61605,
+    "hand-o-up": 61606,
+    "hand-o-down": 61607,
+    "arrow-circle-left": 61608,
+    "arrow-circle-right": 61609,
+    "arrow-circle-up": 61610,
+    "arrow-circle-down": 61611,
+    "globe": 61612,
+    "wrench": 61613,
+    "tasks": 61614,
+    "filter": 61616,
+    "briefcase": 61617,
+    "arrows-alt": 61618,
+    "group": 61632,
+    "users": 61632,
+    "chain": 61633,
+    "link": 61633,
+    "cloud": 61634,
+    "flask": 61635,
+    "cut": 61636,
+    "scissors": 61636,
+    "copy": 61637,
+    "files-o": 61637,
+    "paperclip": 61638,
+    "save": 61639,
+    "floppy-o": 61639,
+    "square": 61640,
+    "navicon": 61641,
+    "reorder": 61641,
+    "bars": 61641,
+    "list-ul": 61642,
+    "list-ol": 61643,
+    "strikethrough": 61644,
+    "underline": 61645,
+    "table": 61646,
+    "magic": 61648,
+    "truck": 61649,
+    "pinterest": 61650,
+    "pinterest-square": 61651,
+    "google-plus-square": 61652,
+    "google-plus": 61653,
+    "money": 61654,
+    "caret-down": 61655,
+    "caret-up": 61656,
+    "caret-left": 61657,
+    "caret-right": 61658,
+    "columns": 61659,
+    "unsorted": 61660,
+    "sort": 61660,
+    "sort-down": 61661,
+    "sort-desc": 61661,
+    "sort-up": 61662,
+    "sort-asc": 61662,
+    "envelope": 61664,
+    "linkedin": 61665,
+    "rotate-left": 61666,
+    "undo": 61666,
+    "legal": 61667,
+    "gavel": 61667,
+    "dashboard": 61668,
+    "tachometer": 61668,
+    "comment-o": 61669,
+    "comments-o": 61670,
+    "flash": 61671,
+    "bolt": 61671,
+    "sitemap": 61672,
+    "umbrella": 61673,
+    "paste": 61674,
+    "clipboard": 61674,
+    "lightbulb-o": 61675,
+    "exchange": 61676,
+    "cloud-download": 61677,
+    "cloud-upload": 61678,
+    "user-md": 61680,
+    "stethoscope": 61681,
+    "suitcase": 61682,
+    "bell-o": 61602,
+    "coffee": 61684,
+    "cutlery": 61685,
+    "file-text-o": 61686,
+    "building-o": 61687,
+    "hospital-o": 61688,
+    "ambulance": 61689,
+    "medkit": 61690,
+    "fighter-jet": 61691,
+    "beer": 61692,
+    "h-square": 61693,
+    "plus-square": 61694,
+    "angle-double-left": 61696,
+    "angle-double-right": 61697,
+    "angle-double-up": 61698,
+    "angle-double-down": 61699,
+    "angle-left": 61700,
+    "angle-right": 61701,
+    "angle-up": 61702,
+    "angle-down": 61703,
+    "desktop": 61704,
+    "laptop": 61705,
+    "tablet": 61706,
+    "mobile-phone": 61707,
+    "mobile": 61707,
+    "circle-o": 61708,
+    "quote-left": 61709,
+    "quote-right": 61710,
+    "spinner": 61712,
+    "circle": 61713,
+    "mail-reply": 61714,
+    "reply": 61714,
+    "github-alt": 61715,
+    "folder-o": 61716,
+    "folder-open-o": 61717,
+    "smile-o": 61720,
+    "frown-o": 61721,
+    "meh-o": 61722,
+    "gamepad": 61723,
+    "keyboard-o": 61724,
+    "flag-o": 61725,
+    "flag-checkered": 61726,
+    "terminal": 61728,
+    "code": 61729,
+    "mail-reply-all": 61730,
+    "reply-all": 61730,
+    "star-half-empty": 61731,
+    "star-half-full": 61731,
+    "star-half-o": 61731,
+    "location-arrow": 61732,
+    "crop": 61733,
+    "code-fork": 61734,
+    "unlink": 61735,
+    "chain-broken": 61735,
+    "question": 61736,
+    "info": 61737,
+    "exclamation": 61738,
+    "superscript": 61739,
+    "subscript": 61740,
+    "eraser": 61741,
+    "puzzle-piece": 61742,
+    "microphone": 61744,
+    "microphone-slash": 61745,
+    "shield": 61746,
+    "calendar-o": 61747,
+    "fire-extinguisher": 61748,
+    "rocket": 61749,
+    "maxcdn": 61750,
+    "chevron-circle-left": 61751,
+    "chevron-circle-right": 61752,
+    "chevron-circle-up": 61753,
+    "chevron-circle-down": 61754,
+    "html5": 61755,
+    "css3": 61756,
+    "anchor": 61757,
+    "unlock-alt": 61758,
+    "bullseye": 61760,
+    "ellipsis-h": 61761,
+    "ellipsis-v": 61762,
+    "rss-square": 61763,
+    "play-circle": 61764,
+    "ticket": 61765,
+    "minus-square": 61766,
+    "minus-square-o": 61767,
+    "level-up": 61768,
+    "level-down": 61769,
+    "check-square": 61770,
+    "pencil-square": 61771,
+    "external-link-square": 61772,
+    "share-square": 61773,
+    "compass": 61774,
+    "toggle-down": 61776,
+    "caret-square-o-down": 61776,
+    "toggle-up": 61777,
+    "caret-square-o-up": 61777,
+    "toggle-right": 61778,
+    "caret-square-o-right": 61778,
+    "euro": 61779,
+    "eur": 61779,
+    "gbp": 61780,
+    "dollar": 61781,
+    "usd": 61781,
+    "rupee": 61782,
+    "inr": 61782,
+    "cny": 61783,
+    "rmb": 61783,
+    "yen": 61783,
+    "jpy": 61783,
+    "ruble": 61784,
+    "rouble": 61784,
+    "rub": 61784,
+    "won": 61785,
+    "krw": 61785,
+    "bitcoin": 61786,
+    "btc": 61786,
+    "file": 61787,
+    "file-text": 61788,
+    "sort-alpha-asc": 61789,
+    "sort-alpha-desc": 61790,
+    "sort-amount-asc": 61792,
+    "sort-amount-desc": 61793,
+    "sort-numeric-asc": 61794,
+    "sort-numeric-desc": 61795,
+    "thumbs-up": 61796,
+    "thumbs-down": 61797,
+    "youtube-square": 61798,
+    "youtube": 61799,
+    "xing": 61800,
+    "xing-square": 61801,
+    "youtube-play": 61802,
+    "dropbox": 61803,
+    "stack-overflow": 61804,
+    "instagram": 61805,
+    "flickr": 61806,
+    "adn": 61808,
+    "bitbucket": 61809,
+    "bitbucket-square": 61810,
+    "tumblr": 61811,
+    "tumblr-square": 61812,
+    "long-arrow-down": 61813,
+    "long-arrow-up": 61814,
+    "long-arrow-left": 61815,
+    "long-arrow-right": 61816,
+    "apple": 61817,
+    "windows": 61818,
+    "android": 61819,
+    "linux": 61820,
+    "dribbble": 61821,
+    "skype": 61822,
+    "foursquare": 61824,
+    "trello": 61825,
+    "female": 61826,
+    "male": 61827,
+    "gittip": 61828,
+    "gratipay": 61828,
+    "sun-o": 61829,
+    "moon-o": 61830,
+    "archive": 61831,
+    "bug": 61832,
+    "vk": 61833,
+    "weibo": 61834,
+    "renren": 61835,
+    "pagelines": 61836,
+    "stack-exchange": 61837,
+    "arrow-circle-o-right": 61838,
+    "arrow-circle-o-left": 61840,
+    "toggle-left": 61841,
+    "caret-square-o-left": 61841,
+    "dot-circle-o": 61842,
+    "wheelchair": 61843,
+    "vimeo-square": 61844,
+    "turkish-lira": 61845,
+    "try": 61845,
+    "plus-square-o": 61846,
+    "space-shuttle": 61847,
+    "slack": 61848,
+    "envelope-square": 61849,
+    "wordpress": 61850,
+    "openid": 61851,
+    "institution": 61852,
+    "bank": 61852,
+    "university": 61852,
+    "mortar-board": 61853,
+    "graduation-cap": 61853,
+    "yahoo": 61854,
+    "google": 61856,
+    "reddit": 61857,
+    "reddit-square": 61858,
+    "stumbleupon-circle": 61859,
+    "stumbleupon": 61860,
+    "delicious": 61861,
+    "digg": 61862,
+    "pied-piper-pp": 61863,
+    "pied-piper-alt": 61864,
+    "drupal": 61865,
+    "joomla": 61866,
+    "language": 61867,
+    "fax": 61868,
+    "building": 61869,
+    "child": 61870,
+    "paw": 61872,
+    "spoon": 61873,
+    "cube": 61874,
+    "cubes": 61875,
+    "behance": 61876,
+    "behance-square": 61877,
+    "steam": 61878,
+    "steam-square": 61879,
+    "recycle": 61880,
+    "automobile": 61881,
+    "car": 61881,
+    "cab": 61882,
+    "taxi": 61882,
+    "tree": 61883,
+    "spotify": 61884,
+    "deviantart": 61885,
+    "soundcloud": 61886,
+    "database": 61888,
+    "file-pdf-o": 61889,
+    "file-word-o": 61890,
+    "file-excel-o": 61891,
+    "file-powerpoint-o": 61892,
+    "file-photo-o": 61893,
+    "file-picture-o": 61893,
+    "file-image-o": 61893,
+    "file-zip-o": 61894,
+    "file-archive-o": 61894,
+    "file-sound-o": 61895,
+    "file-audio-o": 61895,
+    "file-movie-o": 61896,
+    "file-video-o": 61896,
+    "file-code-o": 61897,
+    "vine": 61898,
+    "codepen": 61899,
+    "jsfiddle": 61900,
+    "life-bouy": 61901,
+    "life-buoy": 61901,
+    "life-saver": 61901,
+    "support": 61901,
+    "life-ring": 61901,
+    "circle-o-notch": 61902,
+    "ra": 61904,
+    "resistance": 61904,
+    "rebel": 61904,
+    "ge": 61905,
+    "empire": 61905,
+    "git-square": 61906,
+    "git": 61907,
+    "y-combinator-square": 61908,
+    "yc-square": 61908,
+    "hacker-news": 61908,
+    "tencent-weibo": 61909,
+    "qq": 61910,
+    "wechat": 61911,
+    "weixin": 61911,
+    "send": 61912,
+    "paper-plane": 61912,
+    "send-o": 61913,
+    "paper-plane-o": 61913,
+    "history": 61914,
+    "circle-thin": 61915,
+    "header": 61916,
+    "paragraph": 61917,
+    "sliders": 61918,
+    "share-alt": 61920,
+    "share-alt-square": 61921,
+    "bomb": 61922,
+    "soccer-ball-o": 61923,
+    "futbol-o": 61923,
+    "tty": 61924,
+    "binoculars": 61925,
+    "plug": 61926,
+    "slideshare": 61927,
+    "twitch": 61928,
+    "yelp": 61929,
+    "newspaper-o": 61930,
+    "wifi": 61931,
+    "calculator": 61932,
+    "paypal": 61933,
+    "google-wallet": 61934,
+    "cc-visa": 61936,
+    "cc-mastercard": 61937,
+    "cc-discover": 61938,
+    "cc-amex": 61939,
+    "cc-paypal": 61940,
+    "cc-stripe": 61941,
+    "bell-slash": 61942,
+    "bell-slash-o": 61943,
+    "trash": 61944,
+    "copyright": 61945,
+    "at": 61946,
+    "eyedropper": 61947,
+    "paint-brush": 61948,
+    "birthday-cake": 61949,
+    "area-chart": 61950,
+    "pie-chart": 61952,
+    "line-chart": 61953,
+    "lastfm": 61954,
+    "lastfm-square": 61955,
+    "toggle-off": 61956,
+    "toggle-on": 61957,
+    "bicycle": 61958,
+    "bus": 61959,
+    "ioxhost": 61960,
+    "angellist": 61961,
+    "cc": 61962,
+    "shekel": 61963,
+    "sheqel": 61963,
+    "ils": 61963,
+    "meanpath": 61964,
+    "buysellads": 61965,
+    "connectdevelop": 61966,
+    "dashcube": 61968,
+    "forumbee": 61969,
+    "leanpub": 61970,
+    "sellsy": 61971,
+    "shirtsinbulk": 61972,
+    "simplybuilt": 61973,
+    "skyatlas": 61974,
+    "cart-plus": 61975,
+    "cart-arrow-down": 61976,
+    "diamond": 61977,
+    "ship": 61978,
+    "user-secret": 61979,
+    "motorcycle": 61980,
+    "street-view": 61981,
+    "heartbeat": 61982,
+    "venus": 61985,
+    "mars": 61986,
+    "mercury": 61987,
+    "intersex": 61988,
+    "transgender": 61988,
+    "transgender-alt": 61989,
+    "venus-double": 61990,
+    "mars-double": 61991,
+    "venus-mars": 61992,
+    "mars-stroke": 61993,
+    "mars-stroke-v": 61994,
+    "mars-stroke-h": 61995,
+    "neuter": 61996,
+    "genderless": 61997,
+    "facebook-official": 62000,
+    "pinterest-p": 62001,
+    "whatsapp": 62002,
+    "server": 62003,
+    "user-plus": 62004,
+    "user-times": 62005,
+    "hotel": 62006,
+    "bed": 62006,
+    "viacoin": 62007,
+    "train": 62008,
+    "subway": 62009,
+    "medium": 62010,
+    "yc": 62011,
+    "y-combinator": 62011,
+    "optin-monster": 62012,
+    "opencart": 62013,
+    "expeditedssl": 62014,
+    "battery-4": 62016,
+    "battery": 62016,
+    "battery-full": 62016,
+    "battery-3": 62017,
+    "battery-three-quarters": 62017,
+    "battery-2": 62018,
+    "battery-half": 62018,
+    "battery-1": 62019,
+    "battery-quarter": 62019,
+    "battery-0": 62020,
+    "battery-empty": 62020,
+    "mouse-pointer": 62021,
+    "i-cursor": 62022,
+    "object-group": 62023,
+    "object-ungroup": 62024,
+    "sticky-note": 62025,
+    "sticky-note-o": 62026,
+    "cc-jcb": 62027,
+    "cc-diners-club": 62028,
+    "clone": 62029,
+    "balance-scale": 62030,
+    "hourglass-o": 62032,
+    "hourglass-1": 62033,
+    "hourglass-start": 62033,
+    "hourglass-2": 62034,
+    "hourglass-half": 62034,
+    "hourglass-3": 62035,
+    "hourglass-end": 62035,
+    "hourglass": 62036,
+    "hand-grab-o": 62037,
+    "hand-rock-o": 62037,
+    "hand-stop-o": 62038,
+    "hand-paper-o": 62038,
+    "hand-scissors-o": 62039,
+    "hand-lizard-o": 62040,
+    "hand-spock-o": 62041,
+    "hand-pointer-o": 62042,
+    "hand-peace-o": 62043,
+    "trademark": 62044,
+    "registered": 62045,
+    "creative-commons": 62046,
+    "gg": 62048,
+    "gg-circle": 62049,
+    "tripadvisor": 62050,
+    "odnoklassniki": 62051,
+    "odnoklassniki-square": 62052,
+    "get-pocket": 62053,
+    "wikipedia-w": 62054,
+    "safari": 62055,
+    "chrome": 62056,
+    "firefox": 62057,
+    "opera": 62058,
+    "internet-explorer": 62059,
+    "tv": 62060,
+    "television": 62060,
+    "contao": 62061,
+    "500px": 62062,
+    "amazon": 62064,
+    "calendar-plus-o": 62065,
+    "calendar-minus-o": 62066,
+    "calendar-times-o": 62067,
+    "calendar-check-o": 62068,
+    "industry": 62069,
+    "map-pin": 62070,
+    "map-signs": 62071,
+    "map-o": 62072,
+    "map": 62073,
+    "commenting": 62074,
+    "commenting-o": 62075,
+    "houzz": 62076,
+    "vimeo": 62077,
+    "black-tie": 62078,
+    "fonticons": 62080,
+    "reddit-alien": 62081,
+    "edge": 62082,
+    "credit-card-alt": 62083,
+    "codiepie": 62084,
+    "modx": 62085,
+    "fort-awesome": 62086,
+    "usb": 62087,
+    "product-hunt": 62088,
+    "mixcloud": 62089,
+    "scribd": 62090,
+    "pause-circle": 62091,
+    "pause-circle-o": 62092,
+    "stop-circle": 62093,
+    "stop-circle-o": 62094,
+    "shopping-bag": 62096,
+    "shopping-basket": 62097,
+    "hashtag": 62098,
+    "bluetooth": 62099,
+    "bluetooth-b": 62100,
+    "percent": 62101,
+    "gitlab": 62102,
+    "wpbeginner": 62103,
+    "wpforms": 62104,
+    "envira": 62105,
+    "universal-access": 62106,
+    "wheelchair-alt": 62107,
+    "question-circle-o": 62108,
+    "blind": 62109,
+    "audio-description": 62110,
+    "volume-control-phone": 62112,
+    "braille": 62113,
+    "assistive-listening-systems": 62114,
+    "asl-interpreting": 62115,
+    "american-sign-language-interpreting": 62115,
+    "deafness": 62116,
+    "hard-of-hearing": 62116,
+    "deaf": 62116,
+    "glide": 62117,
+    "glide-g": 62118,
+    "signing": 62119,
+    "sign-language": 62119,
+    "low-vision": 62120,
+    "viadeo": 62121,
+    "viadeo-square": 62122,
+    "snapchat": 62123,
+    "snapchat-ghost": 62124,
+    "snapchat-square": 62125,
+    "pied-piper": 62126,
+    "first-order": 62128,
+    "yoast": 62129,
+    "themeisle": 62130,
+    "google-plus-circle": 62131,
+    "google-plus-official": 62131,
+    "fa": 62132,
+    "font-awesome": 62132,
+    "handshake-o": 62133,
+    "envelope-open": 62134,
+    "envelope-open-o": 62135,
+    "linode": 62136,
+    "address-book": 62137,
+    "address-book-o": 62138,
+    "vcard": 62139,
+    "address-card": 62139,
+    "vcard-o": 62140,
+    "address-card-o": 62140,
+    "user-circle": 62141,
+    "user-circle-o": 62142,
+    "user-o": 62144,
+    "id-badge": 62145,
+    "drivers-license": 62146,
+    "id-card": 62146,
+    "drivers-license-o": 62147,
+    "id-card-o": 62147,
+    "quora": 62148,
+    "free-code-camp": 62149,
+    "telegram": 62150,
+    "thermometer-4": 62151,
+    "thermometer": 62151,
+    "thermometer-full": 62151,
+    "thermometer-3": 62152,
+    "thermometer-three-quarters": 62152,
+    "thermometer-2": 62153,
+    "thermometer-half": 62153,
+    "thermometer-1": 62154,
+    "thermometer-quarter": 62154,
+    "thermometer-0": 62155,
+    "thermometer-empty": 62155,
+    "shower": 62156,
+    "bathtub": 62157,
+    "s15": 62157,
+    "bath": 62157,
+    "podcast": 62158,
+    "window-maximize": 62160,
+    "window-minimize": 62161,
+    "window-restore": 62162,
+    "times-rectangle": 62163,
+    "window-close": 62163,
+    "times-rectangle-o": 62164,
+    "window-close-o": 62164,
+    "bandcamp": 62165,
+    "grav": 62166,
+    "etsy": 62167,
+    "imdb": 62168,
+    "ravelry": 62169,
+    "eercast": 62170,
+    "microchip": 62171,
+    "snowflake-o": 62172,
+    "superpowers": 62173,
+    "wpexplorer": 62174,
+    "meetup": 62176
+  };
+},674,[],"node_modules\\react-native-vector-icons\\glyphmaps\\FontAwesome.json");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -84432,7 +85254,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   _reactNative.Text,
                   {
                     style: {
-                      color: "#088A4B",
+                      color: "#36BC63",
                       fontWeight: "bold",
                       fontSize: 16
                     },
@@ -84520,7 +85342,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     _Ionicons2.default,
                     {
                       style: {
-                        color: "#088A4B"
+                        color: "#36BC63"
                       },
                       name: "ios-chatbubbles-outline",
                       size: 15,
@@ -84553,7 +85375,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     _Ionicons2.default,
                     {
                       style: {
-                        color: "#088A4B"
+                        color: "#36BC63"
                       },
                       name: "ios-create-outline",
                       size: 15,
@@ -84586,7 +85408,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     _Ionicons2.default,
                     {
                       style: {
-                        color: "#088A4B"
+                        color: "#36BC63"
                       },
                       name: "ios-trash-outline",
                       size: 15,
@@ -84673,7 +85495,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemComment;
-},673,[118,179,12,601,672,674,599,721],"src\\components\\Post\\items\\ItemComment.js");
+},675,[118,179,12,601,672,676,599,723],"src\\components\\Post\\items\\ItemComment.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -84686,7 +85508,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   exports.default = _HTML2.default;
-},674,[675],"node_modules\\react-native-render-html\\index.js");
+},676,[677],"node_modules\\react-native-render-html\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -85398,7 +86220,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }, _temp));
 
     exports.default = HTML;
-},675,[118,179,129,12,676,677,678,680,719],"node_modules\\react-native-render-html\\src\\HTML.js");
+},677,[118,179,129,12,678,679,680,682,721],"node_modules\\react-native-render-html\\src\\HTML.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -85639,7 +86461,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var options = arguments[2];
         return cssToRNStyle(cssStringToObject(str), styleset, options);
     }
-},676,[677,678,679],"node_modules\\react-native-render-html\\src\\HTMLStyles.js");
+},678,[679,680,681],"node_modules\\react-native-render-html\\src\\HTMLStyles.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -85740,7 +86562,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
         return getClosestNodeParentByTag(node.parent, tag);
     }
-},677,[154,142,151],"node_modules\\react-native-render-html\\src\\HTMLUtils.js");
+},679,[154,142,151],"node_modules\\react-native-render-html\\src\\HTMLUtils.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -85835,7 +86657,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             fontWeight: 'bold'
         };
     }
-},678,[],"node_modules\\react-native-render-html\\src\\HTMLDefaultStyles.js");
+},680,[],"node_modules\\react-native-render-html\\src\\HTMLDefaultStyles.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85874,7 +86696,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   module.exports = checkPropTypes;
-},679,[13,30,124],"node_modules\\react-native-render-html\\src\\checkPropTypes.js");
+},681,[13,30,124],"node_modules\\react-native-render-html\\src\\checkPropTypes.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var Parser = _require(_dependencyMap[0], "./Parser.js"),
 	    DomHandler = _require(_dependencyMap[1], "domhandler");
@@ -85950,7 +86772,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			end: 0
 		}
 	};
-},680,[681,690,682,691,694,695,696,705,706,718],"node_modules\\htmlparser2\\lib\\index.js");
+},682,[683,692,684,693,696,697,698,707,708,720],"node_modules\\htmlparser2\\lib\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var Tokenizer = _require(_dependencyMap[0], "./Tokenizer.js");
 
@@ -86296,7 +87118,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	Parser.prototype.parseChunk = Parser.prototype.write;
 	Parser.prototype.done = Parser.prototype.end;
 	module.exports = Parser;
-},681,[682,688,689],"node_modules\\htmlparser2\\lib\\Parser.js");
+},683,[684,690,691],"node_modules\\htmlparser2\\lib\\Parser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = Tokenizer;
 
@@ -87143,7 +87965,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			this._cbs.ontext(value);
 		}
 	};
-},682,[683,685,686,687],"node_modules\\htmlparser2\\lib\\Tokenizer.js");
+},684,[685,687,688,689],"node_modules\\htmlparser2\\lib\\Tokenizer.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var decodeMap = _require(_dependencyMap[0], "../maps/decode.json");
 
@@ -87169,7 +87991,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		output += String.fromCharCode(codePoint);
 		return output;
 	}
-},683,[684],"node_modules\\entities\\lib\\decode_codepoint.js");
+},685,[686],"node_modules\\entities\\lib\\decode_codepoint.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     "0": 65533,
@@ -87201,7 +88023,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "158": 382,
     "159": 376
   };
-},684,[],"node_modules\\entities\\maps\\decode.json");
+},686,[],"node_modules\\entities\\maps\\decode.json");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     "Aacute": "\xC1",
@@ -89330,7 +90152,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "zwj": "\u200D",
     "zwnj": "\u200C"
   };
-},685,[],"node_modules\\entities\\maps\\entities.json");
+},687,[],"node_modules\\entities\\maps\\entities.json");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     "Aacute": "\xC1",
@@ -89440,7 +90262,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "yen": "\xA5",
     "yuml": "\xFF"
   };
-},686,[],"node_modules\\entities\\maps\\legacy.json");
+},688,[],"node_modules\\entities\\maps\\legacy.json");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     "amp": "&",
@@ -89449,7 +90271,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "lt": "<",
     "quot": "\""
   };
-},687,[],"node_modules\\entities\\maps\\xml.json");
+},689,[],"node_modules\\entities\\maps\\xml.json");
 __d(function (global, _require, module, exports, _dependencyMap) {
   if (typeof Object.create === 'function') {
     module.exports = function inherits(ctor, superCtor) {
@@ -89474,7 +90296,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       ctor.prototype.constructor = ctor;
     };
   }
-},688,[],"node_modules\\inherits\\inherits_browser.js");
+},690,[],"node_modules\\inherits\\inherits_browser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   function EventEmitter() {
     this._events = this._events || {};
@@ -89694,7 +90516,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   function isUndefined(arg) {
     return arg === void 0;
   }
-},689,[],"node_modules\\events\\events.js");
+},691,[],"node_modules\\events\\events.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var ElementType = _require(_dependencyMap[0], "domelementtype");
 
@@ -89905,7 +90727,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	};
 
 	module.exports = DomHandler;
-},690,[691,692,693],"node_modules\\domhandler\\index.js");
+},692,[693,694,695],"node_modules\\domhandler\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = {
 		Text: "text",
@@ -89920,7 +90742,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			return elem.type === "tag" || elem.type === "script" || elem.type === "style";
 		}
 	};
-},691,[],"node_modules\\domelementtype\\index.js");
+},693,[],"node_modules\\domelementtype\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var NodePrototype = module.exports = {
 		get firstChild() {
@@ -89964,7 +90786,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			}
 		});
 	});
-},692,[],"node_modules\\domhandler\\lib\\node.js");
+},694,[],"node_modules\\domhandler\\lib\\node.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var NodePrototype = _require(_dependencyMap[0], './node');
 
@@ -89984,7 +90806,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			}
 		});
 	});
-},693,[692],"node_modules\\domhandler\\lib\\element.js");
+},695,[694],"node_modules\\domhandler\\lib\\element.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var index = _require(_dependencyMap[0], "./index.js"),
 	    DomHandler = index.DomHandler,
@@ -90075,7 +90897,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	};
 
 	module.exports = FeedHandler;
-},694,[680,688],"node_modules\\htmlparser2\\lib\\FeedHandler.js");
+},696,[682,690],"node_modules\\htmlparser2\\lib\\FeedHandler.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = Stream;
 
@@ -90112,7 +90934,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			throw Error("wrong number of arguments!");
 		}
 	});
-},695,[696,688,680],"node_modules\\htmlparser2\\lib\\Stream.js");
+},697,[698,690,682],"node_modules\\htmlparser2\\lib\\Stream.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = Stream;
 
@@ -90141,7 +90963,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
 		cb();
 	};
-},696,[681,697,699,700,702,688],"node_modules\\htmlparser2\\lib\\WritableStream.js");
+},698,[683,699,701,702,704,690],"node_modules\\htmlparser2\\lib\\WritableStream.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   var Emitter = _require(_dependencyMap[0], 'emitter');
 
@@ -90224,7 +91046,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     dest.emit('pipe', source);
     return dest;
   };
-},697,[698],"node_modules\\stream\\index.js");
+},699,[700],"node_modules\\stream\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = Emitter;
 
@@ -90316,8 +91138,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   Emitter.prototype.hasListeners = function (event) {
     return !!this.listeners(event).length;
   };
-},698,[],"node_modules\\emitter-component\\index.js");
-__d(function (global, _require, module, exports, _dependencyMap) {},699,[],"node_modules\\metro\\src\\node-haste\\DependencyGraph\\assets\\empty-module.js");
+},700,[],"node_modules\\emitter-component\\index.js");
+__d(function (global, _require, module, exports, _dependencyMap) {},701,[],"node_modules\\metro\\src\\node-haste\\DependencyGraph\\assets\\empty-module.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -90605,7 +91427,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   function simpleEnd(buf) {
     return buf && buf.length ? this.write(buf) : '';
   }
-},700,[701],"node_modules\\string_decoder\\lib\\string_decoder.js");
+},702,[703],"node_modules\\string_decoder\\lib\\string_decoder.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   var buffer = _require(_dependencyMap[0], 'buffer');
 
@@ -90673,7 +91495,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     return buffer.SlowBuffer(size);
   };
-},701,[702],"node_modules\\safe-buffer\\index.js");
+},703,[704],"node_modules\\safe-buffer\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   /*!
    * The buffer module from node.js, for the browser.
@@ -92380,7 +93202,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   function isnan(val) {
     return val !== val;
   }
-},702,[78,703,704],"node_modules\\buffer\\index.js");
+},704,[78,705,706],"node_modules\\buffer\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   exports.read = function (buffer, offset, isLE, mLen, nBytes) {
     var e, m;
@@ -92470,14 +93292,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     buffer[offset + i - d] |= s * 128;
   };
-},703,[],"node_modules\\ieee754\\index.js");
+},705,[],"node_modules\\ieee754\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   var toString = {}.toString;
 
   module.exports = Array.isArray || function (arr) {
     return toString.call(arr) == '[object Array]';
   };
-},704,[],"node_modules\\isarray\\index.js");
+},706,[],"node_modules\\isarray\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = ProxyHandler;
 
@@ -92510,7 +93332,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			throw Error("wrong number of arguments");
 		}
 	});
-},705,[680],"node_modules\\htmlparser2\\lib\\ProxyHandler.js");
+},707,[682],"node_modules\\htmlparser2\\lib\\ProxyHandler.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var DomUtils = module.exports;
 	[_require(_dependencyMap[0], "./lib/stringify"), _require(_dependencyMap[1], "./lib/traversal"), _require(_dependencyMap[2], "./lib/manipulation"), _require(_dependencyMap[3], "./lib/querying"), _require(_dependencyMap[4], "./lib/legacy"), _require(_dependencyMap[5], "./lib/helpers")].forEach(function (ext) {
@@ -92518,7 +93340,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			DomUtils[key] = ext[key].bind(DomUtils);
 		});
 	});
-},706,[707,713,714,715,716,717],"node_modules\\domutils\\index.js");
+},708,[709,715,716,717,718,719],"node_modules\\domutils\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var ElementType = _require(_dependencyMap[0], "domelementtype"),
 	    getOuterHTML = _require(_dependencyMap[1], "dom-serializer"),
@@ -92543,7 +93365,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		if (elem.type === ElementType.Text) return elem.data;
 		return "";
 	}
-},707,[691,708],"node_modules\\domutils\\lib\\stringify.js");
+},709,[693,710],"node_modules\\domutils\\lib\\stringify.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   var ElementType = _require(_dependencyMap[0], 'domelementtype');
 
@@ -92694,7 +93516,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   function renderComment(elem) {
     return '<!--' + elem.data + '-->';
   }
-},708,[709,710],"node_modules\\dom-serializer\\index.js");
+},710,[711,712],"node_modules\\dom-serializer\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = {
 		Text: "text",
@@ -92708,7 +93530,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			return elem.type === "tag" || elem.type === "script" || elem.type === "style";
 		}
 	};
-},709,[],"node_modules\\dom-serializer\\node_modules\\domelementtype\\index.js");
+},711,[],"node_modules\\dom-serializer\\node_modules\\domelementtype\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var encode = _require(_dependencyMap[0], "./lib/encode.js"),
 	    decode = _require(_dependencyMap[1], "./lib/decode.js");
@@ -92731,7 +93553,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	exports.decodeHTML4 = exports.decodeHTML5 = exports.decodeHTML = decode.HTML;
 	exports.decodeHTML4Strict = exports.decodeHTML5Strict = exports.decodeHTMLStrict = decode.HTMLStrict;
 	exports.escape = encode.escape;
-},710,[711,712],"node_modules\\entities\\index.js");
+},712,[713,714],"node_modules\\entities\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var inverseXML = getInverseObj(_require(_dependencyMap[0], "../maps/xml.json")),
 	    xmlReplacer = getInverseReplacer(inverseXML);
@@ -92792,7 +93614,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	}
 
 	exports.escape = escapeXML;
-},711,[687,685],"node_modules\\entities\\lib\\encode.js");
+},713,[689,687],"node_modules\\entities\\lib\\encode.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var entityMap = _require(_dependencyMap[0], "../maps/entities.json"),
 	    legacyMap = _require(_dependencyMap[1], "../maps/legacy.json"),
@@ -92861,7 +93683,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		HTML: decodeHTML,
 		HTMLStrict: decodeHTMLStrict
 	};
-},712,[685,686,687,683],"node_modules\\entities\\lib\\decode.js");
+},714,[687,688,689,685],"node_modules\\entities\\lib\\decode.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var getChildren = exports.getChildren = function (elem) {
 		return elem.children;
@@ -92887,7 +93709,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	exports.getName = function (elem) {
 		return elem.name;
 	};
-},713,[],"node_modules\\domutils\\lib\\traversal.js");
+},715,[],"node_modules\\domutils\\lib\\traversal.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	exports.removeElement = function (elem) {
 		if (elem.prev) elem.prev.next = elem.next;
@@ -92968,7 +93790,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		prev.next = elem;
 		elem.prev = prev;
 	};
-},714,[],"node_modules\\domutils\\lib\\manipulation.js");
+},716,[],"node_modules\\domutils\\lib\\manipulation.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var isTag = _require(_dependencyMap[0], "domelementtype").isTag;
 
@@ -93065,7 +93887,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
 		return result;
 	}
-},715,[691],"node_modules\\domutils\\lib\\querying.js");
+},717,[693],"node_modules\\domutils\\lib\\querying.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	var ElementType = _require(_dependencyMap[0], "domelementtype");
 
@@ -93167,7 +93989,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 	exports.getElementsByTagType = function (type, element, recurse, limit) {
 		return this.filter(Checks.tag_type(type), element, recurse, limit);
 	};
-},716,[691],"node_modules\\domutils\\lib\\legacy.js");
+},718,[693],"node_modules\\domutils\\lib\\legacy.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	exports.removeSubsets = function (nodes) {
 		var idx = nodes.length,
@@ -93287,7 +94109,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		});
 		return nodes;
 	};
-},717,[],"node_modules\\domutils\\lib\\helpers.js");
+},719,[],"node_modules\\domutils\\lib\\helpers.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = CollectingHandler;
 
@@ -93347,7 +94169,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 			}
 		}
 	};
-},718,[680],"node_modules\\htmlparser2\\lib\\CollectingHandler.js");
+},720,[682],"node_modules\\htmlparser2\\lib\\CollectingHandler.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -93631,7 +94453,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             children
         );
     }
-},719,[118,12,676,720],"node_modules\\react-native-render-html\\src\\HTMLRenderers.js");
+},721,[118,12,678,722],"node_modules\\react-native-render-html\\src\\HTMLRenderers.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -93879,7 +94701,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }, _temp));
 
     exports.default = HTMLImage;
-},720,[118,179,12,129],"node_modules\\react-native-render-html\\src\\HTMLImage.js");
+},722,[118,179,12,129],"node_modules\\react-native-render-html\\src\\HTMLImage.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -94206,7 +95028,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemCommentChild;
-},721,[118,179,12,601,672,674,599],"src\\components\\Post\\items\\ItemCommentChild.js");
+},723,[118,179,12,601,672,676,599],"src\\components\\Post\\items\\ItemCommentChild.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -94287,8 +95109,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: {
                 paddingTop: 70,
                 flex: 1,
-                minHeight: 10,
-                resizeMode: "cover"
+                minHeight: 10
               },
               source: _require(_dependencyMap[5], "../../../image/header.png"),
               __source: {
@@ -94420,14 +95241,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       flex: 1
     },
     title: {
-      fontSize: 18,
-      fontWeight: "bold",
       margin: 10
     }
   });
 
   exports.default = ItemContentPost;
-},722,[118,179,12,674,599,723,724],"src\\components\\Post\\items\\ItemContentPost.js");
+},724,[118,179,12,676,599,725,726],"src\\components\\Post\\items\\ItemContentPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -94439,7 +95258,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "header",
     "type": "png"
   });
-},723,[164],"src\\image\\header.png");
+},725,[164],"src\\image\\header.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -94451,7 +95270,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "line",
     "type": "png"
   });
-},724,[164],"src\\image\\line.png");
+},726,[164],"src\\image\\line.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
       Object.defineProperty(exports, "__esModule", {
             value: true
@@ -94474,6 +95293,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       var _reactNativeModalbox = _require(_dependencyMap[3], "react-native-modalbox");
 
       var _reactNativeModalbox2 = _interopRequireDefault(_reactNativeModalbox);
+
+      var _API = _require(_dependencyMap[4], "../../../config/API");
+
+      var _API2 = _interopRequireDefault(_API);
+
+      var _Base = _require(_dependencyMap[5], "../../../config/Base64");
+
+      var _Base2 = _interopRequireDefault(_Base);
 
       function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -94516,20 +95343,48 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                         _this.refs.myModal.open();
                   };
 
+                  _this.state = {
+                        name: '',
+                        email: '',
+                        content: ''
+                  };
                   return _this;
             }
 
             _createClass(ModalComment, [{
+                  key: "_comment",
+                  value: function _comment() {
+                        var _this2 = this;
+
+                        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/comments?post=" + this.props.noidung.id + "&author_name=" + this.state.name + "&content=" + this.state.content + "&author_email=" + this.state.email, {
+                              headers: {
+                                    Authorization: "Basic " + _Base2.default.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+                              },
+                              method: "POST"
+                        }).then(function (response) {
+                              var t = response.status;
+
+                              if (response.status == 201) {
+                                    _reactNative.ToastAndroid.show("OK!\nBình luận của bạn đang chờ quản trị viên xét duyệt!", _reactNative.ToastAndroid.LONG);
+
+                                    _this2.refs.myModal.close();
+                              } else {
+                                    return response.json();
+                              }
+                        }).then(function (object) {
+                              _reactNative.Alert.alert("Cảnh báo", object.message);
+                        });
+                  }
+            }, {
                   key: "render",
                   value: function render() {
-                        var _this2 = this;
+                        var _this3 = this;
 
                         return _react3.default.createElement(
                               _reactNativeModalbox2.default,
                               {
                                     ref: "myModal",
                                     style: {
-                                          zIndex: 1,
                                           justifyContent: "center",
                                           borderRadius: 15,
                                           shadowRadius: 10,
@@ -94541,7 +95396,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                     onClosed: function onClosed() {},
                                     __source: {
                                           fileName: _jsxFileName,
-                                          lineNumber: 15
+                                          lineNumber: 50
                                     }
                               },
                               _react3.default.createElement(
@@ -94552,7 +95407,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                           },
                                           __source: {
                                                 fileName: _jsxFileName,
-                                                lineNumber: 31
+                                                lineNumber: 65
                                           }
                                     },
                                     _react3.default.createElement(
@@ -94566,7 +95421,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                                 },
                                                 __source: {
                                                       fileName: _jsxFileName,
-                                                      lineNumber: 32
+                                                      lineNumber: 66
                                                 }
                                           },
                                           "B\xECnh lu\u1EADn"
@@ -94575,30 +95430,30 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                           placeholderTextColor: "#cfcfcf",
                                           underlineColorAndroid: "rgba(0,0,0,0)",
                                           style: myStyle.ctmInput,
-                                          onChangeText: function onChangeText(u) {
-                                                _this2.setState({
-                                                      user: u
+                                          onChangeText: function onChangeText(n) {
+                                                _this3.setState({
+                                                      name: n
                                                 });
                                           },
                                           placeholder: "(*)T\xEAn c\u1EE7a b\u1EA1n",
                                           __source: {
                                                 fileName: _jsxFileName,
-                                                lineNumber: 33
+                                                lineNumber: 67
                                           }
                                     }),
                                     _react3.default.createElement(_reactNative.TextInput, {
                                           placeholderTextColor: "#cfcfcf",
                                           underlineColorAndroid: "rgba(0,0,0,0)",
                                           style: myStyle.ctmInput,
-                                          onChangeText: function onChangeText(u) {
-                                                _this2.setState({
-                                                      user: u
+                                          onChangeText: function onChangeText(e) {
+                                                _this3.setState({
+                                                      email: e
                                                 });
                                           },
                                           placeholder: "(*)Email c\u1EE7a b\u1EA1n",
                                           __source: {
                                                 fileName: _jsxFileName,
-                                                lineNumber: 42
+                                                lineNumber: 76
                                           }
                                     }),
                                     _react3.default.createElement(_reactNative.TextInput, {
@@ -94606,50 +95461,80 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                           underlineColorAndroid: "rgba(0,0,0,0)",
                                           multiline: true,
                                           style: myStyle.ctmInputContent,
-                                          onChangeText: function onChangeText(u) {
-                                                _this2.setState({
-                                                      user: u
+                                          onChangeText: function onChangeText(c) {
+                                                _this3.setState({
+                                                      content: c
                                                 });
                                           },
                                           placeholder: "(*)N\u1ED9i dung b\xECnh lu\u1EADn",
                                           __source: {
                                                 fileName: _jsxFileName,
-                                                lineNumber: 51
+                                                lineNumber: 85
                                           }
                                     }),
                                     _react3.default.createElement(
                                           _reactNative.View,
                                           {
                                                 style: {
-                                                      alignItems: "flex-end"
+                                                      marginTop: 20
                                                 },
                                                 __source: {
                                                       fileName: _jsxFileName,
-                                                      lineNumber: 61
+                                                      lineNumber: 95
                                                 }
                                           },
                                           _react3.default.createElement(
-                                                _reactNative.TouchableOpacity,
+                                                _reactNative.Text,
                                                 {
-                                                      style: myStyle.ctmBottom,
+                                                      style: {
+                                                            marginBottom: -35,
+                                                            color: "red",
+                                                            fontStyle: "italic"
+                                                      },
                                                       __source: {
                                                             fileName: _jsxFileName,
-                                                            lineNumber: 62
+                                                            lineNumber: 96
+                                                      }
+                                                },
+                                                "Ch\xFA \xFD: (*) B\u1EAFt bu\u1ED9c"
+                                          ),
+                                          _react3.default.createElement(
+                                                _reactNative.View,
+                                                {
+                                                      style: {
+                                                            alignItems: "flex-end"
+                                                      },
+                                                      __source: {
+                                                            fileName: _jsxFileName,
+                                                            lineNumber: 97
                                                       }
                                                 },
                                                 _react3.default.createElement(
-                                                      _reactNative.Text,
+                                                      _reactNative.TouchableOpacity,
                                                       {
-                                                            style: {
-                                                                  color: "white",
-                                                                  fontSize: 18
+                                                            style: myStyle.ctmBottom,
+                                                            onPress: function onPress() {
+                                                                  return _this3._comment();
                                                             },
                                                             __source: {
                                                                   fileName: _jsxFileName,
-                                                                  lineNumber: 63
+                                                                  lineNumber: 99
                                                             }
                                                       },
-                                                      " B\xECnh lu\u1EADn "
+                                                      _react3.default.createElement(
+                                                            _reactNative.Text,
+                                                            {
+                                                                  style: {
+                                                                        color: "white",
+                                                                        fontSize: 18
+                                                                  },
+                                                                  __source: {
+                                                                        fileName: _jsxFileName,
+                                                                        lineNumber: 100
+                                                                  }
+                                                            },
+                                                            " B\xECnh lu\u1EADn "
+                                                      )
                                                 )
                                           )
                                     )
@@ -94693,7 +95578,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   marginBottom: 5
             }
       });
-},725,[118,179,12,726],"src\\components\\Post\\items\\ModalComment.js");
+},727,[118,179,12,728,599,600],"src\\components\\Post\\items\\ModalComment.js");
 __d(function (global, _require2, module, exports, _dependencyMap) {
   'use strict';
 
@@ -95216,7 +96101,7 @@ __d(function (global, _require2, module, exports, _dependencyMap) {
     }
   });
   module.exports = ModalBox;
-},726,[118,129,12,176],"node_modules\\react-native-modalbox\\index.js");
+},728,[118,129,12,176],"node_modules\\react-native-modalbox\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -95240,9 +96125,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _reactNativeZssRichTextEditor = _require(_dependencyMap[3], "react-native-zss-rich-text-editor");
 
-  var _Ionicons = _require(_dependencyMap[4], "react-native-vector-icons/Ionicons");
+  var _Feather = _require(_dependencyMap[4], "react-native-vector-icons/Feather");
 
-  var _Ionicons2 = _interopRequireDefault(_Ionicons);
+  var _Feather2 = _interopRequireDefault(_Feather);
 
   var _Base = _require(_dependencyMap[5], "../../config/Base64");
 
@@ -95568,13 +96453,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           lineNumber: 39
         }
       },
-      _react3.default.createElement(_Ionicons2.default, {
+      _react3.default.createElement(_Feather2.default, {
         style: {
           marginLeft: 5,
-          marginRight: 10,
-          color: '#088A4B'
+          marginRight: 5,
+          color: '#36BC63'
         },
-        name: "ios-paper-outline",
+        name: "save",
         size: 28,
         __source: {
           fileName: _jsxFileName,
@@ -95603,7 +96488,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = EditPost;
-},727,[118,179,12,728,601,600,743],"src\\components\\Post\\EditPost.js");
+},729,[118,179,12,730,745,600,747],"src\\components\\Post\\EditPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   var _RichTextEditor = _require(_dependencyMap[0], "./src/RichTextEditor");
 
@@ -95622,7 +96507,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     RichTextToolbar: _RichTextToolbar2.default,
     actions: _const.actions
   };
-},728,[729,736,734],"node_modules\\react-native-zss-rich-text-editor\\index.js");
+},730,[731,738,736],"node_modules\\react-native-zss-rich-text-editor\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -96683,7 +97568,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       marginTop: 20
     }
   });
-},729,[118,179,129,730,733,734,12,735],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextEditor.js");
+},731,[118,179,129,732,735,736,12,737],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextEditor.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -96883,7 +97768,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   });
   module.exports = WebViewBridge;
-},730,[118,129,176,12,731,732,163],"node_modules\\react-native-webview-bridge-updated\\webview-bridge\\index.android.js");
+},732,[118,129,176,12,733,734,163],"node_modules\\react-native-webview-bridge-updated\\webview-bridge\\index.android.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -96914,7 +97799,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   module.exports = invariant;
-},731,[],"node_modules\\react-native-webview-bridge-updated\\node_modules\\invariant\\browser.js");
+},733,[],"node_modules\\react-native-webview-bridge-updated\\node_modules\\invariant\\browser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -96938,7 +97823,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   module.exports = keyMirror;
-},732,[],"node_modules\\keymirror\\index.js");
+},734,[],"node_modules\\keymirror\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -96948,7 +97833,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var _const = _require(_dependencyMap[0], "./const");
 
   var InjectedMessageHandler = exports.InjectedMessageHandler = "\n  if (WebViewBridge) {\n    WebViewBridge.onMessage = function (message) {\n\n      const action = JSON.parse(message);\n\n      switch(action.type) {\n        case '" + _const.actions.enableOnChange + "':\n          zss_editor.enableOnChange();\n          break;\n        case '" + _const.actions.setTitleHtml + "':\n          zss_editor.setTitleHTML(action.data);\n          break;\n        case '" + _const.actions.toggleTitle + "':\n          zss_editor.toggleTitle(action.data);\n          break;\n        case '" + _const.actions.hideTitle + "':\n          zss_editor.hideTitle(action.data);\n          break;\n        case '" + _const.actions.showTitle + "':\n          zss_editor.showTitle(action.data);\n          break;\n        case '" + _const.actions.setContentHtml + "':\n          zss_editor.setContentHTML(action.data);\n          break;\n        case '" + _const.actions.blurTitleEditor + "':\n          zss_editor.blurTitleEditor();\n          break;\n        case '" + _const.actions.blurContentEditor + "':\n          zss_editor.blurContentEditor();\n          break;\n        case '" + _const.actions.setBold + "':\n          zss_editor.setBold();\n          break;\n        case '" + _const.actions.setItalic + "':\n          zss_editor.setItalic();\n          break;\n        case '" + _const.actions.setUnderline + "':\n          zss_editor.setUnderline();\n          break;\n        case '" + _const.actions.heading1 + "':\n          zss_editor.setHeading('h1');\n          break;\n        case '" + _const.actions.heading2 + "':\n          zss_editor.setHeading('h2');\n          break;\n        case '" + _const.actions.heading3 + "':\n          zss_editor.setHeading('h3');\n          break;\n        case '" + _const.actions.heading4 + "':\n          zss_editor.setHeading('h4');\n          break;\n        case '" + _const.actions.heading5 + "':\n          zss_editor.setHeading('h5');\n          break;\n        case '" + _const.actions.heading6 + "':\n          zss_editor.setHeading('h6');\n          break;\n        case '" + _const.actions.setParagraph + "':\n          zss_editor.setParagraph();\n          break;\n        case '" + _const.actions.removeFormat + "':\n          zss_editor.removeFormating();\n          break;\n        case '" + _const.actions.alignLeft + "':\n          zss_editor.setJustifyLeft();\n          break;\n        case '" + _const.actions.alignCenter + "':\n          zss_editor.setJustifyCenter();\n          break;\n        case '" + _const.actions.alignRight + "':\n          zss_editor.setJustifyRight();\n          break;\n        case '" + _const.actions.alignFull + "':\n          zss_editor.setJustifyFull();\n          break;\n        case '" + _const.actions.insertBulletsList + "':\n          zss_editor.setUnorderedList();\n          break;\n        case '" + _const.actions.insertOrderedList + "':\n          zss_editor.setOrderedList();\n          break;\n        case '" + _const.actions.insertLink + "':\n          zss_editor.insertLink(action.data.url, action.data.title);\n          break;\n        case '" + _const.actions.updateLink + "':\n          zss_editor.updateLink(action.data.url, action.data.title);\n          break;\n        case '" + _const.actions.insertImage + "':\n          zss_editor.insertImage(action.data);\n          break;\n        case '" + _const.actions.setSubscript + "':\n          zss_editor.setSubscript();\n          break;\n        case '" + _const.actions.setSuperscript + "':\n          zss_editor.setSuperscript();\n          break;\n        case '" + _const.actions.setStrikethrough + "':\n          zss_editor.setStrikeThrough();\n          break;\n        case '" + _const.actions.setHR + "':\n          zss_editor.setHorizontalRule();\n          break;\n        case '" + _const.actions.setIndent + "':\n          zss_editor.setIndent();\n          break;\n        case '" + _const.actions.setOutdent + "':\n          zss_editor.setOutdent();\n          break;\n        case '" + _const.actions.setTitlePlaceholder + "':\n          zss_editor.setTitlePlaceholder(action.data);\n          break;\n        case '" + _const.actions.setContentPlaceholder + "':\n          zss_editor.setContentPlaceholder(action.data);\n          break;\n        case '" + _const.actions.getTitleHtml + "':\n          var html = zss_editor.getTitleHTML();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.TITLE_HTML_RESPONSE + "', data: html}));\n          break;\n        case '" + _const.actions.getTitleText + "':\n          var html = zss_editor.getTitleText();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.TITLE_TEXT_RESPONSE + "', data: html}));\n          break;\n        case '" + _const.actions.getContentHtml + "':\n          var html = zss_editor.getContentHTML();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.CONTENT_HTML_RESPONSE + "', data: html}));\n          break;\n        case '" + _const.actions.setTitleFocusHandler + "':\n          zss_editor.setTitleFocusHandler();\n          break;\n        case '" + _const.actions.setContentFocusHandler + "':\n          zss_editor.setContentFocusHandler();\n          break;\n        case '" + _const.actions.getSelectedText + "':\n          var selectedText = getSelection().toString();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.SELECTED_TEXT_RESPONSE + "', data: selectedText}));\n          break;\n        case '" + _const.actions.focusContent + "':\n          zss_editor.focusContent();\n          break;\n        case '" + _const.actions.focusTitle + "':\n          zss_editor.focusTitle();\n          break;\n        case '" + _const.actions.prepareInsert + "':\n          zss_editor.prepareInsert();\n          break;\n        case '" + _const.actions.restoreSelection + "':\n          zss_editor.restorerange();\n          break;\n        case '" + _const.actions.setCustomCSS + "':\n          zss_editor.setCustomCSS(action.data);\n          break;\n        case '" + _const.actions.setTextColor + "':\n          zss_editor.setTextColor(action.data);\n          break;\n        case '" + _const.actions.setBackgroundColor + "':\n          zss_editor.setBackgroundColor(action.data);\n          break;\n        case '" + _const.actions.init + "':\n          zss_editor.init();\n          break;\n        case '" + _const.actions.setEditorHeight + "':\n          zss_editor.setEditorHeight(action.data);\n          break;\n        case '" + _const.actions.setFooterHeight + "':\n          zss_editor.setFooterHeight(action.data);\n          break;\n        case '" + _const.actions.setPlatform + "':\n          zss_editor.setPlatform(action.data);\n          break;\n      }\n    };\n  }\n";
-},733,[734],"node_modules\\react-native-zss-rich-text-editor\\src\\WebviewMessageHandler.js");
+},735,[736],"node_modules\\react-native-zss-rich-text-editor\\src\\WebviewMessageHandler.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -97023,7 +97908,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     LINK_TOUCHED: 'LINK_TOUCHED',
     SELECTED_TEXT_CHANGED: 'SELECTED_TEXT_CHANGED'
   };
-},734,[],"node_modules\\react-native-zss-rich-text-editor\\src\\const.js");
+},736,[],"node_modules\\react-native-zss-rich-text-editor\\src\\const.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -97033,7 +97918,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "editor",
 		"type": "html"
 	});
-},735,[164],"node_modules\\react-native-zss-rich-text-editor\\src\\editor.html");
+},737,[164],"node_modules\\react-native-zss-rich-text-editor\\src\\editor.html");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -97347,7 +98232,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     defaultUnselectedButton: {}
   });
-},736,[118,179,129,12,734,737,738,739,740,741,742],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextToolbar.js");
+},738,[118,179,129,12,736,739,740,741,742,743,744],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextToolbar.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -97359,7 +98244,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_media",
     "type": "png"
   });
-},737,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_media@1.5x.png");
+},739,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_media@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -97371,7 +98256,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_bold",
     "type": "png"
   });
-},738,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_bold@1.5x.png");
+},740,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_bold@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -97383,7 +98268,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_italic",
     "type": "png"
   });
-},739,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_italic@1.5x.png");
+},741,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_italic@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -97395,7 +98280,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_ul",
     "type": "png"
   });
-},740,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ul@1.5x.png");
+},742,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ul@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -97407,7 +98292,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_ol",
     "type": "png"
   });
-},741,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ol@1.5x.png");
+},743,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ol@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -97419,7 +98304,275 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_link",
     "type": "png"
   });
-},742,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_link@1.5x.png");
+},744,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_link@1.5x.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.getImageSource = exports.ToolbarAndroid = exports.TabBarItemIOS = exports.TabBarItem = exports.Button = undefined;
+
+  var _createIconSet = _require(_dependencyMap[0], "./lib/create-icon-set");
+
+  var _createIconSet2 = _interopRequireDefault(_createIconSet);
+
+  var _Feather = _require(_dependencyMap[1], "./glyphmaps/Feather.json");
+
+  var _Feather2 = _interopRequireDefault(_Feather);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var iconSet = (0, _createIconSet2.default)(_Feather2.default, 'Feather', 'Feather.ttf');
+  exports.default = iconSet;
+  var Button = exports.Button = iconSet.Button;
+  var TabBarItem = exports.TabBarItem = iconSet.TabBarItem;
+  var TabBarItemIOS = exports.TabBarItemIOS = iconSet.TabBarItemIOS;
+  var ToolbarAndroid = exports.ToolbarAndroid = iconSet.ToolbarAndroid;
+  var getImageSource = exports.getImageSource = iconSet.getImageSource;
+},745,[602,746],"node_modules\\react-native-vector-icons\\Feather.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = {
+    "activity": 59648,
+    "airplay": 59649,
+    "alert-circle": 59650,
+    "alert-octagon": 59651,
+    "alert-triangle": 59652,
+    "align-center": 59653,
+    "align-justify": 59654,
+    "align-left": 59655,
+    "align-right": 59656,
+    "anchor": 59657,
+    "aperture": 59658,
+    "arrow-down": 59659,
+    "arrow-down-left": 59660,
+    "arrow-down-right": 59661,
+    "arrow-left": 59662,
+    "arrow-right": 59663,
+    "arrow-up": 59664,
+    "arrow-up-left": 59665,
+    "arrow-up-right": 59666,
+    "at-sign": 59667,
+    "award": 59668,
+    "bar-chart": 59669,
+    "bar-chart-2": 59670,
+    "battery": 59671,
+    "battery-charging": 59672,
+    "bell": 59673,
+    "bell-off": 59674,
+    "bluetooth": 59675,
+    "bold": 59676,
+    "book": 59677,
+    "bookmark": 59678,
+    "box": 59679,
+    "briefcase": 59680,
+    "calendar": 59681,
+    "camera": 59682,
+    "camera-off": 59683,
+    "cast": 59684,
+    "check": 59685,
+    "check-circle": 59686,
+    "check-square": 59687,
+    "chevron-down": 59688,
+    "chevron-left": 59689,
+    "chevron-right": 59690,
+    "chevron-up": 59691,
+    "chevrons-down": 59692,
+    "chevrons-left": 59693,
+    "chevrons-right": 59694,
+    "chevrons-up": 59695,
+    "chrome": 59696,
+    "circle": 59697,
+    "clipboard": 59698,
+    "clock": 59699,
+    "cloud": 59700,
+    "cloud-drizzle": 59701,
+    "cloud-lightning": 59702,
+    "cloud-off": 59703,
+    "cloud-rain": 59704,
+    "cloud-snow": 59705,
+    "codepen": 59706,
+    "command": 59707,
+    "compass": 59708,
+    "copy": 59709,
+    "corner-down-left": 59710,
+    "corner-down-right": 59711,
+    "corner-left-down": 59712,
+    "corner-left-up": 59713,
+    "corner-right-down": 59714,
+    "corner-right-up": 59715,
+    "corner-up-left": 59716,
+    "corner-up-right": 59717,
+    "cpu": 59718,
+    "credit-card": 59719,
+    "crop": 59720,
+    "crosshair": 59721,
+    "delete": 59722,
+    "disc": 59723,
+    "download": 59724,
+    "download-cloud": 59725,
+    "droplet": 59726,
+    "edit": 59727,
+    "edit-2": 59728,
+    "edit-3": 59729,
+    "external-link": 59730,
+    "eye": 59731,
+    "eye-off": 59732,
+    "facebook": 59733,
+    "fast-forward": 59734,
+    "feather": 59735,
+    "file": 59736,
+    "file-minus": 59737,
+    "file-plus": 59738,
+    "file-text": 59739,
+    "film": 59740,
+    "filter": 59741,
+    "flag": 59742,
+    "folder": 59743,
+    "github": 59744,
+    "gitlab": 59745,
+    "globe": 59746,
+    "grid": 59747,
+    "hash": 59748,
+    "headphones": 59749,
+    "heart": 59750,
+    "help-circle": 59751,
+    "home": 59752,
+    "image": 59753,
+    "inbox": 59754,
+    "info": 59755,
+    "instagram": 59756,
+    "italic": 59757,
+    "layers": 59758,
+    "layout": 59759,
+    "life-buoy": 59760,
+    "link": 59761,
+    "link-2": 59762,
+    "list": 59763,
+    "loader": 59764,
+    "lock": 59765,
+    "log-in": 59766,
+    "log-out": 59767,
+    "mail": 59768,
+    "map": 59769,
+    "map-pin": 59770,
+    "maximize": 59771,
+    "maximize-2": 59772,
+    "menu": 59773,
+    "message-circle": 59774,
+    "message-square": 59775,
+    "mic": 59776,
+    "mic-off": 59777,
+    "minimize": 59778,
+    "minimize-2": 59779,
+    "minus": 59780,
+    "minus-circle": 59781,
+    "minus-square": 59782,
+    "monitor": 59783,
+    "moon": 59784,
+    "more-horizontal": 59785,
+    "more-vertical": 59786,
+    "move": 59787,
+    "music": 59788,
+    "navigation": 59789,
+    "navigation-2": 59790,
+    "octagon": 59791,
+    "package": 59792,
+    "paperclip": 59793,
+    "pause": 59794,
+    "pause-circle": 59795,
+    "percent": 59796,
+    "phone": 59797,
+    "phone-call": 59798,
+    "phone-forwarded": 59799,
+    "phone-incoming": 59800,
+    "phone-missed": 59801,
+    "phone-off": 59802,
+    "phone-outgoing": 59803,
+    "pie-chart": 59804,
+    "play": 59805,
+    "play-circle": 59806,
+    "plus": 59807,
+    "plus-circle": 59808,
+    "plus-square": 59809,
+    "pocket": 59810,
+    "power": 59811,
+    "printer": 59812,
+    "radio": 59813,
+    "refresh-ccw": 59814,
+    "refresh-cw": 59815,
+    "repeat": 59816,
+    "rewind": 59817,
+    "rotate-ccw": 59818,
+    "rotate-cw": 59819,
+    "save": 59820,
+    "scissors": 59821,
+    "search": 59822,
+    "server": 59823,
+    "settings": 59824,
+    "share": 59825,
+    "share-2": 59826,
+    "shield": 59827,
+    "shopping-cart": 59828,
+    "shuffle": 59829,
+    "sidebar": 59830,
+    "skip-back": 59831,
+    "skip-forward": 59832,
+    "slack": 59833,
+    "slash": 59834,
+    "sliders": 59835,
+    "smartphone": 59836,
+    "speaker": 59837,
+    "square": 59838,
+    "star": 59839,
+    "stop-circle": 59840,
+    "sun": 59841,
+    "sunrise": 59842,
+    "sunset": 59843,
+    "tablet": 59844,
+    "tag": 59845,
+    "target": 59846,
+    "thermometer": 59847,
+    "thumbs-down": 59848,
+    "thumbs-up": 59849,
+    "toggle-left": 59850,
+    "toggle-right": 59851,
+    "trash": 59852,
+    "trash-2": 59853,
+    "trending-down": 59854,
+    "trending-up": 59855,
+    "triangle": 59856,
+    "tv": 59857,
+    "twitter": 59858,
+    "type": 59859,
+    "umbrella": 59860,
+    "underline": 59861,
+    "unlock": 59862,
+    "upload": 59863,
+    "upload-cloud": 59864,
+    "user": 59865,
+    "user-check": 59866,
+    "user-minus": 59867,
+    "user-plus": 59868,
+    "user-x": 59869,
+    "users": 59870,
+    "video": 59871,
+    "video-off": 59872,
+    "voicemail": 59873,
+    "volume": 59874,
+    "volume-1": 59875,
+    "volume-2": 59876,
+    "volume-x": 59877,
+    "watch": 59878,
+    "wifi": 59879,
+    "wifi-off": 59880,
+    "wind": 59881,
+    "x": 59882,
+    "x-circle": 59883,
+    "x-square": 59884,
+    "zap": 59885,
+    "zoom-in": 59886,
+    "zoom-out": 59887
+  };
+},746,[],"node_modules\\react-native-vector-icons\\glyphmaps\\Feather.json");
 __d(function (global, _require2, module, exports, _dependencyMap) {
   'use strict';
 
@@ -97453,7 +98606,7 @@ __d(function (global, _require2, module, exports, _dependencyMap) {
       return ImagePickerManager.showImagePicker(_extends({}, DEFAULT_OPTIONS, options), callback);
     }
   });
-},743,[12],"node_modules\\react-native-image-picker\\index.js");
+},747,[12],"node_modules\\react-native-image-picker\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -97479,9 +98632,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _API2 = _interopRequireDefault(_API);
 
-  var _Ionicons = _require(_dependencyMap[4], "react-native-vector-icons/Ionicons");
+  var _FontAwesome = _require(_dependencyMap[4], "react-native-vector-icons/FontAwesome");
 
-  var _Ionicons2 = _interopRequireDefault(_Ionicons);
+  var _FontAwesome2 = _interopRequireDefault(_FontAwesome);
 
   var _ItemPost = _require(_dependencyMap[5], "./items/ItemPost");
 
@@ -97492,6 +98645,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var _Base2 = _interopRequireDefault(_Base);
 
   var _reactRedux = _require(_dependencyMap[7], "react-redux");
+
+  var _Feather = _require(_dependencyMap[8], "react-native-vector-icons/Feather");
+
+  var _Feather2 = _interopRequireDefault(_Feather);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -97572,7 +98729,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _this.state = {
         noidung: "",
         refreshing: true,
-        featured_media: ""
+        featured_media: "",
+        empty: false
       };
       return _this;
     }
@@ -97591,7 +98749,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       value: function render() {
         var _this3 = this;
 
-        var ButtonRight = this.props.dataUser.name === "admin" ? _react3.default.createElement(
+        if (this.props.navigation.getParam("idCategory", "") == "") var ButtonRight = this.props.dataUser.name === "admin" ? _react3.default.createElement(
           _reactNative.View,
           {
             style: {
@@ -97601,7 +98759,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 52
+              lineNumber: 66
             }
           },
           _react3.default.createElement(
@@ -97612,20 +98770,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 59
+                lineNumber: 73
               }
             },
-            _react3.default.createElement(_Ionicons2.default, {
+            _react3.default.createElement(_Feather2.default, {
               style: {
-                marginLeft: 10,
-                marginRight: 10,
-                color: "#088A4B"
+                marginRight: 5,
+                color: "#36BC63"
               },
-              name: "ios-add-outline",
-              size: 42,
+              name: "plus",
+              size: 34,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 60
+                lineNumber: 74
               }
             })
           ),
@@ -97637,20 +98794,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 66
+                lineNumber: 80
               }
             },
-            _react3.default.createElement(_Ionicons2.default, {
+            _react3.default.createElement(_Feather2.default, {
               style: {
-                marginLeft: 5,
-                marginRight: 10,
-                color: "#088A4B"
+                marginRight: 5,
+                color: "#36BC63"
               },
-              name: "ios-log-out-outline",
-              size: 32,
+              name: "log-out",
+              size: 24,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 67
+                lineNumber: 81
               }
             })
           )
@@ -97664,7 +98820,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 75
+              lineNumber: 89
             }
           },
           _react3.default.createElement(
@@ -97675,10 +98831,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 82
+                lineNumber: 96
               }
             },
-            _react3.default.createElement(_Ionicons2.default, {
+            _react3.default.createElement(IonIcon, {
               style: {
                 marginLeft: 10,
                 marginRight: 10,
@@ -97688,7 +98844,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 36,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 83
+                lineNumber: 97
               }
             })
           )
@@ -97701,20 +98857,26 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 93
+              lineNumber: 107
             }
           },
-          _react3.default.createElement(
+          this.props.navigation.getParam("idCategory", "") == "" && _react3.default.createElement(
             _reactNative.View,
             {
               style: {
                 backgroundColor: "#fff",
-                borderBottomColor: "#fafafa",
-                borderBottomWidth: 1
+                shadowColor: "#efefef",
+                shadowOffset: {
+                  width: 10,
+                  height: 10
+                },
+                shadowOpacity: 0.1,
+                elevation: 3,
+                zIndex: 0
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 96
+                lineNumber: 110
               }
             },
             _react3.default.createElement(
@@ -97728,20 +98890,20 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 97
+                  lineNumber: 123
                 }
               },
               _react3.default.createElement(
                 _reactNative.Text,
                 {
                   style: {
-                    fontSize: 18,
+                    fontSize: 20,
                     color: "#000",
                     fontWeight: "bold"
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 103
+                    lineNumber: 131
                   }
                 },
                 "B\xE0i vi\u1EBFt"
@@ -97759,11 +98921,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 105
+                  lineNumber: 135
                 }
               },
               ButtonRight
             )
+          ),
+          this.state.empty && _react3.default.createElement(
+            _reactNative.Text,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 150
+              }
+            },
+            "Kh\xF4ng c\xF3 n\u1ED9i dung"
           ),
           _react3.default.createElement(_reactNative.FlatList, {
             refreshing: this.state.refreshing,
@@ -97783,13 +98955,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 userName: _this3.props.dataUser.name,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 127
+                  lineNumber: 162
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 120
+              lineNumber: 155
             }
           })
         );
@@ -97807,11 +98979,17 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         this.setState({
           refreshing: true
         });
-        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/posts").then(function (response) {
+        var url = _API2.default.getURL() + "/thuctap/wp-json/wp/v2/posts";
+        var id = this.props.navigation.getParam("idCategory", "");
+        if (id != "") url = url + "?categories=" + id;
+        fetch(url).then(function (response) {
           return response.json();
         }).then(function (responseJson) {
-          if (responseJson == null) {
-            _reactNative.Alert.alert("Lỗi", "Không có nội dung");
+          if (responseJson.length === 0) {
+            _this4.setState({
+              empty: true,
+              refreshing: false
+            });
           } else {
             _this4.setState({
               noidung: responseJson,
@@ -97846,8 +99024,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }]);
 
     return Posts;
-  }(_react2.Component), _class.navigationOptions = {
-    header: null
+  }(_react2.Component), _class.navigationOptions = function (_ref2) {
+    var navigation = _ref2.navigation;
+    var header = void 0;
+    var headerTitle = void 0;
+
+    if (navigation.getParam("idCategory", "") == "") {
+      header = null;
+    } else {
+      headerTitle = navigation.getParam("nameCategory", "");
+    }
+
+    return {
+      header: header,
+      headerTitle: headerTitle
+    };
   }, _temp));
 
   function mapStateToProps(state) {
@@ -97857,7 +99048,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(Posts);
-},744,[118,179,12,599,601,745,600,650],"src\\components\\Post\\Posts.js");
+},748,[118,179,12,599,673,749,600,650,745],"src\\components\\Post\\Posts.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -97888,6 +99079,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var _Ionicons = _require(_dependencyMap[5], "react-native-vector-icons/Ionicons");
 
   var _Ionicons2 = _interopRequireDefault(_Ionicons);
+
+  var _FontAwesome = _require(_dependencyMap[6], "react-native-vector-icons/FontAwesome");
+
+  var _FontAwesome2 = _interopRequireDefault(_FontAwesome);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -97965,7 +99160,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 40
+              lineNumber: 41
             }
           },
           _react3.default.createElement(
@@ -97974,7 +99169,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.baibao,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 41
+                lineNumber: 42
               }
             },
             _react3.default.createElement(
@@ -97985,7 +99180,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 42
+                  lineNumber: 43
                 }
               },
               _react3.default.createElement(
@@ -97996,7 +99191,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 47
+                    lineNumber: 48
                   }
                 },
                 _react3.default.createElement(
@@ -98008,7 +99203,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 48
+                      lineNumber: 49
                     }
                   },
                   this.state.loaded && _react3.default.createElement(
@@ -98017,7 +99212,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.hinh,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 50
+                        lineNumber: 51
                       }
                     },
                     _react3.default.createElement(_reactNative.Image, {
@@ -98027,7 +99222,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 51
+                        lineNumber: 52
                       }
                     })
                   )
@@ -98040,7 +99235,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 58
+                      lineNumber: 59
                     }
                   },
                   _react3.default.createElement(
@@ -98049,15 +99244,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.TieuDe,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 59
+                        lineNumber: 60
                       }
                     },
                     _react3.default.createElement(_reactNativeRenderHtml2.default, {
-                      html: "<span>" + this.props.data.title.rendered + "</span>",
+                      html: "<span> " + this.props.data.title.rendered + "</span>",
                       tagsStyles: htmlStyle,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 60
+                        lineNumber: 61
                       }
                     })
                   ),
@@ -98067,7 +99262,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.edit,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 66
+                        lineNumber: 67
                       }
                     },
                     _react3.default.createElement(
@@ -98077,35 +99272,26 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                           return _this3.props.delete(_this3.props.data.id, _this3.props.data.title.rendered);
                         },
                         style: {
-                          paddingLeft: 5,
-                          flex: 1,
                           alignItems: "center",
-                          flexDirection: "row"
+                          justifyContent: "center",
+                          borderRadius: 5
                         },
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 67
+                          lineNumber: 68
                         }
                       },
-                      _react3.default.createElement(_Ionicons2.default, {
-                        name: "ios-trash-outline",
-                        size: 16,
+                      _react3.default.createElement(_FontAwesome2.default, {
+                        style: {
+                          color: "#36BC63"
+                        },
+                        name: "trash",
+                        size: 20,
                         __source: {
                           fileName: _jsxFileName,
                           lineNumber: 81
                         }
-                      }),
-                      _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                          style: myStyle.textEdit,
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 82
-                          }
-                        },
-                        " X\xF3a"
-                      )
+                      })
                     ),
                     _react3.default.createElement(
                       _reactNative.TouchableOpacity,
@@ -98114,34 +99300,28 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                           return _this3.chinhsua(_this3.props.data.id);
                         },
                         style: {
-                          flex: 1,
+                          justifyContent: "center",
                           alignItems: "center",
-                          flexDirection: "row"
+                          borderRadius: 5,
+                          paddingTop: 3,
+                          marginLeft: 10
                         },
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 84
+                          lineNumber: 83
                         }
                       },
-                      _react3.default.createElement(_Ionicons2.default, {
-                        name: "ios-create-outline",
-                        size: 16,
+                      _react3.default.createElement(_FontAwesome2.default, {
+                        style: {
+                          color: "#36BC63"
+                        },
+                        name: "edit",
+                        size: 20,
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 92
+                          lineNumber: 93
                         }
-                      }),
-                      _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                          style: myStyle.textEdit,
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 93
-                          }
-                        },
-                        " Ch\u1EC9nh s\u1EEDa"
-                      )
+                      })
                     )
                   )
                 )
@@ -98270,12 +99450,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var htmlStyle = {
     span: {
-      color: "#088A4B",
+      color: "#36BC63",
       paddingLeft: 5,
       paddingRight: 5,
       paddingTop: 5,
       marginBottom: 0,
-      fontSize: 15
+      fontSize: 18,
+      fontWeight: "500"
     },
     p: {
       paddingRight: 20
@@ -98286,34 +99467,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     TieuDe: {
       paddingLeft: 5,
       paddingRight: 5,
-      height: 70,
-      fontSize: 20
+      height: 70
     },
     excerpt: {
       paddingLeft: 10
     },
     edit: {
       height: 34,
-      borderTopWidth: 1,
-      borderColor: "#fefefe",
       padding: 7,
-      backgroundColor: "#fefefe",
-      flexDirection: "row"
-    },
-    textEdit: {
-      fontSize: 11,
-      fontWeight: "100",
-      flex: 1,
-      color: "#6f6f6f",
-      justifyContent: "center",
-      alignItems: "center"
+      flexDirection: "row",
+      justifyContent: "flex-end"
     },
     baibao: {
-      borderWidth: 1,
-      borderColor: "#fefefe",
-      marginTop: 5,
-      marginRight: 5,
-      marginLeft: 5,
+      borderBottomWidth: 1,
+      borderBottomColor: "#f0f0f0",
+      padding: 7,
       backgroundColor: "#fff"
     },
     hinh: {
@@ -98323,7 +99491,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemPost;
-},745,[118,179,12,674,600,601],"src\\components\\Post\\items\\ItemPost.js");
+},749,[118,179,12,676,600,601,673],"src\\components\\Post\\items\\ItemPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -98657,7 +99825,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = AddPost;
-},746,[118,179,12,728,601,600,743],"src\\components\\Post\\AddPost.js");
+},750,[118,179,12,730,601,600,747],"src\\components\\Post\\AddPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -98751,7 +99919,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 116
+              lineNumber: 115
             }
           },
           _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -98759,7 +99927,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             size: "large",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 117
+              lineNumber: 116
             }
           })
         );
@@ -98787,7 +99955,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           navigation: _this.props.navigation,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 133
+            lineNumber: 132
           }
         });
       };
@@ -99017,22 +100185,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(this.state);
-                _context.next = 3;
+                _context.next = 2;
                 return regeneratorRuntime.awrap(fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/media/?page=" + this.state.page));
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
                 if (!(response.status === 200)) {
-                  _context.next = 11;
+                  _context.next = 10;
                   break;
                 }
 
-                _context.next = 7;
+                _context.next = 6;
                 return regeneratorRuntime.awrap(response.json());
 
-              case 7:
+              case 6:
                 responseJson = _context.sent;
                 this.setState({
                   noidung: [].concat(_toConsumableArray(this.state.noidung), _toConsumableArray(responseJson)),
@@ -99040,10 +100207,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   loading: false,
                   over: false
                 });
-                _context.next = 12;
+                _context.next = 11;
                 break;
 
-              case 11:
+              case 10:
                 if (response.status === 400) {
                   _reactNative.ToastAndroid.show("Cuối trang", _reactNative.ToastAndroid.SHORT);
 
@@ -99061,7 +100228,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   });
                 }
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -99121,7 +100288,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       elevation: 5
     }
   });
-},747,[118,179,12,599,748,601,600,743],"src\\components\\Media\\Media.js");
+},751,[118,179,12,599,752,601,600,747],"src\\components\\Media\\Media.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -99304,7 +100471,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }(_react2.Component));
 
   exports.default = ItemImage;
-},748,[118,179,12,601],"src\\components\\Media\\items\\ItemImage.js");
+},752,[118,179,12,601],"src\\components\\Media\\items\\ItemImage.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -99640,7 +100807,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             return output;
         }
     };
-},749,[118,179,12,750,599],"src\\components\\Media\\MediaDetail.js");
+},753,[118,179,12,754,599],"src\\components\\Media\\MediaDetail.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -99651,7 +100818,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var image_zoom_component_1 = _require(_dependencyMap[0], "./image-zoom/image-zoom.component");
 
   exports.default = image_zoom_component_1.default;
-},750,[751],"node_modules\\react-native-image-pan-zoom\\built\\index.js");
+},754,[755],"node_modules\\react-native-image-pan-zoom\\built\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -100248,7 +101415,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }(React.Component);
 
     exports.default = ImageViewer;
-},751,[118,12,752,753],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.component.js");
+},755,[118,12,756,757],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.component.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -100264,7 +101431,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     exports.default = {
         container: container
     };
-},752,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.style.js");
+},756,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.style.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -100322,7 +101489,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }();
 
   exports.State = State;
-},753,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.type.js");
+},757,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.type.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -100361,7 +101528,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  exports.default = (0, _reactNavigation.TabNavigator)({
+  exports.default = (0, _reactNavigation.createBottomTabNavigator)({
     Post: {
       screen: _PostTo2.default
     },
@@ -100400,14 +101567,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: tintColor,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 39
+              lineNumber: 41
             }
           });
         }
       };
     },
-    tabBarComponent: _reactNavigation.TabBarBottom,
-    tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: "#36BC63",
       inactiveTintColor: "gray",
@@ -100416,10 +101581,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       }
     },
     initialRouteName: 'Category',
-    animationEnabled: true,
-    swipeEnabled: true
+    animationEnabled: true
   });
-},754,[118,671,755,756,493,601,757,759],"src\\navigations\\TabNavigator.js");
+},758,[118,671,759,760,493,601,761,763],"src\\navigations\\TabNavigator.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -100471,7 +101635,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = MediaTo;
-},755,[493,747,749],"src\\navigations\\MediaTo.js");
+},759,[493,751,753],"src\\navigations\\MediaTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -100671,7 +101835,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             justifyContent: "center"
         }
     });
-},756,[118,179,12,669],"src\\components\\User\\Account.js");
+},760,[118,179,12,669],"src\\components\\User\\Account.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -101032,7 +102196,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(Categories);
-},757,[118,179,12,599,601,758,600,650],"src\\components\\Category\\Categories.js");
+},761,[118,179,12,599,601,762,600,650],"src\\components\\Category\\Categories.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -101341,9 +102505,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       }
     }, {
       key: "xem",
-      value: function xem(i, t) {
-        this.props.navigation.navigate("chitiet", {
-          id: i
+      value: function xem(id, name) {
+        this.props.navigation.navigate("Posts", {
+          idCategory: id,
+          nameCategory: name
         });
       }
     }, {
@@ -101403,7 +102568,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemCategory;
-},758,[118,179,12,674,600,599,601],"src\\components\\Category\\items\\ItemCategory.js");
+},762,[118,179,12,676,600,599,601],"src\\components\\Category\\items\\ItemCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -101423,6 +102588,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _AddCategory2 = _interopRequireDefault(_AddCategory);
 
+  var _Posts = _require(_dependencyMap[4], "../components/Post/Posts");
+
+  var _Posts2 = _interopRequireDefault(_Posts);
+
+  var _PostTo = _require(_dependencyMap[5], "./PostTo");
+
+  var _PostTo2 = _interopRequireDefault(_PostTo);
+
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   var CategoryTo = (0, _reactNavigation.createStackNavigator)({
@@ -101439,6 +102612,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       screen: _AddCategory2.default,
       navigationOptions: {
         headerTitle: "Thêm chuyên mục"
+      }
+    },
+    Posts: {
+      screen: _PostTo2.default,
+      navigationOptions: {
+        header: null
       }
     }
   });
@@ -101457,7 +102636,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = CategoryTo;
-},759,[493,757,760,765],"src\\navigations\\CategoryTo.js");
+},763,[493,761,764,765,748,671],"src\\navigations\\CategoryTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -101682,10 +102861,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               _react3.default.createElement(
                 _reactNative.Picker,
                 {
-                  style: {
-                    height: 50,
-                    width: 300
-                  },
+                  style: myStyle.picker,
+                  itemStyle: myStyle.itemStyle,
                   selectedValue: this.state.selectedIdItem,
                   onValueChange: function onValueChange(value) {
                     _this2.setState({
@@ -101697,6 +102874,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     lineNumber: 103
                   }
                 },
+                _react3.default.createElement(_reactNative.Picker.Item, {
+                  label: "Tr\u1ED1ng",
+                  key: 0,
+                  value: 0,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 111
+                  }
+                }),
                 this.state.categories.map(function (item) {
                   return _react3.default.createElement(_reactNative.Picker.Item, {
                     label: item.name,
@@ -101704,7 +102890,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     value: item.id,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 112
+                      lineNumber: 114
                     }
                   });
                 })
@@ -101715,7 +102901,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.note,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 120
+                    lineNumber: 122
                   }
                 },
                 "Chuy\xEAn m\u1EE5c kh\xE1c v\u1EDBi th\u1EBB, b\u1EA1n c\xF3 th\u1EC3 s\u1EED d\u1EE5ng nhi\u1EC1u c\u1EA5p chuy\xEAn m\u1EE5c. V\xED d\u1EE5: Trong chuy\xEAn m\u1EE5c nh\u1EA1c, b\u1EA1n c\xF3 chuy\xEAn m\u1EE5c con l\xE0 nh\u1EA1c Pop, nh\u1EA1c Jazz. Vi\u1EC7c n\xE0y ho\xE0n to\xE0n l\xE0 t\xF9y theo \xFD b\u1EA1n."
@@ -101727,7 +102913,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.card,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 127
+                  lineNumber: 129
                 }
               },
               _react3.default.createElement(
@@ -101736,7 +102922,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.title,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 128
+                    lineNumber: 130
                   }
                 },
                 "M\xF4 t\u1EA3"
@@ -101756,7 +102942,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 129
+                  lineNumber: 131
                 }
               }),
               _react3.default.createElement(
@@ -101765,7 +102951,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.note,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 137
+                    lineNumber: 139
                   }
                 },
                 "Th\xF4ng th\u01B0\u1EDDng m\xF4 t\u1EA3 n\xE0y kh\xF4ng \u0111\u01B0\u1EE3c s\u1EED d\u1EE5ng trong c\xE1c giao di\u1EC7n, tuy nhi\xEAn c\xF3 v\xE0i giao di\u1EC7n c\xF3 th\u1EC3 hi\u1EC3n th\u1ECB m\xF4 t\u1EA3 n\xE0y."
@@ -101924,6 +103110,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontSize: 15,
       marginBottom: 5
     },
+    picker: {},
+    itemStyle: {},
     note: {
       fontStyle: "italic"
     },
@@ -101946,833 +103134,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = EditCategory;
-},760,[118,179,12,763],"src\\components\\Category\\EditCategory.js");
-__d(function (global, _require, module, exports, _dependencyMap) {
-  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
-    "__packager_asset": true,
-    "httpServerLocation": "/assets/src/image",
-    "width": 1080,
-    "height": 1920,
-    "scales": [1],
-    "hash": "90ed7b4554de23b12833744221efd3ee",
-    "name": "background_blur",
-    "type": "png"
-  });
-},761,[164],"src\\image\\background_blur.png");
-__d(function (global, _require, module, exports, _dependencyMap) {
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.getImageSource = exports.ToolbarAndroid = exports.TabBarItemIOS = exports.TabBarItem = exports.Button = undefined;
-
-  var _createIconSet = _require(_dependencyMap[0], "./lib/create-icon-set");
-
-  var _createIconSet2 = _interopRequireDefault(_createIconSet);
-
-  var _FontAwesome = _require(_dependencyMap[1], "./glyphmaps/FontAwesome.json");
-
-  var _FontAwesome2 = _interopRequireDefault(_FontAwesome);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  var iconSet = (0, _createIconSet2.default)(_FontAwesome2.default, 'FontAwesome', 'FontAwesome.ttf');
-  exports.default = iconSet;
-  var Button = exports.Button = iconSet.Button;
-  var TabBarItem = exports.TabBarItem = iconSet.TabBarItem;
-  var TabBarItemIOS = exports.TabBarItemIOS = iconSet.TabBarItemIOS;
-  var ToolbarAndroid = exports.ToolbarAndroid = iconSet.ToolbarAndroid;
-  var getImageSource = exports.getImageSource = iconSet.getImageSource;
-},763,[602,764],"node_modules\\react-native-vector-icons\\FontAwesome.js");
-__d(function (global, _require, module, exports, _dependencyMap) {
-  module.exports = {
-    "glass": 61440,
-    "music": 61441,
-    "search": 61442,
-    "envelope-o": 61443,
-    "heart": 61444,
-    "star": 61445,
-    "star-o": 61446,
-    "user": 61447,
-    "film": 61448,
-    "th-large": 61449,
-    "th": 61450,
-    "th-list": 61451,
-    "check": 61452,
-    "remove": 61453,
-    "close": 61453,
-    "times": 61453,
-    "search-plus": 61454,
-    "search-minus": 61456,
-    "power-off": 61457,
-    "signal": 61458,
-    "gear": 61459,
-    "cog": 61459,
-    "trash-o": 61460,
-    "home": 61461,
-    "file-o": 61462,
-    "clock-o": 61463,
-    "road": 61464,
-    "download": 61465,
-    "arrow-circle-o-down": 61466,
-    "arrow-circle-o-up": 61467,
-    "inbox": 61468,
-    "play-circle-o": 61469,
-    "rotate-right": 61470,
-    "repeat": 61470,
-    "refresh": 61473,
-    "list-alt": 61474,
-    "lock": 61475,
-    "flag": 61476,
-    "headphones": 61477,
-    "volume-off": 61478,
-    "volume-down": 61479,
-    "volume-up": 61480,
-    "qrcode": 61481,
-    "barcode": 61482,
-    "tag": 61483,
-    "tags": 61484,
-    "book": 61485,
-    "bookmark": 61486,
-    "print": 61487,
-    "camera": 61488,
-    "font": 61489,
-    "bold": 61490,
-    "italic": 61491,
-    "text-height": 61492,
-    "text-width": 61493,
-    "align-left": 61494,
-    "align-center": 61495,
-    "align-right": 61496,
-    "align-justify": 61497,
-    "list": 61498,
-    "dedent": 61499,
-    "outdent": 61499,
-    "indent": 61500,
-    "video-camera": 61501,
-    "photo": 61502,
-    "image": 61502,
-    "picture-o": 61502,
-    "pencil": 61504,
-    "map-marker": 61505,
-    "adjust": 61506,
-    "tint": 61507,
-    "edit": 61508,
-    "pencil-square-o": 61508,
-    "share-square-o": 61509,
-    "check-square-o": 61510,
-    "arrows": 61511,
-    "step-backward": 61512,
-    "fast-backward": 61513,
-    "backward": 61514,
-    "play": 61515,
-    "pause": 61516,
-    "stop": 61517,
-    "forward": 61518,
-    "fast-forward": 61520,
-    "step-forward": 61521,
-    "eject": 61522,
-    "chevron-left": 61523,
-    "chevron-right": 61524,
-    "plus-circle": 61525,
-    "minus-circle": 61526,
-    "times-circle": 61527,
-    "check-circle": 61528,
-    "question-circle": 61529,
-    "info-circle": 61530,
-    "crosshairs": 61531,
-    "times-circle-o": 61532,
-    "check-circle-o": 61533,
-    "ban": 61534,
-    "arrow-left": 61536,
-    "arrow-right": 61537,
-    "arrow-up": 61538,
-    "arrow-down": 61539,
-    "mail-forward": 61540,
-    "share": 61540,
-    "expand": 61541,
-    "compress": 61542,
-    "plus": 61543,
-    "minus": 61544,
-    "asterisk": 61545,
-    "exclamation-circle": 61546,
-    "gift": 61547,
-    "leaf": 61548,
-    "fire": 61549,
-    "eye": 61550,
-    "eye-slash": 61552,
-    "warning": 61553,
-    "exclamation-triangle": 61553,
-    "plane": 61554,
-    "calendar": 61555,
-    "random": 61556,
-    "comment": 61557,
-    "magnet": 61558,
-    "chevron-up": 61559,
-    "chevron-down": 61560,
-    "retweet": 61561,
-    "shopping-cart": 61562,
-    "folder": 61563,
-    "folder-open": 61564,
-    "arrows-v": 61565,
-    "arrows-h": 61566,
-    "bar-chart-o": 61568,
-    "bar-chart": 61568,
-    "twitter-square": 61569,
-    "facebook-square": 61570,
-    "camera-retro": 61571,
-    "key": 61572,
-    "gears": 61573,
-    "cogs": 61573,
-    "comments": 61574,
-    "thumbs-o-up": 61575,
-    "thumbs-o-down": 61576,
-    "star-half": 61577,
-    "heart-o": 61578,
-    "sign-out": 61579,
-    "linkedin-square": 61580,
-    "thumb-tack": 61581,
-    "external-link": 61582,
-    "sign-in": 61584,
-    "trophy": 61585,
-    "github-square": 61586,
-    "upload": 61587,
-    "lemon-o": 61588,
-    "phone": 61589,
-    "square-o": 61590,
-    "bookmark-o": 61591,
-    "phone-square": 61592,
-    "twitter": 61593,
-    "facebook-f": 61594,
-    "facebook": 61594,
-    "github": 61595,
-    "unlock": 61596,
-    "credit-card": 61597,
-    "feed": 61598,
-    "rss": 61598,
-    "hdd-o": 61600,
-    "bullhorn": 61601,
-    "bell": 61683,
-    "certificate": 61603,
-    "hand-o-right": 61604,
-    "hand-o-left": 61605,
-    "hand-o-up": 61606,
-    "hand-o-down": 61607,
-    "arrow-circle-left": 61608,
-    "arrow-circle-right": 61609,
-    "arrow-circle-up": 61610,
-    "arrow-circle-down": 61611,
-    "globe": 61612,
-    "wrench": 61613,
-    "tasks": 61614,
-    "filter": 61616,
-    "briefcase": 61617,
-    "arrows-alt": 61618,
-    "group": 61632,
-    "users": 61632,
-    "chain": 61633,
-    "link": 61633,
-    "cloud": 61634,
-    "flask": 61635,
-    "cut": 61636,
-    "scissors": 61636,
-    "copy": 61637,
-    "files-o": 61637,
-    "paperclip": 61638,
-    "save": 61639,
-    "floppy-o": 61639,
-    "square": 61640,
-    "navicon": 61641,
-    "reorder": 61641,
-    "bars": 61641,
-    "list-ul": 61642,
-    "list-ol": 61643,
-    "strikethrough": 61644,
-    "underline": 61645,
-    "table": 61646,
-    "magic": 61648,
-    "truck": 61649,
-    "pinterest": 61650,
-    "pinterest-square": 61651,
-    "google-plus-square": 61652,
-    "google-plus": 61653,
-    "money": 61654,
-    "caret-down": 61655,
-    "caret-up": 61656,
-    "caret-left": 61657,
-    "caret-right": 61658,
-    "columns": 61659,
-    "unsorted": 61660,
-    "sort": 61660,
-    "sort-down": 61661,
-    "sort-desc": 61661,
-    "sort-up": 61662,
-    "sort-asc": 61662,
-    "envelope": 61664,
-    "linkedin": 61665,
-    "rotate-left": 61666,
-    "undo": 61666,
-    "legal": 61667,
-    "gavel": 61667,
-    "dashboard": 61668,
-    "tachometer": 61668,
-    "comment-o": 61669,
-    "comments-o": 61670,
-    "flash": 61671,
-    "bolt": 61671,
-    "sitemap": 61672,
-    "umbrella": 61673,
-    "paste": 61674,
-    "clipboard": 61674,
-    "lightbulb-o": 61675,
-    "exchange": 61676,
-    "cloud-download": 61677,
-    "cloud-upload": 61678,
-    "user-md": 61680,
-    "stethoscope": 61681,
-    "suitcase": 61682,
-    "bell-o": 61602,
-    "coffee": 61684,
-    "cutlery": 61685,
-    "file-text-o": 61686,
-    "building-o": 61687,
-    "hospital-o": 61688,
-    "ambulance": 61689,
-    "medkit": 61690,
-    "fighter-jet": 61691,
-    "beer": 61692,
-    "h-square": 61693,
-    "plus-square": 61694,
-    "angle-double-left": 61696,
-    "angle-double-right": 61697,
-    "angle-double-up": 61698,
-    "angle-double-down": 61699,
-    "angle-left": 61700,
-    "angle-right": 61701,
-    "angle-up": 61702,
-    "angle-down": 61703,
-    "desktop": 61704,
-    "laptop": 61705,
-    "tablet": 61706,
-    "mobile-phone": 61707,
-    "mobile": 61707,
-    "circle-o": 61708,
-    "quote-left": 61709,
-    "quote-right": 61710,
-    "spinner": 61712,
-    "circle": 61713,
-    "mail-reply": 61714,
-    "reply": 61714,
-    "github-alt": 61715,
-    "folder-o": 61716,
-    "folder-open-o": 61717,
-    "smile-o": 61720,
-    "frown-o": 61721,
-    "meh-o": 61722,
-    "gamepad": 61723,
-    "keyboard-o": 61724,
-    "flag-o": 61725,
-    "flag-checkered": 61726,
-    "terminal": 61728,
-    "code": 61729,
-    "mail-reply-all": 61730,
-    "reply-all": 61730,
-    "star-half-empty": 61731,
-    "star-half-full": 61731,
-    "star-half-o": 61731,
-    "location-arrow": 61732,
-    "crop": 61733,
-    "code-fork": 61734,
-    "unlink": 61735,
-    "chain-broken": 61735,
-    "question": 61736,
-    "info": 61737,
-    "exclamation": 61738,
-    "superscript": 61739,
-    "subscript": 61740,
-    "eraser": 61741,
-    "puzzle-piece": 61742,
-    "microphone": 61744,
-    "microphone-slash": 61745,
-    "shield": 61746,
-    "calendar-o": 61747,
-    "fire-extinguisher": 61748,
-    "rocket": 61749,
-    "maxcdn": 61750,
-    "chevron-circle-left": 61751,
-    "chevron-circle-right": 61752,
-    "chevron-circle-up": 61753,
-    "chevron-circle-down": 61754,
-    "html5": 61755,
-    "css3": 61756,
-    "anchor": 61757,
-    "unlock-alt": 61758,
-    "bullseye": 61760,
-    "ellipsis-h": 61761,
-    "ellipsis-v": 61762,
-    "rss-square": 61763,
-    "play-circle": 61764,
-    "ticket": 61765,
-    "minus-square": 61766,
-    "minus-square-o": 61767,
-    "level-up": 61768,
-    "level-down": 61769,
-    "check-square": 61770,
-    "pencil-square": 61771,
-    "external-link-square": 61772,
-    "share-square": 61773,
-    "compass": 61774,
-    "toggle-down": 61776,
-    "caret-square-o-down": 61776,
-    "toggle-up": 61777,
-    "caret-square-o-up": 61777,
-    "toggle-right": 61778,
-    "caret-square-o-right": 61778,
-    "euro": 61779,
-    "eur": 61779,
-    "gbp": 61780,
-    "dollar": 61781,
-    "usd": 61781,
-    "rupee": 61782,
-    "inr": 61782,
-    "cny": 61783,
-    "rmb": 61783,
-    "yen": 61783,
-    "jpy": 61783,
-    "ruble": 61784,
-    "rouble": 61784,
-    "rub": 61784,
-    "won": 61785,
-    "krw": 61785,
-    "bitcoin": 61786,
-    "btc": 61786,
-    "file": 61787,
-    "file-text": 61788,
-    "sort-alpha-asc": 61789,
-    "sort-alpha-desc": 61790,
-    "sort-amount-asc": 61792,
-    "sort-amount-desc": 61793,
-    "sort-numeric-asc": 61794,
-    "sort-numeric-desc": 61795,
-    "thumbs-up": 61796,
-    "thumbs-down": 61797,
-    "youtube-square": 61798,
-    "youtube": 61799,
-    "xing": 61800,
-    "xing-square": 61801,
-    "youtube-play": 61802,
-    "dropbox": 61803,
-    "stack-overflow": 61804,
-    "instagram": 61805,
-    "flickr": 61806,
-    "adn": 61808,
-    "bitbucket": 61809,
-    "bitbucket-square": 61810,
-    "tumblr": 61811,
-    "tumblr-square": 61812,
-    "long-arrow-down": 61813,
-    "long-arrow-up": 61814,
-    "long-arrow-left": 61815,
-    "long-arrow-right": 61816,
-    "apple": 61817,
-    "windows": 61818,
-    "android": 61819,
-    "linux": 61820,
-    "dribbble": 61821,
-    "skype": 61822,
-    "foursquare": 61824,
-    "trello": 61825,
-    "female": 61826,
-    "male": 61827,
-    "gittip": 61828,
-    "gratipay": 61828,
-    "sun-o": 61829,
-    "moon-o": 61830,
-    "archive": 61831,
-    "bug": 61832,
-    "vk": 61833,
-    "weibo": 61834,
-    "renren": 61835,
-    "pagelines": 61836,
-    "stack-exchange": 61837,
-    "arrow-circle-o-right": 61838,
-    "arrow-circle-o-left": 61840,
-    "toggle-left": 61841,
-    "caret-square-o-left": 61841,
-    "dot-circle-o": 61842,
-    "wheelchair": 61843,
-    "vimeo-square": 61844,
-    "turkish-lira": 61845,
-    "try": 61845,
-    "plus-square-o": 61846,
-    "space-shuttle": 61847,
-    "slack": 61848,
-    "envelope-square": 61849,
-    "wordpress": 61850,
-    "openid": 61851,
-    "institution": 61852,
-    "bank": 61852,
-    "university": 61852,
-    "mortar-board": 61853,
-    "graduation-cap": 61853,
-    "yahoo": 61854,
-    "google": 61856,
-    "reddit": 61857,
-    "reddit-square": 61858,
-    "stumbleupon-circle": 61859,
-    "stumbleupon": 61860,
-    "delicious": 61861,
-    "digg": 61862,
-    "pied-piper-pp": 61863,
-    "pied-piper-alt": 61864,
-    "drupal": 61865,
-    "joomla": 61866,
-    "language": 61867,
-    "fax": 61868,
-    "building": 61869,
-    "child": 61870,
-    "paw": 61872,
-    "spoon": 61873,
-    "cube": 61874,
-    "cubes": 61875,
-    "behance": 61876,
-    "behance-square": 61877,
-    "steam": 61878,
-    "steam-square": 61879,
-    "recycle": 61880,
-    "automobile": 61881,
-    "car": 61881,
-    "cab": 61882,
-    "taxi": 61882,
-    "tree": 61883,
-    "spotify": 61884,
-    "deviantart": 61885,
-    "soundcloud": 61886,
-    "database": 61888,
-    "file-pdf-o": 61889,
-    "file-word-o": 61890,
-    "file-excel-o": 61891,
-    "file-powerpoint-o": 61892,
-    "file-photo-o": 61893,
-    "file-picture-o": 61893,
-    "file-image-o": 61893,
-    "file-zip-o": 61894,
-    "file-archive-o": 61894,
-    "file-sound-o": 61895,
-    "file-audio-o": 61895,
-    "file-movie-o": 61896,
-    "file-video-o": 61896,
-    "file-code-o": 61897,
-    "vine": 61898,
-    "codepen": 61899,
-    "jsfiddle": 61900,
-    "life-bouy": 61901,
-    "life-buoy": 61901,
-    "life-saver": 61901,
-    "support": 61901,
-    "life-ring": 61901,
-    "circle-o-notch": 61902,
-    "ra": 61904,
-    "resistance": 61904,
-    "rebel": 61904,
-    "ge": 61905,
-    "empire": 61905,
-    "git-square": 61906,
-    "git": 61907,
-    "y-combinator-square": 61908,
-    "yc-square": 61908,
-    "hacker-news": 61908,
-    "tencent-weibo": 61909,
-    "qq": 61910,
-    "wechat": 61911,
-    "weixin": 61911,
-    "send": 61912,
-    "paper-plane": 61912,
-    "send-o": 61913,
-    "paper-plane-o": 61913,
-    "history": 61914,
-    "circle-thin": 61915,
-    "header": 61916,
-    "paragraph": 61917,
-    "sliders": 61918,
-    "share-alt": 61920,
-    "share-alt-square": 61921,
-    "bomb": 61922,
-    "soccer-ball-o": 61923,
-    "futbol-o": 61923,
-    "tty": 61924,
-    "binoculars": 61925,
-    "plug": 61926,
-    "slideshare": 61927,
-    "twitch": 61928,
-    "yelp": 61929,
-    "newspaper-o": 61930,
-    "wifi": 61931,
-    "calculator": 61932,
-    "paypal": 61933,
-    "google-wallet": 61934,
-    "cc-visa": 61936,
-    "cc-mastercard": 61937,
-    "cc-discover": 61938,
-    "cc-amex": 61939,
-    "cc-paypal": 61940,
-    "cc-stripe": 61941,
-    "bell-slash": 61942,
-    "bell-slash-o": 61943,
-    "trash": 61944,
-    "copyright": 61945,
-    "at": 61946,
-    "eyedropper": 61947,
-    "paint-brush": 61948,
-    "birthday-cake": 61949,
-    "area-chart": 61950,
-    "pie-chart": 61952,
-    "line-chart": 61953,
-    "lastfm": 61954,
-    "lastfm-square": 61955,
-    "toggle-off": 61956,
-    "toggle-on": 61957,
-    "bicycle": 61958,
-    "bus": 61959,
-    "ioxhost": 61960,
-    "angellist": 61961,
-    "cc": 61962,
-    "shekel": 61963,
-    "sheqel": 61963,
-    "ils": 61963,
-    "meanpath": 61964,
-    "buysellads": 61965,
-    "connectdevelop": 61966,
-    "dashcube": 61968,
-    "forumbee": 61969,
-    "leanpub": 61970,
-    "sellsy": 61971,
-    "shirtsinbulk": 61972,
-    "simplybuilt": 61973,
-    "skyatlas": 61974,
-    "cart-plus": 61975,
-    "cart-arrow-down": 61976,
-    "diamond": 61977,
-    "ship": 61978,
-    "user-secret": 61979,
-    "motorcycle": 61980,
-    "street-view": 61981,
-    "heartbeat": 61982,
-    "venus": 61985,
-    "mars": 61986,
-    "mercury": 61987,
-    "intersex": 61988,
-    "transgender": 61988,
-    "transgender-alt": 61989,
-    "venus-double": 61990,
-    "mars-double": 61991,
-    "venus-mars": 61992,
-    "mars-stroke": 61993,
-    "mars-stroke-v": 61994,
-    "mars-stroke-h": 61995,
-    "neuter": 61996,
-    "genderless": 61997,
-    "facebook-official": 62000,
-    "pinterest-p": 62001,
-    "whatsapp": 62002,
-    "server": 62003,
-    "user-plus": 62004,
-    "user-times": 62005,
-    "hotel": 62006,
-    "bed": 62006,
-    "viacoin": 62007,
-    "train": 62008,
-    "subway": 62009,
-    "medium": 62010,
-    "yc": 62011,
-    "y-combinator": 62011,
-    "optin-monster": 62012,
-    "opencart": 62013,
-    "expeditedssl": 62014,
-    "battery-4": 62016,
-    "battery": 62016,
-    "battery-full": 62016,
-    "battery-3": 62017,
-    "battery-three-quarters": 62017,
-    "battery-2": 62018,
-    "battery-half": 62018,
-    "battery-1": 62019,
-    "battery-quarter": 62019,
-    "battery-0": 62020,
-    "battery-empty": 62020,
-    "mouse-pointer": 62021,
-    "i-cursor": 62022,
-    "object-group": 62023,
-    "object-ungroup": 62024,
-    "sticky-note": 62025,
-    "sticky-note-o": 62026,
-    "cc-jcb": 62027,
-    "cc-diners-club": 62028,
-    "clone": 62029,
-    "balance-scale": 62030,
-    "hourglass-o": 62032,
-    "hourglass-1": 62033,
-    "hourglass-start": 62033,
-    "hourglass-2": 62034,
-    "hourglass-half": 62034,
-    "hourglass-3": 62035,
-    "hourglass-end": 62035,
-    "hourglass": 62036,
-    "hand-grab-o": 62037,
-    "hand-rock-o": 62037,
-    "hand-stop-o": 62038,
-    "hand-paper-o": 62038,
-    "hand-scissors-o": 62039,
-    "hand-lizard-o": 62040,
-    "hand-spock-o": 62041,
-    "hand-pointer-o": 62042,
-    "hand-peace-o": 62043,
-    "trademark": 62044,
-    "registered": 62045,
-    "creative-commons": 62046,
-    "gg": 62048,
-    "gg-circle": 62049,
-    "tripadvisor": 62050,
-    "odnoklassniki": 62051,
-    "odnoklassniki-square": 62052,
-    "get-pocket": 62053,
-    "wikipedia-w": 62054,
-    "safari": 62055,
-    "chrome": 62056,
-    "firefox": 62057,
-    "opera": 62058,
-    "internet-explorer": 62059,
-    "tv": 62060,
-    "television": 62060,
-    "contao": 62061,
-    "500px": 62062,
-    "amazon": 62064,
-    "calendar-plus-o": 62065,
-    "calendar-minus-o": 62066,
-    "calendar-times-o": 62067,
-    "calendar-check-o": 62068,
-    "industry": 62069,
-    "map-pin": 62070,
-    "map-signs": 62071,
-    "map-o": 62072,
-    "map": 62073,
-    "commenting": 62074,
-    "commenting-o": 62075,
-    "houzz": 62076,
-    "vimeo": 62077,
-    "black-tie": 62078,
-    "fonticons": 62080,
-    "reddit-alien": 62081,
-    "edge": 62082,
-    "credit-card-alt": 62083,
-    "codiepie": 62084,
-    "modx": 62085,
-    "fort-awesome": 62086,
-    "usb": 62087,
-    "product-hunt": 62088,
-    "mixcloud": 62089,
-    "scribd": 62090,
-    "pause-circle": 62091,
-    "pause-circle-o": 62092,
-    "stop-circle": 62093,
-    "stop-circle-o": 62094,
-    "shopping-bag": 62096,
-    "shopping-basket": 62097,
-    "hashtag": 62098,
-    "bluetooth": 62099,
-    "bluetooth-b": 62100,
-    "percent": 62101,
-    "gitlab": 62102,
-    "wpbeginner": 62103,
-    "wpforms": 62104,
-    "envira": 62105,
-    "universal-access": 62106,
-    "wheelchair-alt": 62107,
-    "question-circle-o": 62108,
-    "blind": 62109,
-    "audio-description": 62110,
-    "volume-control-phone": 62112,
-    "braille": 62113,
-    "assistive-listening-systems": 62114,
-    "asl-interpreting": 62115,
-    "american-sign-language-interpreting": 62115,
-    "deafness": 62116,
-    "hard-of-hearing": 62116,
-    "deaf": 62116,
-    "glide": 62117,
-    "glide-g": 62118,
-    "signing": 62119,
-    "sign-language": 62119,
-    "low-vision": 62120,
-    "viadeo": 62121,
-    "viadeo-square": 62122,
-    "snapchat": 62123,
-    "snapchat-ghost": 62124,
-    "snapchat-square": 62125,
-    "pied-piper": 62126,
-    "first-order": 62128,
-    "yoast": 62129,
-    "themeisle": 62130,
-    "google-plus-circle": 62131,
-    "google-plus-official": 62131,
-    "fa": 62132,
-    "font-awesome": 62132,
-    "handshake-o": 62133,
-    "envelope-open": 62134,
-    "envelope-open-o": 62135,
-    "linode": 62136,
-    "address-book": 62137,
-    "address-book-o": 62138,
-    "vcard": 62139,
-    "address-card": 62139,
-    "vcard-o": 62140,
-    "address-card-o": 62140,
-    "user-circle": 62141,
-    "user-circle-o": 62142,
-    "user-o": 62144,
-    "id-badge": 62145,
-    "drivers-license": 62146,
-    "id-card": 62146,
-    "drivers-license-o": 62147,
-    "id-card-o": 62147,
-    "quora": 62148,
-    "free-code-camp": 62149,
-    "telegram": 62150,
-    "thermometer-4": 62151,
-    "thermometer": 62151,
-    "thermometer-full": 62151,
-    "thermometer-3": 62152,
-    "thermometer-three-quarters": 62152,
-    "thermometer-2": 62153,
-    "thermometer-half": 62153,
-    "thermometer-1": 62154,
-    "thermometer-quarter": 62154,
-    "thermometer-0": 62155,
-    "thermometer-empty": 62155,
-    "shower": 62156,
-    "bathtub": 62157,
-    "s15": 62157,
-    "bath": 62157,
-    "podcast": 62158,
-    "window-maximize": 62160,
-    "window-minimize": 62161,
-    "window-restore": 62162,
-    "times-rectangle": 62163,
-    "window-close": 62163,
-    "times-rectangle-o": 62164,
-    "window-close-o": 62164,
-    "bandcamp": 62165,
-    "grav": 62166,
-    "etsy": 62167,
-    "imdb": 62168,
-    "ravelry": 62169,
-    "eercast": 62170,
-    "microchip": 62171,
-    "snowflake-o": 62172,
-    "superpowers": 62173,
-    "wpexplorer": 62174,
-    "meetup": 62176
-  };
-},764,[],"node_modules\\react-native-vector-icons\\glyphmaps\\FontAwesome.json");
+},764,[118,179,12,673],"src\\components\\Category\\EditCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102836,7 +103198,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _this.state = {
         categories: [],
         loaded: false,
-        selectedIdItem: "",
+        selectedIdItem: 0,
         ten: "",
         duongDan: "",
         moTa: ""
@@ -103009,6 +103371,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     lineNumber: 99
                   }
                 },
+                _react3.default.createElement(_reactNative.Picker.Item, {
+                  label: "Tr\u1ED1ng",
+                  key: 0,
+                  value: 0,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 106
+                  }
+                }),
                 this.state.categories.map(function (item) {
                   return _react3.default.createElement(_reactNative.Picker.Item, {
                     label: item.name,
@@ -103016,7 +103387,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     value: item.id,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 108
+                      lineNumber: 109
                     }
                   });
                 })
@@ -103027,7 +103398,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.note,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 116
+                    lineNumber: 117
                   }
                 },
                 "Chuy\xEAn m\u1EE5c kh\xE1c v\u1EDBi th\u1EBB, b\u1EA1n c\xF3 th\u1EC3 s\u1EED d\u1EE5ng nhi\u1EC1u c\u1EA5p chuy\xEAn m\u1EE5c. V\xED d\u1EE5: Trong chuy\xEAn m\u1EE5c nh\u1EA1c, b\u1EA1n c\xF3 chuy\xEAn m\u1EE5c con l\xE0 nh\u1EA1c Pop, nh\u1EA1c Jazz. Vi\u1EC7c n\xE0y ho\xE0n to\xE0n l\xE0 t\xF9y theo \xFD b\u1EA1n."
@@ -103039,7 +103410,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.card,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 123
+                  lineNumber: 124
                 }
               },
               _react3.default.createElement(
@@ -103048,7 +103419,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.title,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 124
+                    lineNumber: 125
                   }
                 },
                 "M\xF4 t\u1EA3"
@@ -103067,7 +103438,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 125
+                  lineNumber: 126
                 }
               }),
               _react3.default.createElement(
@@ -103076,7 +103447,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.note,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 132
+                    lineNumber: 133
                   }
                 },
                 "Th\xF4ng th\u01B0\u1EDDng m\xF4 t\u1EA3 n\xE0y kh\xF4ng \u0111\u01B0\u1EE3c s\u1EED d\u1EE5ng trong c\xE1c giao di\u1EC7n, tuy nhi\xEAn c\xF3 v\xE0i giao di\u1EC7n c\xF3 th\u1EC3 hi\u1EC3n th\u1ECB m\xF4 t\u1EA3 n\xE0y."
@@ -103226,7 +103597,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = AddCategory;
-},765,[118,179,12,763],"src\\components\\Category\\AddCategory.js");
+},765,[118,179,12,673],"src\\components\\Category\\AddCategory.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/src/image",
+    "width": 1080,
+    "height": 1920,
+    "scales": [1],
+    "hash": "90ed7b4554de23b12833744221efd3ee",
+    "name": "background_blur",
+    "type": "png"
+  });
+},766,[164],"src\\image\\background_blur.png");
 require(44);
 require(11);
 //# sourceMappingURL=index.map

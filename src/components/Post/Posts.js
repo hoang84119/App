@@ -22,13 +22,25 @@ class Posts extends Component {
     this.state = {
       noidung: "",
       refreshing: true,
-      featured_media: ""
+      featured_media: "",
+      empty: false,
     };
   }
-
-  static navigationOptions = {
-    header: null,
+  static navigationOptions = ({ navigation }) => {
+    //let headerTitle = "Thêm chuyên mục";
+    let header;
+    let headerTitle;
+    if (navigation.getParam("idCategory", "") == "") {
+      header = null;
+    } else {
+      headerTitle = navigation.getParam("nameCategory", "");
+    }
+    return { header, headerTitle };
   };
+
+  // static navigationOptions = {
+  //   header: null,
+  // };
 
   componentDidMount() {
     //this._loadData();
@@ -48,7 +60,8 @@ class Posts extends Component {
   }
 
   render() {
-    let ButtonRight =
+    if(this.props.navigation.getParam("idCategory", "") == "")
+    var ButtonRight =
       this.props.dataUser.name === "admin" ? (
         <View
           style={{
@@ -73,58 +86,69 @@ class Posts extends Component {
           </TouchableOpacity>
         </View>
       ) : (
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: "rgba(255,255,255,0)"
-            }}
-          >
-            <TouchableOpacity onPress={() => this._onLogin()}>
-              <IonIcon
-                style={{ marginLeft: 10, marginRight: 10, color: "black" }}
-                name="md-contact"
-                size={36}
-              />
-            </TouchableOpacity>
-          </View>
-        );
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: "rgba(255,255,255,0)"
+          }}
+        >
+          <TouchableOpacity onPress={() => this._onLogin()}>
+            <IonIcon
+              style={{ marginLeft: 10, marginRight: 10, color: "black" }}
+              name="md-contact"
+              size={36}
+            />
+          </TouchableOpacity>
+        </View>
+      );
 
     return (
       <View style={{ flex: 1 }}>
-
         {/* Thanh bar */}
-        <View style={{
-          backgroundColor: "#fff",
-          // borderBottomColor: "#fafafa",
-          // borderBottomWidth: 1,
-          shadowColor: "#efefef",
-          shadowOffset: {width: 10, height: 10 },
-          shadowOpacity: 0.1,
-          // shadowRadius: 10,
-          elevation: 3,
-          zIndex:0
-        }}>
-          <View style={{
-            alignItems: "center",
-            height: 45,
-            justifyContent: "center",
-            flexDirection: "row"
-          }}>
-            <Text style={{ fontSize: 20, color: "#000", fontWeight: "bold" }}>Bài viết</Text>
-          </View>
+        {this.props.navigation.getParam("idCategory", "") == "" && (
           <View
             style={{
-              alignItems: "center",
-              height: 45,
-              justifyContent: "flex-end",
-              flexDirection: "row",
-              marginTop: -45
+              backgroundColor: "#fff",
+              // borderBottomColor: "#fafafa",
+              // borderBottomWidth: 1,
+              shadowColor: "#efefef",
+              shadowOffset: { width: 10, height: 10 },
+              shadowOpacity: 0.1,
+              // shadowRadius: 10,
+              elevation: 3,
+              zIndex: 0
             }}
           >
-            {ButtonRight}
+            <View
+              style={{
+                alignItems: "center",
+                height: 45,
+                justifyContent: "center",
+                flexDirection: "row"
+              }}
+            >
+              <Text style={{ fontSize: 20, color: "#000", fontWeight: "bold" }}>
+                Bài viết
+              </Text>
+            </View>
+            <View
+              style={{
+                alignItems: "center",
+                height: 45,
+                justifyContent: "flex-end",
+                flexDirection: "row",
+                marginTop: -45
+              }}
+            >
+              {ButtonRight}
+            </View>
           </View>
-        </View>
+        )}
+
+        {
+          this.state.empty && (<Text>Không có nội dung</Text>)
+        }
 
         {/* Noi dung */}
 
@@ -179,14 +203,17 @@ class Posts extends Component {
     this._loadData();
   }
 
-  _loadData() {
+  _loadData() { 
     this.setState({ refreshing: true });
     //this.props.dispatch({type:'RefreshPost'});
-    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts")
+    let url = API.getURL() + "/thuctap/wp-json/wp/v2/posts";
+    let id = this.props.navigation.getParam("idCategory","")
+    if(id != "") url = `${url}?categories=${id}`
+    fetch(url)
       .then(response => response.json())
       .then(responseJson => {
-        if (responseJson == null) {
-          Alert.alert("Lỗi", "Không có nội dung");
+        if ( responseJson.length===0 ) {
+          this.setState({empty:true,refreshing: false});
         } else {
           this.setState({ noidung: responseJson, refreshing: false });
         }

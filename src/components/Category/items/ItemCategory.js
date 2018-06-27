@@ -136,9 +136,9 @@ class ItemCategory extends Component {
     );
   }
 
-  xem(i, t) {
+  xem(id, name) {
     //this.getSrcImage(t);
-    //this.props.navigation.navigate("chitiet", { id: i });
+    this.props.navigation.navigate("Posts", { idCategory: id, nameCategory: name });
   }
   xoa(i, t) {
     this.props.delete(i, t);
