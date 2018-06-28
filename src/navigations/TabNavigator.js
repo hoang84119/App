@@ -5,7 +5,7 @@ import Account from "../components/User/Account";
 //import { TabNavigator, TabBarBottom } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Categories from '../components/Category/Categories';
+import Tags from '../components/Tag/Tags';
 import CategoryTo from './CategoryTo';
 
 
@@ -18,6 +18,7 @@ import CategoryTo from './CategoryTo';
     Post: {screen: PostTo},
     Media: {screen: MediaTo},
     Category:{screen:CategoryTo},
+    Tag:{screen:Tags},
     User: {screen: Account},
   },
   {
@@ -33,8 +34,9 @@ import CategoryTo from './CategoryTo';
           iconName = `ios-albums${focused ? '' : '-outline'}`;
         } else if (routeName === "Category") {
           iconName = `ios-apps${focused ? '' : '-outline'}`;
-        }
-        else if (routeName === "User") {
+        }else if (routeName === "Tag") {
+          iconName = `ios-pricetag${focused ? '' : '-outline'}`;
+        }else if (routeName === "User") {
           iconName = `ios-contact${focused ? '' : '-outline'}`;
         }
         // trả về icon
@@ -49,7 +51,7 @@ import CategoryTo from './CategoryTo';
       inactiveTintColor: "gray", // màu khi màn hình không được chọn
       style: {height:40}
     },
-    initialRouteName: 'Category',
+    initialRouteName: 'Tag',
     animationEnabled: true, //hiệu ứng chuyển tab
     //swipeEnabled: true,// cho phép vuốt để chuyển
   }

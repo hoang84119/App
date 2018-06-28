@@ -10,10 +10,10 @@ import {
 } from "react-native";
 import API from "../../config/API";
 import Feather from "react-native-vector-icons/Feather";
-import ItemCategory from "./items/ItemCategory";
+import ItemTag from "./item/ItemTag";
 import { connect } from "react-redux";
 
-class Categories extends Component {
+class Tags extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +53,7 @@ class Categories extends Component {
         {/* Thanh bar */}
         <View style={myStyle.headerTitleBar}>
           <View style={myStyle.headerTitle}>
-            <Text style={myStyle.title}>Chuyên mục</Text>
+            <Text style={myStyle.title}>Thẻ</Text>
           </View>
           {ButtonRight}
         </View>
@@ -65,17 +65,14 @@ class Categories extends Component {
           onRefresh={() => this._loadData()}
           data={this.state.data}
           keyExtractor={(item, index) => item.id}
-          renderItem={({ item }) =>
-            item.parent === 0 && (
-              <ItemCategory
-                data={item}
-                navigation={this.props.navigation}
-                delete={this._delete}
-                userName={this.props.dataUser.name}
-                level={0}
-              />
-            )
-          }
+          renderItem={({ item }) => (
+            <ItemTag
+              data={item}
+              navigation={this.props.navigation}
+              delete={this._delete}
+              userName={this.props.dataUser.name}
+            />
+          )}
         />
       </View>
     );
@@ -83,11 +80,11 @@ class Categories extends Component {
 
   _loadData() {
     this.setState({ refreshing: true });
-    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories")
+    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/tags")
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson == null) {
-          Alert.alert("Lỗi", "Không có nội dung");
+          ToastAndroid.show("Không có nội dung", ToastAndroid.LONG);
         } else {
           this.setState({ data: responseJson, refreshing: false });
         }
@@ -155,4 +152,4 @@ const myStyle = StyleSheet.create({
 function mapStateToProps(state) {
   return { dataUser: state.dataUser };
 }
-export default connect(mapStateToProps)(Categories);
+export default connect(mapStateToProps)(Tags);

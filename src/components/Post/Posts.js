@@ -94,7 +94,7 @@ class Posts extends Component {
           }}
         >
           <TouchableOpacity onPress={() => this._onLogin()}>
-            <IonIcon
+            <FontAwesome
               style={{ marginLeft: 10, marginRight: 10, color: "black" }}
               name="md-contact"
               size={36}
