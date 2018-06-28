@@ -103,7 +103,7 @@ class Tags extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            API.RemoveCategory(i).then(response => {
+            API.Tag.Remove(i).then(response => {
               if (response === true) {
                 ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
                 this._loadData();

@@ -115,7 +115,7 @@ class AddTag extends Component {
     API.Tag.Save("", ten, duongDan, moTa).then(response => {
       if (response === true) {
         ToastAndroid.show("Thêm thành công", ToastAndroid.LONG);
-        this.props.navigation.navigate("Categories");
+        this.props.navigation.navigate("Tags");
       } else {
         ToastAndroid.show(response.message, ToastAndroid.LONG);
         this.props.navigation.setParams({ isSaving: false });

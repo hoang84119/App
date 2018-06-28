@@ -23,18 +23,20 @@ class Posts extends Component {
       noidung: "",
       refreshing: true,
       featured_media: "",
-      empty: false,
+      empty: false
     };
   }
   static navigationOptions = ({ navigation }) => {
     //let headerTitle = "Thêm chuyên mục";
     let header;
     let headerTitle;
-    if (navigation.getParam("idCategory", "") == "") {
-      header = null;
-    } else {
+    let idCategory = navigation.getParam("idCategory", "");
+    let idTag = navigation.getParam("idTag", "");
+    if (idCategory != "") {
       headerTitle = navigation.getParam("nameCategory", "");
-    }
+    } else if (idTag != "") {
+      headerTitle = navigation.getParam("nameTag", "");
+    } else header = null;
     return { header, headerTitle };
   };
 
@@ -60,48 +62,48 @@ class Posts extends Component {
   }
 
   render() {
-    if(this.props.navigation.getParam("idCategory", "") == "")
-    var ButtonRight =
-      this.props.dataUser.name === "admin" ? (
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "rgba(255,255,255,0)"
-          }}
-        >
-          <TouchableOpacity onPress={() => this._onAdd()}>
-            <Feather
-              style={{ marginRight: 5, color: "#36BC63" }}
-              name="plus"
-              size={34}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this._onLogout()}>
-            <Feather
-              style={{ marginRight: 5, color: "#36BC63" }}
-              name="log-out"
-              size={24}
-            />
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "rgba(255,255,255,0)"
-          }}
-        >
-          <TouchableOpacity onPress={() => this._onLogin()}>
-            <FontAwesome
-              style={{ marginLeft: 10, marginRight: 10, color: "black" }}
-              name="md-contact"
-              size={36}
-            />
-          </TouchableOpacity>
-        </View>
-      );
+    if (this.props.navigation.getParam("idCategory", "") == "")
+      var ButtonRight =
+        this.props.dataUser.name === "admin" ? (
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "rgba(255,255,255,0)"
+            }}
+          >
+            <TouchableOpacity onPress={() => this._onAdd()}>
+              <Feather
+                style={{ marginRight: 5, color: "#36BC63" }}
+                name="plus"
+                size={34}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this._onLogout()}>
+              <Feather
+                style={{ marginRight: 5, color: "#36BC63" }}
+                name="log-out"
+                size={24}
+              />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "rgba(255,255,255,0)"
+            }}
+          >
+            <TouchableOpacity onPress={() => this._onLogin()}>
+              <FontAwesome
+                style={{ marginLeft: 10, marginRight: 10, color: "black" }}
+                name="md-contact"
+                size={36}
+              />
+            </TouchableOpacity>
+          </View>
+        );
 
     return (
       <View style={{ flex: 1 }}>
@@ -128,7 +130,9 @@ class Posts extends Component {
                 flexDirection: "row"
               }}
             >
-              <Text style={{ fontSize: 20, color: "#36BC63", fontWeight: "bold" }}>
+              <Text
+                style={{ fontSize: 20, color: "#36BC63", fontWeight: "bold" }}
+              >
                 Bài viết
               </Text>
             </View>
@@ -146,9 +150,7 @@ class Posts extends Component {
           </View>
         )}
 
-        {
-          this.state.empty && (<Text>Không có nội dung</Text>)
-        }
+        {this.state.empty && <Text>Không có nội dung</Text>}
 
         {/* Noi dung */}
 
@@ -203,17 +205,19 @@ class Posts extends Component {
     this._loadData();
   }
 
-  _loadData() { 
+  _loadData() {
     this.setState({ refreshing: true });
     //this.props.dispatch({type:'RefreshPost'});
     let url = API.getURL() + "/thuctap/wp-json/wp/v2/posts";
-    let id = this.props.navigation.getParam("idCategory","")
-    if(id != "") url = `${url}?categories=${id}`
+    let idCategory = this.props.navigation.getParam("idCategory", "");
+    let idTag = this.props.navigation.getParam("idTag", "");
+    if (idCategory != "") url = `${url}?categories=${idCategory}`;
+    else if (idTag != "") url = `${url}?tags=${idTag}`;
     fetch(url)
       .then(response => response.json())
       .then(responseJson => {
-        if ( responseJson.length===0 ) {
-          this.setState({empty:true,refreshing: false});
+        if (responseJson.length === 0) {
+          this.setState({ empty: true, refreshing: false });
         } else {
           this.setState({ noidung: responseJson, refreshing: false });
         }

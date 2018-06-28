@@ -51,8 +51,8 @@ class ItemCategory extends Component {
 
   _xem = () => {
     this.props.navigation.navigate("Posts", {
-      idCategory: this.props.data.id,
-      nameCategory: this.props.data.name
+      idTag: this.props.data.id,
+      nameTag: this.props.data.name
     });
   };
 
