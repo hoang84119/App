@@ -92,7 +92,7 @@ class Tags extends Component {
   }
 
   _onAdd() {
-    this.props.navigation.navigate("AddCategory");
+    this.props.navigation.navigate("AddTag");
   }
 
   _delete = (i, t) => {
@@ -119,7 +119,7 @@ class Tags extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#088A4B" },
+  icon: { marginLeft: 5, marginRight: 10, color: "#36BC63" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",

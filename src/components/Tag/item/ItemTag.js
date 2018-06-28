@@ -61,7 +61,7 @@ class ItemCategory extends Component {
   };
 
   _chinhsua = () => {
-    this.props.navigation.navigate("EditCategory", { id: this.props.data.id });
+    this.props.navigation.navigate("EditTag", { id: this.props.data.id });
   };
 }
 
@@ -80,7 +80,7 @@ const myStyle = StyleSheet.create({
   noiDung: {fontWeight: "bold", fontSize:20, color:"#000",marginBottom:5},
   moTa: {fontStyle: "italic"},
   buttons: {flexDirection:"row", alignItems: "center",justifyContent:"center"},
-  icon: { marginLeft: 5, marginRight: 10, color: "#088A4B" }
+  icon: { marginLeft: 5, marginRight: 10, color: "#36BC63" }
 });
 
 export default ItemCategory;

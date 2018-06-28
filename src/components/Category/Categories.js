@@ -106,7 +106,7 @@ class Categories extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            API.RemoveCategory(i).then(response => {
+            API.Category.Remove(i).then(response => {
               if (response === true) {
                 ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
                 this._loadData();
@@ -122,7 +122,7 @@ class Categories extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#088A4B" },
+  icon: { marginLeft: 5, marginRight: 10, color: "#36BC63" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",

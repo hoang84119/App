@@ -5,7 +5,7 @@ import Account from "../components/User/Account";
 //import { TabNavigator, TabBarBottom } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Tags from '../components/Tag/Tags';
+import TagTo from './TagTo';
 import CategoryTo from './CategoryTo';
 
 
@@ -18,7 +18,7 @@ import CategoryTo from './CategoryTo';
     Post: {screen: PostTo},
     Media: {screen: MediaTo},
     Category:{screen:CategoryTo},
-    Tag:{screen:Tags},
+    Tag:{screen:TagTo},
     User: {screen: Account},
   },
   {

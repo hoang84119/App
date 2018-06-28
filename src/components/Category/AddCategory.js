@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Alert,
   ToastAndroid,
   TouchableOpacity,
   TextInput,
@@ -11,7 +10,7 @@ import {
   Picker
 } from "react-native";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Feather from "react-native-vector-icons/Feather";
 
 class AddCategory extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class AddCategory extends Component {
           alignItems: "center"
         }}
       >
-        <FontAwesome
+        <Feather
           style={{ marginLeft: 5, marginRight: 10, color: "#088A4B" }}
           name="save"
           size={28}
@@ -145,7 +144,7 @@ class AddCategory extends Component {
     if (this.props.navigation.state.params.isSaving == true) return;
     this.props.navigation.setParams({ isSaving: true });
     let { ten, duongDan, moTa, selectedIdItem } = this.state;
-    API.SaveCategory("", ten, duongDan, moTa, selectedIdItem).then(response => {
+    API.Category.Save("", ten, duongDan, moTa, selectedIdItem).then(response => {
       if (response === true) {
         ToastAndroid.show("Thêm thành công", ToastAndroid.LONG);
         this.props.navigation.navigate("Categories");
@@ -197,11 +196,11 @@ const myStyle = StyleSheet.create({
     padding: 10,
     backgroundColor: "white",
     borderRadius: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 20, height: 20 },
-    shadowOpacity: 1.0,
-    shadowRadius: 10,
-    elevation: 5
+    // shadowColor: "#000",
+    // shadowOffset: { width: 20, height: 20 },
+    // shadowOpacity: 1.0,
+    // shadowRadius: 10,
+    // elevation: 5
   }
 });
 
