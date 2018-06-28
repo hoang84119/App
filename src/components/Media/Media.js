@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Alert, FlatList, TouchableOpacity, View, StyleSheet,
-  ToastAndroid, ActivityIndicator,Text
+  ToastAndroid, ActivityIndicator, Text
 } from "react-native";
 import API from "../../config/API";
 import ItemImage from "./items/ItemImage";
@@ -38,43 +38,88 @@ export default class Media extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{ flexDirection: "column" , flex: 1, backgroundColor: "white"}}>
-        <FlatList
-          numColumns={3}
-          refreshing={this.state.refreshing}
-          onRefresh={() => this._refresh()}
-          data={this.state.noidung}
-          keyExtractor={(x, i) => x.id}
-          extraData={this.state.selected}
-          renderItem={this._renderItem}
-          onEndReachedThreshold={0.1}
-          onEndReached={() => { this._loadMore() }}
-          ListFooterComponent={this._renderFooter}
-        />
+      <View style={{flex: 1, backgroundColor: "white"}}>
+      {this.props.navigation.getParam("check", 0) != 1 &&
+        <View
+          style={{
+            backgroundColor: "#fff",
+            // borderBottomColor: "#fafafa",
+            // borderBottomWidth: 1,
+            shadowColor: "#efefef",
+            shadowOffset: { width: 10, height: 10 },
+            shadowOpacity: 0.1,
+            // shadowRadius: 10,
+            elevation: 3,
+            zIndex: 0
+          }}
+        >
+          <View
+            style={{
+              alignItems: "center",
+              height: 45,
+              justifyContent: "center",
+              flexDirection: "row"
+            }}
+          >
+            <Text
+              style={{ fontSize: 20, color: "#36BC63", fontWeight: "bold" }}
+            >
+              Thư viện của bạn
+              </Text>
+          </View>
+
+          {/* Buttom bên phải */}
+          <View
+            style={{
+              alignItems: "center",
+              height: 45,
+              justifyContent: "flex-end",
+              flexDirection: "row",
+              marginTop: -45
+            }}
+          >
+            {/* {ButtonRight} */}
+          </View>
+        </View>
+        }
+        <View style={{ padding: 2, flexDirection: "column" }}>
+          <FlatList
+            numColumns={3}
+            refreshing={this.state.refreshing}
+            onRefresh={() => this._refresh()}
+            data={this.state.noidung}
+            keyExtractor={(x, i) => x.id}
+            extraData={this.state.selected}
+            renderItem={this._renderItem}
+            onEndReachedThreshold={0.1}
+            onEndReached={() => { this._loadMore() }}
+            ListFooterComponent={this._renderFooter}
+          />
+        </View>
         {this.state.selected.size != 0 && (
-          <TouchableOpacity onPress={this._before_Delete} style={myStyle.deleteSelect}>
-            <IonIcon style={{ color: "white" , marginLeft: 6}} name="md-trash" size={32}/>
-            <Text style={{
-              // borderWidth: 1,
-              // borderColor: "#FF3030",
-              marginLeft: -12,
-              marginBottom: -20,
-              width: 17,
-              height: 17,
-              textAlign: 'center',
-              backgroundColor: "#000",
-              color: "#fff",
-              borderRadius: 10,
-              padding: 1,
-              fontSize: 11
-            }}>{this.state.selected.size}</Text>
-          </TouchableOpacity>
-        )}
-        {this.state.selected.size == 0 && (
-          <TouchableOpacity onPress={this._upload_Selected} style={myStyle.uploadSelect}>
-            <IonIcon style={{ color: "white" }} name="ios-cloud-upload-outline" size={32} />
-          </TouchableOpacity>
-        )}
+            <TouchableOpacity onPress={this._before_Delete} style={myStyle.deleteSelect}>
+              <IonIcon style={{ color: "white", marginLeft: 6 }} name="md-trash" size={32} />
+              <Text style={{
+                // borderWidth: 1,
+                // borderColor: "#FF3030",
+                marginLeft: -12,
+                marginBottom: -20,
+                width: 17,
+                height: 17,
+                textAlign: 'center',
+                backgroundColor: "#000",
+                color: "#fff",
+                borderRadius: 10,
+                padding: 1,
+                fontSize: 11
+              }}>{this.state.selected.size}</Text>
+            </TouchableOpacity>
+          )}
+          {this.state.selected.size == 0 && (
+            <TouchableOpacity onPress={this._upload_Selected} style={myStyle.uploadSelect}>
+              <IonIcon style={{ color: "white" }} name="ios-cloud-upload-outline" size={32} />
+            </TouchableOpacity>
+          )}
       </View>
     );
   }
@@ -190,7 +235,7 @@ export default class Media extends Component {
         });
       }
     });
-    
+
   }
   _before_Delete = () => {
     Alert.alert(

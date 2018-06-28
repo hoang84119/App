@@ -115,7 +115,7 @@ class AddPost extends Component {
               }
               else if (response.customButton) {
 
-                this.props.navigation.navigate("scmedia", { src: "thembaiviet" });
+                this.props.navigation.navigate("scmedia", { src: "thembaiviet" , check: 1});
               }
               else {
                 var file = {

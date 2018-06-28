@@ -155,7 +155,7 @@ class EditPost extends Component {
                 }
                 else if (response.customButton) {
 
-                    this.props.navigation.navigate("scmedia", {src : "chinhsua"});
+                    this.props.navigation.navigate("scmedia", {src : "chinhsua", check: 1});
                 }
                 else {
                   var file = {
