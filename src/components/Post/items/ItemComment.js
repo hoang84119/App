@@ -104,6 +104,7 @@ class ItemComment extends Component {
               </IonIcon>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => this.props.deleteComments(this.props.data.id)}
                 style={{
                   paddingTop: 7,
                   paddingBottom: 7,

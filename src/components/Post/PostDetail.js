@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  TextInput,
   View,
   Text,
   StyleSheet,
@@ -9,10 +8,12 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   FlatList,
-  PixelRatio,
+  ToastAndroid,
   Dimensions
 } from "react-native";
 import API from "../../config/API";
+import Base64 from "../../config/Base64";
+
 import IonIcon from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ItemComment from "./items/ItemComment";
@@ -64,24 +65,40 @@ class PostDetail extends Component {
       onEdit: this._onEdit.bind(this)
     });
   }
-  // _renderComment() {
-  //   if (this.state.repcmt == true)
-  //     return (
-  //       <View style={myStyle.canLe}>
-  //         <TouchableOpacity onPress={() => this.setState({ repcmt: false })}>
-  //           <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-arrow-round-back" size={28} />
-  //         </TouchableOpacity>
-  //         <Text style={{ backgroundColor: "#rgba(255,255,255,0.5)" }}>Bình luận</Text>
-  //         <IonIcon style={{ color: "#088A4B", padding: 14, backgroundColor: "rgba(240,240,240,0.9)", }} name="md-send" size={28} />
-  //       </View >
-  //     )
-  //   else
-  //     return (
-  //       <TouchableOpacity style={myStyle.canLe} >
-  //         <IonIcon style={{ color: "#fff"}} name="ios-chatbubbles-outline" size={24} />
-  //       </TouchableOpacity>
-  //     )
-  // }
+
+  refresh() {
+    this._loadComments();
+  }
+
+  // Hàm xóa comments
+
+  _deleteComments = (i) => {
+    Alert.alert(
+      "Thông báo",
+      "Bạn có thật sự muốn xóa bình luận này không?",
+      [
+        {
+          text: "Xóa",
+          onPress: () => {
+            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/comments/" + i, {
+              headers: {
+                Authorization:
+                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+              },
+              method: "DELETE"
+            }).then(response => {
+              if (response.status == 200) {
+                this.refresh();
+                ToastAndroid.show("Xóa thành công !", ToastAndroid.CENTER, ToastAndroid.LONG);
+              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+            });
+          }
+        },
+        { text: "Hủy", style: "cancel" }
+      ],
+      { cancelable: false }
+    );
+  };
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -106,7 +123,7 @@ class PostDetail extends Component {
                   onRefresh={() => this._loadComments()}
                   data={this.state.binhluan}
                   keyExtractor={(x, i) => i.toString()}
-                  renderItem={({ item }) => <ItemComment data={item} onClickCmt={this._onClickCmt} loaded={this.state.loaded} />}
+                  renderItem={({ item }) => <ItemComment data={item} deleteComments={this._deleteComments} loaded={this.state.loaded} />}
                 />
               </View>
             </ScrollView>
