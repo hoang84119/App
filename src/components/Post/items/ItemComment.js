@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { FlatList, TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
+import {Alert, ToastAndroid, FlatList, TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import PostDetail from "../PostDetail";
+import Base64 from "../../../config/Base64";
 import HTML from "react-native-render-html";
 import API from "../../../config/API";
 import ItemCommentChild from "./ItemCommentChild";
@@ -31,6 +31,37 @@ class ItemComment extends Component {
         }
       });
   }
+
+
+
+  _deleteCommentsChild = (i) => {
+    Alert.alert(
+      "Thông báo",
+      "Bạn có thật sự muốn xóa bình luận này không?",
+      [
+        {
+          text: "Xóa",
+          onPress: () => {
+            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/comments/" + i, {
+              headers: {
+                Authorization:
+                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+              },
+              method: "DELETE"
+            }).then(response => {
+              if (response.status == 200) {
+                this._loadCommentsChild();
+                ToastAndroid.show("Xóa thành công !", ToastAndroid.CENTER, ToastAndroid.LONG);
+              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+            });
+          }
+        },
+        { text: "Hủy", style: "cancel" }
+      ],
+      { cancelable: false }
+    );
+  };
+
   render() {
     return (
       <View>
@@ -132,7 +163,7 @@ class ItemComment extends Component {
           onRefresh={() => this._loadCommentsChild()}
           data={this.state.cmtchild}
           keyExtractor={(x, i) => i.toString()}
-          renderItem={({ item }) => <ItemCommentChild data={item} loaded={this.props.loaded} />}
+          renderItem={({ item }) => <ItemCommentChild deleteCommentsChild = {this._deleteCommentsChild} data={item} loaded={this.props.loaded} />}
         />
       </View>
     );

@@ -128,7 +128,7 @@ class Posts extends Component {
                 flexDirection: "row"
               }}
             >
-              <Text style={{ fontSize: 20, color: "#000", fontWeight: "bold" }}>
+              <Text style={{ fontSize: 20, color: "#36BC63", fontWeight: "bold" }}>
                 Bài viết
               </Text>
             </View>

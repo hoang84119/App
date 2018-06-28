@@ -59,7 +59,7 @@ class ItemPost extends Component {
               <View style={{ flex: 1 }}>
                 <View style={myStyle.TieuDe}>
                   <HTML
-                    html={"<span> " + this.props.data.title.rendered + "</span>"}
+                    html={"<span>" + this.props.data.title.rendered + "</span>"}
                     tagsStyles={htmlStyle}
                   />
                 </View>
@@ -173,13 +173,14 @@ class ItemPost extends Component {
 
 const htmlStyle = {
   span: {
-    color: "#36BC63",
+    //color: "#36BC63",
+    color: "#000",
     paddingLeft: 5,
     paddingRight: 5,
     paddingTop: 5,
     marginBottom: 0,
-    fontSize: 18,
-    fontWeight: "500"
+    fontSize: 16,
+    fontWeight: "bold"
   },
   p: {
     paddingRight: 20

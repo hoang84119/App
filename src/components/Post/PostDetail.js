@@ -99,6 +99,7 @@ class PostDetail extends Component {
       { cancelable: false }
     );
   };
+  
   render() {
     return (
       <View style={{ flex: 1 }}>

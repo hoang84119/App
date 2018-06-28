@@ -61,6 +61,7 @@ class ItemCommentChild extends Component {
               </IonIcon>
               </TouchableOpacity>
               <TouchableOpacity
+              onPress={() => this.props.deleteCommentsChild(this.props.data.id)}
                 style={{
                   paddingTop: 7,
                   paddingBottom: 7,
