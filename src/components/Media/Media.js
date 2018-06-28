@@ -157,7 +157,7 @@ export default class Media extends Component {
   _renderFooter = () => {
     if (!this.state.loading) return null
     return (
-      <View style={{ paddingVertical: 10, borderTopWidth: 1, borderBottomColor: "white" }}>
+      <View style={{ paddingVertical: 10}}>
         <ActivityIndicator animating size="large" />
       </View>
     );

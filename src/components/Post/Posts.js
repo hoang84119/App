@@ -104,11 +104,9 @@ class Posts extends Component {
             </TouchableOpacity>
           </View>
         );
-
-    return (
-      <View style={{ flex: 1 }}>
-        {/* Thanh bar */}
-        {this.props.navigation.getParam("idCategory", "") == "" && (
+    
+    if(this.props.navigation.getParam("idCategory", "") == "" && this.props.navigation.getParam("idTag", "") == "")
+        var headerBar = (
           <View
             style={{
               backgroundColor: "#fff",
@@ -148,7 +146,11 @@ class Posts extends Component {
               {ButtonRight}
             </View>
           </View>
-        )}
+        )
+    return (
+      <View style={{ flex: 1 }}>
+        {/* Thanh bar */}
+        { headerBar }
 
         {this.state.empty && <Text>Không có nội dung</Text>}
 

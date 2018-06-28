@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   ToastAndroid,
   Text,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import API from "../../config/API";
 import Feather from "react-native-vector-icons/Feather";
@@ -17,8 +18,11 @@ class Tags extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: "",
-      refreshing: true
+      data: [],
+      refreshing: true,
+      page: 1,
+      over: false,
+      loading: false
     };
   }
   static navigationOptions = {
@@ -27,7 +31,7 @@ class Tags extends Component {
 
   componentDidMount() {
     this.props.navigation.addListener("didFocus", () => {
-      this._loadData();
+      this._refreshing();
     });
   }
   render() {
@@ -62,7 +66,7 @@ class Tags extends Component {
         <FlatList
           style={myStyle.item}
           refreshing={this.state.refreshing}
-          onRefresh={() => this._loadData()}
+          onRefresh={() => this._refreshing()}
           data={this.state.data}
           keyExtractor={(item, index) => item.id}
           renderItem={({ item }) => (
@@ -73,22 +77,57 @@ class Tags extends Component {
               userName={this.props.dataUser.name}
             />
           )}
+          onEndReachedThreshold={0.1}
+          onEndReached={() => { this._loadMore()}}
+          ListFooterComponent={this._renderFooter}
         />
       </View>
     );
   }
 
-  _loadData() {
-    this.setState({ refreshing: true });
-    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/tags")
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson == null) {
-          ToastAndroid.show("Không có nội dung", ToastAndroid.LONG);
-        } else {
-          this.setState({ data: responseJson, refreshing: false });
-        }
-      });
+  _renderFooter = () => {
+    if (!this.state.loading) return null
+    return (
+      <View style={myStyle.loading}>
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  }
+
+  _refreshing(){
+    //let p = this.state.page;
+    //for(i=1; i<=p;i++){
+      this.setState({ page: 1, data: [], refreshing: true }, () => { this._loadData() });
+    //}
+  }
+
+  _loadMore(){
+    if (!this.state.over)
+    if (!this.state.loading)
+      this.setState({ page: this.state.page + 1, loading: true }, () => { this._loadData() });
+  }
+
+  async _loadData() {
+    let response = await fetch(
+      `${API.getURL()}/thuctap/wp-json/wp/v2/tags?page=${this.state.page}`
+    );
+    if (response.status === 200) {
+      let responseJson = await response.json();
+      if (responseJson.length === 0) {
+        if (this.state.page == 1)ToastAndroid.show("Không có nội dung", ToastAndroid.LONG);
+        else ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
+        this.setState({ refreshing: false, loading: false, over: true });
+      } else {
+        this.setState({
+          data: this.state.data.concat(responseJson),
+          refreshing: false,
+          loading: false,
+          over: false,
+        });
+      }
+    } else if (response.status === 400) {
+      ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+    }
   }
 
   _onAdd() {
@@ -146,7 +185,8 @@ const myStyle = StyleSheet.create({
     flex: 4
   },
   title: { fontSize: 18, color: "#000", fontWeight: "bold" },
-  item:{marginTop: 5}, 
+  item: { marginTop: 5 },
+  loading: { paddingVertical: 10 }
 });
 
 function mapStateToProps(state) {
