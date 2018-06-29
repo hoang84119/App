@@ -77,7 +77,7 @@ class Posts extends Component {
         ) : (
           <View style={myStyle.buttons}>
             <TouchableOpacity onPress={() => this._onLogin()}>
-              <FontAwesome style={myStyle.icon} name="md-contact" size={36} />
+              <Feather style={myStyle.icon} name="user" size={24} />
             </TouchableOpacity>
           </View>
         );

@@ -24,8 +24,7 @@ class ItemCategory extends Component {
 
   componentDidMount() {}
 
-  componentWillReceiveProps(nextProps) {
-  }
+  componentWillReceiveProps(nextProps) {}
 
   render() {
     return (
@@ -34,14 +33,16 @@ class ItemCategory extends Component {
           <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
           <Text style={myStyle.moTa}>{this.props.data.description}</Text>
         </TouchableOpacity>
-        <View style={myStyle.buttons}>
-          <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
-            <Feather style={myStyle.icon} name="edit" size={15} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
-            <Feather style={myStyle.icon} name="trash" size={15} />
-          </TouchableOpacity>
-        </View>
+        {this.props.userName === "admin" && (
+          <View style={myStyle.buttons}>
+            <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
+              <Feather style={myStyle.icon} name="edit" size={15} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
+              <Feather style={myStyle.icon} name="trash" size={15} />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     );
   }
@@ -76,12 +77,16 @@ const myStyle = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: { width: 10, height: 10 },
     shadowOpacity: 0.8,
-    elevation: 1,
+    elevation: 1
   },
-  btnNoiDung: {paddingLeft:10},
-  noiDung: {fontWeight: "200", fontSize:18, color:"#000",marginBottom:5},
-  moTa: {fontStyle: "italic"},
-  buttons: {flexDirection:"row", alignItems: "flex-end",justifyContent:"flex-end"},
+  btnNoiDung: { paddingLeft: 10 },
+  noiDung: { fontWeight: "200", fontSize: 18, color: "#000", marginBottom: 5 },
+  moTa: { fontStyle: "italic" },
+  buttons: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "flex-end"
+  },
   icon: { marginLeft: 5, marginRight: 10, color: "#868686" }
 });
 

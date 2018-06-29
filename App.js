@@ -81,11 +81,12 @@ class App extends Component {
     );
     let mainView = this.state.loading ? (
       loadingView
-    ) : this.state.logged ? (
-      <Tab />
-    ) : (
-          <PostTo />
-        );
+    ) : <Tab />
+    // this.state.logged ? (
+    //   <Tab />
+    // ) : (
+    //       <PostTo />
+    //     );
     return (
       <Provider store={store}>
         {/* {mainView} */}
