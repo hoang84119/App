@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  StatusBar,
   ImageBackground,
   Image,
   View,
@@ -60,8 +61,13 @@ class App extends Component {
     let loadingView = (
       <ImageBackground
         style={{ flex: 1 }}
-        source={require("./src/image/background_blur.png")}
+        source={require("./src/image/background/Miaka.jpg")}
       >
+        <StatusBar
+          translucent
+          backgroundColor="rgba(0, 0, 0, 0)"
+          animated
+        />
         <View style={{ flex: 1, padding: 5 }}>
           <View style={myStyle.khung}>
             <Image
@@ -78,8 +84,8 @@ class App extends Component {
     ) : this.state.logged ? (
       <Tab />
     ) : (
-      <PostTo />
-    );
+          <PostTo />
+        );
     return (
       <Provider store={store}>
         {/* {mainView} */}

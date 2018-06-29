@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import {
-  Text, View, StyleSheet, TextInput, TouchableOpacity,
+  StatusBar, Text, View, StyleSheet, TextInput, TouchableOpacity,
   Alert, ActivityIndicator, AsyncStorage, Image,
   ImageBackground, ToastAndroid
 } from "react-native";
 import API from "../../config/API";
 import IonIcons from "react-native-vector-icons/Ionicons"
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class App extends Component {
   state = {
@@ -43,10 +43,9 @@ class App extends Component {
         //     this.props.navigation.navigate("MainScreen");
         //   }
         // });
-        API.Login(this.state.user, this.state.pass).then(response=>{
+        API.Login(this.state.user, this.state.pass).then(response => {
           this.setState({ isLoading: false });
-          if(response!=null)
-          {
+          if (response != null) {
             // let name = response.name;
             // name = name.toString();
             console.log(response);
@@ -58,7 +57,7 @@ class App extends Component {
             console.log("da luu");
             this.props.navigation.navigate("main");
           }
-          else{
+          else {
             //ToastAndroid.show(response.admin,ToastAndroid.LONG);
           }
         })
@@ -69,8 +68,12 @@ class App extends Component {
   }
   render() {
     return (
-      <ImageBackground style={{ flex: 1 }} source={require('../../image/background.png')}>
-
+      <ImageBackground style={{ flex: 1 }} source={require('../../image/background/Miaka.jpg')}>
+        <StatusBar
+          translucent
+          backgroundColor="rgba(0, 0, 0, 0)"
+          animated
+        />
         <View style={myStyle.nen}>
           <View style={myStyle.khungDangNhap} />
           <View style={{ alignItems: "center" }}>
@@ -79,34 +82,34 @@ class App extends Component {
               source={require("../../image/logo.png")}
             />
             <View style={myStyle.vText}>
-            <View style={{width: 30, alignItems: 'center'}}>
-              <IonIcons name="ios-contact-outline" size={32} style={{color: "white"}}/>
-            </View>
-              
-            <TextInput
-              placeholderTextColor="white"
-              underlineColorAndroid="rgba(0,0,0,0)"
-              style={myStyle.ctmInput}
-              onChangeText={u => {
-                this.setState({ user: u });
-              }}
-              placeholder="Tên tài khoản"
-            />
+              <View style={{ width: 30, alignItems: 'center' }}>
+                <IonIcons name="ios-contact-outline" size={32} style={{ color: "white" }} />
+              </View>
+
+              <TextInput
+                placeholderTextColor="white"
+                underlineColorAndroid="rgba(0,0,0,0)"
+                style={myStyle.ctmInput}
+                onChangeText={u => {
+                  this.setState({ user: u });
+                }}
+                placeholder="Tên tài khoản"
+              />
             </View>
             <View style={myStyle.vText}>
-            <View style={{width: 30, alignItems: 'center'}}>
-              <IonIcons name="ios-lock-outline" size={31} style={{color: "white"}}/>
-            </View>
-            <TextInput
-              placeholderTextColor="white"
-              underlineColorAndroid="rgba(0,0,0,0)"
-              style={myStyle.ctmInput}
-              onChangeText={p => {
-                this.setState({ pass: p });
-              }}
-              placeholder="Mật khẩu"
-              secureTextEntry={true}
-            />
+              <View style={{ width: 30, alignItems: 'center' }}>
+                <IonIcons name="ios-lock-outline" size={31} style={{ color: "white" }} />
+              </View>
+              <TextInput
+                placeholderTextColor="white"
+                underlineColorAndroid="rgba(0,0,0,0)"
+                style={myStyle.ctmInput}
+                onChangeText={p => {
+                  this.setState({ pass: p });
+                }}
+                placeholder="Mật khẩu"
+                secureTextEntry={true}
+              />
             </View>
             {this.state.isLoading ===
               false && (
@@ -133,7 +136,7 @@ class App extends Component {
 export default connect()(App);
 
 const myStyle = StyleSheet.create({
-  vText:{
+  vText: {
     borderRadius: 40,
     paddingLeft: 10,
     paddingRight: 10,
@@ -146,20 +149,19 @@ const myStyle = StyleSheet.create({
   ctmBottom: {
     borderRadius: 40,
     fontSize: 20,
-    //color: "#36BC63",
-    color: "#A0522D",
+    color: "#fff",
     paddingTop: 10,
     paddingLeft: 10,
     paddingBottom: 10,
     paddingRight: 10,
-    backgroundColor: "white",
+    backgroundColor: "#EB3E53",
     textAlign: "center",
     width: 240
   },
   ctmInput: {
     backgroundColor: "rgba(255,255,255,0)",
     fontSize: 20,
-    flex:1,
+    flex: 1,
     paddingLeft: 10,
     paddingRight: 10,
     color: "white"
