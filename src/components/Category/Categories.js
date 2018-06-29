@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  StatusBar,
   Alert,
   FlatList,
   View,
@@ -35,27 +36,37 @@ class Categories extends Component {
       this.props.dataUser.name === "admin" ? (
         <View style={myStyle.buttons}>
           <TouchableOpacity onPress={() => this._onAdd()}>
-            <Feather style={myStyle.icon} name="plus" size={34} />
+            <Feather style={myStyle.icon} name="plus" size={30} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this._onLogout()}>
-            <Feather style={myStyle.icon} name="log-out" size={24} />
+            <Feather style={myStyle.icon} name="log-out" size={22} />
           </TouchableOpacity>
         </View>
       ) : (
-        <View style={myStyle.buttons}>
-          <TouchableOpacity onPress={() => this._onLogin()}>
-            <Feather style={myStyle.icon} name="user" size={34} />
-          </TouchableOpacity>
-        </View>
-      );
+          <View style={myStyle.buttons}>
+            <TouchableOpacity onPress={() => this._onLogin()}>
+              <Feather style={myStyle.icon} name="user" size={26} />
+            </TouchableOpacity>
+          </View>
+        );
     return (
       <View style={myStyle.container}>
-        {/* Thanh bar */}
-        <View style={myStyle.headerTitleBar}>
-          <View style={myStyle.headerTitle}>
-            <Text style={myStyle.title}>Chuyên mục</Text>
+        <StatusBar
+          translucent
+          backgroundColor="rgba(0, 0, 0, 0)"
+          animated
+        />
+        <View style={{ backgroundColor: "#0ABFBC" }}>
+          <View style={{ height: StatusBar.currentHeight }}>
+
           </View>
-          {ButtonRight}
+          {/* Thanh bar */}
+          <View style={myStyle.headerTitleBar}>
+            <View style={myStyle.headerTitle}>
+              <Text style={myStyle.title}>Chuyên mục</Text>
+            </View>
+            {ButtonRight}
+          </View>
         </View>
 
         {/* Noi dung */}
@@ -122,7 +133,11 @@ class Categories extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#36BC63" },
+  icon: {
+    marginLeft: 5,
+    marginRight: 5,
+    color: "#fff"
+  },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -130,9 +145,6 @@ const myStyle = StyleSheet.create({
     justifyContent: "flex-end"
   },
   headerTitleBar: {
-    backgroundColor: "#fff",
-    borderBottomColor: "#fafafa",
-    borderBottomWidth: 1,
     flexDirection: "row",
     shadowColor: "#efefef",
     shadowOffset: { width: 10, height: 10 },
@@ -144,12 +156,18 @@ const myStyle = StyleSheet.create({
     paddingLeft: 10,
     alignItems: "center",
     height: 45,
-    justifyContent: "center",
+    //justifyContent: "center",
     flexDirection: "row",
     flex: 4
   },
-  title: { fontSize: 18, color: "#000", fontWeight: "bold" },
-  item:{marginTop: 5}, 
+  title: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold"
+  },
+  item: {
+    //backgroundColor: "#afafaf",
+  },
 });
 
 function mapStateToProps(state) {
