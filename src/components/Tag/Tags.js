@@ -57,7 +57,7 @@ class Tags extends Component {
         {/* Thanh bar */}
         <View style={myStyle.headerTitleBar}>
           <View style={myStyle.headerTitle}>
-            <Text style={myStyle.title}>Thẻ</Text>
+            <Text style={myStyle.title}>Quản lý Thẻ</Text>
           </View>
           {ButtonRight}
         </View>
@@ -177,14 +177,14 @@ const myStyle = StyleSheet.create({
     zIndex: 0
   },
   headerTitle: {
-    paddingLeft: 10,
+    paddingLeft: 30,
     alignItems: "center",
-    height: 45,
-    justifyContent: "center",
+    height: 50,
+    //justifyContent: "center",
     flexDirection: "row",
     flex: 4
   },
-  title: { fontSize: 18, color: "#000", fontWeight: "bold" },
+  title: { fontSize: 20, color: "#000", fontWeight: "bold" },
   item: { marginTop: 5 },
   loading: { paddingVertical: 10 }
 });

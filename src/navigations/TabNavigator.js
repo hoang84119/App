@@ -15,7 +15,7 @@ import CategoryTo from './CategoryTo';
   export default createBottomTabNavigator(
   {
     //Định nghĩa các màn hình 
-    Post: {screen: PostTo},
+    Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
     Media: {screen: MediaTo},
     Category:{screen:CategoryTo},
     Tag:{screen:TagTo},
@@ -49,10 +49,11 @@ import CategoryTo from './CategoryTo';
     tabBarOptions: {
       activeTintColor: "#36BC63", //màu khi màn hình được chọn
       inactiveTintColor: "gray", // màu khi màn hình không được chọn
-      style: {height:40}
+      style: {height:40},
+      scrollEnabled: true,
     },
     initialRouteName: 'Tag',
-    animationEnabled: true, //hiệu ứng chuyển tab
+    animationEnabled: true,//hiệu ứng chuyển tab
     //swipeEnabled: true,// cho phép vuốt để chuyển
   }
 );

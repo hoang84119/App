@@ -9,9 +9,6 @@ import {
   Alert,
   FlatList
 } from "react-native";
-import HTML from "react-native-render-html";
-import Base64 from "../../../config/Base64";
-import API from "../../../config/API";
 import Feather from "react-native-vector-icons/Feather";
 
 class ItemCategory extends Component {
@@ -39,10 +36,10 @@ class ItemCategory extends Component {
         </TouchableOpacity>
         <View style={myStyle.buttons}>
           <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
-            <Feather style={myStyle.icon} name="edit-2" size={20} />
+            <Feather style={myStyle.icon} name="edit" size={15} />
           </TouchableOpacity>
           <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
-            <Feather style={myStyle.icon} name="trash" size={20} />
+            <Feather style={myStyle.icon} name="trash" size={15} />
           </TouchableOpacity>
         </View>
       </View>
@@ -73,14 +70,18 @@ const myStyle = StyleSheet.create({
     margin: 5,
     padding: 10,
     backgroundColor: "white",
-    borderRadius: 5,
+    borderRadius: 3,
     justifyContent: "space-between",
+    shadowColor: "#000",
+    shadowOffset: { width: 10, height: 10 },
+    shadowOpacity: 0.8,
+    elevation: 1,
   },
-  btnNoiDung: {},
-  noiDung: {fontWeight: "bold", fontSize:20, color:"#000",marginBottom:5},
+  btnNoiDung: {paddingLeft:10},
+  noiDung: {fontWeight: "200", fontSize:18, color:"#000",marginBottom:5},
   moTa: {fontStyle: "italic"},
-  buttons: {flexDirection:"row", alignItems: "center",justifyContent:"center"},
-  icon: { marginLeft: 5, marginRight: 10, color: "#36BC63" }
+  buttons: {flexDirection:"row", alignItems: "flex-end",justifyContent:"flex-end"},
+  icon: { marginLeft: 5, marginRight: 10, color: "#868686" }
 });
 
 export default ItemCategory;
