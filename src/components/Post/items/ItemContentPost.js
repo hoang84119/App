@@ -12,9 +12,9 @@ class ItemContentPost extends Component {
             paddingTop: 70,
             flex: 1,
             minHeight: 10,
-            //resizeMode: "cover"
+            resizeMode: "cover"
           }}
-          source={require("../../../image/header.png")}
+          source={require("../../../image/background/Miaka.jpg")}
         >
           <View style={myStyle.title}>
             {this.props.loaded && (

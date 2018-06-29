@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  Text, View, StyleSheet, TextInput, TouchableOpacity,
+  StatusBar, Text, View, StyleSheet, TextInput, TouchableOpacity,
   Alert, ActivityIndicator, AsyncStorage, Image,
   ImageBackground, ToastAndroid
 } from "react-native";
@@ -69,8 +69,11 @@ class App extends Component {
   }
   render() {
     return (
-      <ImageBackground style={{ flex: 1 }} source={require('../../image/background.png')}>
-
+      <ImageBackground style={{ flex: 1 }} source={require('../../image/background/Miaka.jpg')}>
+        <StatusBar
+          backgroundColor="#0abfbc"
+          barStyle="light-content"
+        />
         <View style={myStyle.nen}>
           <View style={myStyle.khungDangNhap} />
           <View style={{ alignItems: "center" }}>
@@ -146,13 +149,12 @@ const myStyle = StyleSheet.create({
   ctmBottom: {
     borderRadius: 40,
     fontSize: 20,
-    //color: "#36BC63",
-    color: "#A0522D",
+    color: "#fff",
     paddingTop: 10,
     paddingLeft: 10,
     paddingBottom: 10,
     paddingRight: 10,
-    backgroundColor: "white",
+    backgroundColor: "#EB3E53",
     textAlign: "center",
     width: 240
   },
