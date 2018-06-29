@@ -158,7 +158,7 @@ class Tags extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#36BC63" },
+  icon: { marginLeft: 5, marginRight: 10, color: "#868686" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -177,14 +177,14 @@ const myStyle = StyleSheet.create({
     zIndex: 0
   },
   headerTitle: {
-    paddingLeft: 30,
+    paddingLeft: 20,
     alignItems: "center",
     height: 50,
     //justifyContent: "center",
     flexDirection: "row",
     flex: 4
   },
-  title: { fontSize: 20, color: "#000", fontWeight: "bold" },
+  title: { fontSize: 20, color: "#000", fontWeight: "500" },
   item: { marginTop: 5 },
   loading: { paddingVertical: 10 }
 });

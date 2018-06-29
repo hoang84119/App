@@ -6,12 +6,12 @@ import {
   StyleSheet,
   ToastAndroid,
   Text,
-  Alert
+  Alert,
+  ImageBackground
 } from "react-native";
 import HTML from "react-native-render-html";
 import Base64 from "../../../config/Base64";
-import IonIcon from "react-native-vector-icons/Ionicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Feather from "react-native-vector-icons/Feather";
 const featured_media_default =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
 class ItemPost extends Component {
@@ -28,90 +28,67 @@ class ItemPost extends Component {
     // this.setState({ loaded: false }, () => {
     //   this._getFeaturedMedia();
     // });
-    if (nextProps.data != this.props.data)
-    {
+    if (nextProps.data != this.props.data) {
       this.setState({ loaded: false }, () => {
         this._getFeaturedMedia();
       });
     }
-     
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: "#fff" }}>
-        <View style={myStyle.baibao}>
-          <TouchableOpacity
-            onPress={() =>
-              this.xem(this.props.data.id, this.props.data.title.rendered)
-            }
-          >
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                {this.state.loaded && (
-                  <View style={myStyle.hinh}>
-                    <Image
-                      style={myStyle.hinh}
-                      source={{ uri: this.state.featured_media }}
-                    />
-                  </View>
-                )}
+      <View style={myStyle.cardItem}>
+        <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+          {this.state.loaded && (
+            <ImageBackground
+              source={{ uri: this.state.featured_media }}
+              style={myStyle.hinh}
+            >
+              <View style={myStyle.title}>
+                <HTML
+                  html={"<span>" + this.props.data.title.rendered + "</span>"}
+                  tagsStyles={htmlStyle}
+                />
               </View>
-              <View style={{ flex: 1 }}>
-                <View style={myStyle.TieuDe}>
-                  <HTML
-                    html={"<span>" + this.props.data.title.rendered + "</span>"}
-                    tagsStyles={htmlStyle}
-                  />
-                </View>
-                {this.props.userName === "admin" && (
-                  <View style={myStyle.edit}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.delete(
-                          this.props.data.id,
-                          this.props.data.title.rendered
-                        )
-                      }
-                      style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        borderRadius: 5
-                      }}
-                    >
-                      <FontAwesome style={{color: "#36BC63"}} name="trash" size={20} />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => this.chinhsua(this.props.data.id)}
-                      style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 5,
-                        paddingTop:3,
-                        marginLeft: 10
-                      }}
-                    >
-                      <FontAwesome style={{color: "#36BC63"}} name="edit" size={20} />
-                    </TouchableOpacity>
-                  </View>
-                )}
-              </View>
+            </ImageBackground>
+          )}
+          {this.props.data.excerpt.rendered != "" && (
+            <HTML
+              html={this.formatExcerpt(this.props.data.excerpt.rendered)}
+              //tagsStyles={htmlStyle}
+              renderers={renderers}
+            />
+          )}
+        </TouchableOpacity>
+        <View style={myStyle.footer}>
+          <View style={myStyle.date}>
+            <Feather style={myStyle.iconClock} name="clock" size={14} />
+            <Text style={myStyle.dateContent}>{this._getDate()}</Text>
+          </View>
+
+          {this.props.userName === "admin" && (
+            <View style={myStyle.buttons}>
+              <TouchableOpacity onPress={this.props._delete}>
+                <Feather style={myStyle.icon} name="edit" size={15} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._chinhsua}>
+                <Feather style={myStyle.icon} name="trash" size={15} />
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          )}
         </View>
       </View>
     );
   }
 
-  xem(i, t) {
-    //this.getSrcImage(t);
-    this.props.navigation.navigate("chitiet", { id: i });
-  }
-  xoa(i, t) {
-    this.props.delete(i, t);
-  }
-  chinhsua(i) {
-    this.props.navigation.navigate("chinhsua", { id: i });
-  }
+  _xem = () => {
+    this.props.navigation.navigate("chitiet", { id: this.props.data.id });
+  };
+  _xoa = () => {
+    this.props.delete(this.props.data.id, this.props.data.title.rendered);
+  };
+  _chinhsua = () => {
+    this.props.navigation.navigate("chinhsua", { id: this.props.data.id });
+  };
   async _getFeaturedMedia() {
     if (this.props.data.featured_media != 0) {
       let idImage = this.props.data.featured_media;
@@ -153,6 +130,28 @@ class ItemPost extends Component {
     }
   }
 
+  _getDate = () => {
+    let date = new Date(this.props.data.date);
+    let localDate = new Date();
+    let msPerSecond = 1000;
+    let msPerMinute = 60 * 1000;
+    let msPerHour = 60 * 60 * 1000;
+    let msPerDay = 24 * 60 * 60 * 1000;
+    let time = localDate.getTime() - date.getTime();
+
+    let seconds = parseInt(time / msPerSecond);
+    if (seconds < 60) return `${seconds}s trước`;
+
+    let minutes = parseInt(time / msPerMinute);
+    if (minutes < 60) return `${minutes} phút trước`;
+
+    let hours = parseInt(time / msPerHour);
+    if (hours < 24) return `${hours} giờ trước`;
+
+    let days = parseInt(time / msPerDay);
+    if (days < 30) return `${days} ngày trước`;
+  };
+
   // Xóa link trong nội dung
   removeLink(content) {
     //tìm thẻ img đầu tiên
@@ -165,57 +164,90 @@ class ItemPost extends Component {
   formatExcerpt(content) {
     //Mỗi trích đoạn chỉ lấy tối đa 100 ký tự
     //content = this.removeLink(content);
-    return content.length > 100
-      ? content.substring(0, 100) + "...</p>"
+    return content.length > 120
+      ? content.substring(0, 120) + "...</p>"
       : content;
   }
 }
 
+const renderers = {
+  p: (htmlAttribs, children) => <Text style={myStyle.noidung}>{children}</Text>
+};
+
 const htmlStyle = {
   span: {
-    //color: "#36BC63",
-    color: "#000",
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingTop: 5,
-    marginBottom: 0,
-    fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "300",
+    fontSize: 18,
+    color: "#FFF"
   },
   p: {
-    paddingRight: 20
+    fontSize: 14,
+    color: "#4F4F4F"
   }
 };
 const myStyle = StyleSheet.create({
-  TieuDe: {
-    paddingLeft: 5,
-    paddingRight: 5,
-    height: 70,
-    //fontSize: 20
+  cardItem: {
+    borderWidth: 1,
+    flexDirection: "column",
+    borderColor: "#d3d3d3",
+    marginHorizontal: 5,
+    marginVertical: 5,
+    //padding: 10,
+    backgroundColor: "white",
+    borderRadius: 5,
+    overflow: "hidden", //không cho item tràn ra ngoài
+    justifyContent: "space-between",
+    shadowColor: "#000",
+    shadowOffset: { width: 10, height: 10 },
+    shadowOpacity: 0.8,
+    elevation: 1
   },
-  excerpt: {
-    //color: '#088A4B',
-    paddingLeft: 10
-  },
-  edit: {
-    height: 34,
-    //borderTopWidth: 1,
-    //: "#fefefe",
-    padding: 7,
-    //backgroundColor: "#fefefe",
-    flexDirection: "row",
-    justifyContent: "flex-end"
-  },
-  baibao: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
-    padding: 7,
-    backgroundColor: "#fff"
-  },
+  btnNoiDung: { paddingLeft: 0, flex: 1 },
   hinh: {
-    width: 150,
-    height: 104
-  }
+    flex: 1,
+    height: 150,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center"
+  },
+  title: {
+    flex: 1,
+    backgroundColor: "rgba(54,54,54,0.3)",
+    padding: 5
+  },
+  noidung: {
+    padding: 10,
+    fontSize: 14,
+    color: "#4F4F4F"
+  },
+  footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 5,
+    marginHorizontal: 20,
+    marginTop: 0.5,
+    borderTopColor: "#CFCFCF",
+    borderTopWidth: 1,
+    //backgroundColor:"#f3f3f3"
+  },
+  date: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  dateContent: {
+    //marginLeft: 10,
+    fontSize: 12,
+    textAlign: "center"
+  },
+  buttons: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  iconClock:{marginRight:5, color: "#868686" },
+  icon: { marginLeft:20, color: "#868686" }
 });
 
 export default ItemPost;

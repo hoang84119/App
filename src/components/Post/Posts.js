@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ToastAndroid,
   AsyncStorage,
-  Text
+  Text,
+  StyleSheet
 } from "react-native";
 import API from "../../config/API";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -65,98 +66,45 @@ class Posts extends Component {
     if (this.props.navigation.getParam("idCategory", "") == "")
       var ButtonRight =
         this.props.dataUser.name === "admin" ? (
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: "rgba(255,255,255,0)"
-            }}
-          >
+          <View style={myStyle.buttons}>
             <TouchableOpacity onPress={() => this._onAdd()}>
-              <Feather
-                style={{ marginRight: 5, color: "#36BC63" }}
-                name="plus"
-                size={34}
-              />
+              <Feather style={myStyle.icon} name="plus" size={34} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this._onLogout()}>
-              <Feather
-                style={{ marginRight: 5, color: "#36BC63" }}
-                name="log-out"
-                size={24}
-              />
+              <Feather style={myStyle.icon} name="log-out" size={24} />
             </TouchableOpacity>
           </View>
         ) : (
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: "rgba(255,255,255,0)"
-            }}
-          >
+          <View style={myStyle.buttons}>
             <TouchableOpacity onPress={() => this._onLogin()}>
-              <FontAwesome
-                style={{ marginLeft: 10, marginRight: 10, color: "black" }}
-                name="md-contact"
-                size={36}
-              />
+              <FontAwesome style={myStyle.icon} name="md-contact" size={36} />
             </TouchableOpacity>
           </View>
         );
-    
-    if(this.props.navigation.getParam("idCategory", "") == "" && this.props.navigation.getParam("idTag", "") == "")
-        var headerBar = (
-          <View
-            style={{
-              backgroundColor: "#fff",
-              // borderBottomColor: "#fafafa",
-              // borderBottomWidth: 1,
-              shadowColor: "#efefef",
-              shadowOffset: { width: 10, height: 10 },
-              shadowOpacity: 0.1,
-              // shadowRadius: 10,
-              elevation: 3,
-              zIndex: 0
-            }}
-          >
-            <View
-              style={{
-                alignItems: "center",
-                height: 45,
-                justifyContent: "center",
-                flexDirection: "row"
-              }}
-            >
-              <Text
-                style={{ fontSize: 20, color: "#36BC63", fontWeight: "bold" }}
-              >
-                Bài viết
-              </Text>
-            </View>
-            <View
-              style={{
-                alignItems: "center",
-                height: 45,
-                justifyContent: "flex-end",
-                flexDirection: "row",
-                marginTop: -45
-              }}
-            >
-              {ButtonRight}
-            </View>
-          </View>
-        )
-    return (
-      <View style={{ flex: 1 }}>
-        {/* Thanh bar */}
-        { headerBar }
 
-        {this.state.empty && <Text>Không có nội dung</Text>}
+    if (
+      this.props.navigation.getParam("idCategory", "") == "" &&
+      this.props.navigation.getParam("idTag", "") == ""
+    )
+      var headerBar = (
+        <View style={myStyle.headerTitleBar}>
+          <View style={myStyle.headerTitle}>
+            <Text style={myStyle.title}>Bài viết</Text>
+          </View>
+          {ButtonRight}
+        </View>
+      );
+    return (
+      <View style={myStyle.container}>
+        {/* Thanh bar */}
+        {headerBar}
+
+        {this.state.empty && <Text style={myStyle.empty}>Không có nội dung</Text>}
 
         {/* Noi dung */}
 
         <FlatList
+          style={myStyle.item}
           refreshing={this.state.refreshing}
           //refreshing={this.props.refreshing}
           onRefresh={() => this.refresh()}
@@ -258,6 +206,38 @@ class Posts extends Component {
     return true;
   };
 }
+const myStyle = StyleSheet.create({
+  container: { flex: 1, backgroundColor: "#FFF" },
+  icon: { marginLeft: 5, marginRight: 10, color: "#868686" },
+  buttons: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "flex-end"
+  },
+  headerTitleBar: {
+    backgroundColor: "#fff",
+    borderBottomColor: "#fafafa",
+    borderBottomWidth: 1,
+    flexDirection: "row",
+    shadowColor: "#efefef",
+    shadowOffset: { width: 10, height: 10 },
+    shadowOpacity: 0.1,
+    elevation: 3,
+    zIndex: 0
+  },
+  headerTitle: {
+    paddingLeft: 20,
+    alignItems: "center",
+    height: 50,
+    //justifyContent: "center",
+    flexDirection: "row",
+    flex: 4
+  },
+  title: { fontSize: 20, color: "#000", fontWeight: "500" },
+  item: { marginTop: 5 },
+  loading: { paddingVertical: 10 }
+});
 
 //export default Posts;
 

@@ -49,10 +49,10 @@ import CategoryTo from './CategoryTo';
     tabBarOptions: {
       activeTintColor: "#36BC63", //màu khi màn hình được chọn
       inactiveTintColor: "gray", // màu khi màn hình không được chọn
-      style: {height:40},
+      //style: {height:40},
       scrollEnabled: true,
     },
-    initialRouteName: 'Tag',
+    initialRouteName: 'Post',
     animationEnabled: true,//hiệu ứng chuyển tab
     //swipeEnabled: true,// cho phép vuốt để chuyển
   }
