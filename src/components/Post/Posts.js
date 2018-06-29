@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  Alert,
+  Alert,StatusBar,
   FlatList,
   BackHandler,
   View,
@@ -75,12 +75,12 @@ class Posts extends Component {
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={myStyle.buttons}>
-            <TouchableOpacity onPress={() => this._onLogin()}>
-              <Feather style={myStyle.icon} name="user" size={24} />
-            </TouchableOpacity>
-          </View>
-        );
+            <View style={myStyle.buttons}>
+              <TouchableOpacity onPress={() => this._onLogin()}>
+                <Feather style={myStyle.icon} name="user" size={24} />
+              </TouchableOpacity>
+            </View>
+          );
 
     if (
       this.props.navigation.getParam("idCategory", "") == "" &&
@@ -96,9 +96,18 @@ class Posts extends Component {
       );
     return (
       <View style={myStyle.container}>
-        {/* Thanh bar */}
-        {headerBar}
+        <View style={{ backgroundColor: "#0ABFBC" }}>
+          <StatusBar
+            translucent
+            backgroundColor="rgba(0, 0, 0, 0)"
+            animated
+          />
+          <View style={{ height: StatusBar.currentHeight }}>
 
+          </View>
+          {/* Thanh bar */}
+          {headerBar}
+        </View>
         {this.state.empty && <Text style={myStyle.empty}>Không có nội dung</Text>}
 
         {/* Noi dung */}
@@ -208,7 +217,7 @@ class Posts extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#868686" },
+  icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -216,14 +225,14 @@ const myStyle = StyleSheet.create({
     justifyContent: "flex-end"
   },
   headerTitleBar: {
-    backgroundColor: "#fff",
-    borderBottomColor: "#fafafa",
-    borderBottomWidth: 1,
+    backgroundColor: "#0ABFBC",
+    // borderBottomColor: "#fafafa",
+    // borderBottomWidth: 1,
     flexDirection: "row",
-    shadowColor: "#efefef",
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.1,
-    elevation: 3,
+    // shadowColor: "#efefef",
+    // shadowOffset: { width: 10, height: 10 },
+    // shadowOpacity: 0.1,
+    // elevation: 3,
     zIndex: 0
   },
   headerTitle: {
@@ -234,8 +243,7 @@ const myStyle = StyleSheet.create({
     flexDirection: "row",
     flex: 4
   },
-  title: { fontSize: 20, color: "#000", fontWeight: "500" },
-  item: { marginTop: 5 },
+  title: { fontSize: 20, color: "#fff", fontWeight: "500" },
   loading: { paddingVertical: 10 }
 });
 
