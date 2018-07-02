@@ -43,23 +43,17 @@ class Categories extends Component {
           </TouchableOpacity>
         </View>
       ) : (
-          <View style={myStyle.buttons}>
-            <TouchableOpacity onPress={() => this._onLogin()}>
-              <Feather style={myStyle.icon} name="user" size={26} />
-            </TouchableOpacity>
-          </View>
-        );
+        <View style={myStyle.buttons}>
+          <TouchableOpacity onPress={() => this._onLogin()}>
+            <Feather style={myStyle.icon} name="user" size={26} />
+          </TouchableOpacity>
+        </View>
+      );
     return (
       <View style={myStyle.container}>
-        <StatusBar
-          translucent
-          backgroundColor="rgba(0, 0, 0, 0)"
-          animated
-        />
+        <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
         <View style={{ backgroundColor: "#0ABFBC" }}>
-          <View style={{ height: StatusBar.currentHeight }}>
-
-          </View>
+          <View style={{ height: StatusBar.currentHeight }} />
           {/* Thanh bar */}
           <View style={myStyle.headerTitleBar}>
             <View style={myStyle.headerTitle}>
@@ -167,7 +161,7 @@ const myStyle = StyleSheet.create({
   },
   item: {
     //backgroundColor: "#afafaf",
-  },
+  }
 });
 
 function mapStateToProps(state) {

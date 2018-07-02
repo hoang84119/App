@@ -67,10 +67,10 @@ class ItemPost extends Component {
 
           {this.props.userName === "admin" && (
             <View style={myStyle.buttons}>
-              <TouchableOpacity onPress={this.props._delete}>
+              <TouchableOpacity onPress={this._chinhsua}>
                 <Feather style={myStyle.icon} name="edit" size={15} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._chinhsua}>
+              <TouchableOpacity onPress={this._xoa}>
                 <Feather style={myStyle.icon} name="trash" size={15} />
               </TouchableOpacity>
             </View>
