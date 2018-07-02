@@ -30,16 +30,18 @@ class Posts extends Component {
   }
   static navigationOptions = ({ navigation }) => {
     //let headerTitle = "Thêm chuyên mục";
-    let header;
     let headerTitle;
+    let headerTransparent = true;
     let idCategory = navigation.getParam("idCategory", "");
     let idTag = navigation.getParam("idTag", "");
     if (idCategory != "") {
       headerTitle = navigation.getParam("nameCategory", "");
+      headerTransparent=false;
     } else if (idTag != "") {
       headerTitle = navigation.getParam("nameTag", "");
-    } else header = null;
-    return { header, headerTitle };
+      headerTransparent = false;
+    }
+    return {headerTitle, headerTransparent };
   };
 
   // static navigationOptions = {
@@ -89,12 +91,8 @@ class Posts extends Component {
       );
     return (
       <View style={myStyle.container}>
-        <View style={{ backgroundColor: "#0ABFBC" }}>
-          <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
-          <View style={{ height: StatusBar.currentHeight }}></View>
           {/* Thanh bar */}
           {headerBar}
-        </View>
         {this.state.empty && (
           <Text style={myStyle.empty}>Không có nội dung</Text>
         )}

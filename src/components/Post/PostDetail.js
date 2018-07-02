@@ -49,7 +49,7 @@ class PostDetail extends Component {
         }}
       >
         <FontAwesome
-          style={{ marginLeft: 5, marginRight: 5, color: "#36BC63" }}
+          style={{ marginLeft: 5, marginRight: 5, color: "#fff" }}
           name="edit"
           size={32}
         />
