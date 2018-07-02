@@ -74,6 +74,7 @@ class SlideMenu extends Component {
       this.props.dispatch({
         type: "DeleteDataUser"
       });
+      this.props.navigation.setParams({userName: ""});
       ToastAndroid.show("Đã đăng xuất", ToastAndroid.LONG);
       //BackHandler.exitApp();
     });
