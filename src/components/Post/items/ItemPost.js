@@ -61,17 +61,25 @@ class ItemPost extends Component {
         </TouchableOpacity>
         <View style={myStyle.footer}>
           <View style={myStyle.date}>
-            <Feather style={myStyle.iconClock} name="clock" size={14} />
+            <Feather style={myStyle.iconClock} name="clock" size={16} />
             <Text style={myStyle.dateContent}>{this._getDate()}</Text>
           </View>
 
           {this.props.userName === "admin" && (
             <View style={myStyle.buttons}>
+<<<<<<< HEAD
               <TouchableOpacity onPress={this._chinhsua}>
                 <Feather style={myStyle.icon} name="edit" size={15} />
               </TouchableOpacity>
               <TouchableOpacity onPress={this._xoa}>
                 <Feather style={myStyle.icon} name="trash" size={15} />
+=======
+              <TouchableOpacity onPress={this.props._delete}>
+                <Feather style={myStyle.icon} name="edit" size={16} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._chinhsua}>
+                <Feather style={myStyle.icon} name="trash" size={16} />
+>>>>>>> b33aecc665e3018f8fe906741accde65212c83fc
               </TouchableOpacity>
             </View>
           )}
@@ -182,14 +190,14 @@ const htmlStyle = {
   },
   p: {
     fontSize: 14,
-    color: "#4F4F4F"
+    color: "#9F9F9F"
   }
 };
 const myStyle = StyleSheet.create({
   cardItem: {
-    borderWidth: 1,
+    //borderWidth: 1,
     flexDirection: "column",
-    borderColor: "#d3d3d3",
+    //borderColor: "#f4f4f4",
     marginHorizontal: 5,
     marginVertical: 5,
     //padding: 10,
@@ -200,7 +208,7 @@ const myStyle = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: { width: 10, height: 10 },
     shadowOpacity: 0.8,
-    elevation: 1
+    elevation: 2
   },
   btnNoiDung: { paddingLeft: 0, flex: 1 },
   hinh: {
@@ -212,8 +220,9 @@ const myStyle = StyleSheet.create({
   },
   title: {
     flex: 1,
-    backgroundColor: "rgba(54,54,54,0.3)",
-    padding: 5
+    backgroundColor: "rgba(100,100,100,0.3)",
+    paddingHorizontal:10,
+    paddingVertical: 5
   },
   noidung: {
     padding: 10,
@@ -224,20 +233,18 @@ const myStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 5,
-    marginHorizontal: 20,
     marginTop: 0.5,
-    borderTopColor: "#CFCFCF",
+    borderTopColor: "#f4f4f4",
     borderTopWidth: 1,
     //backgroundColor:"#f3f3f3"
   },
   date: {
+    padding: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
   },
   dateContent: {
-    //marginLeft: 10,
     fontSize: 12,
     textAlign: "center"
   },
@@ -247,7 +254,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   iconClock:{marginRight:5, color: "#868686" },
-  icon: { marginLeft:20, color: "#868686" }
+  icon: { marginRight:10,marginLeft:3, color: "#868686" }
 });
 
 export default ItemPost;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  StatusBar,
   Alert, FlatList, TouchableOpacity, View, StyleSheet,
   ToastAndroid, ActivityIndicator, Text
 } from "react-native";
@@ -38,50 +39,64 @@ export default class Media extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{flex: 1, backgroundColor: "white"}}>
-      {this.props.navigation.getParam("check", 0) != 1 &&
-        <View
-          style={{
-            backgroundColor: "#fff",
-            // borderBottomColor: "#fafafa",
-            // borderBottomWidth: 1,
-            shadowColor: "#efefef",
-            shadowOffset: { width: 10, height: 10 },
-            shadowOpacity: 0.1,
-            // shadowRadius: 10,
-            elevation: 3,
-            zIndex: 0
-          }}
-        >
-          <View
-            style={{
-              alignItems: "center",
-              height: 45,
-              justifyContent: "center",
-              flexDirection: "row"
-            }}
-          >
-            <Text
-              style={{ fontSize: 20, color: "#36BC63", fontWeight: "bold" }}
-            >
-              Thư viện của bạn
-              </Text>
-          </View>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
 
-          {/* Buttom bên phải */}
-          <View
-            style={{
-              alignItems: "center",
-              height: 45,
-              justifyContent: "flex-end",
-              flexDirection: "row",
-              marginTop: -45
-            }}
-          >
-            {/* {ButtonRight} */}
+
+
+        {this.props.navigation.getParam("check", 0) != 1 &&
+          <View style={{ backgroundColor: "#0ABFBC" }}>
+            <StatusBar
+              translucent
+              backgroundColor="rgba(0, 0, 0, 0)"
+              animated
+            />
+            <View style={{ height: StatusBar.currentHeight }}>
+
+            </View>
+            <View
+              style={{
+                backgroundColor: "#0ABFBC",
+                // borderBottomColor: "#fafafa",
+                // borderBottomWidth: 1,
+                // shadowColor: "#efefef",
+                // shadowOffset: { width: 10, height: 10 },
+                // shadowOpacity: 0.1,
+                // // shadowRadius: 10,
+                // elevation: 3,
+                zIndex: 0
+              }}
+            >
+              <View
+                style={{
+                  alignItems: "center",
+                  height: 45,
+                  justifyContent: "center",
+                  flexDirection: "row"
+                }}
+              >
+                <Text
+                  style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}
+                >
+                  Thư viện của bạn
+              </Text>
+              </View>
+
+              {/* Buttom bên phải */}
+              <View
+                style={{
+                  alignItems: "center",
+                  height: 45,
+                  justifyContent: "flex-end",
+                  flexDirection: "row",
+                  marginTop: -45
+                }}
+              >
+                {/* {ButtonRight} */}
+              </View>
+            </View>
           </View>
-        </View>
         }
+
         <View style={{ padding: 2, flexDirection: "column" }}>
           <FlatList
             numColumns={3}
@@ -97,29 +112,29 @@ export default class Media extends Component {
           />
         </View>
         {this.state.selected.size != 0 && (
-            <TouchableOpacity onPress={this._before_Delete} style={myStyle.deleteSelect}>
-              <IonIcon style={{ color: "white", marginLeft: 6 }} name="md-trash" size={32} />
-              <Text style={{
-                // borderWidth: 1,
-                // borderColor: "#FF3030",
-                marginLeft: -12,
-                marginBottom: -20,
-                width: 17,
-                height: 17,
-                textAlign: 'center',
-                backgroundColor: "#000",
-                color: "#fff",
-                borderRadius: 10,
-                padding: 1,
-                fontSize: 11
-              }}>{this.state.selected.size}</Text>
-            </TouchableOpacity>
-          )}
-          {this.state.selected.size == 0 && (
-            <TouchableOpacity onPress={this._upload_Selected} style={myStyle.uploadSelect}>
-              <IonIcon style={{ color: "white" }} name="ios-cloud-upload-outline" size={32} />
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity onPress={this._before_Delete} style={myStyle.deleteSelect}>
+            <IonIcon style={{ color: "white", marginLeft: 6 }} name="md-trash" size={32} />
+            <Text style={{
+              // borderWidth: 1,
+              // borderColor: "#FF3030",
+              marginLeft: -12,
+              marginBottom: -20,
+              width: 17,
+              height: 17,
+              textAlign: 'center',
+              backgroundColor: "#000",
+              color: "#fff",
+              borderRadius: 10,
+              padding: 1,
+              fontSize: 11
+            }}>{this.state.selected.size}</Text>
+          </TouchableOpacity>
+        )}
+        {this.state.selected.size == 0 && (
+          <TouchableOpacity onPress={this._upload_Selected} style={myStyle.uploadSelect}>
+            <IonIcon style={{ color: "white" }} name="ios-cloud-upload-outline" size={32} />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -157,7 +172,7 @@ export default class Media extends Component {
   _renderFooter = () => {
     if (!this.state.loading) return null
     return (
-      <View style={{ paddingVertical: 10}}>
+      <View style={{ paddingVertical: 10 }}>
         <ActivityIndicator animating size="large" />
       </View>
     );
