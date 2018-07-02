@@ -1,15 +1,24 @@
 import React, { Component } from "react";
 import {
-  View,
+  View,ImageBackground,
   TouchableOpacity,
-  Image,
   StyleSheet,
-  ToastAndroid,
-  Text,
-  Alert,
-  FlatList
+  Text
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
+
+var randomImages = [
+  require('../../../image/tag/img0.jpg'),
+  require('../../../image/tag/img1.jpg'),
+  require('../../../image/tag/img2.jpg'),
+  //require('../../../image/tag/img3.jpg'),
+  require('../../../image/tag/img4.jpg'),
+  require('../../../image/tag/img5.jpg'),
+  require('../../../image/tag/img6.jpg'),
+  require('../../../image/tag/img7.jpg'),
+  require('../../../image/tag/img8.jpg'),
+  //require('../../../image/tag/img9.jpg'),
+];
 
 class ItemCategory extends Component {
   constructor(props) {
@@ -28,7 +37,7 @@ class ItemCategory extends Component {
 
   render() {
     return (
-      <View style={myStyle.cardItem}>
+      <ImageBackground source={randomImages[Math.floor(Math.random()*randomImages.length)]} style={myStyle.cardItem}>
         <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
           <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
           <Text style={myStyle.moTa}>{this.props.data.description}</Text>
@@ -43,7 +52,7 @@ class ItemCategory extends Component {
             </TouchableOpacity>
           </View>
         )}
-      </View>
+      </ImageBackground>
     );
   }
 
@@ -65,29 +74,35 @@ class ItemCategory extends Component {
 
 const myStyle = StyleSheet.create({
   cardItem: {
-    borderWidth: 1,
+    overflow: 'hidden',
     flexDirection: "row",
-    borderColor: "#d3d3d3",
-    marginHorizontal: 15,
-    marginVertical: 5,
+    marginTop: 8,
+    marginBottom: 2,
+    marginHorizontal: 8,
     padding: 10,
-    backgroundColor: "white",
-    borderRadius: 3,
+    paddingVertical: 25,
+    borderRadius: 8,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { width: 10, height: 10 },
     shadowOpacity: 0.8,
-    elevation: 1
+    elevation: 2
   },
-  btnNoiDung: { paddingLeft: 10 },
-  noiDung: { fontWeight: "200", fontSize: 18, color: "#000", marginBottom: 5 },
-  moTa: { fontStyle: "italic" },
+  btnNoiDung: { paddingLeft: 20 },
+  noiDung: {
+    fontWeight: "bold", 
+    fontSize: 18, 
+    color: "#fff", 
+    marginBottom: 10 },
+  moTa: { 
+    fontStyle: "italic", 
+    color: "#fafafa" },
   buttons: {
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "flex-end"
   },
-  icon: { marginLeft: 5, marginRight: 10, color: "#868686" }
+  icon: { marginLeft: 5, marginRight: 10, color: "#fafafa" }
 });
 
 export default ItemCategory;
