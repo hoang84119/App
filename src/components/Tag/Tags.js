@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  Alert,
+  Alert, StatusBar,
   FlatList,
   View,
   TouchableOpacity,
@@ -46,20 +46,24 @@ class Tags extends Component {
           </TouchableOpacity>
         </View>
       ) : (
-        <View style={myStyle.buttons}>
-          <TouchableOpacity onPress={() => this._onLogin()}>
-            <Feather style={myStyle.icon} name="user" size={34} />
-          </TouchableOpacity>
-        </View>
-      );
+          <View style={myStyle.buttons}>
+            <TouchableOpacity onPress={() => this._onLogin()}>
+              <Feather style={myStyle.icon} name="user" size={34} />
+            </TouchableOpacity>
+          </View>
+        );
     return (
       <View style={myStyle.container}>
-        {/* Thanh bar */}
-        <View style={myStyle.headerTitleBar}>
-          <View style={myStyle.headerTitle}>
-            <Text style={myStyle.title}>Quản lý Thẻ</Text>
+        <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
+        <View style={{ backgroundColor: "#0ABFBC" }}>
+          <View style={{ height: StatusBar.currentHeight }} />
+          {/* Thanh bar */}
+          <View style={myStyle.headerTitleBar}>
+            <View style={myStyle.headerTitle}>
+              <Text style={myStyle.title}>Quản lý Thẻ</Text>
+            </View>
+            {ButtonRight}
           </View>
-          {ButtonRight}
         </View>
 
         {/* Noi dung */}
@@ -78,7 +82,7 @@ class Tags extends Component {
             />
           )}
           onEndReachedThreshold={0.1}
-          onEndReached={() => { this._loadMore()}}
+          onEndReached={() => { this._loadMore() }}
           ListFooterComponent={this._renderFooter}
         />
       </View>
@@ -94,17 +98,17 @@ class Tags extends Component {
     );
   }
 
-  _refreshing(){
+  _refreshing() {
     //let p = this.state.page;
     //for(i=1; i<=p;i++){
-      this.setState({ page: 1, data: [], refreshing: true }, () => { this._loadData() });
+    this.setState({ page: 1, data: [], refreshing: true }, () => { this._loadData() });
     //}
   }
 
-  _loadMore(){
+  _loadMore() {
     if (!this.state.over)
-    if (!this.state.loading)
-      this.setState({ page: this.state.page + 1, loading: true }, () => { this._loadData() });
+      if (!this.state.loading)
+        this.setState({ page: this.state.page + 1, loading: true }, () => { this._loadData() });
   }
 
   async _loadData() {
@@ -114,7 +118,7 @@ class Tags extends Component {
     if (response.status === 200) {
       let responseJson = await response.json();
       if (responseJson.length === 0) {
-        if (this.state.page == 1)ToastAndroid.show("Không có nội dung", ToastAndroid.LONG);
+        if (this.state.page == 1) ToastAndroid.show("Không có nội dung", ToastAndroid.LONG);
         else ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
         this.setState({ refreshing: false, loading: false, over: true });
       } else {
@@ -158,7 +162,7 @@ class Tags extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#868686" },
+  icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -166,9 +170,6 @@ const myStyle = StyleSheet.create({
     justifyContent: "flex-end"
   },
   headerTitleBar: {
-    backgroundColor: "#fff",
-    borderBottomColor: "#fafafa",
-    borderBottomWidth: 1,
     flexDirection: "row",
     shadowColor: "#efefef",
     shadowOffset: { width: 10, height: 10 },
@@ -177,16 +178,21 @@ const myStyle = StyleSheet.create({
     zIndex: 0
   },
   headerTitle: {
-    paddingLeft: 20,
+    paddingLeft: 10,
     alignItems: "center",
     height: 50,
     //justifyContent: "center",
     flexDirection: "row",
     flex: 4
   },
-  title: { fontSize: 20, color: "#000", fontWeight: "500" },
-  item: { marginTop: 5 },
-  loading: { paddingVertical: 10 }
+  title: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold"
+  },
+  loading: {
+    paddingVertical: 10
+  }
 });
 
 function mapStateToProps(state) {

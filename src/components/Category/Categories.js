@@ -149,7 +149,7 @@ const myStyle = StyleSheet.create({
   headerTitle: {
     paddingLeft: 10,
     alignItems: "center",
-    height: 45,
+    height: 50,
     //justifyContent: "center",
     flexDirection: "row",
     flex: 4
@@ -159,9 +159,6 @@ const myStyle = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold"
   },
-  item: {
-    //backgroundColor: "#afafaf",
-  }
 });
 
 function mapStateToProps(state) {

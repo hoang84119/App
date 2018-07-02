@@ -77,7 +77,7 @@ const PostTo = createStackNavigator({
   }
 },
 {
-  //headerMode: 'none',
+  headerMode: 'none',
 });
 
 //cài đặt để ẩn thanh tab khi vào màn hình con

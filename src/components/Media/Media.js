@@ -43,61 +43,39 @@ export default class Media extends Component {
 
 
 
-        {this.props.navigation.getParam("check", 0) != 1 &&
+        {/* {this.props.navigation.getParam("check", 0) != 1 && */}
           <View style={{ backgroundColor: "#0ABFBC" }}>
             <StatusBar
               translucent
               backgroundColor="rgba(0, 0, 0, 0)"
               animated
             />
-            <View style={{ height: StatusBar.currentHeight }}>
-
-            </View>
-            <View
-              style={{
-                backgroundColor: "#0ABFBC",
-                // borderBottomColor: "#fafafa",
-                // borderBottomWidth: 1,
-                // shadowColor: "#efefef",
-                // shadowOffset: { width: 10, height: 10 },
-                // shadowOpacity: 0.1,
-                // // shadowRadius: 10,
-                // elevation: 3,
-                zIndex: 0
-              }}
-            >
-              <View
-                style={{
+            <View style={{ height: StatusBar.currentHeight }}></View>
+            <View style={{backgroundColor: "#0ABFBC"}} >
+              <View style={{
                   alignItems: "center",
-                  height: 45,
+                  height: 50,
                   justifyContent: "center",
                   flexDirection: "row"
-                }}
-              >
-                <Text
-                  style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}
-                >
-                  Thư viện của bạn
-              </Text>
+                }}>
+                <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}>Thư viện của bạn</Text>
               </View>
-
               {/* Buttom bên phải */}
-              <View
-                style={{
+              <View style={{
                   alignItems: "center",
-                  height: 45,
+                  height: 50,
                   justifyContent: "flex-end",
                   flexDirection: "row",
-                  marginTop: -45
+                  marginTop: -50
                 }}
               >
                 {/* {ButtonRight} */}
               </View>
             </View>
           </View>
-        }
+        {/* } */}
 
-        <View style={{ padding: 2, flexDirection: "column" }}>
+        <View style={{ paddingHorizontal: 2, flexDirection: "column", flex: 1 }}>
           <FlatList
             numColumns={3}
             refreshing={this.state.refreshing}
@@ -296,7 +274,7 @@ const myStyle = StyleSheet.create({
     height: 50,
     bottom: 0,
     right: 0,
-    backgroundColor: "#36BC63",
+    backgroundColor: "#0ABFBC",
     zIndex: 1,
     margin: 10,
     borderRadius: 50,

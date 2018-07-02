@@ -97,14 +97,8 @@ class Posts extends Component {
     return (
       <View style={myStyle.container}>
         <View style={{ backgroundColor: "#0ABFBC" }}>
-          <StatusBar
-            translucent
-            backgroundColor="rgba(0, 0, 0, 0)"
-            animated
-          />
-          <View style={{ height: StatusBar.currentHeight }}>
-
-          </View>
+          <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
+          <View style={{ height: StatusBar.currentHeight }}></View>
           {/* Thanh bar */}
           {headerBar}
         </View>
@@ -226,20 +220,13 @@ const myStyle = StyleSheet.create({
   },
   headerTitleBar: {
     backgroundColor: "#0ABFBC",
-    // borderBottomColor: "#fafafa",
-    // borderBottomWidth: 1,
     flexDirection: "row",
-    // shadowColor: "#efefef",
-    // shadowOffset: { width: 10, height: 10 },
-    // shadowOpacity: 0.1,
-    // elevation: 3,
     zIndex: 0
   },
   headerTitle: {
     paddingLeft: 20,
     alignItems: "center",
     height: 50,
-    //justifyContent: "center",
     flexDirection: "row",
     flex: 4
   },
