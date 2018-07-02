@@ -63,7 +63,7 @@ class Posts extends Component {
     // });
   }
 
-  render() {
+render() {
     if (
       this.props.navigation.getParam("idCategory", "") == "" &&
       this.props.navigation.getParam("idTag", "") == ""
@@ -76,7 +76,7 @@ class Posts extends Component {
                 this.props.navigation.openDrawer();
               }}
             >
-              <Feather style={myStyle.icon} name="menu" size={25} />
+              <Feather style={[myStyle.icon,{marginLeft: 15}]} name="menu" size={25} />
             </TouchableOpacity>
             <Text style={myStyle.title}>Bài viết</Text>
           </View>
@@ -225,7 +225,7 @@ const myStyle = StyleSheet.create({
     flexDirection: "row",
     flex: 4
   },
-  title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 10 },
+  title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
   loading: { paddingVertical: 10 }
 });
 
