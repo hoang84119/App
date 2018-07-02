@@ -11,17 +11,17 @@ export default class MediaDetail extends Component {
                 <TouchableOpacity
                     onPress={() => params.onDelete()}
                 >
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Xóa</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 15 }}>Xóa</Text>
                 </TouchableOpacity>
                 {navigation.getParam("src", 0) === "chinhsua" &&
                     <TouchableOpacity onPress={() => params.comeBack()}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn hình</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn</Text>
                     </TouchableOpacity>
 
                 }
                 {navigation.getParam("src", 0) === "thembaiviet" &&
                     <TouchableOpacity onPress={() => params.comeBack()}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn hình</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 10 }}>Chọn</Text>
                     </TouchableOpacity>
 
                 }

@@ -33,19 +33,10 @@ class Categories extends Component {
   }
   render() {
     let ButtonRight =
-      this.props.dataUser.name === "admin" ? (
+      this.props.dataUser.name === "admin" && (
         <View style={myStyle.buttons}>
           <TouchableOpacity onPress={() => this._onAdd()}>
-            <Feather style={myStyle.icon} name="plus" size={30} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this._onLogout()}>
-            <Feather style={myStyle.icon} name="log-out" size={22} />
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <View style={myStyle.buttons}>
-          <TouchableOpacity onPress={() => this._onLogin()}>
-            <Feather style={myStyle.icon} name="user" size={26} />
+            <Feather style={myStyle.icon} name="plus" size={34} />
           </TouchableOpacity>
         </View>
       );
@@ -57,6 +48,13 @@ class Categories extends Component {
           {/* Thanh bar */}
           <View style={myStyle.headerTitleBar}>
             <View style={myStyle.headerTitle}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.openDrawer();
+                }}
+              >
+                <Feather style={[myStyle.icon, { marginLeft: 5, marginRight: 10 }]} name="menu" size={25} />
+              </TouchableOpacity>
               <Text style={myStyle.title}>Chuyên mục</Text>
             </View>
             {ButtonRight}
@@ -129,7 +127,7 @@ const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
   icon: {
     marginLeft: 5,
-    marginRight: 5,
+    marginRight: 10,
     color: "#fff"
   },
   buttons: {

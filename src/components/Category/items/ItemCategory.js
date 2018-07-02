@@ -36,7 +36,7 @@ class ItemCategory extends Component {
     //this.setState({ loaded: false });
     fetch(
       `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=${
-        this.props.data.id
+      this.props.data.id
       }`
     )
       .then(response => response.json())
@@ -53,17 +53,16 @@ class ItemCategory extends Component {
     return (
       <View
         style={{
-          marginLeft: 3 + this.props.level,
-          marginRight: 3,
-          marginTop: 3
+          marginLeft: 4 + this.props.level,
         }}
       >
         {this.props.level === 0 && (
-          <View style={myStyle.cardItem}>
-            <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+          <TouchableOpacity onPress={this._xem} style={myStyle.cardItem}>
+            <View style={myStyle.btnNoiDung}>
+
               <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
               <Text style={myStyle.moTa}>{this.props.data.description}</Text>
-            </TouchableOpacity>
+            </View>
             {this.props.userName === "admin" && (
               <View style={myStyle.buttons}>
                 <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
@@ -74,19 +73,19 @@ class ItemCategory extends Component {
                 </TouchableOpacity>
               </View>
             )}
-          </View>
+
+          </TouchableOpacity>
         )}
 
         {this.props.level != 0 &&
           (this.props.level % 2 == 0 && (
-            <View style={myStyle.cardItemChild}>
-              <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+            <TouchableOpacity onPress={this._xem} style={myStyle.cardItemChild}>
+              <View style={myStyle.btnNoiDung}>
                 <Text style={myStyle.noiDung}>
                   {" " + this.props.data.name}
                 </Text>
-                {/* </FontAwesome> */}
                 <Text style={myStyle.moTa}>{this.props.data.description}</Text>
-              </TouchableOpacity>
+              </View>
               <View style={myStyle.buttons}>
                 <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
                   <FontAwesome style={myStyle.icon} name="edit" size={20} />
@@ -95,24 +94,18 @@ class ItemCategory extends Component {
                   <Feather style={myStyle.icon} name="trash" size={20} />
                 </TouchableOpacity>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
 
         {this.props.level != 0 &&
           (this.props.level % 2 != 0 && (
-            <View
-              style={[
-                myStyle.cardItemChild,
-                { borderColor: "#0ABFBC", backgroundColor: "#e0f0f3" }
-              ]}
-            >
-              <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+            <TouchableOpacity onPress={this._xem} style={[myStyle.cardItemChild, { borderColor: "#0ABFBC", backgroundColor: "#e0f0f3" }]}>
+              <View style={myStyle.btnNoiDung}>
                 <Text style={myStyle.noiDung}>
                   {" " + this.props.data.name}
                 </Text>
-                {/* </FontAwesome> */}
                 <Text style={myStyle.moTa}>{this.props.data.description}</Text>
-              </TouchableOpacity>
+              </View>
               <View style={myStyle.buttons}>
                 <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
                   <FontAwesome style={myStyle.icon} name="edit" size={20} />
@@ -121,7 +114,7 @@ class ItemCategory extends Component {
                   <Feather style={myStyle.icon} name="trash" size={20} />
                 </TouchableOpacity>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
 
         {this.state.loaded && (
@@ -160,24 +153,27 @@ class ItemCategory extends Component {
 
 const myStyle = StyleSheet.create({
   cardItem: {
-    //borderBottomWidth: 1,
+    borderLeftWidth: 3,
+    borderColor: "#d72626" ,
     flexDirection: "row",
-    borderColor: "#dfdfdf",
     padding: 10,
-    backgroundColor: "#fafafa",
-    justifyContent: "space-between"
+    backgroundColor: "#FFF0F5",
+    justifyContent: "space-between",
+    marginVertical:2,
+    marginRight: 4,
   },
   cardItemChild: {
     borderLeftWidth: 3,
-    borderRightWidth: 3,
     flexDirection: "row",
     borderColor: "#e9e9e9",
     padding: 5,
-    margin: 1,
+    marginVertical:1,
+    marginRight: 4,
     backgroundColor: "#fbfbfb",
     justifyContent: "space-between"
   },
-  btnNoiDung: {},
+  btnNoiDung: {
+  },
   noiDung: {
     //fontWeight: "bold",
     fontSize: 16,

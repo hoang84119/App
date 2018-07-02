@@ -36,22 +36,13 @@ class Tags extends Component {
   }
   render() {
     let ButtonRight =
-      this.props.dataUser.name === "admin" ? (
-        <View style={myStyle.buttons}>
-          <TouchableOpacity onPress={() => this._onAdd()}>
-            <Feather style={myStyle.icon} name="plus" size={34} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this._onLogout()}>
-            <Feather style={myStyle.icon} name="log-out" size={24} />
-          </TouchableOpacity>
-        </View>
-      ) : (
-          <View style={myStyle.buttons}>
-            <TouchableOpacity onPress={() => this._onLogin()}>
-              <Feather style={myStyle.icon} name="user" size={34} />
-            </TouchableOpacity>
-          </View>
-        );
+    this.props.dataUser.name === "admin" && (
+      <View style={myStyle.buttons}>
+        <TouchableOpacity onPress={() => this._onAdd()}>
+          <Feather style={myStyle.icon} name="plus" size={34} />
+        </TouchableOpacity>
+      </View>
+    );
     return (
       <View style={myStyle.container}>
         <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
@@ -60,6 +51,13 @@ class Tags extends Component {
           {/* Thanh bar */}
           <View style={myStyle.headerTitleBar}>
             <View style={myStyle.headerTitle}>
+            <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.openDrawer();
+                }}
+              >
+                <Feather style={[myStyle.icon, { marginLeft: 5, marginRight: 10 }]} name="menu" size={25} />
+              </TouchableOpacity>
               <Text style={myStyle.title}>Quản lý Thẻ</Text>
             </View>
             {ButtonRight}
