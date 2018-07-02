@@ -10,7 +10,7 @@ import {
   RichTextEditor,
   RichTextToolbar
 } from "react-native-zss-rich-text-editor";
-import IonIcon from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 import Base64 from '../../config/Base64';
 
 var ImagePicker = require("react-native-image-picker");
@@ -45,7 +45,7 @@ class AddPost extends Component {
     const { params = {} } = navigation.state;
     let headerRight = (
       <TouchableOpacity onPress={() => params.onAdd()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <IonIcon style={{ marginLeft: 5, marginRight: 10, color: '#088A4B' }} name="ios-paper-outline" size={28} />
+        <Feather style={myStyle.icon} name="save" size={28} />
       </TouchableOpacity>
     );
     return { headerRight };
@@ -168,7 +168,8 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent"
-  }
+  },
+  icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
 });
 
 export default AddPost;

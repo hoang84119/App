@@ -39,7 +39,7 @@ class AddCategory extends Component {
         }}
       >
         <Feather
-          style={{ marginLeft: 5, marginRight: 10, color: "#088A4B" }}
+          style={{ marginLeft: 5, marginRight: 10, color: "#fff" }}
           name="save"
           size={28}
         />

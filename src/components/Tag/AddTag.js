@@ -37,7 +37,7 @@ class AddTag extends Component {
         }}
       >
         <Feather
-          style={{ marginLeft: 5, marginRight: 10, color: "#36BC63" }}
+          style={{ marginLeft: 5, marginRight: 10, color: "#fff" }}
           name="save"
           size={28}
         />

@@ -7,7 +7,7 @@ import Media from "../components/Media/Media";
 import MediaDetail from "../components/Media/MediaDetail";
 import DangNhap from "../components/User/DangNhap";
 //import StatusBar from '../components/StatusBar'
-import React, { Component } from "react";
+import React from "react";
 import { View, StatusBar } from "react-native";
 
 const PostTo = createStackNavigator(
@@ -42,8 +42,7 @@ const PostTo = createStackNavigator(
         headerTitle: "Thêm bài viết",
         // headerStyle: {
         //   height: 46
-        // },
-        headerTransparent: true
+        // }
       }
     },
     scmedia: {
@@ -74,12 +73,10 @@ const PostTo = createStackNavigator(
     }
   },
   {
-    //headerMode: <View style={{height:50, backgroundColor:"blue"}}><Text>Hello</Text></View>,
     navigationOptions: {
       headerStyle: {
         backgroundColor: '#0ABFBC',
         elevation:0,
-        tintColor:"#fff"
       },
       headerTintColor:"white",
       header: props => (

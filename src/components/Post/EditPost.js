@@ -46,7 +46,7 @@ class EditPost extends Component {
           alignItems: "center"
         }}
       >
-        <Feather style={{ marginLeft: 5, marginRight: 5, color: '#36BC63' }} name="save" size={28} />
+        <Feather style={myStyle.icon} name="save" size={28} />
       </TouchableOpacity>
     );
     return { headerRight };
@@ -220,7 +220,8 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent"
-  }
+  },
+  icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
 });
 
 export default EditPost;
