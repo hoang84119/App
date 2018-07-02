@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
-  Alert,StatusBar,
+  Alert,
+  StatusBar,
   FlatList,
   BackHandler,
   View,
@@ -63,25 +64,6 @@ class Posts extends Component {
   }
 
   render() {
-    if (this.props.navigation.getParam("idCategory", "") == "")
-      var ButtonRight =
-        this.props.dataUser.name === "admin" ? (
-          <View style={myStyle.buttons}>
-            <TouchableOpacity onPress={() => this._onAdd()}>
-              <Feather style={myStyle.icon} name="plus" size={34} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this._onLogout()}>
-              <Feather style={myStyle.icon} name="log-out" size={24} />
-            </TouchableOpacity>
-          </View>
-        ) : (
-            <View style={myStyle.buttons}>
-              <TouchableOpacity onPress={() => this._onLogin()}>
-                <Feather style={myStyle.icon} name="user" size={24} />
-              </TouchableOpacity>
-            </View>
-          );
-
     if (
       this.props.navigation.getParam("idCategory", "") == "" &&
       this.props.navigation.getParam("idTag", "") == ""
@@ -89,26 +71,33 @@ class Posts extends Component {
       var headerBar = (
         <View style={myStyle.headerTitleBar}>
           <View style={myStyle.headerTitle}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.openDrawer();
+              }}
+            >
+              <Feather style={myStyle.icon} name="menu" size={25} />
+            </TouchableOpacity>
             <Text style={myStyle.title}>Bài viết</Text>
           </View>
-          {ButtonRight}
+          {this.props.dataUser.name === "admin" && (
+            <TouchableOpacity style={myStyle.buttons} onPress={() => this._onAdd()}>
+              <Feather style={myStyle.icon} name="plus" size={34} />
+            </TouchableOpacity>
+          )}
         </View>
       );
     return (
       <View style={myStyle.container}>
         <View style={{ backgroundColor: "#0ABFBC" }}>
-          <StatusBar
-            translucent
-            backgroundColor="rgba(0, 0, 0, 0)"
-            animated
-          />
-          <View style={{ height: StatusBar.currentHeight }}>
-
-          </View>
+          <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
+          <View style={{ height: StatusBar.currentHeight }} />
           {/* Thanh bar */}
           {headerBar}
         </View>
-        {this.state.empty && <Text style={myStyle.empty}>Không có nội dung</Text>}
+        {this.state.empty && (
+          <Text style={myStyle.empty}>Không có nội dung</Text>
+        )}
 
         {/* Noi dung */}
 
@@ -236,14 +225,14 @@ const myStyle = StyleSheet.create({
     zIndex: 0
   },
   headerTitle: {
-    paddingLeft: 20,
+    //paddingLeft: 20,
     alignItems: "center",
     height: 50,
     //justifyContent: "center",
     flexDirection: "row",
     flex: 4
   },
-  title: { fontSize: 20, color: "#fff", fontWeight: "500" },
+  title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 10 },
   loading: { paddingVertical: 10 }
 });
 

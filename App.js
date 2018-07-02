@@ -14,6 +14,7 @@ import API from "./src/config/API";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import PostTo from "./src/navigations/PostTo";
+import DrawerNavigator from "./src/navigations/DrawerNavigator";
 
 //Tạo store trong redux
 const defaultState = { dataUser: [] };
@@ -81,7 +82,7 @@ class App extends Component {
     );
     let mainView = this.state.loading ? (
       loadingView
-    ) : <Tab />
+    ) : <DrawerNavigator />
     // this.state.logged ? (
     //   <Tab />
     // ) : (
