@@ -16,9 +16,6 @@ const MediaTo = createStackNavigator(
       screen: MediaDetail,
       navigationOptions: {
         headerTitle: "Chi tiết hình ảnh",
-        headerStyle: {
-          height: 50
-        }
       }
     }
   },
