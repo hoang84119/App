@@ -7,7 +7,8 @@ import {
 import API from "../../config/API";
 import ItemImage from "./items/ItemImage";
 import IonIcon from "react-native-vector-icons/Ionicons";
-import Base64 from '../../config/Base64'
+import Base64 from '../../config/Base64';
+import Feather from "react-native-vector-icons/Feather";
 var ImagePicker = require("react-native-image-picker");
 
 var options = {
@@ -38,43 +39,33 @@ export default class Media extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
+
+    var headerBar = (
+      <View style={myStyle.headerTitleBar}>
+        <View style={myStyle.headerTitle}>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.openDrawer();
+            }}
+          >
+            <Feather style={[myStyle.icon, { marginLeft: 15 }]} name="menu" size={25} />
+          </TouchableOpacity>
+          <Text style={myStyle.title}>Thư viện hình ảnh</Text>
+        </View>
+      </View>
+    );
+
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
 
-
-
-        {/* {this.props.navigation.getParam("check", 0) != 1 && */}
+        {this.props.navigation.getParam("check", 0) != 1 &&
           <View style={{ backgroundColor: "#0ABFBC" }}>
-            <StatusBar
-              translucent
-              backgroundColor="rgba(0, 0, 0, 0)"
-              animated
-            />
+            <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
             <View style={{ height: StatusBar.currentHeight }}></View>
-            <View style={{backgroundColor: "#0ABFBC"}} >
-              <View style={{
-                  alignItems: "center",
-                  height: 50,
-                  justifyContent: "center",
-                  flexDirection: "row"
-                }}>
-                <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}>Thư viện của bạn</Text>
-              </View>
-              {/* Buttom bên phải */}
-              <View style={{
-                  alignItems: "center",
-                  height: 50,
-                  justifyContent: "flex-end",
-                  flexDirection: "row",
-                  marginTop: -50
-                }}
-              >
-                {/* {ButtonRight} */}
-              </View>
-            </View>
+            {/* Thanh bar */}
+            {headerBar}
           </View>
-        {/* } */}
-
+        }
         <View style={{ paddingHorizontal: 2, flexDirection: "column", flex: 1 }}>
           <FlatList
             numColumns={3}
@@ -285,5 +276,25 @@ const myStyle = StyleSheet.create({
     shadowOpacity: 1.0,
     shadowRadius: 10,
     elevation: 5
-  }
+  },
+  icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
+  buttons: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "flex-end"
+  },
+  headerTitleBar: {
+    backgroundColor: "#0ABFBC",
+    flexDirection: "row",
+    zIndex: 0
+  },
+  headerTitle: {
+    //paddingLeft: 20,
+    alignItems: "center",
+    height: 50,
+    flexDirection: "row",
+    flex: 4
+  },
+  title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
 });
