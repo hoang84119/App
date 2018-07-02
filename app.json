@@ -1,4 +1,10 @@
 {
   "name": "App",
-  "displayName": "App"
+  "displayName": "App",
+  "expo": {
+    "slug": "App",
+    "name": "App",
+    "sdkVersion": "28.0.0",
+    "entryPoint": "d:\\ThucTap\\App\\.vscode\\exponentIndex.js"
+  }
 }

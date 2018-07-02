@@ -165,11 +165,11 @@ const myStyle = StyleSheet.create({
   cardItemChild: {
     borderLeftWidth: 3,
     flexDirection: "row",
-    borderColor: "#e9e9e9",
+    borderColor: "#FFEC8B",
     padding: 5,
-    marginVertical:1,
+    marginVertical:2,
     marginRight: 4,
-    backgroundColor: "#fbfbfb",
+    backgroundColor: "#FFFFE0",
     justifyContent: "space-between"
   },
   btnNoiDung: {
