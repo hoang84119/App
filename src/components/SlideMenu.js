@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  View,
+  View,StatusBar,Dimensions,
   StyleSheet,
   ImageBackground,
   ScrollView,
@@ -33,13 +33,14 @@ class SlideMenu extends Component {
           <Text style={myStyle.name}>{this.props.dataUser.name}</Text>
         </ImageBackground>
       ) : (
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Login")} style={myStyle.button}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Login")} style={[myStyle.button, {marginTop:2 * StatusBar.currentHeight}]}>
           <Feather style={myStyle.icon} name="log-in" size={25} />
           <Text>Đăng nhập</Text>
         </TouchableOpacity>
       );
     return (
       <ScrollView>
+        {/* <View style={{ zIndex: 1, position: "absolute", left: 0, flex: 1, width: Dimensions.get('window').width, height:StatusBar.currentHeight, backgroundColor: "rgba(0,0,0,0.1)"}}></View> */}
         <View style={myStyle.container}>
           {accountView}
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Home")} style={myStyle.button}>
@@ -82,7 +83,7 @@ class SlideMenu extends Component {
 const myStyle = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
     //backgroundColor: 'blue',
   },
   imageBackground: {
