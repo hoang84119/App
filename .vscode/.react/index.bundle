@@ -101972,7 +101972,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     scmedia: {
       screen: _Media2.default,
       navigationOptions: {
-        headerTransparent: true
+        header: null
       }
     },
     scchitiet: {

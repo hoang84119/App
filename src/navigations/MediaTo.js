@@ -9,7 +9,7 @@ const MediaTo = createStackNavigator(
     scmedia: {
       screen: Media,
       navigationOptions: {
-        headerTransparent: true
+        header: null
       }
     },
     scchitiet: {
