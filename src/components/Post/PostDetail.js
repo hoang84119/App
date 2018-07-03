@@ -241,9 +241,7 @@ const pw = Dimensions.get("window").width;
 const myStyle = StyleSheet.create({
   container: {
     flex: 1,
-    //marginTop: (Platform.OS === 'ios') ? 60 : 50,
-    borderWidth: 1,
-    borderColor: "#dfdfdf",
+    
     backgroundColor: "#fff"
   },
   header: {

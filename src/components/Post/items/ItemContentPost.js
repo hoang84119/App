@@ -12,7 +12,7 @@ class ItemContentPost extends Component {
             paddingTop: 70,
             flex: 1,
             minHeight: 10,
-            resizeMode: "cover"
+            //resizeMode: "cover"
           }}
           source={require("../../../image/background/Miaka.jpg")}
         >
