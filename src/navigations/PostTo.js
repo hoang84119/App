@@ -14,15 +14,15 @@ const PostTo = createStackNavigator(
   {
     main: {
       screen: Posts,
-      navigationOptions: {
-        headerTitle: "Bài viết",
-        //headerTransparent: true,
-        // headerStyle: {
-        //   height:46,
-        //   alignItems: "center",
-        // },
-        // tabBarVisible: true
-      }
+      // navigationOptions: {
+      //   headerTitle: "Bài viết",
+      //   //headerTransparent: true,
+      //   // headerStyle: {
+      //   //   height:46,
+      //   //   alignItems: "center",
+      //   // },
+      //   // tabBarVisible: true
+      // }
     },
     chitiet: {
       screen: PostDetail,

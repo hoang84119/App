@@ -83876,10 +83876,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var PostTo = (0, _reactNavigation.createStackNavigator)({
     main: {
-      screen: _Posts2.default,
-      navigationOptions: {
-        headerTitle: "Bài viết"
-      }
+      screen: _Posts2.default
     },
     chitiet: {
       screen: _PostDetail2.default,
@@ -84420,8 +84417,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var myStyle = _reactNative.StyleSheet.create({
     container: {
       flex: 1,
-      borderWidth: 1,
-      borderColor: "#dfdfdf",
       backgroundColor: "#fff"
     },
     header: {
@@ -98987,7 +98982,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.headerTitleBar,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 74
+              lineNumber: 90
             }
           },
           _react3.default.createElement(
@@ -98996,7 +98991,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.headerTitle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 75
+                lineNumber: 91
               }
             },
             _react3.default.createElement(
@@ -99007,7 +99002,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 76
+                  lineNumber: 92
                 }
               },
               _react3.default.createElement(_Feather2.default, {
@@ -99018,7 +99013,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 size: 25,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 81
+                  lineNumber: 97
                 }
               })
             ),
@@ -99028,7 +99023,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.title,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 83
+                  lineNumber: 103
                 }
               },
               "B\xE0i vi\u1EBFt"
@@ -99043,7 +99038,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 86
+                lineNumber: 106
               }
             },
             _react3.default.createElement(_Feather2.default, {
@@ -99052,7 +99047,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 34,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 87
+                lineNumber: 110
               }
             })
           )
@@ -99063,23 +99058,43 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 93
+              lineNumber: 116
             }
           },
           headerBar,
           this.state.empty && _react3.default.createElement(
-            _reactNative.Text,
+            _reactNative.View,
             {
               style: myStyle.empty,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 97
+                lineNumber: 120
               }
             },
-            "Kh\xF4ng c\xF3 n\u1ED9i dung"
+            _react3.default.createElement(_Feather2.default, {
+              name: "alert-circle",
+              size: 60,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 121
+              }
+            }),
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: {
+                  margin: 10,
+                  fontSize: 16
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 122
+                }
+              },
+              "Kh\xF4ng c\xF3 n\u1ED9i dung"
+            )
           ),
           _react3.default.createElement(_reactNative.FlatList, {
-            style: myStyle.item,
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
               return _this3.refresh();
@@ -99097,13 +99112,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 userName: _this3.props.dataUser.name,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 110
+                  lineNumber: 136
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 102
+              lineNumber: 128
             }
           })
         );
@@ -99169,21 +99184,53 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     return Posts;
   }(_react2.Component), _class.navigationOptions = function (_ref2) {
     var navigation = _ref2.navigation;
-    var headerTitle = void 0;
-    var headerTransparent = true;
     var idCategory = navigation.getParam("idCategory", "");
     var idTag = navigation.getParam("idTag", "");
+    var headerTransparent = true;
 
-    if (idCategory != "") {
-      headerTitle = navigation.getParam("nameCategory", "");
-      headerTransparent = false;
-    } else if (idTag != "") {
-      headerTitle = navigation.getParam("nameTag", "");
-      headerTransparent = false;
+    if (idCategory != "" || idTag != "") {
+      var headerTitle = void 0;
+
+      var headerLeft = _react3.default.createElement(
+        _reactNative.TouchableOpacity,
+        {
+          onPress: function onPress() {
+            navigation.goBack(null);
+          },
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 39
+          }
+        },
+        _react3.default.createElement(_Feather2.default, {
+          style: [myStyle.icon, {
+            marginLeft: 15
+          }],
+          name: "arrow-left",
+          size: 25,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 44
+          }
+        })
+      );
+
+      if (idCategory != "") {
+        headerTitle = navigation.getParam("nameCategory", "");
+        headerTransparent = false;
+      } else if (idTag != "") {
+        headerTitle = navigation.getParam("nameTag", "");
+        headerTransparent = false;
+      }
+
+      return {
+        headerTitle: headerTitle,
+        headerTransparent: headerTransparent,
+        headerLeft: headerLeft
+      };
     }
 
     return {
-      headerTitle: headerTitle,
       headerTransparent: headerTransparent
     };
   }, _temp));
@@ -99223,6 +99270,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     loading: {
       paddingVertical: 10
+    },
+    empty: {
+      flexDirection: "column",
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center"
     }
   });
 
@@ -102748,96 +102801,105 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       key: "render",
       value: function render() {
         return _react3.default.createElement(
-          _reactNative.ImageBackground,
+          _reactNative.TouchableOpacity,
           {
-            source: randomImages[Math.floor(Math.random() * randomImages.length)],
-            style: myStyle.cardItem,
+            onPress: this._xem,
             __source: {
               fileName: _jsxFileName,
               lineNumber: 40
             }
           },
           _react3.default.createElement(
-            _reactNative.TouchableOpacity,
+            _reactNative.ImageBackground,
             {
-              onPress: this._xem,
-              style: myStyle.btnNoiDung,
+              source: randomImages[Math.floor(Math.random() * randomImages.length)],
+              style: myStyle.cardItem,
               __source: {
                 fileName: _jsxFileName,
                 lineNumber: 41
               }
             },
             _react3.default.createElement(
-              _reactNative.Text,
+              _reactNative.View,
               {
-                style: myStyle.noiDung,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 42
-                }
-              },
-              this.props.data.name
-            ),
-            _react3.default.createElement(
-              _reactNative.Text,
-              {
-                style: myStyle.moTa,
+                style: myStyle.btnNoiDung,
                 __source: {
                   fileName: _jsxFileName,
                   lineNumber: 43
                 }
               },
-              this.props.data.description
-            )
-          ),
-          this.props.userName === "admin" && _react3.default.createElement(
-            _reactNative.View,
-            {
-              style: myStyle.buttons,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 46
-              }
-            },
-            _react3.default.createElement(
-              _reactNative.TouchableOpacity,
-              {
-                onPress: this._chinhsua,
-                style: myStyle.btn,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 47
-                }
-              },
-              _react3.default.createElement(_Feather2.default, {
-                style: myStyle.icon,
-                name: "edit",
-                size: 15,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 48
-                }
-              })
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: myStyle.noiDung,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 44
+                  }
+                },
+                this.props.data.name
+              ),
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: myStyle.moTa,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 45
+                  }
+                },
+                this.props.data.description
+              )
             ),
-            _react3.default.createElement(
-              _reactNative.TouchableOpacity,
+            this.props.userName === "admin" && _react3.default.createElement(
+              _reactNative.View,
               {
-                onPress: this._xoa,
-                style: myStyle.btn,
+                style: myStyle.buttons,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 50
+                  lineNumber: 49
                 }
               },
-              _react3.default.createElement(_Feather2.default, {
-                style: myStyle.icon,
-                name: "trash",
-                size: 15,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 51
-                }
-              })
+              _react3.default.createElement(
+                _reactNative.TouchableOpacity,
+                {
+                  onPress: this._chinhsua,
+                  style: myStyle.btn,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 50
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "edit",
+                  size: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 51
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.TouchableOpacity,
+                {
+                  onPress: this._xoa,
+                  style: myStyle.btn,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 53
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "trash",
+                  size: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 54
+                  }
+                })
+              )
             )
           )
         );
@@ -102851,12 +102913,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     cardItem: {
       overflow: 'hidden',
       flexDirection: "row",
-      marginTop: 8,
-      marginBottom: 2,
+      marginTop: 10,
+      marginBottom: 5,
       marginHorizontal: 8,
       padding: 10,
       paddingVertical: 25,
-      borderRadius: 8,
+      borderRadius: 20,
       justifyContent: "space-between",
       shadowColor: "#000",
       shadowOffset: {
@@ -102867,6 +102929,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       elevation: 2
     },
     btnNoiDung: {
+      flex: 5,
       paddingLeft: 20
     },
     noiDung: {
@@ -102876,19 +102939,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       marginBottom: 10
     },
     moTa: {
-      flex: 1,
       fontStyle: "italic",
       color: "#fafafa"
     },
     buttons: {
       flex: 1,
       flexDirection: "row",
-      alignItems: "flex-end",
+      alignItems: "center",
       justifyContent: "flex-end"
     },
     icon: {
       marginLeft: 5,
-      marginRight: 10,
+      marginRight: 5,
       color: "#fafafa"
     }
   });
@@ -104668,7 +104730,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       backgroundColor: "#FFFFE0",
       justifyContent: "space-between"
     },
-    btnNoiDung: {},
+    btnNoiDung: {
+      flex: 5
+    },
     noiDung: {
       fontSize: 16,
       color: "#000",
@@ -104678,6 +104742,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontStyle: "italic"
     },
     buttons: {
+      flex: 1,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center"

@@ -29,19 +29,35 @@ class Posts extends Component {
     };
   }
   static navigationOptions = ({ navigation }) => {
-    //let headerTitle = "Thêm chuyên mục";
-    let headerTitle;
-    let headerTransparent = true;
     let idCategory = navigation.getParam("idCategory", "");
     let idTag = navigation.getParam("idTag", "");
-    if (idCategory != "") {
-      headerTitle = navigation.getParam("nameCategory", "");
-      headerTransparent = false;
-    } else if (idTag != "") {
-      headerTitle = navigation.getParam("nameTag", "");
-      headerTransparent = false;
+    let headerTransparent = true;
+    //let headerTitle = "Thêm chuyên mục";
+    if (idCategory != "" || idTag != "") {
+      let headerTitle;
+      let headerLeft = (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+        >
+          <Feather
+            style={[myStyle.icon, { marginLeft: 15 }]}
+            name="arrow-left"
+            size={25}
+          />
+        </TouchableOpacity>
+      );
+      if (idCategory != "") {
+        headerTitle = navigation.getParam("nameCategory", "");
+        headerTransparent = false;
+      } else if (idTag != "") {
+        headerTitle = navigation.getParam("nameTag", "");
+        headerTransparent = false;
+      }
+      return { headerTitle, headerTransparent,headerLeft };
     }
-    return { headerTitle, headerTransparent };
+    return {headerTransparent };
   };
 
   // static navigationOptions = {
@@ -78,12 +94,19 @@ class Posts extends Component {
                 this.props.navigation.openDrawer();
               }}
             >
-              <Feather style={[myStyle.icon, { marginLeft: 15 }]} name="menu" size={25} />
+              <Feather
+                style={[myStyle.icon, { marginLeft: 15 }]}
+                name="menu"
+                size={25}
+              />
             </TouchableOpacity>
             <Text style={myStyle.title}>Bài viết</Text>
           </View>
           {this.props.dataUser.name === "admin" && (
-            <TouchableOpacity style={myStyle.buttons} onPress={() => this._onAdd()}>
+            <TouchableOpacity
+              style={myStyle.buttons}
+              onPress={() => this._onAdd()}
+            >
               <Feather style={myStyle.icon} name="plus" size={34} />
             </TouchableOpacity>
           )}
@@ -96,7 +119,7 @@ class Posts extends Component {
         {this.state.empty && (
           <View style={myStyle.empty}>
             <Feather name="alert-circle" size={60} />
-            <Text style={{margin: 10 , fontSize: 16}}>Không có nội dung</Text>
+            <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
           </View>
         )}
 
