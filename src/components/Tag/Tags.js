@@ -120,8 +120,8 @@ class Tags extends Component {
   }
 
   async _loadData() {
-    var dataTemp = [];
     if (this.state.refreshing) {
+      let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
         let response = await fetch(
           `${API.getURL()}/thuctap/wp-json/wp/v2/tags?page=${i}`

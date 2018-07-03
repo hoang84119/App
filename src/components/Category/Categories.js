@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ToastAndroid,
   Text,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import API from "../../config/API";
 import Feather from "react-native-vector-icons/Feather";
@@ -19,7 +20,10 @@ class Categories extends Component {
     super(props);
     this.state = {
       data: "",
-      refreshing: true
+      refreshing: true,
+      page: 1,
+      over: false,
+      loading: false
     };
   }
   static navigationOptions = {
@@ -28,7 +32,7 @@ class Categories extends Component {
 
   componentDidMount() {
     this.props.navigation.addListener("didFocus", () => {
-      this._loadData();
+      this._refreshing();
     });
   }
   render() {
@@ -68,7 +72,7 @@ class Categories extends Component {
         <FlatList
           style={myStyle.item}
           refreshing={this.state.refreshing}
-          onRefresh={() => this._loadData()}
+          onRefresh={() => this._refreshing()}
           data={this.state.data}
           keyExtractor={(item, index) => item.id}
           renderItem={({ item }) => (
@@ -80,12 +84,88 @@ class Categories extends Component {
               level={0}
             />
           )}
+          onEndReachedThreshold={0.1}
+          onEndReached={() => {
+            this._loadMore();
+          }}
+          ListFooterComponent={this._renderFooter}
         />
       </View>
     );
   }
 
-  _loadData() {
+  _renderFooter = () => {
+    if (!this.state.loading) return null;
+    return (
+      <View style={myStyle.loading}>
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  };
+
+  _refreshing() {
+    //let p = this.state.page;
+    //for(i=1; i<=p;i++){
+    this.setState({refreshing: true }, () => {
+      this._loadData();
+    });
+    //}
+  }
+
+  _loadMore() {
+    if (!this.state.over)
+      if (!this.state.loading)
+        this.setState({ page: this.state.page + 1, loading: true }, () => {
+          this._loadData();
+        });
+  }
+
+  async _loadData() {
+    if (this.state.refreshing) {
+      let dataTemp = [];
+      for (let i = 1; i <= this.state.page; i++) {
+        let response = await fetch(
+          `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=0&page=${i}`
+        );
+        if (response.status === 200) {
+          let responseJson = await response.json();
+          if (responseJson.length != 0) {
+            dataTemp = dataTemp.concat(responseJson);
+          }
+        } else if (response.status === 400) {
+          ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+        }
+      }
+      this.setState({
+        data: dataTemp,
+        refreshing: false,
+        loading: false,
+        over: false
+      });
+    } else {
+      let response = await fetch(
+        `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=0&page=${this.state.page}`
+      );
+      if (response.status === 200) {
+        let responseJson = await response.json();
+        if (responseJson.length === 0) {
+          ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
+          this.setState({ refreshing: false, loading: false, over: true });
+        } else {
+          this.setState({
+            data: this.state.data.concat(responseJson),
+            refreshing: false,
+            loading: false,
+            over: false
+          });
+        }
+      } else if (response.status === 400) {
+        ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+      }
+    }
+  }
+
+  loadData() {
     this.setState({ refreshing: true });
     fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories?parent=0")
       .then(response => response.json())

@@ -102690,13 +102690,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                dataTemp = [];
-
                 if (!this.state.refreshing) {
                   _context.next = 21;
                   break;
                 }
 
+                dataTemp = [];
                 i = 1;
 
               case 3:
@@ -104133,6 +104132,28 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
       var _this = _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this, props));
 
+      _this._renderFooter = function () {
+        if (!_this.state.loading) return null;
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: myStyle.loading,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 100
+            }
+          },
+          _react3.default.createElement(_reactNative.ActivityIndicator, {
+            animating: true,
+            size: "large",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 101
+            }
+          })
+        );
+      };
+
       _this._delete = function (i, t) {
         _reactNative.Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?", [{
           text: "Xóa",
@@ -104155,7 +104176,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
       _this.state = {
         data: "",
-        refreshing: true
+        refreshing: true,
+        page: 1,
+        over: false,
+        loading: false
       };
       return _this;
     }
@@ -104166,7 +104190,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var _this2 = this;
 
         this.props.navigation.addListener("didFocus", function () {
-          _this2._loadData();
+          _this2._refreshing();
         });
       }
     }, {
@@ -104180,7 +104204,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.buttons,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 36
+              lineNumber: 40
             }
           },
           _react3.default.createElement(
@@ -104191,7 +104215,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 37
+                lineNumber: 41
               }
             },
             _react3.default.createElement(_Feather2.default, {
@@ -104200,7 +104224,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 34,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 38
+                lineNumber: 42
               }
             })
           )
@@ -104212,7 +104236,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 43
+              lineNumber: 47
             }
           },
           _react3.default.createElement(_reactNative.StatusBar, {
@@ -104221,7 +104245,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             animated: true,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 44
+              lineNumber: 48
             }
           }),
           _react3.default.createElement(
@@ -104232,7 +104256,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 45
+                lineNumber: 49
               }
             },
             _react3.default.createElement(_reactNative.View, {
@@ -104241,7 +104265,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 46
+                lineNumber: 50
               }
             }),
             _react3.default.createElement(
@@ -104250,7 +104274,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.headerTitleBar,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 48
+                  lineNumber: 52
                 }
               },
               _react3.default.createElement(
@@ -104259,7 +104283,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.headerTitle,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 49
+                    lineNumber: 53
                   }
                 },
                 _react3.default.createElement(
@@ -104270,7 +104294,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 50
+                      lineNumber: 54
                     }
                   },
                   _react3.default.createElement(_Feather2.default, {
@@ -104282,7 +104306,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 25,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 55
+                      lineNumber: 59
                     }
                   })
                 ),
@@ -104292,7 +104316,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.title,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 61
+                      lineNumber: 65
                     }
                   },
                   "Chuy\xEAn m\u1EE5c"
@@ -104305,7 +104329,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.item,
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
-              return _this3._loadData();
+              return _this3._refreshing();
             },
             data: this.state.data,
             keyExtractor: function keyExtractor(item, index) {
@@ -104321,21 +104345,166 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 level: 0,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 75
+                  lineNumber: 79
                 }
               });
             },
+            onEndReachedThreshold: 0.1,
+            onEndReached: function onEndReached() {
+              _this3._loadMore();
+            },
+            ListFooterComponent: this._renderFooter,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 68
+              lineNumber: 72
             }
           })
         );
       }
     }, {
+      key: "_refreshing",
+      value: function _refreshing() {
+        var _this4 = this;
+
+        this.setState({
+          refreshing: true
+        }, function () {
+          _this4._loadData();
+        });
+      }
+    }, {
+      key: "_loadMore",
+      value: function _loadMore() {
+        var _this5 = this;
+
+        if (!this.state.over) if (!this.state.loading) this.setState({
+          page: this.state.page + 1,
+          loading: true
+        }, function () {
+          _this5._loadData();
+        });
+      }
+    }, {
       key: "_loadData",
       value: function _loadData() {
-        var _this4 = this;
+        var dataTemp, i, response, responseJson, _response, _responseJson;
+
+        return regeneratorRuntime.async(function _loadData$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!this.state.refreshing) {
+                  _context.next = 21;
+                  break;
+                }
+
+                dataTemp = [];
+                i = 1;
+
+              case 3:
+                if (!(i <= this.state.page)) {
+                  _context.next = 18;
+                  break;
+                }
+
+                _context.next = 6;
+                return regeneratorRuntime.awrap(fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/categories?parent=0&page=" + i));
+
+              case 6:
+                response = _context.sent;
+
+                if (!(response.status === 200)) {
+                  _context.next = 14;
+                  break;
+                }
+
+                _context.next = 10;
+                return regeneratorRuntime.awrap(response.json());
+
+              case 10:
+                responseJson = _context.sent;
+
+                if (responseJson.length != 0) {
+                  dataTemp = dataTemp.concat(responseJson);
+                }
+
+                _context.next = 15;
+                break;
+
+              case 14:
+                if (response.status === 400) {
+                  _reactNative.ToastAndroid.show("Lỗi", _reactNative.ToastAndroid.SHORT);
+                }
+
+              case 15:
+                i++;
+                _context.next = 3;
+                break;
+
+              case 18:
+                this.setState({
+                  data: dataTemp,
+                  refreshing: false,
+                  loading: false,
+                  over: false
+                });
+                _context.next = 32;
+                break;
+
+              case 21:
+                _context.next = 23;
+                return regeneratorRuntime.awrap(fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/categories?parent=0&page=" + this.state.page));
+
+              case 23:
+                _response = _context.sent;
+
+                if (!(_response.status === 200)) {
+                  _context.next = 31;
+                  break;
+                }
+
+                _context.next = 27;
+                return regeneratorRuntime.awrap(_response.json());
+
+              case 27:
+                _responseJson = _context.sent;
+
+                if (_responseJson.length === 0) {
+                  _reactNative.ToastAndroid.show("Cuối trang", _reactNative.ToastAndroid.SHORT);
+
+                  this.setState({
+                    refreshing: false,
+                    loading: false,
+                    over: true
+                  });
+                } else {
+                  this.setState({
+                    data: this.state.data.concat(_responseJson),
+                    refreshing: false,
+                    loading: false,
+                    over: false
+                  });
+                }
+
+                _context.next = 32;
+                break;
+
+              case 31:
+                if (_response.status === 400) {
+                  _reactNative.ToastAndroid.show("Lỗi", _reactNative.ToastAndroid.SHORT);
+                }
+
+              case 32:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "loadData",
+      value: function loadData() {
+        var _this6 = this;
 
         this.setState({
           refreshing: true
@@ -104346,7 +104515,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           if (responseJson == null) {
             _reactNative.Alert.alert("Lỗi", "Không có nội dung");
           } else {
-            _this4.setState({
+            _this6.setState({
               data: responseJson,
               refreshing: false
             });
