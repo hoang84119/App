@@ -38,12 +38,13 @@ class ItemImage extends Component {
               source={{
                 uri: this.props.guid
               }}
-              style={{ weight: 1, height: 140, resizeMode: "cover" }}
+              style={{ //weight: 1, 
+              height: 140, resizeMode: "cover" }}
             />
             {this.props.selected && (
               <View
                 style={{
-                  weight: 1,
+                  //weight: 1,
                   height: 200,
                   marginTop: -200,
                   zIndex: 1,

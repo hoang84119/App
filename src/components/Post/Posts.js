@@ -108,7 +108,7 @@ class Posts extends Component {
           //refreshing={this.props.refreshing}
           onRefresh={() => this.refresh()}
           data={this.state.noidung}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item.id.toString()}
           renderItem={({ item }) => (
             <ItemPost
               data={item}

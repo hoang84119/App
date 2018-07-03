@@ -10,7 +10,6 @@ import {
   ImageBackground
 } from "react-native";
 import HTML from "react-native-render-html";
-import Base64 from "../../../config/Base64";
 import Feather from "react-native-vector-icons/Feather";
 const featured_media_default =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
@@ -34,6 +33,10 @@ class ItemPost extends Component {
       });
     }
   }
+  renderers = {
+    p: (htmlAttribs, children) => <Text key={this.props.data.id} style={myStyle.noidung}>{children}</Text>
+  };
+
   render() {
     return (
       <View style={myStyle.cardItem}>
@@ -55,7 +58,7 @@ class ItemPost extends Component {
             <HTML
               html={this.formatExcerpt(this.props.data.excerpt.rendered)}
               //tagsStyles={htmlStyle}
-              renderers={renderers}
+              renderers={this.renderers}
             />
           )}
         </TouchableOpacity>
@@ -170,9 +173,9 @@ class ItemPost extends Component {
   }
 }
 
-const renderers = {
-  p: (htmlAttribs, children) => <Text style={myStyle.noidung}>{children}</Text>
-};
+// const renderers = {
+//   p: (htmlAttribs, children) => <Text key={this.props.data.id} style={myStyle.noidung}>{children}</Text>
+// };
 
 const htmlStyle = {
   span: {
