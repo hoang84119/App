@@ -99,7 +99,7 @@ class Tags extends Component {
   _refreshing() {
     //let p = this.state.page;
     //for(i=1; i<=p;i++){
-    this.setState({ page: 1, data: [], refreshing: true }, () => { this._loadData() });
+    this.setState({ page: 1, refreshing: true }, () => { this._loadData() });
     //}
   }
 
