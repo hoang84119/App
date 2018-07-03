@@ -78837,14 +78837,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       });
 
                       if (response != null) {
-                        console.log(response);
-
                         _this2.props.dispatch({
                           type: 'SetDataUser',
                           data: response
                         });
-
-                        console.log("da luu");
 
                         _this2.props.navigation.navigate("main");
                       } else {}
@@ -78875,7 +78871,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             source: _require(_dependencyMap[6], '../../image/background/Miaka.jpg'),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 71
+              lineNumber: 66
             }
           },
           _react3.default.createElement(_reactNative.StatusBar, {
@@ -78884,7 +78880,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             animated: true,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 72
+              lineNumber: 67
             }
           }),
           _react3.default.createElement(
@@ -78893,14 +78889,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.nen,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 77
+                lineNumber: 72
               }
             },
             _react3.default.createElement(_reactNative.View, {
               style: myStyle.khungDangNhap,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 78
+                lineNumber: 73
               }
             }),
             _react3.default.createElement(
@@ -78911,7 +78907,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 79
+                  lineNumber: 74
                 }
               },
               _react3.default.createElement(_reactNative.Image, {
@@ -78923,7 +78919,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 source: _require(_dependencyMap[7], "../../image/logo.png"),
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 80
+                  lineNumber: 75
                 }
               }),
               _react3.default.createElement(
@@ -78932,7 +78928,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.vText,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 84
+                    lineNumber: 79
                   }
                 },
                 _react3.default.createElement(
@@ -78944,7 +78940,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 85
+                      lineNumber: 80
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -78955,7 +78951,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 86
+                      lineNumber: 81
                     }
                   })
                 ),
@@ -78971,7 +78967,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   placeholder: "T\xEAn t\xE0i kho\u1EA3n",
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 84
                   }
                 })
               ),
@@ -78981,7 +78977,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.vText,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 99
+                    lineNumber: 94
                   }
                 },
                 _react3.default.createElement(
@@ -78993,7 +78989,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 100
+                      lineNumber: 95
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -79004,7 +79000,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 101
+                      lineNumber: 96
                     }
                   })
                 ),
@@ -79021,7 +79017,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   secureTextEntry: true,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 103
+                    lineNumber: 98
                   }
                 })
               ),
@@ -79034,7 +79030,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 116
+                    lineNumber: 111
                   }
                 },
                 _react3.default.createElement(
@@ -79045,7 +79041,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 117
+                      lineNumber: 112
                     }
                   },
                   _react3.default.createElement(
@@ -79054,7 +79050,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.ctmBottom,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 122
+                        lineNumber: 117
                       }
                     },
                     "\u0110\u0103ng nh\u1EADp"
@@ -79066,7 +79062,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 color: "white",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 127
+                  lineNumber: 122
                 }
               })
             )
@@ -101857,21 +101853,17 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _MediaTo2 = _interopRequireDefault(_MediaTo);
 
-  var _Account = _require(_dependencyMap[3], "../components/User/Account");
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
 
-  var _Account2 = _interopRequireDefault(_Account);
-
-  var _reactNavigation = _require(_dependencyMap[4], "react-navigation");
-
-  var _Ionicons = _require(_dependencyMap[5], "react-native-vector-icons/Ionicons");
+  var _Ionicons = _require(_dependencyMap[4], "react-native-vector-icons/Ionicons");
 
   var _Ionicons2 = _interopRequireDefault(_Ionicons);
 
-  var _TagTo = _require(_dependencyMap[6], "./TagTo");
+  var _TagTo = _require(_dependencyMap[5], "./TagTo");
 
   var _TagTo2 = _interopRequireDefault(_TagTo);
 
-  var _CategoryTo = _require(_dependencyMap[7], "./CategoryTo");
+  var _CategoryTo = _require(_dependencyMap[6], "./CategoryTo");
 
   var _CategoryTo2 = _interopRequireDefault(_CategoryTo);
 
@@ -101894,9 +101886,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     Tag: {
       screen: _TagTo2.default
-    },
-    User: {
-      screen: _Account2.default
     }
   }, {
     navigationOptions: function navigationOptions(_ref) {
@@ -101916,8 +101905,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             iconName = "ios-apps" + (focused ? '' : '-outline');
           } else if (routeName === "Tag") {
             iconName = "ios-pricetag" + (focused ? '' : '-outline');
-          } else if (routeName === "User") {
-            iconName = "ios-contact" + (focused ? '' : '-outline');
           }
 
           return _react2.default.createElement(_Ionicons2.default, {
@@ -101926,21 +101913,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: tintColor,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 43
+              lineNumber: 39
             }
           });
         }
       };
     },
     tabBarOptions: {
-      activeTintColor: "#36BC63",
+      activeTintColor: "#0ABFBC",
       inactiveTintColor: "gray",
       scrollEnabled: true
     },
     initialRouteName: 'Post',
     animationEnabled: true
   });
-},757,[118,671,758,759,493,601,760,773],"src\\navigations\\TabNavigator.js");
+},757,[118,671,758,493,601,760,773],"src\\navigations\\TabNavigator.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -104193,7 +104180,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.buttons,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 37
+              lineNumber: 36
             }
           },
           _react3.default.createElement(
@@ -104204,7 +104191,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 38
+                lineNumber: 37
               }
             },
             _react3.default.createElement(_Feather2.default, {
@@ -104213,7 +104200,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 34,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 39
+                lineNumber: 38
               }
             })
           )
@@ -104225,7 +104212,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 44
+              lineNumber: 43
             }
           },
           _react3.default.createElement(_reactNative.StatusBar, {
@@ -104234,7 +104221,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             animated: true,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 45
+              lineNumber: 44
             }
           }),
           _react3.default.createElement(
@@ -104245,7 +104232,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 46
+                lineNumber: 45
               }
             },
             _react3.default.createElement(_reactNative.View, {
@@ -104254,7 +104241,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 47
+                lineNumber: 46
               }
             }),
             _react3.default.createElement(
@@ -104263,7 +104250,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.headerTitleBar,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 49
+                  lineNumber: 48
                 }
               },
               _react3.default.createElement(
@@ -104272,7 +104259,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.headerTitle,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 50
+                    lineNumber: 49
                   }
                 },
                 _react3.default.createElement(
@@ -104283,7 +104270,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 51
+                      lineNumber: 50
                     }
                   },
                   _react3.default.createElement(_Feather2.default, {
@@ -104295,7 +104282,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 25,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 56
+                      lineNumber: 55
                     }
                   })
                 ),
@@ -104305,7 +104292,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.title,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 58
+                      lineNumber: 61
                     }
                   },
                   "Chuy\xEAn m\u1EE5c"
@@ -104326,7 +104313,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             renderItem: function renderItem(_ref) {
               var item = _ref.item;
-              return item.parent === 0 && _react3.default.createElement(_ItemCategory2.default, {
+              return _react3.default.createElement(_ItemCategory2.default, {
                 data: item,
                 navigation: _this3.props.navigation,
                 "delete": _this3._delete,
@@ -104334,13 +104321,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 level: 0,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 73
+                  lineNumber: 75
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 65
+              lineNumber: 68
             }
           })
         );
@@ -104353,7 +104340,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         this.setState({
           refreshing: true
         });
-        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/categories").then(function (response) {
+        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/categories?parent=0").then(function (response) {
           return response.json();
         }).then(function (responseJson) {
           if (responseJson == null) {
@@ -104636,7 +104623,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _react3.default.createElement(_FontAwesome2.default, {
                   style: myStyle.icon,
                   name: "edit",
-                  size: 20,
+                  size: 15,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 67
@@ -104656,7 +104643,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _react3.default.createElement(_Feather2.default, {
                   style: myStyle.icon,
                   name: "trash",
-                  size: 20,
+                  size: 15,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 70
@@ -104682,13 +104669,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 level: _this3.props.level + 1,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 142
+                  lineNumber: 80
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 138
+              lineNumber: 76
             }
           })
         );
@@ -104698,8 +104685,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     return ItemCategory;
   }(_react2.Component));
 
-  var color = ["#FFF0F5", "#e0f0f3", "#FFFFE0", "#d5ffd5", "#ffd3a8", "#ffff9f"];
-  var borderColor = ["#d72626", "#0ABFBC", "#FFEC8B", "#008B00", "#ff8000", "#ffff00"];
+  var color = ["#FFF0F5", "#e0f0f3", "#d5ffd5", "#FFFFE0", "#ffd3a8", "#CD96CD"];
+  var borderColor = ["#d72626", "#0ABFBC", "#3CB371", "#FFEC8B", "#FFA07A", "#8B4789"];
 
   var myStyle = _reactNative.StyleSheet.create({
     cardItem: {
@@ -104735,8 +104722,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       justifyContent: "center"
     },
     icon: {
-      marginLeft: 5,
-      marginRight: 10,
+      marginHorizontal: 5,
       color: "#0ABFBC"
     }
   });
@@ -105874,7 +105860,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _react3.default.createElement(_Feather2.default, {
             style: myStyle.icon,
             name: "log-in",
-            size: 25,
+            size: 24,
             __source: {
               fileName: _jsxFileName,
               lineNumber: 37
@@ -105883,6 +105869,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _react3.default.createElement(
             _reactNative.Text,
             {
+              style: myStyle.txt,
               __source: {
                 fileName: _jsxFileName,
                 lineNumber: 38
@@ -105892,173 +105879,191 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           )
         );
         return _react3.default.createElement(
-          _reactNative.ScrollView,
+          _reactNative.ImageBackground,
           {
+            style: {
+              flex: 1
+            },
+            source: _require(_dependencyMap[6], '../image/background/Miaka.jpg'),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 42
             }
           },
           _react3.default.createElement(
-            _reactNative.View,
+            _reactNative.ScrollView,
             {
-              style: myStyle.container,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 44
+                lineNumber: 43
               }
             },
-            accountView,
             _react3.default.createElement(
-              _reactNative.TouchableOpacity,
+              _reactNative.View,
               {
-                onPress: function onPress() {
-                  return _this2.props.navigation.navigate("Home");
-                },
-                style: myStyle.button,
+                style: myStyle.container,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 46
+                  lineNumber: 45
                 }
               },
-              _react3.default.createElement(_Feather2.default, {
-                style: myStyle.icon,
-                name: "home",
-                size: 25,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 47
-                }
-              }),
+              accountView,
               _react3.default.createElement(
-                _reactNative.Text,
+                _reactNative.TouchableOpacity,
                 {
+                  onPress: function onPress() {
+                    return _this2.props.navigation.navigate("Home");
+                  },
+                  style: myStyle.button,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 47
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "home",
+                  size: 24,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 48
                   }
-                },
-                "Trang ch\u1EE7"
-              )
-            ),
-            _react3.default.createElement(
-              _reactNative.TouchableOpacity,
-              {
-                onPress: function onPress() {
-                  return _this2.props.navigation.navigate("Account");
-                },
-                style: myStyle.button,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 50
-                }
-              },
-              _react3.default.createElement(_Feather2.default, {
-                style: myStyle.icon,
-                name: "user",
-                size: 25,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 51
-                }
-              }),
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: myStyle.txt,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 49
+                    }
+                  },
+                  "Trang ch\u1EE7"
+                )
+              ),
               _react3.default.createElement(
-                _reactNative.Text,
+                _reactNative.TouchableOpacity,
                 {
+                  onPress: function onPress() {
+                    return _this2.props.navigation.navigate("Account");
+                  },
+                  style: myStyle.button,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 51
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "user",
+                  size: 24,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 52
                   }
-                },
-                "T\xE0i kho\u1EA3n"
-              )
-            ),
-            _react3.default.createElement(
-              _reactNative.TouchableOpacity,
-              {
-                style: myStyle.button,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 54
-                }
-              },
-              _react3.default.createElement(_Feather2.default, {
-                style: myStyle.icon,
-                name: "settings",
-                size: 25,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 55
-                }
-              }),
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: myStyle.txt,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 53
+                    }
+                  },
+                  "T\xE0i kho\u1EA3n"
+                )
+              ),
               _react3.default.createElement(
-                _reactNative.Text,
+                _reactNative.TouchableOpacity,
                 {
+                  style: myStyle.button,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 55
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "settings",
+                  size: 24,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 56
                   }
-                },
-                "C\xE0i \u0111\u1EB7t"
-              )
-            ),
-            _react3.default.createElement(
-              _reactNative.TouchableOpacity,
-              {
-                style: myStyle.button,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 58
-                }
-              },
-              _react3.default.createElement(_Feather2.default, {
-                style: myStyle.icon,
-                name: "info",
-                size: 25,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 59
-                }
-              }),
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: myStyle.txt,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 57
+                    }
+                  },
+                  "C\xE0i \u0111\u1EB7t"
+                )
+              ),
               _react3.default.createElement(
-                _reactNative.Text,
+                _reactNative.TouchableOpacity,
                 {
+                  style: myStyle.button,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 59
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "info",
+                  size: 24,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 60
                   }
-                },
-                "Gi\u1EDBi thi\u1EC7u"
-              )
-            ),
-            this.props.dataUser.length != 0 && _react3.default.createElement(
-              _reactNative.TouchableOpacity,
-              {
-                onPress: this._onLogout,
-                style: myStyle.button,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 63
-                }
-              },
-              _react3.default.createElement(_Feather2.default, {
-                style: myStyle.icon,
-                name: "log-out",
-                size: 25,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 64
-                }
-              }),
-              _react3.default.createElement(
-                _reactNative.Text,
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: myStyle.txt,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 61
+                    }
+                  },
+                  "Gi\u1EDBi thi\u1EC7u"
+                )
+              ),
+              this.props.dataUser.length != 0 && _react3.default.createElement(
+                _reactNative.TouchableOpacity,
                 {
+                  onPress: this._onLogout,
+                  style: myStyle.button,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 64
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "log-out",
+                  size: 24,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 65
                   }
-                },
-                "\u0110\u0103ng xu\u1EA5t"
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: myStyle.txt,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 66
+                    }
+                  },
+                  "\u0110\u0103ng xu\u1EA5t"
+                )
               )
             )
           )
@@ -106087,8 +106092,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     name: {
       color: "#fff",
+      fontWeight: "bold",
       margin: 10,
-      fontSize: 16
+      fontSize: 20
     },
     button: {
       flex: 1,
@@ -106100,7 +106106,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     icon: {
       marginRight: 10,
       marginLeft: 3,
-      color: "#868686"
+      color: "#fff"
+    },
+    txt: {
+      color: "#fff",
+      fontSize: 18
     }
   });
 
@@ -106111,7 +106121,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(SlideMenu);
-},779,[118,179,12,650,744,780],"src\\components\\SlideMenu.js");
+},779,[118,179,12,650,744,780,669],"src\\components\\SlideMenu.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
