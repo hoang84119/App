@@ -34,7 +34,7 @@ class SlideMenu extends Component {
         </ImageBackground>
       ) : (
         <TouchableOpacity onPress={()=>this.props.navigation.navigate("Login")} style={[myStyle.button, {marginTop:2 * StatusBar.currentHeight}]}>
-          <Feather style={myStyle.icon} name="log-in" size={24} />
+          <Feather style={myStyle.icon} name="log-in" size={18} />
           <Text style={myStyle.txt}>Đăng nhập</Text>
         </TouchableOpacity>
       );
@@ -45,24 +45,24 @@ class SlideMenu extends Component {
         <View style={myStyle.container}>
           {accountView}
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Home")} style={myStyle.button}>
-            <Feather style={myStyle.icon} name="home" size={24} />
+            <Feather style={myStyle.icon} name="home" size={18} />
             <Text style={myStyle.txt}>Trang chủ</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Account")} style={myStyle.button}>
-            <Feather style={myStyle.icon} name="user" size={24} />
+            <Feather style={myStyle.icon} name="user" size={18} />
             <Text style={myStyle.txt}>Tài khoản</Text>
           </TouchableOpacity>
           <TouchableOpacity style={myStyle.button}>
-            <Feather style={myStyle.icon} name="settings" size={24} />
+            <Feather style={myStyle.icon} name="settings" size={18} />
             <Text style={myStyle.txt}>Cài đặt</Text>
           </TouchableOpacity>
           <TouchableOpacity style={myStyle.button}>
-            <Feather style={myStyle.icon} name="info" size={24} />
+            <Feather style={myStyle.icon} name="info" size={18} />
             <Text style={myStyle.txt}>Giới thiệu</Text>
           </TouchableOpacity>
           {this.props.dataUser.length != 0 && (
             <TouchableOpacity onPress={this._onLogout} style={myStyle.button}>
-              <Feather style={myStyle.icon} name="log-out" size={24} />
+              <Feather style={myStyle.icon} name="log-out" size={18} />
               <Text style={myStyle.txt}>Đăng xuất</Text>
             </TouchableOpacity>
           )}
@@ -115,6 +115,10 @@ const myStyle = StyleSheet.create({
     paddingHorizontal: 10
   },
   icon: {
+    textAlign: "center",
+    padding: 7,
+    borderRadius: 50,
+    backgroundColor: "rgba(255,255,255,0.3)",
     marginRight: 10,
     marginLeft: 3,
     color: "#fff"

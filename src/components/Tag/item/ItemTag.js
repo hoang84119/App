@@ -95,9 +95,11 @@ const myStyle = StyleSheet.create({
     color: "#fff", 
     marginBottom: 10 },
   moTa: { 
+    flex: 1,
     fontStyle: "italic", 
     color: "#fafafa" },
   buttons: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "flex-end"
