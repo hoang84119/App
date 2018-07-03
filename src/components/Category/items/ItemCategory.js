@@ -144,15 +144,15 @@ const myStyle = StyleSheet.create({
     backgroundColor: "#FFFFE0",
     justifyContent: "space-between"
   },
-  btnNoiDung: {},
+  btnNoiDung: { flex: 5,},
   noiDung: {
-    //fontWeight: "bold",
     fontSize: 16,
     color: "#000",
     marginBottom: 5
   },
   moTa: { fontStyle: "italic" },
   buttons: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"

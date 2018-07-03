@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  View,ImageBackground,
+  View, ImageBackground,
   TouchableOpacity,
   StyleSheet,
   Text
@@ -31,28 +31,32 @@ class ItemCategory extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) { }
 
   render() {
     return (
-      <ImageBackground source={randomImages[Math.floor(Math.random()*randomImages.length)]} style={myStyle.cardItem}>
-        <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
-          <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
-          <Text style={myStyle.moTa}>{this.props.data.description}</Text>
-        </TouchableOpacity>
-        {this.props.userName === "admin" && (
-          <View style={myStyle.buttons}>
-            <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
-              <Feather style={myStyle.icon} name="edit" size={15} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
-              <Feather style={myStyle.icon} name="trash" size={15} />
-            </TouchableOpacity>
+      <TouchableOpacity onPress={this._xem}>
+        <ImageBackground source={randomImages[Math.floor(Math.random() * randomImages.length)]} style={myStyle.cardItem}>
+
+          <View style={myStyle.btnNoiDung}>
+            <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
+            <Text style={myStyle.moTa}>{this.props.data.description}</Text>
           </View>
-        )}
-      </ImageBackground>
+
+          {this.props.userName === "admin" && (
+            <View style={myStyle.buttons}>
+              <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
+                <Feather style={myStyle.icon} name="edit" size={15} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
+                <Feather style={myStyle.icon} name="trash" size={15} />
+              </TouchableOpacity>
+            </View>
+          )}
+        </ImageBackground>
+      </TouchableOpacity>
     );
   }
 
@@ -76,35 +80,39 @@ const myStyle = StyleSheet.create({
   cardItem: {
     overflow: 'hidden',
     flexDirection: "row",
-    marginTop: 8,
-    marginBottom: 2,
+    marginTop: 10,
+    marginBottom: 5,
     marginHorizontal: 8,
     padding: 10,
     paddingVertical: 25,
-    borderRadius: 8,
+    borderRadius: 20,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { width: 10, height: 10 },
     shadowOpacity: 0.8,
     elevation: 2
   },
-  btnNoiDung: { paddingLeft: 20 },
+  btnNoiDung: {
+    flex: 5,
+    paddingLeft: 20
+  },
   noiDung: {
-    fontWeight: "bold", 
-    fontSize: 18, 
-    color: "#fff", 
-    marginBottom: 10 },
-  moTa: { 
-    flex: 1,
-    fontStyle: "italic", 
-    color: "#fafafa" },
+    fontWeight: "bold",
+    fontSize: 18,
+    color: "#fff",
+    marginBottom: 10
+  },
+  moTa: {
+    fontStyle: "italic",
+    color: "#fafafa"
+  },
   buttons: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "flex-end",
+    alignItems: "center",
     justifyContent: "flex-end"
   },
-  icon: { marginLeft: 5, marginRight: 10, color: "#fafafa" }
+  icon: { marginLeft: 5, marginRight: 5, color: "#fafafa" }
 });
 
 export default ItemCategory;

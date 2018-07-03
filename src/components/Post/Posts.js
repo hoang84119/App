@@ -36,12 +36,12 @@ class Posts extends Component {
     let idTag = navigation.getParam("idTag", "");
     if (idCategory != "") {
       headerTitle = navigation.getParam("nameCategory", "");
-      headerTransparent=false;
+      headerTransparent = false;
     } else if (idTag != "") {
       headerTitle = navigation.getParam("nameTag", "");
       headerTransparent = false;
     }
-    return {headerTitle, headerTransparent };
+    return { headerTitle, headerTransparent };
   };
 
   // static navigationOptions = {
@@ -65,7 +65,7 @@ class Posts extends Component {
     // });
   }
 
-render() {
+  render() {
     if (
       this.props.navigation.getParam("idCategory", "") == "" &&
       this.props.navigation.getParam("idTag", "") == ""
@@ -78,7 +78,7 @@ render() {
                 this.props.navigation.openDrawer();
               }}
             >
-              <Feather style={[myStyle.icon,{marginLeft: 15}]} name="menu" size={25} />
+              <Feather style={[myStyle.icon, { marginLeft: 15 }]} name="menu" size={25} />
             </TouchableOpacity>
             <Text style={myStyle.title}>Bài viết</Text>
           </View>
@@ -91,16 +91,19 @@ render() {
       );
     return (
       <View style={myStyle.container}>
-          {/* Thanh bar */}
-          {headerBar}
+        {/* Thanh bar */}
+        {headerBar}
         {this.state.empty && (
-          <Text style={myStyle.empty}>Không có nội dung</Text>
+          <View style={myStyle.empty}>
+            <Feather name="alert-circle" size={60} />
+            <Text style={{margin: 10 , fontSize: 16}}>Không có nội dung</Text>
+          </View>
         )}
 
         {/* Noi dung */}
 
         <FlatList
-          style={myStyle.item}
+          //style={myStyle.item}
           refreshing={this.state.refreshing}
           //refreshing={this.props.refreshing}
           onRefresh={() => this.refresh()}
@@ -224,7 +227,13 @@ const myStyle = StyleSheet.create({
     flex: 4
   },
   title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
-  loading: { paddingVertical: 10 }
+  loading: { paddingVertical: 10 },
+  empty: {
+    flexDirection: "column",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
 
 //export default Posts;
