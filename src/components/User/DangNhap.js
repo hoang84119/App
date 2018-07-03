@@ -46,15 +46,10 @@ class App extends Component {
         API.Login(this.state.user, this.state.pass).then(response => {
           this.setState({ isLoading: false });
           if (response != null) {
-            // let name = response.name;
-            // name = name.toString();
-            console.log(response);
-            //ToastAndroid.show(respone.name,ToastAndroid.LONG);
             this.props.dispatch({
               type: 'SetDataUser',
               data: response
             });
-            console.log("da luu");
             this.props.navigation.navigate("main");
           }
           else {

@@ -27,7 +27,7 @@ class ItemCategory extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data != this.props.data) {
+    if (nextProps != this.props) {
       this._checkChild();
     }
   }

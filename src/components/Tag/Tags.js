@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
-  Alert, StatusBar,
+  Alert,
+  StatusBar,
   FlatList,
   View,
   TouchableOpacity,
@@ -35,8 +36,7 @@ class Tags extends Component {
     });
   }
   render() {
-    let ButtonRight =
-    this.props.dataUser.name === "admin" && (
+    let ButtonRight = this.props.dataUser.name === "admin" && (
       <View style={myStyle.buttons}>
         <TouchableOpacity onPress={() => this._onAdd()}>
           <Feather style={myStyle.icon} name="plus" size={34} />
@@ -51,12 +51,16 @@ class Tags extends Component {
           {/* Thanh bar */}
           <View style={myStyle.headerTitleBar}>
             <View style={myStyle.headerTitle}>
-            <TouchableOpacity
+              <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}
               >
-                <Feather style={[myStyle.icon, { marginLeft: 5, marginRight: 10 }]} name="menu" size={25} />
+                <Feather
+                  style={[myStyle.icon, { marginLeft: 5, marginRight: 10 }]}
+                  name="menu"
+                  size={25}
+                />
               </TouchableOpacity>
               <Text style={myStyle.title}>Quản lý Thẻ</Text>
             </View>
@@ -80,7 +84,9 @@ class Tags extends Component {
             />
           )}
           onEndReachedThreshold={0.1}
-          onEndReached={() => { this._loadMore() }}
+          onEndReached={() => {
+            this._loadMore();
+          }}
           ListFooterComponent={this._renderFooter}
         />
       </View>
@@ -88,47 +94,73 @@ class Tags extends Component {
   }
 
   _renderFooter = () => {
-    if (!this.state.loading) return null
+    if (!this.state.loading) return null;
     return (
       <View style={myStyle.loading}>
         <ActivityIndicator animating size="large" />
       </View>
     );
-  }
+  };
 
   _refreshing() {
     //let p = this.state.page;
     //for(i=1; i<=p;i++){
-    this.setState({ page: 1, refreshing: true }, () => { this._loadData() });
+    this.setState({refreshing: true }, () => {
+      this._loadData();
+    });
     //}
   }
 
   _loadMore() {
     if (!this.state.over)
       if (!this.state.loading)
-        this.setState({ page: this.state.page + 1, loading: true }, () => { this._loadData() });
+        this.setState({ page: this.state.page + 1, loading: true }, () => {
+          this._loadData();
+        });
   }
 
   async _loadData() {
-    let response = await fetch(
-      `${API.getURL()}/thuctap/wp-json/wp/v2/tags?page=${this.state.page}`
-    );
-    if (response.status === 200) {
-      let responseJson = await response.json();
-      if (responseJson.length === 0) {
-        if (this.state.page == 1) ToastAndroid.show("Không có nội dung", ToastAndroid.LONG);
-        else ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
-        this.setState({ refreshing: false, loading: false, over: true });
-      } else {
-        this.setState({
-          data: this.state.data.concat(responseJson),
-          refreshing: false,
-          loading: false,
-          over: false,
-        });
+    var dataTemp = [];
+    if (this.state.refreshing) {
+      for (let i = 1; i <= this.state.page; i++) {
+        let response = await fetch(
+          `${API.getURL()}/thuctap/wp-json/wp/v2/tags?page=${i}`
+        );
+        if (response.status === 200) {
+          let responseJson = await response.json();
+          if (responseJson.length != 0) {
+            dataTemp = dataTemp.concat(responseJson);
+          }
+        } else if (response.status === 400) {
+          ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+        }
       }
-    } else if (response.status === 400) {
-      ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+      this.setState({
+        data: dataTemp,
+        refreshing: false,
+        loading: false,
+        over: false
+      });
+    } else {
+      let response = await fetch(
+        `${API.getURL()}/thuctap/wp-json/wp/v2/tags?page=${this.state.page}`
+      );
+      if (response.status === 200) {
+        let responseJson = await response.json();
+        if (responseJson.length === 0) {
+          ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
+          this.setState({ refreshing: false, loading: false, over: true });
+        } else {
+          this.setState({
+            data: this.state.data.concat(responseJson),
+            refreshing: false,
+            loading: false,
+            over: false
+          });
+        }
+      } else if (response.status === 400) {
+        ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+      }
     }
   }
 
