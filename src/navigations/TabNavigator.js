@@ -47,7 +47,7 @@ import CategoryTo from './CategoryTo';
     //tabBarComponent: TabBarBottom,
     //tabBarPosition: 'bottom',
     tabBarOptions: {
-      activeTintColor: "#36BC63", //màu khi màn hình được chọn
+      activeTintColor: "#0ABFBC", //màu khi màn hình được chọn
       inactiveTintColor: "gray", // màu khi màn hình không được chọn
       //style: {height:40},
       scrollEnabled: true,
