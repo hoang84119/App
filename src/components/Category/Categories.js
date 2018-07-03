@@ -32,14 +32,13 @@ class Categories extends Component {
     });
   }
   render() {
-    let ButtonRight =
-      this.props.dataUser.name === "admin" && (
-        <View style={myStyle.buttons}>
-          <TouchableOpacity onPress={() => this._onAdd()}>
-            <Feather style={myStyle.icon} name="plus" size={34} />
-          </TouchableOpacity>
-        </View>
-      );
+    let ButtonRight = this.props.dataUser.name === "admin" && (
+      <View style={myStyle.buttons}>
+        <TouchableOpacity onPress={() => this._onAdd()}>
+          <Feather style={myStyle.icon} name="plus" size={34} />
+        </TouchableOpacity>
+      </View>
+    );
     return (
       <View style={myStyle.container}>
         <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
@@ -53,7 +52,11 @@ class Categories extends Component {
                   this.props.navigation.openDrawer();
                 }}
               >
-                <Feather style={[myStyle.icon, { marginLeft: 5, marginRight: 10 }]} name="menu" size={25} />
+                <Feather
+                  style={[myStyle.icon, { marginLeft: 5, marginRight: 10 }]}
+                  name="menu"
+                  size={25}
+                />
               </TouchableOpacity>
               <Text style={myStyle.title}>Chuyên mục</Text>
             </View>
@@ -68,17 +71,15 @@ class Categories extends Component {
           onRefresh={() => this._loadData()}
           data={this.state.data}
           keyExtractor={(item, index) => item.id}
-          renderItem={({ item }) =>
-            item.parent === 0 && (
-              <ItemCategory
-                data={item}
-                navigation={this.props.navigation}
-                delete={this._delete}
-                userName={this.props.dataUser.name}
-                level={0}
-              />
-            )
-          }
+          renderItem={({ item }) => (
+            <ItemCategory
+              data={item}
+              navigation={this.props.navigation}
+              delete={this._delete}
+              userName={this.props.dataUser.name}
+              level={0}
+            />
+          )}
         />
       </View>
     );
@@ -86,7 +87,7 @@ class Categories extends Component {
 
   _loadData() {
     this.setState({ refreshing: true });
-    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories")
+    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories?parent=0")
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson == null) {
@@ -156,7 +157,7 @@ const myStyle = StyleSheet.create({
     fontSize: 20,
     color: "#fff",
     fontWeight: "bold"
-  },
+  }
 });
 
 function mapStateToProps(state) {
