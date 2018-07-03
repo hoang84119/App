@@ -81,7 +81,7 @@ class ItemPost extends Component {
   }
 
   _xem = () => {
-    this.props.navigation.navigate("chitiet", { id: this.props.data.id });
+    this.props.navigation.navigate("chitiet", { id: this.props.data.id, userName: this.props.userName});
   };
   _xoa = () => {
     this.props.delete(this.props.data.id, this.props.data.title.rendered);

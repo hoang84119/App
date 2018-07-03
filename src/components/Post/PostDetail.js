@@ -18,7 +18,7 @@ import IonIcon from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
-import ModalComment from "./items/ModalComment"
+import ModalComment from "./items/ModalComment";
 
 class PostDetail extends Component {
   constructor(props) {
@@ -30,32 +30,34 @@ class PostDetail extends Component {
       loaded: false,
       refreshing: true,
       repcmt: false,
-      rep: ''
+      rep: ""
     };
-    this._onOpenModal = this._onOpenModal.bind(this)
+    this._onOpenModal = this._onOpenModal.bind(this);
     //const { navigation } = this.props;
   }
   static navigationOptions = ({ navigation }) => {
-    const { params = {} } = navigation.state;
-    let headerRight = (
-      <TouchableOpacity
-        onPress={() => {
-          params.onEdit();
-        }}
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <FontAwesome
-          style={{ marginLeft: 5, marginRight: 5, color: "#fff" }}
-          name="edit"
-          size={32}
-        />
-      </TouchableOpacity>
-    );
-    return { headerRight };
+    if (navigation.getParam("userName", "") === "admin") {
+      const { params = {} } = navigation.state;
+      let headerRight = (
+        <TouchableOpacity
+          onPress={() => {
+            params.onEdit();
+          }}
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <FontAwesome
+            style={{ marginLeft: 5, marginRight: 5, color: "#fff" }}
+            name="edit"
+            size={32}
+          />
+        </TouchableOpacity>
+      );
+      return { headerRight };
+    }
   };
 
   componentDidMount() {
@@ -72,7 +74,7 @@ class PostDetail extends Component {
 
   // Hàm xóa comments
 
-  _deleteComments = (i) => {
+  _deleteComments = i => {
     Alert.alert(
       "Thông báo",
       "Bạn có thật sự muốn xóa bình luận này không?",
@@ -89,7 +91,11 @@ class PostDetail extends Component {
             }).then(response => {
               if (response.status == 200) {
                 this.refresh();
-                ToastAndroid.show("Xóa thành công !", ToastAndroid.CENTER, ToastAndroid.LONG);
+                ToastAndroid.show(
+                  "Xóa thành công !",
+                  ToastAndroid.CENTER,
+                  ToastAndroid.LONG
+                );
               } else Alert.alert("Cảnh báo", "Xóa thất bại!");
             });
           }
@@ -99,7 +105,7 @@ class PostDetail extends Component {
       { cancelable: false }
     );
   };
-  
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -112,39 +118,70 @@ class PostDetail extends Component {
         {this.state.loaded && (
           <View style={{ flex: 1 }}>
             <ScrollView style={myStyle.container}>
-              <ItemContentPost noidung={this.state.noidung} tacgia={this.state.tacgia} loaded={this.state.loaded} />
+              <ItemContentPost
+                noidung={this.state.noidung}
+                tacgia={this.state.tacgia}
+                loaded={this.state.loaded}
+              />
               {/* Bình luận bài viết */}
               <View style={{ padding: 5 }}>
-                <Text style={{ margin: 5, paddingLeft: 5, marginBottom: 10, fontSize: 20, color: "#36BC63", borderBottomWidth: 3, borderBottomColor: "#36BC63" }}>
+                <Text
+                  style={{
+                    margin: 5,
+                    paddingLeft: 5,
+                    marginBottom: 10,
+                    fontSize: 20,
+                    color: "#36BC63",
+                    borderBottomWidth: 3,
+                    borderBottomColor: "#36BC63"
+                  }}
+                >
                   Bình luận
-              </Text>
+                </Text>
                 <FlatList
                   refreshing={this.state.refreshing}
                   //refreshing={this.props.refreshing}
                   onRefresh={() => this._loadComments()}
                   data={this.state.binhluan}
                   keyExtractor={(x, i) => i.toString()}
-                  renderItem={({ item }) => <ItemComment data={item} deleteComments={this._deleteComments} loaded={this.state.loaded} />}
+                  renderItem={({ item }) => (
+                    <ItemComment
+                      data={item}
+                      deleteComments={this._deleteComments}
+                      loaded={this.state.loaded}
+                    />
+                  )}
                 />
               </View>
             </ScrollView>
-            <ModalComment ref={'addModal'} style={{zIndex: 1}} noidung={this.state.noidung}/>
+            <ModalComment
+              ref={"addModal"}
+              style={{ zIndex: 1 }}
+              noidung={this.state.noidung}
+            />
           </View>
         )}
         {this.state.loaded && (
-          <TouchableOpacity style={myStyle.canLe} onPress={() => this._onOpenModal()}>
-            <IonIcon style={{ color: "#fff" }} name="ios-chatbubbles-outline" size={28} />
+          <TouchableOpacity
+            style={myStyle.canLe}
+            onPress={() => this._onOpenModal()}
+          >
+            <IonIcon
+              style={{ color: "#fff" }}
+              name="ios-chatbubbles-outline"
+              size={28}
+            />
           </TouchableOpacity>
         )}
       </View>
     );
   }
   _onOpenModal() {
-    this.refs.addModal.showModal()
+    this.refs.addModal.showModal();
   }
-  _onClickCmt = (a) => {
-    this.setState({ repcmt: true, rep: a })
-  }
+  _onClickCmt = a => {
+    this.setState({ repcmt: true, rep: a });
+  };
 
   _onEdit() {
     this.props.navigation.navigate("chinhsua", {
@@ -154,8 +191,8 @@ class PostDetail extends Component {
   _loadData() {
     fetch(
       API.getURL() +
-      "/thuctap/wp-json/wp/v2/posts/" +
-      this.props.navigation.getParam("id", "")
+        "/thuctap/wp-json/wp/v2/posts/" +
+        this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -184,8 +221,9 @@ class PostDetail extends Component {
   _loadComments() {
     fetch(
       API.getURL() +
-      "/thuctap/wp-json/wp/v2/comments?post=" +
-      this.props.navigation.getParam("id", "") + "&parent=0"
+        "/thuctap/wp-json/wp/v2/comments?post=" +
+        this.props.navigation.getParam("id", "") +
+        "&parent=0"
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -196,10 +234,9 @@ class PostDetail extends Component {
         }
       });
   }
-
 }
 const height_cmt = 49;
-const pw = Dimensions.get('window').width;
+const pw = Dimensions.get("window").width;
 //const ph = PixelRatio.getPixelSizeForLayoutSize(Dimensions.get("window").height);
 const myStyle = StyleSheet.create({
   container: {
@@ -223,7 +260,7 @@ const myStyle = StyleSheet.create({
     fontSize: 18,
     flex: 1,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 10
   },
   canLe: {
     flexDirection: "row",
