@@ -64,76 +64,14 @@ class ItemCategory extends Component {
           {this.props.userName === "admin" && (
             <View style={myStyle.buttons}>
               <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
-                <FontAwesome style={myStyle.icon} name="edit" size={20} />
+                <FontAwesome style={myStyle.icon} name="edit" size={15} />
               </TouchableOpacity>
               <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
-                <Feather style={myStyle.icon} name="trash" size={20} />
+                <Feather style={myStyle.icon} name="trash" size={15} />
               </TouchableOpacity>
             </View>
           )}
         </TouchableOpacity>
-
-        {/* {this.props.level === 0 && (
-          <TouchableOpacity onPress={this._xem} style={myStyle.cardItem}>
-            <View style={myStyle.btnNoiDung}>
-
-              <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
-              <Text style={myStyle.moTa}>{this.props.data.description}</Text>
-            </View>
-            {this.props.userName === "admin" && (
-              <View style={myStyle.buttons}>
-                <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
-                  <FontAwesome style={myStyle.icon} name="edit" size={20} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
-                  <Feather style={myStyle.icon} name="trash" size={20} />
-                </TouchableOpacity>
-              </View>
-            )}
-
-          </TouchableOpacity>
-        )}
-
-        {this.props.level != 0 &&
-          (this.props.level % 2 == 0 && (
-            <TouchableOpacity onPress={this._xem} style={myStyle.cardItemChild}>
-              <View style={myStyle.btnNoiDung}>
-                <Text style={myStyle.noiDung}>
-                  {" " + this.props.data.name}
-                </Text>
-                <Text style={myStyle.moTa}>{this.props.data.description}</Text>
-              </View>
-              <View style={myStyle.buttons}>
-                <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
-                  <FontAwesome style={myStyle.icon} name="edit" size={20} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
-                  <Feather style={myStyle.icon} name="trash" size={20} />
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          ))}
-
-        {this.props.level != 0 &&
-          (this.props.level % 2 != 0 && (
-            <TouchableOpacity onPress={this._xem} style={[myStyle.cardItemChild, { borderColor: "#0ABFBC", backgroundColor: "#e0f0f3" }]}>
-              <View style={myStyle.btnNoiDung}>
-                <Text style={myStyle.noiDung}>
-                  {" " + this.props.data.name}
-                </Text>
-                <Text style={myStyle.moTa}>{this.props.data.description}</Text>
-              </View>
-              <View style={myStyle.buttons}>
-                <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
-                  <FontAwesome style={myStyle.icon} name="edit" size={20} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this._xoa} style={myStyle.btn}>
-                  <Feather style={myStyle.icon} name="trash" size={20} />
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          ))} */}
-
         {this.state.loaded && (
           <FlatList
             data={this.state.dataChild}
@@ -169,20 +107,20 @@ class ItemCategory extends Component {
 }
 
 const color = [
-  "#FFF0F5",
-  "#e0f0f3",
-  "#FFFFE0",
-  "#d5ffd5",
-  "#ffd3a8",
-  "#ffff9f"
+  "#FFF0F5", // Đỏ
+  "#e0f0f3", // Lam
+  "#d5ffd5", // Lục
+  "#FFFFE0", // Vàng
+  "#ffd3a8", // Da cam
+  "#CD96CD", // Tím
 ];
 const borderColor = [
-  "#d72626",
-  "#0ABFBC",
-  "#FFEC8B",
-  "#008B00",
-  "#ff8000",
-  "#ffff00"
+  "#d72626", // Đỏ
+  "#0ABFBC", // Lam
+  "#3CB371", // Lục
+  "#FFEC8B", // Vàng
+  "#FFA07A", // Da cam
+  "#8B4789", // Tím
 ];
 
 const myStyle = StyleSheet.create({
@@ -220,8 +158,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   icon: {
-    marginLeft: 5,
-    marginRight: 10,
+    marginHorizontal: 5,
     color: "#0ABFBC"
   }
 });
