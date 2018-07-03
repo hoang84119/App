@@ -34,39 +34,41 @@ class SlideMenu extends Component {
         </ImageBackground>
       ) : (
         <TouchableOpacity onPress={()=>this.props.navigation.navigate("Login")} style={[myStyle.button, {marginTop:2 * StatusBar.currentHeight}]}>
-          <Feather style={myStyle.icon} name="log-in" size={25} />
-          <Text>Đăng nhập</Text>
+          <Feather style={myStyle.icon} name="log-in" size={24} />
+          <Text style={myStyle.txt}>Đăng nhập</Text>
         </TouchableOpacity>
       );
     return (
+      <ImageBackground style={{flex:1}} source={require('../image/background/Miaka.jpg')}>
       <ScrollView>
         {/* <View style={{ zIndex: 1, position: "absolute", left: 0, flex: 1, width: Dimensions.get('window').width, height:StatusBar.currentHeight, backgroundColor: "rgba(0,0,0,0.1)"}}></View> */}
         <View style={myStyle.container}>
           {accountView}
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Home")} style={myStyle.button}>
-            <Feather style={myStyle.icon} name="home" size={25} />
-            <Text>Trang chủ</Text>
+            <Feather style={myStyle.icon} name="home" size={24} />
+            <Text style={myStyle.txt}>Trang chủ</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("Account")} style={myStyle.button}>
-            <Feather style={myStyle.icon} name="user" size={25} />
-            <Text>Tài khoản</Text>
+            <Feather style={myStyle.icon} name="user" size={24} />
+            <Text style={myStyle.txt}>Tài khoản</Text>
           </TouchableOpacity>
           <TouchableOpacity style={myStyle.button}>
-            <Feather style={myStyle.icon} name="settings" size={25} />
-            <Text>Cài đặt</Text>
+            <Feather style={myStyle.icon} name="settings" size={24} />
+            <Text style={myStyle.txt}>Cài đặt</Text>
           </TouchableOpacity>
           <TouchableOpacity style={myStyle.button}>
-            <Feather style={myStyle.icon} name="info" size={25} />
-            <Text>Giới thiệu</Text>
+            <Feather style={myStyle.icon} name="info" size={24} />
+            <Text style={myStyle.txt}>Giới thiệu</Text>
           </TouchableOpacity>
           {this.props.dataUser.length != 0 && (
             <TouchableOpacity onPress={this._onLogout} style={myStyle.button}>
-              <Feather style={myStyle.icon} name="log-out" size={25} />
-              <Text>Đăng xuất</Text>
+              <Feather style={myStyle.icon} name="log-out" size={24} />
+              <Text style={myStyle.txt}>Đăng xuất</Text>
             </TouchableOpacity>
           )}
         </View>
       </ScrollView>
+      </ImageBackground>
     );
   }
   _onLogout = () => {
@@ -101,8 +103,9 @@ const myStyle = StyleSheet.create({
   },
   name: {
     color: "#fff",
+    fontWeight: "bold",
     margin: 10,
-    fontSize: 16
+    fontSize: 20
   },
   button: {
     flex: 1,
@@ -114,7 +117,11 @@ const myStyle = StyleSheet.create({
   icon: {
     marginRight: 10,
     marginLeft: 3,
-    color: "#868686"
+    color: "#fff"
+  },
+  txt:{
+    color: "#fff",
+    fontSize: 18
   }
 });
 

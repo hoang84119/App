@@ -1,7 +1,6 @@
 import React from 'react';
 import PostTo from "./PostTo";
 import MediaTo from "./MediaTo";
-import Account from "../components/User/Account";
 //import { TabNavigator, TabBarBottom } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -19,7 +18,6 @@ import CategoryTo from './CategoryTo';
     Media: {screen: MediaTo},
     Category:{screen:CategoryTo},
     Tag:{screen:TagTo},
-    User: {screen: Account},
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -36,8 +34,6 @@ import CategoryTo from './CategoryTo';
           iconName = `ios-apps${focused ? '' : '-outline'}`;
         }else if (routeName === "Tag") {
           iconName = `ios-pricetag${focused ? '' : '-outline'}`;
-        }else if (routeName === "User") {
-          iconName = `ios-contact${focused ? '' : '-outline'}`;
         }
         // trả về icon
         return <Ionicons name={iconName} size={20} color={tintColor} />;
