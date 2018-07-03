@@ -75,7 +75,7 @@ class ItemCategory extends Component {
         {this.state.loaded && (
           <FlatList
             data={this.state.dataChild}
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item, index) => item.id.toString()}
             renderItem={({ item }) => (
               <ItemCategory
                 data={item}

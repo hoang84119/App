@@ -74,7 +74,7 @@ class Tags extends Component {
           refreshing={this.state.refreshing}
           onRefresh={() => this._refreshing()}
           data={this.state.data}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item.id.toString()}
           renderItem={({ item }) => (
             <ItemTag
               data={item}
