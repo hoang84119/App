@@ -71,12 +71,6 @@ class PostDetail extends Component {
     
   }
   //Cập nhật lại comments
-<<<<<<< HEAD
-  componentDidUpdate() {
-    //this._loadComments();
-  }
-=======
->>>>>>> 59e53c882433f5f0a8cdf4e9a3a6bd502189ebbd
   refresh() {
     this._loadComments();
   }

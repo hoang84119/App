@@ -12,7 +12,7 @@ import {
 import HTML from "react-native-render-html";
 import Feather from "react-native-vector-icons/Feather";
 const featured_media_default =
-  "https://cdn.pixabay.com/photo/2014/12/28/13/20/wordpress-581849_960_720.jpg";
+  "https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/background-thumb1.jpg";
 class ItemPost extends Component {
   constructor(props) {
     super(props);
