@@ -72,7 +72,7 @@ class PostDetail extends Component {
   }
   //Cập nhật lại comments
   componentDidUpdate() {
-    this._loadComments();
+    //this._loadComments();
   }
   refresh() {
     this._loadComments();
@@ -128,6 +128,7 @@ class PostDetail extends Component {
                 noidung={this.state.noidung}
                 tacgia={this.state.tacgia}
                 loaded={this.state.loaded}
+                featured_media={this.props.navigation.getParam("featured_media","")}
               />
               {/* Bình luận bài viết */}
               <View style={{ padding: 5 }}>

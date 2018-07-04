@@ -12,7 +12,7 @@ import {
 import HTML from "react-native-render-html";
 import Feather from "react-native-vector-icons/Feather";
 const featured_media_default =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
+  "https://cdn.pixabay.com/photo/2014/12/28/13/20/wordpress-581849_960_720.jpg";
 class ItemPost extends Component {
   constructor(props) {
     super(props);
@@ -84,7 +84,7 @@ class ItemPost extends Component {
   }
 
   _xem = () => {
-    this.props.navigation.navigate("chitiet", { id: this.props.data.id, userName: this.props.userName});
+    this.props.navigation.navigate("chitiet", { id: this.props.data.id, userName: this.props.userName, featured_media: this.state.featured_media});
   };
   _xoa = () => {
     this.props.delete(this.props.data.id, this.props.data.title.rendered);
@@ -134,7 +134,7 @@ class ItemPost extends Component {
   }
 
   _getDate = () => {
-    let date = new Date(this.props.data.date);
+    let date = new Date(this.props.data.date_gmt);
     let localDate = new Date();
     let msPerSecond = 1000;
     let msPerMinute = 60 * 1000;
