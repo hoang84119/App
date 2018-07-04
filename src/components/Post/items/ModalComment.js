@@ -3,6 +3,7 @@ import { Alert, ToastAndroid, StyleSheet, View, Text, Image, Dimensions, TextInp
 import Modal from "react-native-modalbox"
 import API from "../../../config/API";
 import Base64 from '../../../config/Base64';
+import PostDetail from "../PostDetail";
 
 var screen = Dimensions.get('window');
 export default class ModalComment extends Component {
@@ -19,7 +20,7 @@ export default class ModalComment extends Component {
       }
       _comment() {
             // alert("" + this.props.noidung.id + "\n" + this.state.content)
-            // this.refs.myModal.close();
+             //this.refs.myModal.close();
             fetch(
                   API.getURL() +
                   "/thuctap/wp-json/wp/v2/comments?post="
@@ -36,8 +37,10 @@ export default class ModalComment extends Component {
                   .then(response => {
                         var t = response.status;
                         if (response.status == 201) {
-                              ToastAndroid.show("OK!\nBình luận của bạn đang chờ quản trị viên xét duyệt!", ToastAndroid.LONG);
+                              this.props._loadComments;
                               this.refs.myModal.close();
+                              ToastAndroid.show("Bình luận đang được xét duyệt!", ToastAndroid.CENTER, ToastAndroid.LONG);
+                              
                         } else {
                               return response.json()
                         }

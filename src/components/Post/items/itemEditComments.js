@@ -58,8 +58,7 @@ export default class itemEditComments extends Component {
             this.props.navigation.setParams({
                   onSave: this._onSave.bind(this)
                 });
-                var cmt = <HTML html={this.data.content.rendered}
-                />
+                var cmt = (<HTML html={this.data.content.rendered}/>).toString()
             this.setState({ noidung:  cmt})
       }
       render() {
