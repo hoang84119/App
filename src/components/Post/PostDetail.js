@@ -30,7 +30,8 @@ class PostDetail extends Component {
       loaded: false,
       refreshing: true,
       repcmt: false,
-      rep: ""
+      rep: "",
+      numrefesh:0
     };
     this._onOpenModal = this._onOpenModal.bind(this);
     //const { navigation } = this.props;
@@ -60,20 +61,22 @@ class PostDetail extends Component {
     }
   };
   componentDidMount() {
-    // this.props.navigation.addListener("didFocus", () => {
-    //   this._loadComments();
-    // });
+    this.props.navigation.addListener("didFocus", () => {
+      this._loadComments();
+    });
     this._loadData();
-    this._loadComments();
     this.props.navigation.setParams({
       onEdit: this._onEdit.bind(this)
     });
     
   }
   //Cập nhật lại comments
+<<<<<<< HEAD
   componentDidUpdate() {
     //this._loadComments();
   }
+=======
+>>>>>>> 59e53c882433f5f0a8cdf4e9a3a6bd502189ebbd
   refresh() {
     this._loadComments();
   }
@@ -167,6 +170,7 @@ class PostDetail extends Component {
               ref={"addModal"}
               style={{ zIndex: 1 }}
               noidung={this.state.noidung}
+              loadComments = {this._loadComments()}
             />
           </View>
         )}
