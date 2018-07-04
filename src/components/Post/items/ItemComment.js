@@ -16,6 +16,7 @@ class ItemComment extends Component {
   componentDidMount() {
     this._loadCommentsChild();
   }
+  
   _loadCommentsChild() {
     fetch(
       API.getURL() +
@@ -116,6 +117,10 @@ class ItemComment extends Component {
               </IonIcon>
               </TouchableOpacity>
               <TouchableOpacity
+              onPress = {() => {
+                //alert("" + this.props.data.id)
+                this.props.navigation.navigate("editbinhluan", {data: this.props.data})
+              }}
                 style={{
                   paddingTop: 7,
                   paddingBottom: 7,

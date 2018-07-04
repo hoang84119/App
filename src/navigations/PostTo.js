@@ -6,6 +6,7 @@ import AddPost from "../components/Post/AddPost";
 import Media from "../components/Media/Media";
 import MediaDetail from "../components/Media/MediaDetail";
 import DangNhap from "../components/User/DangNhap";
+import itemEditComments from "../components/Post/items/itemEditComments"
 //import StatusBar from '../components/StatusBar'
 import React from "react";
 import { View, StatusBar } from "react-native";
@@ -23,6 +24,12 @@ const PostTo = createStackNavigator(
       //   // },
       //   // tabBarVisible: true
       // }
+    },
+    editbinhluan: {
+      screen: itemEditComments,
+      navigationOptions: {
+        headerTitle: "Chỉnh sửa bình luận",
+      }
     },
     chitiet: {
       screen: PostDetail,

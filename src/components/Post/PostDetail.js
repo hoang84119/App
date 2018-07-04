@@ -59,15 +59,21 @@ class PostDetail extends Component {
       return { headerRight };
     }
   };
-
   componentDidMount() {
+    // this.props.navigation.addListener("didFocus", () => {
+    //   this._loadComments();
+    // });
     this._loadData();
     this._loadComments();
     this.props.navigation.setParams({
       onEdit: this._onEdit.bind(this)
     });
+    
   }
-
+  //Cập nhật lại comments
+  componentDidUpdate() {
+    this._loadComments();
+  }
   refresh() {
     this._loadComments();
   }
@@ -146,6 +152,8 @@ class PostDetail extends Component {
                   keyExtractor={(x, i) => i.toString()}
                   renderItem={({ item }) => (
                     <ItemComment
+                      loadComments= {this._loadComments}
+                      navigation = {this.props.navigation}
                       data={item}
                       deleteComments={this._deleteComments}
                       loaded={this.state.loaded}

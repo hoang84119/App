@@ -85,7 +85,7 @@ const myStyle = StyleSheet.create({
     marginHorizontal: 8,
     padding: 10,
     paddingVertical: 25,
-    borderRadius: 20,
+    borderRadius: 15,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { width: 10, height: 10 },
