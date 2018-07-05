@@ -84098,22 +84098,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         });
       };
 
-      _this._onClickCmt = function (a) {
-        _this.setState({
-          repcmt: true,
-          rep: a
-        });
-      };
-
       _this.state = {
         noidung: [],
         tacgia: [],
         binhluan: [],
         loaded: false,
         refreshing: true,
-        repcmt: false,
-        rep: "",
-        numrefesh: 0
+        isComment: false
       };
       _this._onOpenModal = _this._onOpenModal.bind(_this);
       return _this;
@@ -84152,7 +84143,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 113
+              lineNumber: 111
             }
           },
           this.state.loaded == false && _react3.default.createElement(
@@ -84161,7 +84152,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.loadingContainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 115
+                lineNumber: 113
               }
             },
             _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -84169,7 +84160,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               color: "#088A4B",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 116
+                lineNumber: 114
               }
             }),
             _react3.default.createElement(
@@ -84180,7 +84171,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 117
+                  lineNumber: 115
                 }
               },
               "\u0110ang t\u1EA3i"
@@ -84194,7 +84185,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 121
+                lineNumber: 119
               }
             },
             _react3.default.createElement(
@@ -84203,7 +84194,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.container,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 122
+                  lineNumber: 120
                 }
               },
               _react3.default.createElement(_ItemContentPost2.default, {
@@ -84213,7 +84204,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 featured_media: this.props.navigation.getParam("featured_media", ""),
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 123
+                  lineNumber: 121
                 }
               }),
               _react3.default.createElement(
@@ -84224,7 +84215,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 133
+                    lineNumber: 131
                   }
                 },
                 _react3.default.createElement(
@@ -84241,7 +84232,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 134
+                      lineNumber: 132
                     }
                   },
                   "B\xECnh lu\u1EADn"
@@ -84265,13 +84256,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       loaded: _this3.state.loaded,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 154
+                        lineNumber: 152
                       }
                     });
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 147
+                    lineNumber: 145
                   }
                 })
               )
@@ -84284,39 +84275,42 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               parent: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 165
+                lineNumber: 163
               }
-            })
-          ),
-          this.state.loaded && _react3.default.createElement(
-            _reactNative.TouchableOpacity,
-            {
-              style: myStyle.canLe,
-              onPress: function onPress() {
-                return _this3._onOpenModal();
+            }),
+            !this.state.isComment && _react3.default.createElement(
+              _reactNative.TouchableOpacity,
+              {
+                style: myStyle.canLe,
+                onPress: function onPress() {
+                  return _this3._onOpenModal();
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 170
+                }
               },
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 174
-              }
-            },
-            _react3.default.createElement(_Ionicons2.default, {
-              style: {
-                color: "#fff"
-              },
-              name: "ios-chatbubbles-outline",
-              size: 28,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 178
-              }
-            })
+              _react3.default.createElement(_Ionicons2.default, {
+                style: {
+                  color: "#fff"
+                },
+                name: "ios-chatbubbles-outline",
+                size: 28,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 174
+                }
+              })
+            )
           )
         );
       }
     }, {
       key: "_onOpenModal",
       value: function _onOpenModal() {
+        this.setState({
+          isComment: true
+        });
         this.refs.addModal.showModal();
       }
     }, {
@@ -84426,7 +84420,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 43
+            lineNumber: 41
           }
         },
         _react3.default.createElement(_FontAwesome2.default, {
@@ -84439,7 +84433,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           size: 32,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 53
+            lineNumber: 51
           }
         })
       );
@@ -95719,7 +95713,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             position: "center",
             backdrop: true,
-            onClosed: function onClosed() {},
+            onClosed: function onClosed() {
+              _this2.props.parent.setState({
+                isComment: false
+              });
+            },
             __source: {
               fileName: _jsxFileName,
               lineNumber: 33
