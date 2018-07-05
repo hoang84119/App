@@ -16,7 +16,7 @@ class ItemCommentChild extends Component {
           <View style={myStyle.khungAvatar}>
             <Image style={myStyle.avatar} source={{ uri: this.props.data.author_avatar_urls[48] }} />
           </View>
-          <View style={{ marginLeft: 5, borderWidth: 1, borderColor: "#fbfbfb", flex: 1, borderRadius: 10 , backgroundColor: "#f9f9f9", overflow: "hidden"}}>
+          <View style={{ marginLeft: 5, borderWidth: 1, borderColor: "#fbfbfb", flex: 1, borderRadius: 10, backgroundColor: "#f9f9f9", overflow: "hidden" }}>
 
             {/* Thông tin user */}
 
@@ -24,12 +24,12 @@ class ItemCommentChild extends Component {
               <Text style={{ color: "#088A4B", fontWeight: "bold", fontSize: 16 }}>
                 {this.props.data.author_name}
               </Text>
-              <Text style={{ fontSize: 12}}>{this.props.data.date.replace("T", "   ")}</Text>
+              <Text style={{ fontSize: 12 }}>{this.props.data.date.replace("T", "   ")}</Text>
             </View>
 
             {/* Comment */}
 
-            <View style={{paddingLeft: 5, paddingRight: 5, flex: 1, marginLeft: 5, marginRight: 5 }} >
+            <View style={{ paddingLeft: 5, paddingRight: 5, flex: 1, marginLeft: 5, marginRight: 5 }} >
               {this.props.loaded && (
                 <HTML
                   html={this.props.data.content.rendered}
@@ -39,8 +39,8 @@ class ItemCommentChild extends Component {
             </View>
 
             {/* Tùy chọn comment */}
-            <View style={{flexDirection: "row", alignContent: "center", flex: 1 , backgroundColor: "#fcfcfc"}}>
-              
+            <View style={{ flexDirection: "row", alignContent: "center", flex: 1, backgroundColor: "#fcfcfc" }}>
+
               <TouchableOpacity
                 style={{
                   paddingTop: 7,
@@ -52,6 +52,10 @@ class ItemCommentChild extends Component {
                 }}
               >
                 <IonIcon
+                  onPress={() => {
+                    //alert("" + this.props.data.id)
+                    this.props.navigation.navigate("editbinhluan", { data: this.props.data })
+                  }}
                   style={{ color: "#088A4B" }}
                   name="ios-create-outline"
                   size={15}
@@ -61,7 +65,7 @@ class ItemCommentChild extends Component {
               </IonIcon>
               </TouchableOpacity>
               <TouchableOpacity
-              onPress={() => this.props.deleteCommentsChild(this.props.data.id)}
+                onPress={() => this.props.deleteCommentsChild(this.props.data.id)}
                 style={{
                   paddingTop: 7,
                   paddingBottom: 7,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Alert, ToastAndroid, FlatList, TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
+import { Alert, ToastAndroid, FlatList, TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import Base64 from "../../../config/Base64";
 import HTML from "react-native-render-html";
@@ -16,11 +16,11 @@ class ItemComment extends Component {
   componentDidMount() {
     this._loadCommentsChild();
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps != this.props) {
-  //     this._loadCommentsChild();
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps != this.props) {
+      this._loadCommentsChild();
+    }
+  }
   _loadCommentsChild() {
     fetch(
       API.getURL() +
@@ -66,8 +66,8 @@ class ItemComment extends Component {
       { cancelable: false }
     );
   };
-  repCmt = (x,y) =>{
-    this.props.parent.refs.addModal.showModal(x,y)
+  repCmt = (x, y) => {
+    this.props.parent.refs.addModal.showModal(x, y)
   }
   render() {
     return (
@@ -123,10 +123,10 @@ class ItemComment extends Component {
               </IonIcon>
               </TouchableOpacity>
               <TouchableOpacity
-              onPress = {() => {
-                //alert("" + this.props.data.id)
-                this.props.navigation.navigate("editbinhluan", {data: this.props.data})
-              }}
+                onPress={() => {
+                  //alert("" + this.props.data.id)
+                  this.props.navigation.navigate("editbinhluan", { data: this.props.data })
+                }}
                 style={{
                   paddingTop: 7,
                   paddingBottom: 7,
@@ -174,7 +174,13 @@ class ItemComment extends Component {
           onRefresh={() => this._loadCommentsChild()}
           data={this.state.cmtchild}
           keyExtractor={(x, i) => i.toString()}
-          renderItem={({ item }) => <ItemCommentChild deleteCommentsChild = {this._deleteCommentsChild} data={item} loaded={this.props.loaded} />}
+          renderItem={({ item }) =>
+            <ItemCommentChild
+              deleteCommentsChild={this._deleteCommentsChild}
+              data={item}
+              loaded={this.props.loaded}
+              navigation={this.props.navigation}
+            />}
         />
       </View>
     );
