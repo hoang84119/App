@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import API from "../../config/API";
 import Base64 from "../../config/Base64";
-
+import Feather from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
@@ -50,7 +50,7 @@ class PostDetail extends Component {
           <FontAwesome
             style={{ marginLeft: 5, marginRight: 5, color: "#fff" }}
             name="edit"
-            size={32}
+            size={24}
           />
         </TouchableOpacity>
       );
@@ -171,10 +171,10 @@ class PostDetail extends Component {
                 style={myStyle.canLe}
                 onPress={() => this._onOpenModal()}
               >
-                <FontAwesome
+                <Feather
                   style={{ color: "#fff" }}
-                  name="comments"
-                  size={28}
+                  name="message-circle"
+                  size={24}
                 />
               </TouchableOpacity>
             )}

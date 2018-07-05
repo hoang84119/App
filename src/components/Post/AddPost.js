@@ -45,7 +45,7 @@ class AddPost extends Component {
     const { params = {} } = navigation.state;
     let headerRight = (
       <TouchableOpacity onPress={() => params.onAdd()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <Feather style={myStyle.icon} name="save" size={28} />
+        <Feather style={myStyle.icon} name="save" size={24} />
       </TouchableOpacity>
     );
     return { headerRight };

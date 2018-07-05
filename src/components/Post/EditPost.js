@@ -46,7 +46,7 @@ class EditPost extends Component {
           alignItems: "center"
         }}
       >
-        <Feather style={myStyle.icon} name="save" size={28} />
+        <Feather style={myStyle.icon} name="save" size={24} />
       </TouchableOpacity>
     );
     return { headerRight };
