@@ -84274,6 +84274,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   renderItem: function renderItem(_ref) {
                     var item = _ref.item;
                     return _react3.default.createElement(_ItemComment2.default, {
+                      parent: _this3,
                       loadComments: _this3._loadComments,
                       navigation: _this3.props.navigation,
                       data: item,
@@ -84300,7 +84301,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               parent: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 163
+                lineNumber: 164
               }
             }),
             !this.state.isComment && _react3.default.createElement(
@@ -84312,7 +84313,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 170
+                  lineNumber: 171
                 }
               },
               _react3.default.createElement(_Ionicons2.default, {
@@ -84323,7 +84324,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 size: 28,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 174
+                  lineNumber: 175
                 }
               })
             )
@@ -84415,6 +84416,28 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
           if (response.status == 201) {
             _this7._loadComments();
+
+            _reactNative.ToastAndroid.show("Bình luận đang được xét duyệt!", _reactNative.ToastAndroid.CENTER, _reactNative.ToastAndroid.LONG);
+          }
+        }).then(function (object) {
+          _reactNative.Alert.alert("Cảnh báo", object.message);
+        });
+      }
+    }, {
+      key: "_repComment",
+      value: function _repComment(idparent, name, content, email) {
+        var _this8 = this;
+
+        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/comments?post=" + this.state.noidung.id + "&parent=" + idparent + "&author_name=" + name + "&content=" + content + "&author_email=" + email, {
+          headers: {
+            Authorization: "Basic " + _Base2.default.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+          },
+          method: "POST"
+        }).then(function (response) {
+          var t = response.status;
+
+          if (response.status == 201) {
+            _this8._loadComments();
 
             _reactNative.ToastAndroid.show("Bình luận đang được xét duyệt!", _reactNative.ToastAndroid.CENTER, _reactNative.ToastAndroid.LONG);
           }
@@ -85433,6 +85456,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         });
       };
 
+      _this.repCmt = function (i) {
+        _this.props.parent.refs.addModal.showModal();
+      };
+
       _this.state = {
         cmtchild: []
       };
@@ -85472,7 +85499,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 68
+              lineNumber: 70
             }
           },
           _react3.default.createElement(
@@ -85484,7 +85511,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 69
+                lineNumber: 71
               }
             },
             _react3.default.createElement(
@@ -85493,7 +85520,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.khungAvatar,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 73
+                  lineNumber: 75
                 }
               },
               _react3.default.createElement(_reactNative.Image, {
@@ -85503,7 +85530,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 74
+                  lineNumber: 76
                 }
               })
             ),
@@ -85520,7 +85547,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 76
+                  lineNumber: 78
                 }
               },
               _react3.default.createElement(
@@ -85534,7 +85561,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 80
+                    lineNumber: 82
                   }
                 },
                 _react3.default.createElement(
@@ -85547,7 +85574,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 81
+                      lineNumber: 83
                     }
                   },
                   this.props.data.author_name
@@ -85561,7 +85588,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 84
+                      lineNumber: 86
                     }
                   },
                   this.props.data.date.replace("T", "   ")
@@ -85579,7 +85606,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 91
                   }
                 },
                 this.props.loaded && _react3.default.createElement(_reactNativeRenderHtml2.default, {
@@ -85587,7 +85614,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   tagsStyles: htmlTitleStyle,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 91
+                    lineNumber: 93
                   }
                 })
               ),
@@ -85603,7 +85630,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 99
+                    lineNumber: 101
                   }
                 },
                 _react3.default.createElement(
@@ -85618,11 +85645,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       alignItems: "center"
                     },
                     onPress: function onPress() {
-                      _this3.props.onClickCmt(_this3.props.data.author_name);
+                      _this3.repCmt(_this3.props.data.id);
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 100
+                      lineNumber: 102
                     }
                   },
                   _react3.default.createElement(
@@ -85635,7 +85662,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       size: 15,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 110
+                        lineNumber: 112
                       }
                     },
                     " ",
@@ -85660,7 +85687,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 119
+                      lineNumber: 121
                     }
                   },
                   _react3.default.createElement(
@@ -85673,7 +85700,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       size: 15,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 133
+                        lineNumber: 135
                       }
                     },
                     " ",
@@ -85696,7 +85723,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 142
+                      lineNumber: 144
                     }
                   },
                   _react3.default.createElement(
@@ -85709,7 +85736,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       size: 15,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 153
+                        lineNumber: 155
                       }
                     },
                     " ",
@@ -85736,13 +85763,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 loaded: _this3.props.loaded,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 171
+                  lineNumber: 173
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 165
+              lineNumber: 167
             }
           })
         );
@@ -104870,11 +104897,17 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         });
       };
 
+      _this._showChild = function () {
+        _this.setState({
+          isOpen: !_this.state.isOpen
+        });
+      };
+
       _this.state = {
         featured_media: "",
-        loaded: false,
         hasChild: false,
-        dataChild: []
+        dataChild: [],
+        isOpen: false
       };
       return _this;
     }
@@ -104883,7 +104916,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       key: "componentDidMount",
       value: function componentDidMount() {
         this.setState({
-          loaded: false
+          hasChild: false
         }, this._checkChild());
       }
     }, {
@@ -104901,10 +104934,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/categories?parent=" + this.props.data.id).then(function (response) {
           return response.json();
         }).then(function (responseJson) {
-          if (responseJson == null) {} else {
+          if (responseJson.length === 0) {
+            _this2.setState({
+              hasChild: false
+            });
+          } else {
             _this2.setState({
               dataChild: responseJson,
-              loaded: true
+              hasChild: true
             });
           }
         });
@@ -104922,7 +104959,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 54
+              lineNumber: 53
             }
           },
           _react3.default.createElement(
@@ -104935,7 +104972,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }],
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 59
+                lineNumber: 58
               }
             },
             _react3.default.createElement(
@@ -104944,7 +104981,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.btnNoiDung,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 60
+                  lineNumber: 68
                 }
               },
               _react3.default.createElement(
@@ -104953,7 +104990,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.noiDung,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 61
+                    lineNumber: 69
                   }
                 },
                 this.props.data.name
@@ -104964,7 +105001,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.moTa,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 62
+                    lineNumber: 70
                   }
                 },
                 this.props.data.description
@@ -104976,7 +105013,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.buttons,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 65
+                  lineNumber: 73
                 }
               },
               _react3.default.createElement(
@@ -104986,7 +105023,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 66
+                    lineNumber: 74
                   }
                 },
                 _react3.default.createElement(_FontAwesome2.default, {
@@ -104995,7 +105032,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 67
+                    lineNumber: 75
                   }
                 })
               ),
@@ -105006,7 +105043,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 69
+                    lineNumber: 77
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -105015,13 +105052,43 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 70
+                    lineNumber: 78
+                  }
+                })
+              )
+            ),
+            this.state.hasChild && _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: myStyle.buttons,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 83
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.TouchableOpacity,
+                {
+                  onPress: this._showChild,
+                  style: myStyle.btn,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 84
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.icon,
+                  name: "chevron-down",
+                  size: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 85
                   }
                 })
               )
             )
           ),
-          this.state.loaded && _react3.default.createElement(_reactNative.FlatList, {
+          this.state.isOpen && _react3.default.createElement(_reactNative.FlatList, {
             data: this.state.dataChild,
             keyExtractor: function keyExtractor(item, index) {
               return item.id.toString();
@@ -105038,13 +105105,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 level: _this3.props.level + 1,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 80
+                  lineNumber: 95
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 76
+              lineNumber: 91
             }
           })
         );

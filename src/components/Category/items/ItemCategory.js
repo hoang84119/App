@@ -16,14 +16,15 @@ class ItemCategory extends Component {
     super(props);
     this.state = {
       featured_media: "",
-      loaded: false,
       hasChild: false,
-      dataChild: []
+      dataChild: [],
+      isOpen: false,
+      iconName:"chevron-right",
     };
   }
 
   componentDidMount() {
-    this.setState({ loaded: false }, this._checkChild());
+    this.setState({ hasChild: false }, this._checkChild());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,7 +34,6 @@ class ItemCategory extends Component {
   }
 
   _checkChild() {
-    //this.setState({ loaded: false });
     fetch(
       `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=${
         this.props.data.id
@@ -41,10 +41,10 @@ class ItemCategory extends Component {
     )
       .then(response => response.json())
       .then(responseJson => {
-        if (responseJson == null) {
-          //this.setState(da)
+        if (responseJson.length === 0) {
+          this.setState({ hasChild: false });
         } else {
-          this.setState({ dataChild: responseJson, loaded: true });
+          this.setState({ dataChild: responseJson, hasChild: true });
         }
       });
   }
@@ -56,11 +56,27 @@ class ItemCategory extends Component {
           marginLeft: 4 + this.props.level
         }}
       >
-        <TouchableOpacity onPress={this._xem} style={[myStyle.cardItem,{backgroundColor:color[this.props.level],borderColor:borderColor[this.props.level]}]}>
+        <TouchableOpacity
+          onPress={this._xem}
+          style={[
+            myStyle.cardItem,
+            {
+              backgroundColor: color[this.props.level],
+              borderColor: borderColor[this.props.level]
+            }
+          ]}
+        >
           <View style={myStyle.btnNoiDung}>
             <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
             <Text style={myStyle.moTa}>{this.props.data.description}</Text>
           </View>
+          {this.state.hasChild && (
+            <View style={myStyle.buttons}>
+              <TouchableOpacity onPress={this._showChild} style={myStyle.btn}>
+                <Feather style={myStyle.icon} name={this.state.iconName} size={24} />
+              </TouchableOpacity>
+            </View>
+          )}
           {this.props.userName === "admin" && (
             <View style={myStyle.buttons}>
               <TouchableOpacity onPress={this._chinhsua} style={myStyle.btn}>
@@ -71,8 +87,9 @@ class ItemCategory extends Component {
               </TouchableOpacity>
             </View>
           )}
+          
         </TouchableOpacity>
-        {this.state.loaded && (
+        {this.state.isOpen && (
           <FlatList
             data={this.state.dataChild}
             keyExtractor={(item, index) => item.id.toString()}
@@ -104,6 +121,10 @@ class ItemCategory extends Component {
   _chinhsua = () => {
     this.props.navigation.navigate("EditCategory", { id: this.props.data.id });
   };
+  _showChild = () => {
+    if (this.state.isOpen) this.setState({ isOpen: false,iconName:"chevron-right" });
+    else this.setState({ isOpen: true,iconName:"chevron-down" });
+  };
 }
 
 const color = [
@@ -112,7 +133,7 @@ const color = [
   "#d5ffd5", // Lục
   "#FFFFE0", // Vàng
   "#ffd3a8", // Da cam
-  "#CD96CD", // Tím
+  "#CD96CD" // Tím
 ];
 const borderColor = [
   "#d72626", // Đỏ
@@ -120,7 +141,7 @@ const borderColor = [
   "#3CB371", // Lục
   "#FFEC8B", // Vàng
   "#FFA07A", // Da cam
-  "#8B4789", // Tím
+  "#8B4789" // Tím
 ];
 
 const myStyle = StyleSheet.create({
@@ -144,7 +165,7 @@ const myStyle = StyleSheet.create({
     backgroundColor: "#FFFFE0",
     justifyContent: "space-between"
   },
-  btnNoiDung: { flex: 5,},
+  btnNoiDung: { flex: 5 },
   noiDung: {
     fontSize: 16,
     color: "#000",
@@ -152,10 +173,11 @@ const myStyle = StyleSheet.create({
   },
   moTa: { fontStyle: "italic" },
   buttons: {
-    flex: 1,
+    //flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginRight:5
   },
   icon: {
     marginHorizontal: 5,
