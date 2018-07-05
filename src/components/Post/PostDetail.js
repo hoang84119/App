@@ -174,7 +174,7 @@ class PostDetail extends Component {
                 <Feather
                   style={{ color: "#fff" }}
                   name="message-circle"
-                  size={24}
+                  size={28}
                 />
               </TouchableOpacity>
             )}
