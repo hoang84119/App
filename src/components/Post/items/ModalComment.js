@@ -22,10 +22,13 @@ export default class ModalComment extends Component {
     this.state = {
       name: "",
       email: "",
-      content: ""
+      content: "",
+      idparent: "",
+      repname: ""
     };
   }
-  showModal = () => {
+  showModal = (x,y) => {
+    this.setState({idparent: x, repname: y})
     this.refs.myModal.open();
   };
   render() {
@@ -46,16 +49,16 @@ export default class ModalComment extends Component {
         }}
       >
         <View style={{ padding: 15 }}>
-          <Text
-            style={{
-              marginBottom: 12,
-              marginTop: 8,
-              fontSize: 23,
-              color: "mediumseagreen"
-            }}
-          >
+        {this.state.idparent == "0" &&
+          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "mediumseagreen" }} >
             Bình luận
           </Text>
+        }
+        {this.state.idparent != "0" &&
+          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "mediumseagreen" }} >
+            Trả lời "{this.state.repname}"
+          </Text>
+        }
           <TextInput
             placeholderTextColor="#cfcfcf"
             underlineColorAndroid="rgba(0,0,0,0)"
@@ -91,6 +94,7 @@ export default class ModalComment extends Component {
               Chú ý: (*) Bắt buộc
             </Text>
             <View style={{ alignItems: "flex-end" }}>
+            {this.state.idparent == "0" &&
               <TouchableOpacity
                 style={myStyle.ctmBottom}
                 onPress={this._comment}
@@ -100,6 +104,18 @@ export default class ModalComment extends Component {
                   Bình luận{" "}
                 </Text>
               </TouchableOpacity>
+            }
+            {this.state.idparent != "0" &&
+              <TouchableOpacity
+                style={myStyle.ctmBottom}
+                onPress={this._repcomment}
+              >
+                <Text style={{ color: "white", fontSize: 18 }}>
+                  {" "}
+                  Trả lời{" "}
+                </Text>
+              </TouchableOpacity>
+            }
             </View>
           </View>
         </View>
@@ -109,6 +125,11 @@ export default class ModalComment extends Component {
   _comment = () => {
     let { name, email, content } = this.state;
     this.props.parent._upLoadComment(name, content, email);
+    this.refs.myModal.close();
+  };
+  _repcomment = () => {
+    let { idparent, name, email, content } = this.state;
+    this.props.parent._repComment(idparent, name, content, email);
     this.refs.myModal.close();
   };
 }
