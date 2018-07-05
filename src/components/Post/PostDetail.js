@@ -186,7 +186,7 @@ class PostDetail extends Component {
   }
   _onOpenModal() {
     this.setState({isComment:true});
-    this.refs.addModal.showModal();
+    this.refs.addModal.showModal(0,0);
   }
 
   _onEdit() {

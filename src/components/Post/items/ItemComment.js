@@ -16,7 +16,11 @@ class ItemComment extends Component {
   componentDidMount() {
     this._loadCommentsChild();
   }
-  
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps != this.props) {
+  //     this._loadCommentsChild();
+  //   }
+  // }
   _loadCommentsChild() {
     fetch(
       API.getURL() +
@@ -62,8 +66,8 @@ class ItemComment extends Component {
       { cancelable: false }
     );
   };
-  repCmt = i =>{
-    this.props.parent.refs.addModal.showModal()
+  repCmt = (x,y) =>{
+    this.props.parent.refs.addModal.showModal(x,y)
   }
   render() {
     return (
@@ -107,7 +111,7 @@ class ItemComment extends Component {
                 flex: 1,
                 alignItems: "center"
               }} onPress={() => {
-                this.repCmt(this.props.data.id);
+                this.repCmt(this.props.data.id, this.props.data.author_name);
               }}>
                 <IonIcon
                   style={{ color: "#36BC63" }}
