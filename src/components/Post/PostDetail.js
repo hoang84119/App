@@ -29,9 +29,7 @@ class PostDetail extends Component {
       binhluan: [],
       loaded: false,
       refreshing: true,
-      repcmt: false,
-      rep: "",
-      numrefesh: 0
+      isComment: false
     };
     this._onOpenModal = this._onOpenModal.bind(this);
     //const { navigation } = this.props;
@@ -169,24 +167,25 @@ class PostDetail extends Component {
               //noidung={this.state.noidung}
               parent={this}
             />
+            {!this.state.isComment && (
+              <TouchableOpacity
+                style={myStyle.canLe}
+                onPress={() => this._onOpenModal()}
+              >
+                <IonIcon
+                  style={{ color: "#fff" }}
+                  name="ios-chatbubbles-outline"
+                  size={28}
+                />
+              </TouchableOpacity>
+            )}
           </View>
-        )}
-        {this.state.loaded && (
-          <TouchableOpacity
-            style={myStyle.canLe}
-            onPress={() => this._onOpenModal()}
-          >
-            <IonIcon
-              style={{ color: "#fff" }}
-              name="ios-chatbubbles-outline"
-              size={28}
-            />
-          </TouchableOpacity>
         )}
       </View>
     );
   }
   _onOpenModal() {
+    this.setState({isComment:true});
     this.refs.addModal.showModal();
   }
 

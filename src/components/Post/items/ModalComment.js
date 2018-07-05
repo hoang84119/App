@@ -42,7 +42,7 @@ export default class ModalComment extends Component {
         position="center"
         backdrop={true}
         onClosed={() => {
-          //alert("Su kien dong modal")
+          this.props.parent.setState({isComment:false})
         }}
       >
         <View style={{ padding: 15 }}>
