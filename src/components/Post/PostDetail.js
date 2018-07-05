@@ -14,7 +14,6 @@ import {
 import API from "../../config/API";
 import Base64 from "../../config/Base64";
 
-import IonIcon from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
@@ -135,9 +134,9 @@ class PostDetail extends Component {
                     paddingLeft: 5,
                     marginBottom: 10,
                     fontSize: 20,
-                    color: "#36BC63",
+                    color: "#0ABFBC",
                     borderBottomWidth: 3,
-                    borderBottomColor: "#36BC63"
+                    borderBottomColor: "#0ABFBC"
                   }}
                 >
                   Bình luận
@@ -172,9 +171,9 @@ class PostDetail extends Component {
                 style={myStyle.canLe}
                 onPress={() => this._onOpenModal()}
               >
-                <IonIcon
+                <FontAwesome
                   style={{ color: "#fff" }}
-                  name="ios-chatbubbles-outline"
+                  name="comments"
                   size={28}
                 />
               </TouchableOpacity>
@@ -344,7 +343,7 @@ const myStyle = StyleSheet.create({
     height: 45,
     bottom: 0,
     right: 0,
-    backgroundColor: "#36BC63",
+    backgroundColor: "#0ABFBC",
     zIndex: 0,
     margin: 10,
     borderRadius: 45,

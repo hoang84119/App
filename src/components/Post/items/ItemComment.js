@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Alert, ToastAndroid, FlatList, TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
-import IonIcon from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 import Base64 from "../../../config/Base64";
 import HTML from "react-native-render-html";
 import API from "../../../config/API";
@@ -69,6 +69,29 @@ class ItemComment extends Component {
   repCmt = (x, y) => {
     this.props.parent.refs.addModal.showModal(x, y)
   }
+
+  _getDate = () => {
+    let date = new Date(this.props.data.date_gmt);
+    let localDate = new Date();
+    let msPerSecond = 1000;
+    let msPerMinute = 60 * 1000;
+    let msPerHour = 60 * 60 * 1000;
+    let msPerDay = 24 * 60 * 60 * 1000;
+    let time = localDate.getTime() - date.getTime();
+
+    let seconds = parseInt(time / msPerSecond);
+    if (seconds < 60) return `${seconds} giây trước`;
+
+    let minutes = parseInt(time / msPerMinute);
+    if (minutes < 60) return `${minutes} phút trước`;
+
+    let hours = parseInt(time / msPerHour);
+    if (hours < 24) return `${hours} giờ trước`;
+
+    let days = parseInt(time / msPerDay);
+    if (days < 30) return `${days} ngày trước`;
+  };
+
   render() {
     return (
       <View>
@@ -77,22 +100,22 @@ class ItemComment extends Component {
           {/* Avatar */}
 
           <View style={myStyle.khungAvatar}>
-            <Image style={myStyle.avatar} source={{ uri: this.props.data.author_avatar_urls[96] }} />
+            <Image style={myStyle.avatar} source={{ uri: this.props.data.author_avatar_urls[48] }} />
           </View>
-          <View style={{ marginLeft: 5, borderWidth: 1, borderColor: "#f6f6f6", flex: 1, borderRadius: 10, backgroundColor: "#fefefe" }}>
+          <View style={{ marginLeft: 3, borderWidth: 1, borderColor: "#f6f6f6", flex: 1, borderRadius: 5, backgroundColor: "#fefefe" }}>
 
             {/* Thông tin user */}
 
-            <View style={{ flex: 1, height: 50, paddingLeft: 10, paddingRight: 10 }}>
-              <Text style={{ color: "#36BC63", fontWeight: "bold", fontSize: 16 }}>
+            <View style={{ flex: 1, height: 35, paddingHorizontal:5 }}>
+              <Text style={{ color: "#0ABFBC", fontWeight: "bold", fontSize: 14 }}>
                 {this.props.data.author_name}
               </Text>
-              <Text style={{ marginTop: 3, fontSize: 12 }}>{this.props.data.date.replace("T", "   ")}</Text>
+              <Text style={{fontSize: 11 }}>{this._getDate()}</Text>
             </View>
 
             {/* Comment */}
 
-            <View style={{ padding: 5, flex: 1, marginBottom: 5, marginLeft: 5, marginRight: 5 }} >
+            <View style={{ padding: 5, flex: 1}} >
               {this.props.loaded && (
                 <HTML
                   html={this.props.data.content.rendered}
@@ -102,7 +125,7 @@ class ItemComment extends Component {
             </View>
 
             {/* Tùy chọn comment */}
-            <View style={{ borderTopWidth: 1, borderColor: "#f6f6f6", flexDirection: "row", alignContent: "center", flex: 1 }}>
+            <View style={{ borderTopWidth: 1, borderColor: "#f9f9f9", flexDirection: "row", alignContent: "center", flex: 1 }}>
               <TouchableOpacity style={{
                 paddingTop: 7,
                 paddingBottom: 7,
@@ -113,14 +136,13 @@ class ItemComment extends Component {
               }} onPress={() => {
                 this.repCmt(this.props.data.id, this.props.data.author_name);
               }}>
-                <IonIcon
-                  style={{ color: "#36BC63" }}
-                  name="ios-chatbubbles-outline"
-                  size={15}
+                <Feather
+                  style={{ color: "#0ABFBC" }}
+                  name="corner-down-right"
+                  size={13}
                 >
-                  {" "}
                   Trả lời
-              </IonIcon>
+              </Feather>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
@@ -136,14 +158,13 @@ class ItemComment extends Component {
                   alignItems: "center"
                 }}
               >
-                <IonIcon
-                  style={{ color: "#36BC63" }}
-                  name="ios-create-outline"
-                  size={15}
+                <Feather
+                  style={{ color: "#0ABFBC" }}
+                  name="edit"
+                  size={13}
                 >
-                  {" "}
                   Chỉnh sửa
-              </IonIcon>
+              </Feather>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.props.deleteComments(this.props.data.id)}
@@ -156,14 +177,13 @@ class ItemComment extends Component {
                   alignItems: "center"
                 }}
               >
-                <IonIcon
-                  style={{ color: "#36BC63" }}
-                  name="ios-trash-outline"
-                  size={15}
+                <Feather
+                  style={{ color: "#0ABFBC"}}
+                  name="trash-2"
+                  size={13}
                 >
-                  {" "}
                   Xóa
-              </IonIcon>
+              </Feather>
               </TouchableOpacity>
             </View>
           </View>
@@ -192,10 +212,9 @@ const htmlTitleStyle = {
     padding: 5,
     fontWeight: "bold",
     color: "white",
-    fontSize: 20
   },
   p: {
-    fontSize: 18
+    fontSize: 16
   }
 }
 
@@ -205,8 +224,8 @@ const myStyle = StyleSheet.create({
     borderColor: '#cfcfcf',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 30,
     //backgroundColor: "#afafaf",
     overflow: 'hidden',
@@ -218,8 +237,8 @@ const myStyle = StyleSheet.create({
 
   },
   avatar: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     resizeMode: 'cover'
   }
 });

@@ -50,12 +50,12 @@ export default class ModalComment extends Component {
       >
         <View style={{ padding: 15 }}>
         {this.state.idparent == "0" &&
-          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "mediumseagreen" }} >
+          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "#0ABFBC" }} >
             Bình luận
           </Text>
         }
         {this.state.idparent != "0" &&
-          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "mediumseagreen" }} >
+          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "#0ABFBC" }} >
             Trả lời "{this.state.repname}"
           </Text>
         }
@@ -140,7 +140,7 @@ const myStyle = StyleSheet.create({
     borderRadius: 10,
     //fontSize: 20,
     padding: 10,
-    backgroundColor: "mediumseagreen",
+    backgroundColor: "#0ABFBC",
     //textAlign: "center"
   },
   ctmInputContent: {

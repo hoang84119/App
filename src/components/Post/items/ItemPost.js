@@ -143,7 +143,7 @@ class ItemPost extends Component {
     let time = localDate.getTime() - date.getTime();
 
     let seconds = parseInt(time / msPerSecond);
-    if (seconds < 60) return `${seconds}s trước`;
+    if (seconds < 60) return `${seconds} giây trước`;
 
     let minutes = parseInt(time / msPerMinute);
     if (minutes < 60) return `${minutes} phút trước`;
