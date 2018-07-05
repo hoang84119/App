@@ -62,7 +62,9 @@ class ItemComment extends Component {
       { cancelable: false }
     );
   };
-
+  repCmt = i =>{
+    this.props.parent.refs.addModal.showModal()
+  }
   render() {
     return (
       <View>
@@ -105,7 +107,7 @@ class ItemComment extends Component {
                 flex: 1,
                 alignItems: "center"
               }} onPress={() => {
-                this.props.onClickCmt(this.props.data.author_name);
+                this.repCmt(this.props.data.id);
               }}>
                 <IonIcon
                   style={{ color: "#36BC63" }}

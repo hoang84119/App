@@ -152,6 +152,7 @@ class PostDetail extends Component {
                   keyExtractor={(x, i) => i.toString()}
                   renderItem={({ item }) => (
                     <ItemComment
+                      parent={this}
                       loadComments={this._loadComments}
                       navigation={this.props.navigation}
                       data={item}
@@ -188,9 +189,6 @@ class PostDetail extends Component {
   _onOpenModal() {
     this.refs.addModal.showModal();
   }
-  _onClickCmt = a => {
-    this.setState({ repcmt: true, rep: a });
-  };
 
   _onEdit() {
     this.props.navigation.navigate("chinhsua", {
@@ -249,6 +247,42 @@ class PostDetail extends Component {
       API.getURL() +
         "/thuctap/wp-json/wp/v2/comments?post=" +
         this.state.noidung.id +
+        "&author_name=" +
+        name +
+        "&content=" +
+        content +
+        "&author_email=" +
+        email,
+      {
+        headers: {
+          Authorization:
+            "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+        },
+        method: "POST"
+      }
+    )
+      .then(response => {
+        var t = response.status;
+        if (response.status == 201) {
+          this._loadComments();
+          ToastAndroid.show(
+            "Bình luận đang được xét duyệt!",
+            ToastAndroid.CENTER,
+            ToastAndroid.LONG
+          );
+        }
+      })
+      .then(function(object) {
+        Alert.alert("Cảnh báo", object.message);
+      });
+  }
+  _repComment(idparent, name, content, email) {
+    fetch(
+      API.getURL() +
+        "/thuctap/wp-json/wp/v2/comments?post=" +
+        this.state.noidung.id +
+        "&parent="+ 
+        idparent +
         "&author_name=" +
         name +
         "&content=" +
