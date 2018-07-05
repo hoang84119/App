@@ -57,66 +57,9 @@ class ItemContentPost extends Component {
           />
         </View>
       </View>
-
-      // <View style={{ flexDirection: "column", flex:1,alignItems: "center" }}>
-      //   <ImageBackground
-      //     style={{
-      //       paddingTop: 70,
-      //       flex: 1,
-      //       minHeight: 10
-      //     }}
-      //     source={require("../../../image/background/Miaka.jpg")}
-      //   >
-      //     <View style={myStyle.title}>
-      //       {this.props.loaded && (
       //         <HTML
       //           html={"<span>" + this.props.noidung.title.rendered + "</span>"}
       //           tagsStyles={htmlTitleStyle}
-      //         />
-      //       )}
-      //     </View>
-      //   </ImageBackground>
-      //   <View style={{ paddingLeft: 5, paddingRight: 5 }}>
-      //     <View>
-      //       {this.props.loaded && (
-      //         <HTML
-      //           html={
-      //             "<i>Cập nhật lúc: <b>" +
-      //             this.props.noidung.modified.replace("T", "   ") +
-      //             "</b></i>"
-      //           }
-      //           //stylesheet={htmlTitleStyle}
-      //         />
-      //       )}
-      //       {this.props.loaded && (
-      //         <HTML
-      //           html={
-      //             "<i>Người đăng: <b>" + this.props.tacgia.name + "</i></b>"
-      //           }
-      //         />
-      //       )}
-      //     </View>
-      //     <View style={{ alignItems: "center", flex: 1, margin: 10 }}>
-      //       <Image
-      //         style={{ width: 150, height: 11 }}
-      //         source={require("../../../image/line.png")}
-      //       />
-      //     </View>
-      //     <View style={myStyle.content}>
-      //       {this.props.loaded && (
-      //         <HTML
-      //           html={this.props.noidung.content.rendered.replace(
-      //             "http://localhost",
-      //             API.getURL()
-      //           )}
-      //           tagsStyles={htmlTitleStyle}
-      //           imagesMaxWidth={Dimensions.get("window").width - 10}
-      //           //renderers={this.renderers}
-      //         />
-      //       )}
-      //     </View>
-      //   </View>
-      // </View>
     );
   }
 

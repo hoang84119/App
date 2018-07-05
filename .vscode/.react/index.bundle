@@ -61487,7 +61487,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       alignItems: "center"
     }
   });
-},491,[118,179,12,492,756,599,660,650,671,776,669,670],"App.js");
+},491,[118,179,12,492,758,599,660,650,671,778,669,670],"App.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -61524,7 +61524,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         headerMode: 'none'
     });
     exports.default = LoginToPost;
-},492,[493,598,671,756],"src\\navigations\\LogiToPost.js");
+},492,[493,598,671,758],"src\\navigations\\LogiToPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     get createNavigationContainer() {
@@ -83988,7 +83988,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = PostTo;
-},671,[493,672,727,746,748,749,751,598,781,118,12],"src\\navigations\\PostTo.js");
+},671,[493,672,728,747,749,750,752,598,757,118,12],"src\\navigations\\PostTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -84112,7 +84112,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         loaded: false,
         refreshing: true,
         repcmt: false,
-        rep: ""
+        rep: "",
+        numrefesh: 0
       };
       _this._onOpenModal = _this._onOpenModal.bind(_this);
       return _this;
@@ -84121,17 +84122,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     _createClass(PostDetail, [{
       key: "componentDidMount",
       value: function componentDidMount() {
-        this._loadData();
+        var _this2 = this;
 
-        this._loadComments();
+        this.props.navigation.addListener("didFocus", function () {
+          _this2._loadComments();
+        });
+
+        this._loadData();
 
         this.props.navigation.setParams({
           onEdit: this._onEdit.bind(this)
         });
       }
-    }, {
-      key: "componentDidUpdate",
-      value: function componentDidUpdate() {}
     }, {
       key: "refresh",
       value: function refresh() {
@@ -84140,7 +84142,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }, {
       key: "render",
       value: function render() {
-        var _this2 = this;
+        var _this3 = this;
 
         return _react3.default.createElement(
           _reactNative.View,
@@ -84150,7 +84152,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 117
+              lineNumber: 113
             }
           },
           this.state.loaded == false && _react3.default.createElement(
@@ -84159,7 +84161,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.loadingContainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 119
+                lineNumber: 115
               }
             },
             _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -84167,7 +84169,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               color: "#088A4B",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 120
+                lineNumber: 116
               }
             }),
             _react3.default.createElement(
@@ -84178,7 +84180,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 121
+                  lineNumber: 117
                 }
               },
               "\u0110ang t\u1EA3i"
@@ -84192,7 +84194,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 125
+                lineNumber: 121
               }
             },
             _react3.default.createElement(
@@ -84201,7 +84203,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.container,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 126
+                  lineNumber: 122
                 }
               },
               _react3.default.createElement(_ItemContentPost2.default, {
@@ -84211,7 +84213,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 featured_media: this.props.navigation.getParam("featured_media", ""),
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 127
+                  lineNumber: 123
                 }
               }),
               _react3.default.createElement(
@@ -84222,7 +84224,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 134
+                    lineNumber: 133
                   }
                 },
                 _react3.default.createElement(
@@ -84239,7 +84241,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 135
+                      lineNumber: 134
                     }
                   },
                   "B\xECnh lu\u1EADn"
@@ -84247,7 +84249,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _react3.default.createElement(_reactNative.FlatList, {
                   refreshing: this.state.refreshing,
                   onRefresh: function onRefresh() {
-                    return _this2._loadComments();
+                    return _this3._loadComments();
                   },
                   data: this.state.binhluan,
                   keyExtractor: function keyExtractor(x, i) {
@@ -84256,20 +84258,20 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   renderItem: function renderItem(_ref) {
                     var item = _ref.item;
                     return _react3.default.createElement(_ItemComment2.default, {
-                      loadComments: _this2._loadComments,
-                      navigation: _this2.props.navigation,
+                      loadComments: _this3._loadComments,
+                      navigation: _this3.props.navigation,
                       data: item,
-                      deleteComments: _this2._deleteComments,
-                      loaded: _this2.state.loaded,
+                      deleteComments: _this3._deleteComments,
+                      loaded: _this3.state.loaded,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 155
+                        lineNumber: 154
                       }
                     });
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 148
+                    lineNumber: 147
                   }
                 })
               )
@@ -84279,10 +84281,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: {
                 zIndex: 1
               },
-              noidung: this.state.noidung,
+              parent: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 166
+                lineNumber: 165
               }
             })
           ),
@@ -84291,7 +84293,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             {
               style: myStyle.canLe,
               onPress: function onPress() {
-                return _this2._onOpenModal();
+                return _this3._onOpenModal();
               },
               __source: {
                 fileName: _jsxFileName,
@@ -84327,7 +84329,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }, {
       key: "_loadData",
       value: function _loadData() {
-        var _this3 = this;
+        var _this4 = this;
 
         fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/posts/" + this.props.navigation.getParam("id", "")).then(function (response) {
           return response.json();
@@ -84335,18 +84337,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           if (responseJson == null) {
             _reactNative.Alert.alert("Lỗi", "Không có nội dung");
           } else {
-            _this3.setState({
+            _this4.setState({
               noidung: responseJson
             });
 
-            _this3._loadTacGia();
+            _this4._loadTacGia();
           }
         });
       }
     }, {
       key: "_loadTacGia",
       value: function _loadTacGia() {
-        var _this4 = this;
+        var _this5 = this;
 
         fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/users/" + this.state.noidung.author).then(function (response) {
           return response.json();
@@ -84354,7 +84356,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           if (responseJson == null) {
             _reactNative.Alert.alert("Lỗi", "Không có nội dung");
           } else {
-            _this4.setState({
+            _this5.setState({
               tacgia: responseJson,
               loaded: true
             });
@@ -84364,7 +84366,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }, {
       key: "_loadComments",
       value: function _loadComments() {
-        var _this5 = this;
+        var _this6 = this;
 
         fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/comments?post=" + this.props.navigation.getParam("id", "") + "&parent=0").then(function (response) {
           return response.json();
@@ -84372,11 +84374,33 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           if (responseJson == null) {
             _reactNative.Alert.alert("Lỗi", "Không có nội dung");
           } else {
-            _this5.setState({
+            _this6.setState({
               binhluan: responseJson,
               refreshing: false
             });
           }
+        });
+      }
+    }, {
+      key: "_upLoadComment",
+      value: function _upLoadComment(name, content, email) {
+        var _this7 = this;
+
+        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/comments?post=" + this.state.noidung.id + "&author_name=" + name + "&content=" + content + "&author_email=" + email, {
+          headers: {
+            Authorization: "Basic " + _Base2.default.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+          },
+          method: "POST"
+        }).then(function (response) {
+          var t = response.status;
+
+          if (response.status == 201) {
+            _this7._loadComments();
+
+            _reactNative.ToastAndroid.show("Bình luận đang được xét duyệt!", _reactNative.ToastAndroid.CENTER, _reactNative.ToastAndroid.LONG);
+          }
+        }).then(function (object) {
+          _reactNative.Alert.alert("Cảnh báo", object.message);
         });
       }
     }]);
@@ -84402,7 +84426,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 42
+            lineNumber: 43
           }
         },
         _react3.default.createElement(_FontAwesome2.default, {
@@ -84415,7 +84439,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           size: 32,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 52
+            lineNumber: 53
           }
         })
       );
@@ -84476,7 +84500,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = PostDetail;
-},672,[118,179,12,599,600,601,673,675,724,725],"src\\components\\Post\\PostDetail.js");
+},672,[118,179,12,599,600,601,673,675,724,726],"src\\components\\Post\\PostDetail.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -95356,111 +95380,135 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         return _react3.default.createElement(
           _reactNative.View,
           {
-            style: myStyle.container,
+            style: {
+              flex: 1
+            },
             __source: {
               fileName: _jsxFileName,
               lineNumber: 16
             }
           },
-          _react3.default.createElement(_reactNative.Image, {
-            style: myStyle.featured_media,
-            source: {
-              uri: this.props.featured_media
-            },
-            resizeMode: "cover",
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 17
-            }
-          }),
           _react3.default.createElement(
-            _reactNative.View,
+            _reactNative.ImageBackground,
             {
-              style: myStyle.viewUser,
+              source: {
+                uri: this.props.featured_media
+              },
+              style: myStyle.imageCover,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 18
+                lineNumber: 22
               }
             },
-            _react3.default.createElement(_reactNative.Image, {
-              style: myStyle.avatar,
-              source: {
-                uri: this.props.tacgia.avatar_urls[96]
-              },
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 19
-              }
-            }),
             _react3.default.createElement(
-              _reactNative.Text,
+              _reactNative.View,
               {
-                style: myStyle.tenTacGia,
+                style: myStyle.viewUser,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 23
+                  lineNumber: 26
                 }
               },
-              this.props.tacgia.name
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: myStyle.user,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 27
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: myStyle.avatar,
+                  source: {
+                    uri: this.props.tacgia.avatar_urls[96]
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 28
+                  }
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: myStyle.tenTacGia,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 32
+                    }
+                  },
+                  this.props.tacgia.name
+                )
+              )
             )
           ),
           _react3.default.createElement(
-            _reactNative.Text,
-            {
-              style: myStyle.title,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 25
-              }
-            },
-            this.props.noidung.title.rendered
-          ),
-          _react3.default.createElement(
-            _reactNative.Text,
-            {
-              style: myStyle.textCapNhat,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 26
-              }
-            },
-            "C\u1EADp nh\u1EADt l\xFAc: ",
-            this._getDate()
-          ),
-          _react3.default.createElement(
             _reactNative.View,
             {
-              style: {
-                alignItems: "center",
-                flex: 1,
-                margin: 10
-              },
+              style: myStyle.container,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 28
+                lineNumber: 37
               }
             },
-            _react3.default.createElement(_reactNative.Image, {
-              style: {
-                width: 150,
-                height: 11
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: myStyle.title,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 38
+                }
               },
-              source: _require(_dependencyMap[5], "../../../image/line.png"),
+              this.props.noidung.title.rendered
+            ),
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: myStyle.textCapNhat,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 39
+                }
+              },
+              "C\u1EADp nh\u1EADt l\xFAc: ",
+              this._getDate()
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: {
+                  alignItems: "center",
+                  flex: 1,
+                  margin: 10
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 43
+                }
+              },
+              _react3.default.createElement(_reactNative.Image, {
+                style: {
+                  width: 150,
+                  height: 11
+                },
+                source: _require(_dependencyMap[5], "../../../image/line.png"),
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 44
+                }
+              })
+            ),
+            _react3.default.createElement(_reactNativeRenderHtml2.default, {
+              html: this.props.noidung.content.rendered.replace("http://localhost", _API2.default.getURL()),
+              imagesMaxWidth: _reactNative.Dimensions.get("window").width - 10,
+              tagsStyles: htmlContentStyle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 29
+                lineNumber: 50
               }
             })
-          ),
-          _react3.default.createElement(_reactNativeRenderHtml2.default, {
-            html: this.props.noidung.content.rendered.replace("http://localhost", _API2.default.getURL()),
-            imagesMaxWidth: _reactNative.Dimensions.get("window").width - 10,
-            tagsStyles: htmlContentStyle,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 35
-            }
-          })
+          )
         );
       }
     }, {
@@ -95498,10 +95546,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   var myStyle = _reactNative.StyleSheet.create({
+    imageCover: {
+      flex: 1,
+      height: 150
+    },
     viewUser: {
       flexDirection: "row",
-      alignItems: "center",
-      marginBottom: 15
+      alignItems: "flex-end",
+      backgroundColor: "rgba(0,0,0,0.3)",
+      flex: 1,
+      height: 150,
+      padding: 10
+    },
+    user: {
+      flexDirection: "row",
+      alignItems: "center"
     },
     avatar: {
       width: 50,
@@ -95512,7 +95571,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontSize: 16,
       fontWeight: "500",
       marginLeft: 10,
-      color: "#0080ff"
+      color: "#fff"
     },
     container: {
       margin: 10
@@ -95534,315 +95593,316 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemContentPost;
-},724,[118,179,12,676,599,782],"src\\components\\Post\\items\\ItemContentPost.js");
+},724,[118,179,12,676,599,725],"src\\components\\Post\\items\\ItemContentPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
-      Object.defineProperty(exports, "__esModule", {
-            value: true
-      });
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/src/image",
+    "width": 302,
+    "height": 26,
+    "scales": [1],
+    "hash": "de3119ac79914ff21a93e3b6c13b7be2",
+    "name": "line",
+    "type": "png"
+  });
+},725,[164],"src\\image\\line.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
 
-      var _react2 = _require(_dependencyMap[0], "react");
+  var _react2 = _require(_dependencyMap[0], "react");
 
-      var _react3 = _interopRequireDefault(_react2);
+  var _react3 = _interopRequireDefault(_react2);
 
-      var _index = _require(_dependencyMap[1], "./../../../../node_modules/react-transform-hmr/lib/index.js");
+  var _index = _require(_dependencyMap[1], "./../../../../node_modules/react-transform-hmr/lib/index.js");
 
-      var _index2 = _interopRequireDefault(_index);
+  var _index2 = _interopRequireDefault(_index);
 
-      var _jsxFileName = "D:\\SourceCode\\React native\\App\\src\\components\\Post\\items\\ModalComment.js";
+  var _jsxFileName = "D:\\SourceCode\\React native\\App\\src\\components\\Post\\items\\ModalComment.js";
 
-      var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-      var _reactNative = _require(_dependencyMap[2], "react-native");
+  var _reactNative = _require(_dependencyMap[2], "react-native");
 
-      var _reactNativeModalbox = _require(_dependencyMap[3], "react-native-modalbox");
+  var _reactNativeModalbox = _require(_dependencyMap[3], "react-native-modalbox");
 
-      var _reactNativeModalbox2 = _interopRequireDefault(_reactNativeModalbox);
+  var _reactNativeModalbox2 = _interopRequireDefault(_reactNativeModalbox);
 
-      var _API = _require(_dependencyMap[4], "../../../config/API");
+  var _API = _require(_dependencyMap[4], "../../../config/API");
 
-      var _API2 = _interopRequireDefault(_API);
+  var _API2 = _interopRequireDefault(_API);
 
-      var _Base = _require(_dependencyMap[5], "../../../config/Base64");
+  var _Base = _require(_dependencyMap[5], "../../../config/Base64");
 
-      var _Base2 = _interopRequireDefault(_Base);
+  var _Base2 = _interopRequireDefault(_Base);
 
-      function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  var _PostDetail = _require(_dependencyMap[6], "../PostDetail");
 
-      function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  var _PostDetail2 = _interopRequireDefault(_PostDetail);
 
-      function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-      function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-      var _components = {
-            ModalComment: {
-                  displayName: "ModalComment"
-            }
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    ModalComment: {
+      displayName: "ModalComment"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "D:/SourceCode/React native/App/src/components/Post/items/ModalComment.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var screen = _reactNative.Dimensions.get("window");
+
+  var ModalComment = _wrapComponent("ModalComment")(function (_Component) {
+    _inherits(ModalComment, _Component);
+
+    function ModalComment(props) {
+      _classCallCheck(this, ModalComment);
+
+      var _this = _possibleConstructorReturn(this, (ModalComment.__proto__ || Object.getPrototypeOf(ModalComment)).call(this, props));
+
+      _this.showModal = function () {
+        _this.refs.myModal.open();
       };
 
-      var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
-            filename: "D:/SourceCode/React native/App/src/components/Post/items/ModalComment.js",
-            components: _components,
-            locals: [module],
-            imports: [_react3.default]
-      });
+      _this._comment = function () {
+        var _this$state = _this.state,
+            name = _this$state.name,
+            email = _this$state.email,
+            content = _this$state.content;
 
-      function _wrapComponent(id) {
-            return function (Component) {
-                  return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
-            };
+        _this.props.parent._upLoadComment(name, content, email);
+
+        _this.refs.myModal.close();
+      };
+
+      _this.state = {
+        name: "",
+        email: "",
+        content: ""
+      };
+      return _this;
+    }
+
+    _createClass(ModalComment, [{
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        return _react3.default.createElement(
+          _reactNativeModalbox2.default,
+          {
+            ref: "myModal",
+            style: {
+              justifyContent: "center",
+              borderRadius: 15,
+              shadowRadius: 10,
+              width: screen.width - 80,
+              height: 330
+            },
+            position: "center",
+            backdrop: true,
+            onClosed: function onClosed() {},
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 33
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: {
+                padding: 15
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 48
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: {
+                  marginBottom: 12,
+                  marginTop: 8,
+                  fontSize: 23,
+                  color: "mediumseagreen"
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 49
+                }
+              },
+              "B\xECnh lu\u1EADn"
+            ),
+            _react3.default.createElement(_reactNative.TextInput, {
+              placeholderTextColor: "#cfcfcf",
+              underlineColorAndroid: "rgba(0,0,0,0)",
+              style: myStyle.ctmInput,
+              onChangeText: function onChangeText(n) {
+                _this2.setState({
+                  name: n
+                });
+              },
+              placeholder: "(*)T\xEAn c\u1EE7a b\u1EA1n",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 59
+              }
+            }),
+            _react3.default.createElement(_reactNative.TextInput, {
+              placeholderTextColor: "#cfcfcf",
+              underlineColorAndroid: "rgba(0,0,0,0)",
+              style: myStyle.ctmInput,
+              onChangeText: function onChangeText(e) {
+                _this2.setState({
+                  email: e
+                });
+              },
+              placeholder: "(*)Email c\u1EE7a b\u1EA1n",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 68
+              }
+            }),
+            _react3.default.createElement(_reactNative.TextInput, {
+              placeholderTextColor: "#cfcfcf",
+              underlineColorAndroid: "rgba(0,0,0,0)",
+              multiline: true,
+              style: myStyle.ctmInputContent,
+              onChangeText: function onChangeText(c) {
+                _this2.setState({
+                  content: c
+                });
+              },
+              placeholder: "(*)N\u1ED9i dung b\xECnh lu\u1EADn",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 77
+              }
+            }),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: {
+                  marginTop: 20
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 87
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: {
+                    marginBottom: -35,
+                    color: "red",
+                    fontStyle: "italic"
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 88
+                  }
+                },
+                "Ch\xFA \xFD: (*) B\u1EAFt bu\u1ED9c"
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    alignItems: "flex-end"
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 93
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.TouchableOpacity,
+                  {
+                    style: myStyle.ctmBottom,
+                    onPress: this._comment,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 94
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: {
+                        color: "white",
+                        fontSize: 18
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 98
+                      }
+                    },
+                    " ",
+                    "B\xECnh lu\u1EADn",
+                    " "
+                  )
+                )
+              )
+            )
+          )
+        );
       }
+    }]);
 
-      var screen = _reactNative.Dimensions.get('window');
+    return ModalComment;
+  }(_react2.Component));
 
-      var ModalComment = _wrapComponent("ModalComment")(function (_Component) {
-            _inherits(ModalComment, _Component);
+  exports.default = ModalComment;
 
-            function ModalComment(props) {
-                  _classCallCheck(this, ModalComment);
-
-                  var _this = _possibleConstructorReturn(this, (ModalComment.__proto__ || Object.getPrototypeOf(ModalComment)).call(this, props));
-
-                  _this.showModal = function () {
-                        _this.refs.myModal.open();
-                  };
-
-                  _this.state = {
-                        name: '',
-                        email: '',
-                        content: ''
-                  };
-                  return _this;
-            }
-
-            _createClass(ModalComment, [{
-                  key: "_comment",
-                  value: function _comment() {
-                        var _this2 = this;
-
-                        fetch(_API2.default.getURL() + "/thuctap/wp-json/wp/v2/comments?post=" + this.props.noidung.id + "&author_name=" + this.state.name + "&content=" + this.state.content + "&author_email=" + this.state.email, {
-                              headers: {
-                                    Authorization: "Basic " + _Base2.default.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
-                              },
-                              method: "POST"
-                        }).then(function (response) {
-                              var t = response.status;
-
-                              if (response.status == 201) {
-                                    _reactNative.ToastAndroid.show("OK!\nBình luận của bạn đang chờ quản trị viên xét duyệt!", _reactNative.ToastAndroid.LONG);
-
-                                    _this2.refs.myModal.close();
-                              } else {
-                                    return response.json();
-                              }
-                        }).then(function (object) {
-                              _reactNative.Alert.alert("Cảnh báo", object.message);
-                        });
-                  }
-            }, {
-                  key: "render",
-                  value: function render() {
-                        var _this3 = this;
-
-                        return _react3.default.createElement(
-                              _reactNativeModalbox2.default,
-                              {
-                                    ref: "myModal",
-                                    style: {
-                                          justifyContent: "center",
-                                          borderRadius: 15,
-                                          shadowRadius: 10,
-                                          width: screen.width - 80,
-                                          height: 330
-                                    },
-                                    position: "center",
-                                    backdrop: true,
-                                    onClosed: function onClosed() {},
-                                    __source: {
-                                          fileName: _jsxFileName,
-                                          lineNumber: 50
-                                    }
-                              },
-                              _react3.default.createElement(
-                                    _reactNative.View,
-                                    {
-                                          style: {
-                                                padding: 15
-                                          },
-                                          __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 65
-                                          }
-                                    },
-                                    _react3.default.createElement(
-                                          _reactNative.Text,
-                                          {
-                                                style: {
-                                                      marginBottom: 12,
-                                                      marginTop: 8,
-                                                      fontSize: 23,
-                                                      color: "mediumseagreen"
-                                                },
-                                                __source: {
-                                                      fileName: _jsxFileName,
-                                                      lineNumber: 66
-                                                }
-                                          },
-                                          "B\xECnh lu\u1EADn"
-                                    ),
-                                    _react3.default.createElement(_reactNative.TextInput, {
-                                          placeholderTextColor: "#cfcfcf",
-                                          underlineColorAndroid: "rgba(0,0,0,0)",
-                                          style: myStyle.ctmInput,
-                                          onChangeText: function onChangeText(n) {
-                                                _this3.setState({
-                                                      name: n
-                                                });
-                                          },
-                                          placeholder: "(*)T\xEAn c\u1EE7a b\u1EA1n",
-                                          __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 67
-                                          }
-                                    }),
-                                    _react3.default.createElement(_reactNative.TextInput, {
-                                          placeholderTextColor: "#cfcfcf",
-                                          underlineColorAndroid: "rgba(0,0,0,0)",
-                                          style: myStyle.ctmInput,
-                                          onChangeText: function onChangeText(e) {
-                                                _this3.setState({
-                                                      email: e
-                                                });
-                                          },
-                                          placeholder: "(*)Email c\u1EE7a b\u1EA1n",
-                                          __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 76
-                                          }
-                                    }),
-                                    _react3.default.createElement(_reactNative.TextInput, {
-                                          placeholderTextColor: "#cfcfcf",
-                                          underlineColorAndroid: "rgba(0,0,0,0)",
-                                          multiline: true,
-                                          style: myStyle.ctmInputContent,
-                                          onChangeText: function onChangeText(c) {
-                                                _this3.setState({
-                                                      content: c
-                                                });
-                                          },
-                                          placeholder: "(*)N\u1ED9i dung b\xECnh lu\u1EADn",
-                                          __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 85
-                                          }
-                                    }),
-                                    _react3.default.createElement(
-                                          _reactNative.View,
-                                          {
-                                                style: {
-                                                      marginTop: 20
-                                                },
-                                                __source: {
-                                                      fileName: _jsxFileName,
-                                                      lineNumber: 95
-                                                }
-                                          },
-                                          _react3.default.createElement(
-                                                _reactNative.Text,
-                                                {
-                                                      style: {
-                                                            marginBottom: -35,
-                                                            color: "red",
-                                                            fontStyle: "italic"
-                                                      },
-                                                      __source: {
-                                                            fileName: _jsxFileName,
-                                                            lineNumber: 96
-                                                      }
-                                                },
-                                                "Ch\xFA \xFD: (*) B\u1EAFt bu\u1ED9c"
-                                          ),
-                                          _react3.default.createElement(
-                                                _reactNative.View,
-                                                {
-                                                      style: {
-                                                            alignItems: "flex-end"
-                                                      },
-                                                      __source: {
-                                                            fileName: _jsxFileName,
-                                                            lineNumber: 97
-                                                      }
-                                                },
-                                                _react3.default.createElement(
-                                                      _reactNative.TouchableOpacity,
-                                                      {
-                                                            style: myStyle.ctmBottom,
-                                                            onPress: function onPress() {
-                                                                  return _this3._comment();
-                                                            },
-                                                            __source: {
-                                                                  fileName: _jsxFileName,
-                                                                  lineNumber: 99
-                                                            }
-                                                      },
-                                                      _react3.default.createElement(
-                                                            _reactNative.Text,
-                                                            {
-                                                                  style: {
-                                                                        color: "white",
-                                                                        fontSize: 18
-                                                                  },
-                                                                  __source: {
-                                                                        fileName: _jsxFileName,
-                                                                        lineNumber: 100
-                                                                  }
-                                                            },
-                                                            " B\xECnh lu\u1EADn "
-                                                      )
-                                                )
-                                          )
-                                    )
-                              )
-                        );
-                  }
-            }]);
-
-            return ModalComment;
-      }(_react2.Component));
-
-      exports.default = ModalComment;
-
-      var myStyle = _reactNative.StyleSheet.create({
-            ctmBottom: {
-                  marginBottom: 10,
-                  marginTop: 3,
-                  borderRadius: 10,
-                  fontSize: 20,
-                  padding: 10,
-                  backgroundColor: "mediumseagreen",
-                  textAlign: "center"
-            },
-            ctmInputContent: {
-                  height: 100,
-                  backgroundColor: "#fafafa",
-                  fontSize: 18,
-                  paddingTop: 1,
-                  paddingBottom: 1,
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                  borderRadius: 10,
-                  marginBottom: 5
-            },
-            ctmInput: {
-                  backgroundColor: "#fafafa",
-                  fontSize: 18,
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                  borderRadius: 10,
-                  marginBottom: 5
-            }
-      });
-},725,[118,179,12,726,599,600],"src\\components\\Post\\items\\ModalComment.js");
+  var myStyle = _reactNative.StyleSheet.create({
+    ctmBottom: {
+      marginBottom: 10,
+      marginTop: 3,
+      borderRadius: 10,
+      padding: 10,
+      backgroundColor: "mediumseagreen"
+    },
+    ctmInputContent: {
+      height: 100,
+      backgroundColor: "#fafafa",
+      fontSize: 18,
+      paddingTop: 1,
+      paddingBottom: 1,
+      paddingLeft: 10,
+      paddingRight: 10,
+      borderRadius: 10,
+      marginBottom: 5
+    },
+    ctmInput: {
+      backgroundColor: "#fafafa",
+      fontSize: 18,
+      paddingLeft: 10,
+      paddingRight: 10,
+      borderRadius: 10,
+      marginBottom: 5
+    }
+  });
+},726,[118,179,12,727,599,600,672],"src\\components\\Post\\items\\ModalComment.js");
 __d(function (global, _require2, module, exports, _dependencyMap) {
   'use strict';
 
@@ -96365,7 +96425,7 @@ __d(function (global, _require2, module, exports, _dependencyMap) {
     }
   });
   module.exports = ModalBox;
-},726,[118,129,12,176],"node_modules\\react-native-modalbox\\index.js");
+},727,[118,129,12,176],"node_modules\\react-native-modalbox\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -96754,7 +96814,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = EditPost;
-},727,[118,179,12,728,743,600,745],"src\\components\\Post\\EditPost.js");
+},728,[118,179,12,729,744,600,746],"src\\components\\Post\\EditPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   var _RichTextEditor = _require(_dependencyMap[0], "./src/RichTextEditor");
 
@@ -96773,7 +96833,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     RichTextToolbar: _RichTextToolbar2.default,
     actions: _const.actions
   };
-},728,[729,736,734],"node_modules\\react-native-zss-rich-text-editor\\index.js");
+},729,[730,737,735],"node_modules\\react-native-zss-rich-text-editor\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -97834,7 +97894,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       marginTop: 20
     }
   });
-},729,[118,179,129,730,733,734,12,735],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextEditor.js");
+},730,[118,179,129,731,734,735,12,736],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextEditor.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -98034,7 +98094,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   });
   module.exports = WebViewBridge;
-},730,[118,129,176,12,731,732,163],"node_modules\\react-native-webview-bridge-updated\\webview-bridge\\index.android.js");
+},731,[118,129,176,12,732,733,163],"node_modules\\react-native-webview-bridge-updated\\webview-bridge\\index.android.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -98065,7 +98125,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   module.exports = invariant;
-},731,[],"node_modules\\react-native-webview-bridge-updated\\node_modules\\invariant\\browser.js");
+},732,[],"node_modules\\react-native-webview-bridge-updated\\node_modules\\invariant\\browser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -98089,7 +98149,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   module.exports = keyMirror;
-},732,[],"node_modules\\keymirror\\index.js");
+},733,[],"node_modules\\keymirror\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -98099,7 +98159,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var _const = _require(_dependencyMap[0], "./const");
 
   var InjectedMessageHandler = exports.InjectedMessageHandler = "\n  if (WebViewBridge) {\n    WebViewBridge.onMessage = function (message) {\n\n      const action = JSON.parse(message);\n\n      switch(action.type) {\n        case '" + _const.actions.enableOnChange + "':\n          zss_editor.enableOnChange();\n          break;\n        case '" + _const.actions.setTitleHtml + "':\n          zss_editor.setTitleHTML(action.data);\n          break;\n        case '" + _const.actions.toggleTitle + "':\n          zss_editor.toggleTitle(action.data);\n          break;\n        case '" + _const.actions.hideTitle + "':\n          zss_editor.hideTitle(action.data);\n          break;\n        case '" + _const.actions.showTitle + "':\n          zss_editor.showTitle(action.data);\n          break;\n        case '" + _const.actions.setContentHtml + "':\n          zss_editor.setContentHTML(action.data);\n          break;\n        case '" + _const.actions.blurTitleEditor + "':\n          zss_editor.blurTitleEditor();\n          break;\n        case '" + _const.actions.blurContentEditor + "':\n          zss_editor.blurContentEditor();\n          break;\n        case '" + _const.actions.setBold + "':\n          zss_editor.setBold();\n          break;\n        case '" + _const.actions.setItalic + "':\n          zss_editor.setItalic();\n          break;\n        case '" + _const.actions.setUnderline + "':\n          zss_editor.setUnderline();\n          break;\n        case '" + _const.actions.heading1 + "':\n          zss_editor.setHeading('h1');\n          break;\n        case '" + _const.actions.heading2 + "':\n          zss_editor.setHeading('h2');\n          break;\n        case '" + _const.actions.heading3 + "':\n          zss_editor.setHeading('h3');\n          break;\n        case '" + _const.actions.heading4 + "':\n          zss_editor.setHeading('h4');\n          break;\n        case '" + _const.actions.heading5 + "':\n          zss_editor.setHeading('h5');\n          break;\n        case '" + _const.actions.heading6 + "':\n          zss_editor.setHeading('h6');\n          break;\n        case '" + _const.actions.setParagraph + "':\n          zss_editor.setParagraph();\n          break;\n        case '" + _const.actions.removeFormat + "':\n          zss_editor.removeFormating();\n          break;\n        case '" + _const.actions.alignLeft + "':\n          zss_editor.setJustifyLeft();\n          break;\n        case '" + _const.actions.alignCenter + "':\n          zss_editor.setJustifyCenter();\n          break;\n        case '" + _const.actions.alignRight + "':\n          zss_editor.setJustifyRight();\n          break;\n        case '" + _const.actions.alignFull + "':\n          zss_editor.setJustifyFull();\n          break;\n        case '" + _const.actions.insertBulletsList + "':\n          zss_editor.setUnorderedList();\n          break;\n        case '" + _const.actions.insertOrderedList + "':\n          zss_editor.setOrderedList();\n          break;\n        case '" + _const.actions.insertLink + "':\n          zss_editor.insertLink(action.data.url, action.data.title);\n          break;\n        case '" + _const.actions.updateLink + "':\n          zss_editor.updateLink(action.data.url, action.data.title);\n          break;\n        case '" + _const.actions.insertImage + "':\n          zss_editor.insertImage(action.data);\n          break;\n        case '" + _const.actions.setSubscript + "':\n          zss_editor.setSubscript();\n          break;\n        case '" + _const.actions.setSuperscript + "':\n          zss_editor.setSuperscript();\n          break;\n        case '" + _const.actions.setStrikethrough + "':\n          zss_editor.setStrikeThrough();\n          break;\n        case '" + _const.actions.setHR + "':\n          zss_editor.setHorizontalRule();\n          break;\n        case '" + _const.actions.setIndent + "':\n          zss_editor.setIndent();\n          break;\n        case '" + _const.actions.setOutdent + "':\n          zss_editor.setOutdent();\n          break;\n        case '" + _const.actions.setTitlePlaceholder + "':\n          zss_editor.setTitlePlaceholder(action.data);\n          break;\n        case '" + _const.actions.setContentPlaceholder + "':\n          zss_editor.setContentPlaceholder(action.data);\n          break;\n        case '" + _const.actions.getTitleHtml + "':\n          var html = zss_editor.getTitleHTML();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.TITLE_HTML_RESPONSE + "', data: html}));\n          break;\n        case '" + _const.actions.getTitleText + "':\n          var html = zss_editor.getTitleText();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.TITLE_TEXT_RESPONSE + "', data: html}));\n          break;\n        case '" + _const.actions.getContentHtml + "':\n          var html = zss_editor.getContentHTML();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.CONTENT_HTML_RESPONSE + "', data: html}));\n          break;\n        case '" + _const.actions.setTitleFocusHandler + "':\n          zss_editor.setTitleFocusHandler();\n          break;\n        case '" + _const.actions.setContentFocusHandler + "':\n          zss_editor.setContentFocusHandler();\n          break;\n        case '" + _const.actions.getSelectedText + "':\n          var selectedText = getSelection().toString();\n          WebViewBridge.send(JSON.stringify({type: '" + _const.messages.SELECTED_TEXT_RESPONSE + "', data: selectedText}));\n          break;\n        case '" + _const.actions.focusContent + "':\n          zss_editor.focusContent();\n          break;\n        case '" + _const.actions.focusTitle + "':\n          zss_editor.focusTitle();\n          break;\n        case '" + _const.actions.prepareInsert + "':\n          zss_editor.prepareInsert();\n          break;\n        case '" + _const.actions.restoreSelection + "':\n          zss_editor.restorerange();\n          break;\n        case '" + _const.actions.setCustomCSS + "':\n          zss_editor.setCustomCSS(action.data);\n          break;\n        case '" + _const.actions.setTextColor + "':\n          zss_editor.setTextColor(action.data);\n          break;\n        case '" + _const.actions.setBackgroundColor + "':\n          zss_editor.setBackgroundColor(action.data);\n          break;\n        case '" + _const.actions.init + "':\n          zss_editor.init();\n          break;\n        case '" + _const.actions.setEditorHeight + "':\n          zss_editor.setEditorHeight(action.data);\n          break;\n        case '" + _const.actions.setFooterHeight + "':\n          zss_editor.setFooterHeight(action.data);\n          break;\n        case '" + _const.actions.setPlatform + "':\n          zss_editor.setPlatform(action.data);\n          break;\n      }\n    };\n  }\n";
-},733,[734],"node_modules\\react-native-zss-rich-text-editor\\src\\WebviewMessageHandler.js");
+},734,[735],"node_modules\\react-native-zss-rich-text-editor\\src\\WebviewMessageHandler.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -98174,7 +98234,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     LINK_TOUCHED: 'LINK_TOUCHED',
     SELECTED_TEXT_CHANGED: 'SELECTED_TEXT_CHANGED'
   };
-},734,[],"node_modules\\react-native-zss-rich-text-editor\\src\\const.js");
+},735,[],"node_modules\\react-native-zss-rich-text-editor\\src\\const.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -98184,7 +98244,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "editor",
 		"type": "html"
 	});
-},735,[164],"node_modules\\react-native-zss-rich-text-editor\\src\\editor.html");
+},736,[164],"node_modules\\react-native-zss-rich-text-editor\\src\\editor.html");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -98498,7 +98558,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     defaultUnselectedButton: {}
   });
-},736,[118,179,129,12,734,737,738,739,740,741,742],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextToolbar.js");
+},737,[118,179,129,12,735,738,739,740,741,742,743],"node_modules\\react-native-zss-rich-text-editor\\src\\RichTextToolbar.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -98510,7 +98570,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_media",
     "type": "png"
   });
-},737,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_media@1.5x.png");
+},738,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_media@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -98522,7 +98582,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_bold",
     "type": "png"
   });
-},738,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_bold@1.5x.png");
+},739,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_bold@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -98534,7 +98594,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_italic",
     "type": "png"
   });
-},739,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_italic@1.5x.png");
+},740,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_italic@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -98546,7 +98606,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_ul",
     "type": "png"
   });
-},740,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ul@1.5x.png");
+},741,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ul@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -98558,7 +98618,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_ol",
     "type": "png"
   });
-},741,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ol@1.5x.png");
+},742,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_ol@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -98570,7 +98630,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "icon_format_link",
     "type": "png"
   });
-},742,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_link@1.5x.png");
+},743,[164],"node_modules\\react-native-zss-rich-text-editor\\img\\icon_format_link@1.5x.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -98594,7 +98654,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var TabBarItemIOS = exports.TabBarItemIOS = iconSet.TabBarItemIOS;
   var ToolbarAndroid = exports.ToolbarAndroid = iconSet.ToolbarAndroid;
   var getImageSource = exports.getImageSource = iconSet.getImageSource;
-},743,[602,744],"node_modules\\react-native-vector-icons\\Feather.js");
+},744,[602,745],"node_modules\\react-native-vector-icons\\Feather.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     "activity": 59648,
@@ -98838,7 +98898,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "zoom-in": 59886,
     "zoom-out": 59887
   };
-},744,[],"node_modules\\react-native-vector-icons\\glyphmaps\\Feather.json");
+},745,[],"node_modules\\react-native-vector-icons\\glyphmaps\\Feather.json");
 __d(function (global, _require2, module, exports, _dependencyMap) {
   'use strict';
 
@@ -98872,7 +98932,7 @@ __d(function (global, _require2, module, exports, _dependencyMap) {
       return ImagePickerManager.showImagePicker(_extends({}, DEFAULT_OPTIONS, options), callback);
     }
   });
-},745,[12],"node_modules\\react-native-image-picker\\index.js");
+},746,[12],"node_modules\\react-native-image-picker\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -99325,7 +99385,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(Posts);
-},746,[118,179,12,599,673,747,600,650,743],"src\\components\\Post\\Posts.js");
+},747,[118,179,12,599,673,748,600,650,744],"src\\components\\Post\\Posts.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -99380,7 +99440,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     };
   }
 
-  var featured_media_default = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR95Iv69vIsfDjhtuBDIAfvKO1e5pyRMwDYXDYeWDpjnLRt5JUe";
+  var featured_media_default = "https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/background-thumb1.jpg";
 
   var ItemPost = _wrapComponent("ItemPost")(function (_Component) {
     _inherits(ItemPost, _Component);
@@ -99805,7 +99865,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemPost;
-},747,[118,179,12,676,743],"src\\components\\Post\\items\\ItemPost.js");
+},748,[118,179,12,676,744],"src\\components\\Post\\items\\ItemPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -100141,7 +100201,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = AddPost;
-},748,[118,179,12,728,743,600,745],"src\\components\\Post\\AddPost.js");
+},749,[118,179,12,729,744,600,746],"src\\components\\Post\\AddPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -100734,7 +100794,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       marginLeft: 5
     }
   });
-},749,[118,179,12,599,750,601,600,743,745],"src\\components\\Media\\Media.js");
+},750,[118,179,12,599,751,601,600,744,746],"src\\components\\Media\\Media.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -100908,7 +100968,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }(_react2.Component));
 
   exports.default = ItemImage;
-},750,[118,179,12,601],"src\\components\\Media\\items\\ItemImage.js");
+},751,[118,179,12,601],"src\\components\\Media\\items\\ItemImage.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -101244,7 +101304,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             return output;
         }
     };
-},751,[118,179,12,752,599],"src\\components\\Media\\MediaDetail.js");
+},752,[118,179,12,753,599],"src\\components\\Media\\MediaDetail.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -101255,7 +101315,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var image_zoom_component_1 = _require(_dependencyMap[0], "./image-zoom/image-zoom.component");
 
   exports.default = image_zoom_component_1.default;
-},752,[753],"node_modules\\react-native-image-pan-zoom\\built\\index.js");
+},753,[754],"node_modules\\react-native-image-pan-zoom\\built\\index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -101852,7 +101912,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }(React.Component);
 
     exports.default = ImageViewer;
-},753,[118,12,754,755],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.component.js");
+},754,[118,12,755,756],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.component.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -101868,7 +101928,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     exports.default = {
         container: container
     };
-},754,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.style.js");
+},755,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.style.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -101926,7 +101986,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }();
 
   exports.State = State;
-},755,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.type.js");
+},756,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.type.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
       Object.defineProperty(exports, "__esModule", {
             value: true
@@ -102050,7 +102110,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                     fileName: _jsxFileName,
                                     lineNumber: 61
                               }
-                        });
+                        }).toString();
 
                         this.setState({
                               noidung: cmt
@@ -102067,7 +102127,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                     style: myStyle.bg,
                                     __source: {
                                           fileName: _jsxFileName,
-                                          lineNumber: 67
+                                          lineNumber: 66
                                     }
                               },
                               _react3.default.createElement(_reactNative.TextInput, {
@@ -102083,7 +102143,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                                     value: this.state.noidung,
                                     __source: {
                                           fileName: _jsxFileName,
-                                          lineNumber: 68
+                                          lineNumber: 67
                                     }
                               })
                         );
@@ -102154,7 +102214,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   color: "#fff"
             }
       });
-},781,[118,179,12,743,600,676],"src\\components\\Post\\items\\itemEditComments.js");
+},757,[118,179,12,744,600,676],"src\\components\\Post\\items\\itemEditComments.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102247,7 +102307,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     initialRouteName: 'Post',
     animationEnabled: true
   });
-},756,[118,671,757,493,601,758,771],"src\\navigations\\TabNavigator.js");
+},758,[118,671,759,493,601,760,773],"src\\navigations\\TabNavigator.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102350,7 +102410,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = MediaTo;
-},757,[493,749,751,118,12],"src\\navigations\\MediaTo.js");
+},759,[493,750,752,118,12],"src\\navigations\\MediaTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102470,7 +102530,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = TagTo;
-},758,[493,759,769,770,671,118,12],"src\\navigations\\TagTo.js");
+},760,[493,761,771,772,671,118,12],"src\\navigations\\TagTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102972,7 +103032,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(Tags);
-},759,[118,179,12,599,743,760,650],"src\\components\\Tag\\Tags.js");
+},761,[118,179,12,599,744,762,650],"src\\components\\Tag\\Tags.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -103224,7 +103284,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemCategory;
-},760,[118,179,12,743,761,762,763,764,765,766,767,768],"src\\components\\Tag\\item\\ItemTag.js");
+},762,[118,179,12,744,763,764,765,766,767,768,769,770],"src\\components\\Tag\\item\\ItemTag.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103236,7 +103296,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img0",
     "type": "jpg"
   });
-},761,[164],"src\\image\\tag\\img0.jpg");
+},763,[164],"src\\image\\tag\\img0.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103248,7 +103308,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img1",
     "type": "jpg"
   });
-},762,[164],"src\\image\\tag\\img1.jpg");
+},764,[164],"src\\image\\tag\\img1.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -103260,7 +103320,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "img2",
 		"type": "jpg"
 	});
-},763,[164],"src\\image\\tag\\img2.jpg");
+},765,[164],"src\\image\\tag\\img2.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103272,7 +103332,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img4",
     "type": "jpg"
   });
-},764,[164],"src\\image\\tag\\img4.jpg");
+},766,[164],"src\\image\\tag\\img4.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -103284,7 +103344,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "img5",
 		"type": "jpg"
 	});
-},765,[164],"src\\image\\tag\\img5.jpg");
+},767,[164],"src\\image\\tag\\img5.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103296,7 +103356,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img6",
     "type": "jpg"
   });
-},766,[164],"src\\image\\tag\\img6.jpg");
+},768,[164],"src\\image\\tag\\img6.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103308,7 +103368,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img7",
     "type": "jpg"
   });
-},767,[164],"src\\image\\tag\\img7.jpg");
+},769,[164],"src\\image\\tag\\img7.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -103320,7 +103380,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "img8",
 		"type": "jpg"
 	});
-},768,[164],"src\\image\\tag\\img8.jpg");
+},770,[164],"src\\image\\tag\\img8.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -103716,7 +103776,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = EditCategory;
-},769,[118,179,12,743],"src\\components\\Tag\\EditTag.js");
+},771,[118,179,12,744],"src\\components\\Tag\\EditTag.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -104063,7 +104123,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = AddTag;
-},770,[118,179,12,743],"src\\components\\Tag\\AddTag.js");
+},772,[118,179,12,744],"src\\components\\Tag\\AddTag.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -104183,7 +104243,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = CategoryTo;
-},771,[493,772,774,775,671,118,12],"src\\navigations\\CategoryTo.js");
+},773,[493,774,776,777,671,118,12],"src\\navigations\\CategoryTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -104704,7 +104764,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(Categories);
-},772,[118,179,12,599,743,773,650],"src\\components\\Category\\Categories.js");
+},774,[118,179,12,599,744,775,650],"src\\components\\Category\\Categories.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -105022,7 +105082,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemCategory;
-},773,[118,179,12,673,599,743,772],"src\\components\\Category\\items\\ItemCategory.js");
+},775,[118,179,12,673,599,744,774],"src\\components\\Category\\items\\ItemCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -105512,7 +105572,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = EditCategory;
-},774,[118,179,12,743],"src\\components\\Category\\EditCategory.js");
+},776,[118,179,12,744],"src\\components\\Category\\EditCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -105967,7 +106027,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = AddCategory;
-},775,[118,179,12,743],"src\\components\\Category\\AddCategory.js");
+},777,[118,179,12,744],"src\\components\\Category\\AddCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -106022,7 +106082,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         }
     });
     exports.default = Drawer;
-},776,[118,493,756,598,777,779],"src\\navigations\\DrawerNavigator.js");
+},778,[118,493,758,598,779,781],"src\\navigations\\DrawerNavigator.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -106419,7 +106479,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(SlideMenu);
-},777,[118,179,12,650,743,778,669],"src\\components\\SlideMenu.js");
+},779,[118,179,12,650,744,780,669],"src\\components\\SlideMenu.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -106431,7 +106491,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "Material-Background",
     "type": "png"
   });
-},778,[164],"src\\image\\Material-Background.png");
+},780,[164],"src\\image\\Material-Background.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -106640,19 +106700,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             justifyContent: "center"
         }
     });
-},779,[118,179,12,669],"src\\components\\User\\Account.js");
-__d(function (global, _require, module, exports, _dependencyMap) {
-  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
-    "__packager_asset": true,
-    "httpServerLocation": "/assets/src/image",
-    "width": 302,
-    "height": 26,
-    "scales": [1],
-    "hash": "de3119ac79914ff21a93e3b6c13b7be2",
-    "name": "line",
-    "type": "png"
-  });
-},782,[164],"src\\image\\line.png");
+},781,[118,179,12,669],"src\\components\\User\\Account.js");
 require(44);
 require(11);
 //# sourceMappingURL=index.map

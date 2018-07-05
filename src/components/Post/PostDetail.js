@@ -31,7 +31,7 @@ class PostDetail extends Component {
       refreshing: true,
       repcmt: false,
       rep: "",
-      numrefesh:0
+      numrefesh: 0
     };
     this._onOpenModal = this._onOpenModal.bind(this);
     //const { navigation } = this.props;
@@ -68,7 +68,6 @@ class PostDetail extends Component {
     this.props.navigation.setParams({
       onEdit: this._onEdit.bind(this)
     });
-    
   }
   //Cập nhật lại comments
   refresh() {
@@ -125,7 +124,10 @@ class PostDetail extends Component {
                 noidung={this.state.noidung}
                 tacgia={this.state.tacgia}
                 loaded={this.state.loaded}
-                featured_media={this.props.navigation.getParam("featured_media","")}
+                featured_media={this.props.navigation.getParam(
+                  "featured_media",
+                  ""
+                )}
               />
               {/* Bình luận bài viết */}
               <View style={{ padding: 5 }}>
@@ -150,8 +152,8 @@ class PostDetail extends Component {
                   keyExtractor={(x, i) => i.toString()}
                   renderItem={({ item }) => (
                     <ItemComment
-                      loadComments= {this._loadComments}
-                      navigation = {this.props.navigation}
+                      loadComments={this._loadComments}
+                      navigation={this.props.navigation}
                       data={item}
                       deleteComments={this._deleteComments}
                       loaded={this.state.loaded}
@@ -163,8 +165,8 @@ class PostDetail extends Component {
             <ModalComment
               ref={"addModal"}
               style={{ zIndex: 1 }}
-              noidung={this.state.noidung}
-              loadComments = {this._loadComments()}
+              //noidung={this.state.noidung}
+              parent={this}
             />
           </View>
         )}
@@ -241,6 +243,41 @@ class PostDetail extends Component {
         }
       });
   }
+
+  _upLoadComment(name, content, email) {
+    fetch(
+      API.getURL() +
+        "/thuctap/wp-json/wp/v2/comments?post=" +
+        this.state.noidung.id +
+        "&author_name=" +
+        name +
+        "&content=" +
+        content +
+        "&author_email=" +
+        email,
+      {
+        headers: {
+          Authorization:
+            "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+        },
+        method: "POST"
+      }
+    )
+      .then(response => {
+        var t = response.status;
+        if (response.status == 201) {
+          this._loadComments();
+          ToastAndroid.show(
+            "Bình luận đang được xét duyệt!",
+            ToastAndroid.CENTER,
+            ToastAndroid.LONG
+          );
+        }
+      })
+      .then(function(object) {
+        Alert.alert("Cảnh báo", object.message);
+      });
+  }
 }
 const height_cmt = 49;
 const pw = Dimensions.get("window").width;
@@ -248,7 +285,7 @@ const pw = Dimensions.get("window").width;
 const myStyle = StyleSheet.create({
   container: {
     flex: 1,
-    
+
     backgroundColor: "#fff"
   },
   header: {
