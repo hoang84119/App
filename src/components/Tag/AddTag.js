@@ -39,7 +39,7 @@ class AddTag extends Component {
         <Feather
           style={{ marginLeft: 5, marginRight: 10, color: "#fff" }}
           name="save"
-          size={28}
+          size={24}
         />
       </TouchableOpacity>
     );
