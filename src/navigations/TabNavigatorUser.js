@@ -15,6 +15,7 @@ import CategoryTo from './CategoryTo';
   {
     //Định nghĩa các màn hình 
     Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
+    Media: {screen: MediaTo},
     Category:{screen:CategoryTo},
     Tag:{screen:TagTo},
   },
@@ -27,6 +28,8 @@ import CategoryTo from './CategoryTo';
         if (routeName === "Post") {
           // nếu màn hình được thì nối thêm chữ -outline
           iconName = `ios-book${focused ? '' : '-outline'}`; 
+        } else if (routeName === "Media") {
+          iconName = `ios-albums${focused ? '' : '-outline'}`;
         } else if (routeName === "Category") {
           iconName = `ios-apps${focused ? '' : '-outline'}`;
         }else if (routeName === "Tag") {

@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import Feather from "react-native-vector-icons/Feather";
+import RNRestart from 'react-native-restart';
 
 class SlideMenu extends Component {
   constructor(props) {
@@ -76,7 +77,8 @@ class SlideMenu extends Component {
       this.props.dispatch({
         type: "DeleteDataUser"
       });
-      this.props.navigation.setParams({userName: ""});
+      //this.props.navigation.setParams({userName: ""});
+      RNRestart.Restart();
       ToastAndroid.show("Đã đăng xuất", ToastAndroid.LONG);
       //BackHandler.exitApp();
     });

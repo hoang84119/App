@@ -6,7 +6,8 @@ import {
 } from "react-native";
 import API from "../../config/API";
 import IonIcons from "react-native-vector-icons/Ionicons"
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import RNRestart from 'react-native-restart';
 
 class App extends Component {
   state = {
@@ -50,10 +51,12 @@ class App extends Component {
               type: 'SetDataUser',
               data: response
             });
-            this.props.navigation.navigate("main");
+            //this.props.navigation.navigate("App");
+            RNRestart.Restart();
           }
           else {
             //ToastAndroid.show(response.admin,ToastAndroid.LONG);
+            
           }
         })
       } catch (e) {

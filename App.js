@@ -14,6 +14,7 @@ import API from "./src/config/API";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import PostTo from "./src/navigations/PostTo";
+import DrawerNavigatorUser from "./src/navigations/DrawerNavigatorUser";
 import DrawerNavigator from "./src/navigations/DrawerNavigator";
 
 //Tạo store trong redux
@@ -82,12 +83,12 @@ class App extends Component {
     );
     let mainView = this.state.loading ? (
       loadingView
-    ) : <DrawerNavigator />
-    // this.state.logged ? (
-    //   <Tab />
-    // ) : (
-    //       <PostTo />
-    //     );
+    ) //: <DrawerNavigator />
+    :this.state.logged ? (
+      <DrawerNavigatorUser />
+    ) : (
+          <DrawerNavigator />
+        );
     return (
       <Provider store={store}>
         {/* {mainView} */}
