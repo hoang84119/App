@@ -67,7 +67,7 @@ class ItemComment extends Component {
     );
   };
   repCmt = (x, y) => {
-    this.props.parent.refs.addModal.showModal(x, y)
+    this.props.addModal.showModal(x, y)
   }
 
   _getDate = () => {

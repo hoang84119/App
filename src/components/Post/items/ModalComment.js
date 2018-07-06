@@ -45,7 +45,7 @@ export default class ModalComment extends Component {
         position="center"
         backdrop={true}
         onClosed={() => {
-          this.props.parent.setState({isComment:false})
+          //this.props.parent.setState({isComment:false})
         }}
       >
         <View style={{ padding: 15 }}>

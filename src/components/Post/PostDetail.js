@@ -149,7 +149,7 @@ class PostDetail extends Component {
                   keyExtractor={(x, i) => i.toString()}
                   renderItem={({ item }) => (
                     <ItemComment
-                      parent={this}
+                      addModal={this.refs.addModal}
                       loadComments={this._loadComments}
                       navigation={this.props.navigation}
                       data={item}
@@ -184,8 +184,9 @@ class PostDetail extends Component {
     );
   }
   _onOpenModal() {
-    this.setState({isComment:true});
     this.refs.addModal.showModal(0,0);
+    //this.setState({isComment:true});
+    
   }
 
   _onEdit() {
