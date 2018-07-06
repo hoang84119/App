@@ -14,6 +14,8 @@ import API from "../../config/API";
 import Base64 from "../../config/Base64";
 
 const screenWidth = Dimensions.get("window").width;
+const screenHeight =
+  Dimensions.get("window").height - StatusBar.currentHeight - 50;
 
 export default class MediaDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -92,7 +94,7 @@ export default class MediaDetail extends Component {
       hinhanh: "",
       width: 0,
       height: 0,
-      link: ""
+      loaded: false
       //check: this.props.navigation.getParam("checkMedia", 0),
       //refreshing: true
     };
@@ -108,11 +110,29 @@ export default class MediaDetail extends Component {
         if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
+          let image = "";
+          let width = 0,
+            height = 0;
+          if (responseJson.media_details.width < responseJson.media_details.height) {
+            height = screenHeight;
+            width = (screenHeight * responseJson.media_details.width) / responseJson.media_details.height;
+          } else {
+            width = screenWidth;
+            height = (screenWidth * responseJson.media_details.height) / responseJson.media_details.width;
+          }
+          try {
+            image = responseJson.media_details.sizes.large.source_url;
+          } catch (e) {
+            image = responseJson.media_details.sizes.full.source_url;
+          }
+          console.log(image);
+          console.log(width+" "+height);
           this.setState({
             ten: responseJson.title.rendered,
-            hinhanh: responseJson.guid.rendered,
-            height: responseJson.media_details.height,
-            width: responseJson.media_details.width
+            hinhanh: image,
+            height: height,
+            width: width,
+            loaded: true
           });
         }
       });
@@ -126,26 +146,30 @@ export default class MediaDetail extends Component {
   }
   render() {
     return (
-      <View style={{backgroundColor:"#000"}}>
-        <ImageZoom
-          cropWidth={Dimensions.get("window").width}
-          cropHeight={Dimensions.get("window").height-StatusBar.currentHeight-50}
-          imageWidth={screenWidth}
-          imageHeight={(screenWidth * this.state.height) / this.state.width}
-        >
-          <Image
-            style={{
-              width: screenWidth,
-              height: (screenWidth * this.state.height) / this.state.width
-            }}
-            source={{
-              uri: `${this.state.hinhanh.replace(
-                "http://localhost",
-                API.getURL()
-              )}`
-            }}
-          />
-        </ImageZoom>
+      <View style={{ backgroundColor: "#000" }}>
+        {this.state.loaded && (
+          <ImageZoom
+            cropWidth={Dimensions.get("window").width}
+            cropHeight={
+              Dimensions.get("window").height - StatusBar.currentHeight - 50
+            }
+            imageWidth={this.state.width}
+            imageHeight={this.state.height}
+          >
+            <Image
+              style={{
+                width: this.state.width,
+                height: this.state.height
+              }}
+              source={{
+                uri: `${this.state.hinhanh.replace(
+                  "http://localhost",
+                  API.getURL()
+                )}`
+              }}
+            />
+          </ImageZoom>
+        )}
       </View>
     );
   }

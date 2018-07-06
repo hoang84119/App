@@ -61496,7 +61496,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       alignItems: "center"
     }
   });
-},491,[118,179,12,492,760,599,660,650,672,780,785,670,671],"App.js");
+},491,[118,179,12,492,759,599,660,650,672,779,784,670,671],"App.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -61533,7 +61533,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         headerMode: 'none'
     });
     exports.default = LoginToPost;
-},492,[493,598,672,760],"src\\navigations\\LogiToPost.js");
+},492,[493,598,672,759],"src\\navigations\\LogiToPost.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     get createNavigationContainer() {
@@ -84013,7 +84013,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = PostTo;
-},672,[493,673,731,748,750,751,753,598,759,118,12],"src\\navigations\\PostTo.js");
+},672,[493,673,731,748,750,751,753,598,758,118,12],"src\\navigations\\PostTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -100578,7 +100578,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var _this3 = this;
 
         var navigate = this.props.navigation.navigate;
-        console.log(_reactNative.Dimensions.get("window").heigh - _reactNative.StatusBar.currentHeight - 50);
 
         var headerBar = _react3.default.createElement(
           _reactNative.View,
@@ -101151,11 +101150,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _API2 = _interopRequireDefault(_API);
 
-  var _reactNativePinchZoomView = _require(_dependencyMap[5], "react-native-pinch-zoom-view");
-
-  var _reactNativePinchZoomView2 = _interopRequireDefault(_reactNativePinchZoomView);
-
-  var _Base = _require(_dependencyMap[6], "../../config/Base64");
+  var _Base = _require(_dependencyMap[5], "../../config/Base64");
 
   var _Base2 = _interopRequireDefault(_Base);
 
@@ -101187,6 +101182,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   var screenWidth = _reactNative.Dimensions.get("window").width;
+
+  var screenHeight = _reactNative.Dimensions.get("window").height - _reactNative.StatusBar.currentHeight - 50;
 
   var MediaDetail = _wrapComponent("MediaDetail")((_temp = _class = function (_Component) {
     _inherits(MediaDetail, _Component);
@@ -101240,7 +101237,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         hinhanh: "",
         width: 0,
         height: 0,
-        link: ""
+        loaded: false
       };
       return _this;
     }
@@ -101260,11 +101257,33 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   if (responseJson == null) {
                     _reactNative.Alert.alert("Lỗi", "Không có nội dung");
                   } else {
+                    var image = "";
+                    var width = 0,
+                        height = 0;
+
+                    if (responseJson.media_details.width < responseJson.media_details.height) {
+                      height = screenHeight;
+                      width = screenHeight * responseJson.media_details.width / responseJson.media_details.height;
+                    } else {
+                      width = screenWidth;
+                      height = screenWidth * responseJson.media_details.height / responseJson.media_details.width;
+                    }
+
+                    try {
+                      image = responseJson.media_details.sizes.large.source_url;
+                    } catch (e) {
+                      image = responseJson.media_details.sizes.full.source_url;
+                    }
+
+                    console.log(image);
+                    console.log(width + " " + height);
+
                     _this3.setState({
                       ten: responseJson.title.rendered,
-                      hinhanh: responseJson.guid.rendered,
-                      height: responseJson.media_details.height,
-                      width: responseJson.media_details.width
+                      hinhanh: image,
+                      height: height,
+                      width: width,
+                      loaded: true
                     });
                   }
                 });
@@ -101288,7 +101307,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }, {
       key: "render",
       value: function render() {
-        console.log(_reactNative.Dimensions.get("window").heigh - _reactNative.StatusBar.currentHeight - 50);
         return _react3.default.createElement(
           _reactNative.View,
           {
@@ -101297,32 +101315,32 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 158
+              lineNumber: 149
             }
           },
-          _react3.default.createElement(
+          this.state.loaded && _react3.default.createElement(
             _reactNativeImagePanZoom2.default,
             {
               cropWidth: _reactNative.Dimensions.get("window").width,
-              cropHeight: _reactNative.Dimensions.get("window").heigh - _reactNative.StatusBar.currentHeight - 50,
-              imageWidth: screenWidth,
-              imageHeight: screenWidth * this.state.height / this.state.width,
+              cropHeight: _reactNative.Dimensions.get("window").height - _reactNative.StatusBar.currentHeight - 50,
+              imageWidth: this.state.width,
+              imageHeight: this.state.height,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 159
+                lineNumber: 151
               }
             },
             _react3.default.createElement(_reactNative.Image, {
               style: {
-                width: screenWidth,
-                height: screenWidth * this.state.height / this.state.width
+                width: this.state.width,
+                height: this.state.height
               },
               source: {
                 uri: "" + this.state.hinhanh.replace("http://localhost", _API2.default.getURL())
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 165
+                lineNumber: 159
               }
             })
           )
@@ -101344,7 +101362,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 23
+          lineNumber: 24
         }
       },
       _react3.default.createElement(
@@ -101355,7 +101373,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 24
+            lineNumber: 25
           }
         },
         _react3.default.createElement(
@@ -101368,7 +101386,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 25
+              lineNumber: 26
             }
           },
           "X\xF3a"
@@ -101382,7 +101400,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 30
+            lineNumber: 31
           }
         },
         _react3.default.createElement(
@@ -101395,7 +101413,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 31
+              lineNumber: 32
             }
           },
           "Ch\u1ECDn"
@@ -101409,7 +101427,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 37
+            lineNumber: 38
           }
         },
         _react3.default.createElement(
@@ -101422,7 +101440,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 38
+              lineNumber: 39
             }
           },
           "Ch\u1ECDn"
@@ -101436,7 +101454,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }, _temp));
 
   exports.default = MediaDetail;
-},753,[118,179,12,754,599,758,600],"src\\components\\Media\\MediaDetail.js");
+},753,[118,179,12,754,599,600],"src\\components\\Media\\MediaDetail.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -102120,196 +102138,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   exports.State = State;
 },757,[],"node_modules\\react-native-image-pan-zoom\\built\\image-zoom\\image-zoom.type.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _react2 = _require(_dependencyMap[0], "react");
-
-  var _react3 = _interopRequireDefault(_react2);
-
-  var _index = _require(_dependencyMap[1], "./../react-transform-hmr/lib/index.js");
-
-  var _index2 = _interopRequireDefault(_index);
-
-  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-  var _class,
-      _temp,
-      _jsxFileName = "D:\\SourceCode\\React native\\App\\node_modules\\react-native-pinch-zoom-view\\index.js";
-
-  var _propTypes = _require(_dependencyMap[2], "prop-types");
-
-  var _propTypes2 = _interopRequireDefault(_propTypes);
-
-  var _reactNative = _require(_dependencyMap[3], "react-native");
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-  var _components = {
-    PinchZoomView: {
-      displayName: "PinchZoomView"
-    }
-  };
-
-  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
-    filename: "D:/SourceCode/React native/App/node_modules/react-native-pinch-zoom-view/index.js",
-    components: _components,
-    locals: [module],
-    imports: [_react3.default]
-  });
-
-  function _wrapComponent(id) {
-    return function (Component) {
-      return _reactTransformHmrLibIndexJs2(Component, id);
-    };
-  }
-
-  var viewPropTypes = _reactNative.ViewPropTypes || _reactNative.View.propTypes;
-
-  var PinchZoomView = _wrapComponent("PinchZoomView")((_temp = _class = function (_Component) {
-    _inherits(PinchZoomView, _Component);
-
-    function PinchZoomView(props) {
-      _classCallCheck(this, PinchZoomView);
-
-      var _this = _possibleConstructorReturn(this, (PinchZoomView.__proto__ || Object.getPrototypeOf(PinchZoomView)).call(this, props));
-
-      _this._handleStartShouldSetPanResponder = function (e, gestureState) {
-        return false;
-      };
-
-      _this._handleMoveShouldSetPanResponder = function (e, gestureState) {
-        return _this.props.scalable && (Math.abs(gestureState.dx) > 2 || Math.abs(gestureState.dy) > 2 || gestureState.numberActiveTouches === 2);
-      };
-
-      _this._handlePanResponderGrant = function (e, gestureState) {
-        if (gestureState.numberActiveTouches === 2) {
-          var dx = Math.abs(e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX);
-          var dy = Math.abs(e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY);
-          var distant = Math.sqrt(dx * dx + dy * dy);
-          _this.distant = distant;
-        }
-      };
-
-      _this._handlePanResponderEnd = function (e, gestureState) {
-        _this.setState({
-          lastX: _this.state.offsetX,
-          lastY: _this.state.offsetY,
-          lastScale: _this.state.scale
-        });
-      };
-
-      _this._handlePanResponderMove = function (e, gestureState) {
-        if (gestureState.numberActiveTouches === 2) {
-          var dx = Math.abs(e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX);
-          var dy = Math.abs(e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY);
-          var distant = Math.sqrt(dx * dx + dy * dy);
-          var scale = distant / _this.distant * _this.state.lastScale;
-
-          _this.setState({
-            scale: scale,
-            lastMovePinch: true
-          });
-        } else if (gestureState.numberActiveTouches === 1) {
-            if (_this.state.lastMovePinch) {
-              gestureState.dx = 0;
-              gestureState.dy = 0;
-            }
-
-            var offsetX = _this.state.lastX + gestureState.dx / _this.state.scale;
-            var offsetY = _this.state.lastY + gestureState.dy / _this.state.scale;
-
-            _this.setState({
-              offsetX: offsetX,
-              offsetY: offsetY,
-              lastMovePinch: false
-            });
-          }
-      };
-
-      _this.state = {
-        scale: 1,
-        lastScale: 1,
-        offsetX: 0,
-        offsetY: 0,
-        lastX: 0,
-        lastY: 0,
-        lastMovePinch: false
-      }, _this.distant = 150;
-      return _this;
-    }
-
-    _createClass(PinchZoomView, [{
-      key: "componentWillMount",
-      value: function componentWillMount() {
-        this.gestureHandlers = _reactNative.PanResponder.create({
-          onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder,
-          onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,
-          onPanResponderGrant: this._handlePanResponderGrant,
-          onPanResponderMove: this._handlePanResponderMove,
-          onPanResponderRelease: this._handlePanResponderEnd,
-          onPanResponderTerminationRequest: function onPanResponderTerminationRequest(evt) {
-            return true;
-          },
-          onShouldBlockNativeResponder: function onShouldBlockNativeResponder(evt) {
-            return false;
-          }
-        });
-      }
-    }, {
-      key: "render",
-      value: function render() {
-        return _react3.default.createElement(
-          _reactNative.View,
-          _extends({}, this.gestureHandlers.panHandlers, {
-            style: [styles.container, this.props.style, {
-              transform: [{
-                scaleX: this.state.scale
-              }, {
-                scaleY: this.state.scale
-              }, {
-                translateX: this.state.offsetX
-              }, {
-                translateY: this.state.offsetY
-              }]
-            }],
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 100
-            }
-          }),
-          this.props.children
-        );
-      }
-    }]);
-
-    return PinchZoomView;
-  }(_react2.Component), _class.propTypes = _extends({}, viewPropTypes, {
-    scalable: _propTypes2.default.bool
-  }), _class.defaultProps = {
-    scalable: true
-  }, _temp));
-
-  exports.default = PinchZoomView;
-
-  var styles = _reactNative.StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  });
-},758,[118,179,129,12],"node_modules\\react-native-pinch-zoom-view\\index.js");
-__d(function (global, _require, module, exports, _dependencyMap) {
       Object.defineProperty(exports, "__esModule", {
             value: true
       });
@@ -102536,7 +102364,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   color: "#fff"
             }
       });
-},759,[118,179,12,674,600,679],"src\\components\\Post\\items\\itemEditComments.js");
+},758,[118,179,12,674,600,679],"src\\components\\Post\\items\\itemEditComments.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102624,7 +102452,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     initialRouteName: 'Post',
     animationEnabled: true
   });
-},760,[118,672,761,493,601,762,775],"src\\navigations\\TabNavigator.js");
+},759,[118,672,760,493,601,761,774],"src\\navigations\\TabNavigator.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102728,7 +102556,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = MediaTo;
-},761,[493,751,753,118,12],"src\\navigations\\MediaTo.js");
+},760,[493,751,753,118,12],"src\\navigations\\MediaTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -102848,7 +102676,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = TagTo;
-},762,[493,763,773,774,672,118,12],"src\\navigations\\TagTo.js");
+},761,[493,762,772,773,672,118,12],"src\\navigations\\TagTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -103350,7 +103178,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(Tags);
-},763,[118,179,12,599,674,764,650],"src\\components\\Tag\\Tags.js");
+},762,[118,179,12,599,674,763,650],"src\\components\\Tag\\Tags.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -103601,7 +103429,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemCategory;
-},764,[118,179,12,674,765,766,767,768,769,770,771,772],"src\\components\\Tag\\item\\ItemTag.js");
+},763,[118,179,12,674,764,765,766,767,768,769,770,771],"src\\components\\Tag\\item\\ItemTag.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103613,7 +103441,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img0",
     "type": "jpg"
   });
-},765,[164],"src\\image\\tag\\img0.jpg");
+},764,[164],"src\\image\\tag\\img0.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103625,7 +103453,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img1",
     "type": "jpg"
   });
-},766,[164],"src\\image\\tag\\img1.jpg");
+},765,[164],"src\\image\\tag\\img1.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -103637,7 +103465,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "img2",
 		"type": "jpg"
 	});
-},767,[164],"src\\image\\tag\\img2.jpg");
+},766,[164],"src\\image\\tag\\img2.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103649,7 +103477,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img4",
     "type": "jpg"
   });
-},768,[164],"src\\image\\tag\\img4.jpg");
+},767,[164],"src\\image\\tag\\img4.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -103661,7 +103489,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "img5",
 		"type": "jpg"
 	});
-},769,[164],"src\\image\\tag\\img5.jpg");
+},768,[164],"src\\image\\tag\\img5.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103673,7 +103501,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img6",
     "type": "jpg"
   });
-},770,[164],"src\\image\\tag\\img6.jpg");
+},769,[164],"src\\image\\tag\\img6.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -103685,7 +103513,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "img7",
     "type": "jpg"
   });
-},771,[164],"src\\image\\tag\\img7.jpg");
+},770,[164],"src\\image\\tag\\img7.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
 	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
 		"__packager_asset": true,
@@ -103697,7 +103525,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 		"name": "img8",
 		"type": "jpg"
 	});
-},772,[164],"src\\image\\tag\\img8.jpg");
+},771,[164],"src\\image\\tag\\img8.jpg");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -104093,7 +103921,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = EditCategory;
-},773,[118,179,12,674],"src\\components\\Tag\\EditTag.js");
+},772,[118,179,12,674],"src\\components\\Tag\\EditTag.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -104440,7 +104268,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = AddTag;
-},774,[118,179,12,674],"src\\components\\Tag\\AddTag.js");
+},773,[118,179,12,674],"src\\components\\Tag\\AddTag.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -104560,7 +104388,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
 
   exports.default = CategoryTo;
-},775,[493,776,778,779,672,118,12],"src\\navigations\\CategoryTo.js");
+},774,[493,775,777,778,672,118,12],"src\\navigations\\CategoryTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -105081,7 +104909,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(Categories);
-},776,[118,179,12,599,674,777,650],"src\\components\\Category\\Categories.js");
+},775,[118,179,12,599,674,776,650],"src\\components\\Category\\Categories.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -105444,7 +105272,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemCategory;
-},777,[118,179,12,676,599,674,776],"src\\components\\Category\\items\\ItemCategory.js");
+},776,[118,179,12,676,599,674,775],"src\\components\\Category\\items\\ItemCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -105934,7 +105762,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = EditCategory;
-},778,[118,179,12,674],"src\\components\\Category\\EditCategory.js");
+},777,[118,179,12,674],"src\\components\\Category\\EditCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -106389,7 +106217,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = AddCategory;
-},779,[118,179,12,674],"src\\components\\Category\\AddCategory.js");
+},778,[118,179,12,674],"src\\components\\Category\\AddCategory.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -106444,7 +106272,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         }
     });
     exports.default = Drawer;
-},780,[118,493,781,598,782,784],"src\\navigations\\DrawerNavigatorUser.js");
+},779,[118,493,780,598,781,783],"src\\navigations\\DrawerNavigatorUser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -106537,7 +106365,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     initialRouteName: 'Post',
     animationEnabled: true
   });
-},781,[118,672,761,493,601,762,775],"src\\navigations\\TabNavigatorUser.js");
+},780,[118,672,760,493,601,761,774],"src\\navigations\\TabNavigatorUser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -106936,7 +106764,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }
 
   exports.default = (0, _reactRedux.connect)(mapStateToProps)(SlideMenu);
-},782,[118,179,12,650,674,669,783,670],"src\\components\\SlideMenu.js");
+},781,[118,179,12,650,674,669,782,670],"src\\components\\SlideMenu.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -106948,7 +106776,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "Material-Background",
     "type": "png"
   });
-},783,[164],"src\\image\\Material-Background.png");
+},782,[164],"src\\image\\Material-Background.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -107157,7 +106985,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             justifyContent: "center"
         }
     });
-},784,[118,179,12,670],"src\\components\\User\\Account.js");
+},783,[118,179,12,670],"src\\components\\User\\Account.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -107212,7 +107040,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         }
     });
     exports.default = Drawer;
-},785,[118,493,760,598,782,784],"src\\navigations\\DrawerNavigator.js");
+},784,[118,493,759,598,781,783],"src\\navigations\\DrawerNavigator.js");
 require(44);
 require(11);
 //# sourceMappingURL=index.map
