@@ -6,12 +6,12 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
+  StatusBar
 } from "react-native";
 import ImageZoom from "react-native-image-pan-zoom";
 import API from "../../config/API";
-import PinchZoomView from "react-native-pinch-zoom-view";
-import Base64 from "../../config/Base64"
+import Base64 from "../../config/Base64";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -123,27 +123,20 @@ export default class MediaDetail extends Component {
       comeBack: this._comeBack.bind(this),
       onDelete: this._onDelete.bind(this)
     });
-    //alert(this.props.navigation.getParam("src","rong"))
   }
   render() {
-    console.log(this.state);
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#000"
-        }}
-      >
-        <PinchZoomView scalable={false}>
+      <View style={{backgroundColor:"#000"}}>
+        <ImageZoom
+          cropWidth={Dimensions.get("window").width}
+          cropHeight={Dimensions.get("window").height-StatusBar.currentHeight-50}
+          imageWidth={screenWidth}
+          imageHeight={(screenWidth * this.state.height) / this.state.width}
+        >
           <Image
             style={{
               width: screenWidth,
-              height:
-                (screenWidth * this.state.height) /
-                this.state.width
+              height: (screenWidth * this.state.height) / this.state.width
             }}
             source={{
               uri: `${this.state.hinhanh.replace(
@@ -152,7 +145,7 @@ export default class MediaDetail extends Component {
               )}`
             }}
           />
-        </PinchZoomView>
+        </ImageZoom>
       </View>
     );
   }

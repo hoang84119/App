@@ -24,6 +24,7 @@ const MediaTo = createStackNavigator(
       headerStyle: {
         backgroundColor: "#0ABFBC",
         elevation: 0,
+        height:50
       },
       headerTintColor: "white",
       header: props => (
