@@ -137,7 +137,7 @@ export default class MediaDetail extends Component {
           backgroundColor: "#000"
         }}
       >
-        <PinchZoomView>
+        <PinchZoomView scalable={false}>
           <Image
             style={{
               width: screenWidth,
@@ -157,5 +157,3 @@ export default class MediaDetail extends Component {
     );
   }
 }
-
-const myStyle = StyleSheet.create({})
