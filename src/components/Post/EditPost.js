@@ -17,8 +17,8 @@ var options = {
     path: "images"
   },
   takePhotoButtonTitle: "Máy ảnh",
-  chooseFromLibraryButtonTitle: "Chọn hình ảnh sẵn có",
-  cancelButtonTitle: "Hủy"
+  chooseFromLibraryButtonTitle: null,
+  cancelButtonTitle: "Hủy",
 };
 
 class EditPost extends Component {

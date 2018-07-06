@@ -23,7 +23,7 @@ var options = {
     path: "images"
   },
   takePhotoButtonTitle: "Máy ảnh",
-  chooseFromLibraryButtonTitle: "Chọn hình ảnh sẵn có",
+  chooseFromLibraryButtonTitle: null,
   cancelButtonTitle: "Hủy"
 };
 
