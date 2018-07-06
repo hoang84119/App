@@ -8,12 +8,9 @@ import {
   Text,
   StyleSheet
 } from "react-native";
-import LoginToPost from "./src/navigations/LogiToPost";
-import Tab from "./src/navigations/TabNavigator";
 import API from "./src/config/API";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import PostTo from "./src/navigations/PostTo";
 import DrawerNavigatorUser from "./src/navigations/DrawerNavigatorUser";
 import DrawerNavigator from "./src/navigations/DrawerNavigator";
 
