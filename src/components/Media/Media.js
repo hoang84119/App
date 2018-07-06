@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   StatusBar,
   Alert, FlatList, TouchableOpacity, View, StyleSheet,
-  ToastAndroid, ActivityIndicator, Text
+  ToastAndroid, ActivityIndicator, Text, Modal
 } from "react-native";
 import API from "../../config/API";
 import ItemImage from "./items/ItemImage";
@@ -28,6 +28,7 @@ export default class Media extends Component {
       selected: new Set(),
       page: 1,
       over: false,
+      uploading: false,
     };
   }
 
@@ -57,7 +58,18 @@ export default class Media extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
-
+        <Modal
+            transparent={true}
+            animationType={'none'}
+            visible={this.state.uploading}>
+            <View style={myStyle.modalBackground}>
+              <View style={myStyle.activityIndicatorWrapper}>
+                <ActivityIndicator color={"#0ABFBC"} size={30} animating={this.state.uploading} />
+              <Text size={16}>Đang tải lên...</Text>
+              </View>
+            </View>
+        </Modal> 
+        
         {this.props.navigation.getParam("check", 0) != 1 &&
           <View style={{ backgroundColor: "#0ABFBC" }}>
             <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
@@ -206,11 +218,11 @@ export default class Media extends Component {
           fileName: response.path,
           type: response.type
         };
-        API.UploadImage(file).then(pathImage => {
+        API.UploadImage(file).then(this.setState({uploading : true})).then(pathImage => {
           if (pathImage != "") {
-            ToastAndroid.show("Đang xử lý...", ToastAndroid.LONG)
+            this.setState({uploading : false})
             this._refresh();
-            ToastAndroid.show("Upload thành công!", ToastAndroid.SHORT)
+            ToastAndroid.show("Hoàn thành!", ToastAndroid.TOP, ToastAndroid.SHORT)
             // pathImage = pathImage.replace(
             //   "http://localhost",
             //   API.getURL()
@@ -297,4 +309,21 @@ const myStyle = StyleSheet.create({
     flex: 4
   },
   title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
+  modalBackground: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: '#00000040'
+  },
+  activityIndicatorWrapper: {
+    padding:10,
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    //width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  }
 });
