@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
-import ImagePicker from './src/components/ImagePicker/ImagePicker'
-AppRegistry.registerComponent('App', () => ImagePicker);
+import Account from './src/components/User/Account'
+AppRegistry.registerComponent('App', () => App);
 console.disableYellowBox = true;
