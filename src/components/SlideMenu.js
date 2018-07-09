@@ -53,8 +53,8 @@ class SlideMenu extends Component {
 
             <View style={myStyle.modalBackground}>
               <View style={myStyle.activityIndicatorWrapper}>
-              <Text style={{ flex: 0.1,color: "#0ABFBC", padding: 5, fontSize: 18, }}>Giới thiệu</Text>
-              <ScrollView style={{ flex: 0.8, paddingHorizontal:10, borderBottomWidth: 1, borderTopWidth: 1, borderColor: "#efefef"}}>
+              <Text style={{ flex: 0.1,color: "#0ABFBC", padding: 8, fontSize: 18, }}>Giới thiệu</Text>
+              <ScrollView style={{ flex: 0.8, paddingHorizontal:10, borderBottomWidth: 1, borderColor: "#efefef"}}>
                 <Text>
                   GSOFT là công ty phần mềm hướng công nghệ, được sáng lập bởi những người có tâm huyết, có năng lực và kinh nghiệm chuyên môn cao với mong muốn hình thành và phát triển một công ty phần mềm hàng đầu tại Việt Nam và vươn tầm ra thế giới.
 GSOFT cung cấp các giải pháp phần mềm quản lý cho các doanh nghiệp tập đoàn, tổng công ty, ngân hàng, trường đại học, bệnh viện, các giải pháp kết nối cộng đồng trên nền tảng internet, các hệ thống website và các dịch vụ liên quan đến website, các hệ thống trong lĩnh vực thương mại điện tử và chính phủ điện tử.
@@ -62,7 +62,7 @@ GSOFT luôn tập trung nghiên cứu và ứng dụng tinh hoa công nghệ và
                 </Text>
               </ScrollView>
                 <TouchableOpacity
-                  style={{ flex: 0.1, padding: 5, alignItems: "center"}}
+                  style={{ flex: 0.1, padding: 7, alignItems: "center"}}
                   onPress={() => {
                   this.setModal(false)
                   }}>
@@ -170,7 +170,7 @@ const myStyle = StyleSheet.create({
   },
   activityIndicatorWrapper: {
     backgroundColor: '#FFFFFF',
-    width: 270,
+    width: 300,
     height: 350,
     borderRadius: 10,
     display: 'flex',
