@@ -15,9 +15,9 @@ class ItemImage extends Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={this._onPress}>
+      <TouchableWithoutFeedback onPress={this._AddPhoto}>
         <ImageBackground
-          source={{ uri: this.props.src }}
+          source={{ uri: this.props.item.node.image.uri }}
           style={{
             width: this.props.width,
             height: this.props.width,
@@ -38,7 +38,7 @@ class ItemImage extends Component {
             />
           )}
           {this.state.checked && (
-            <TouchableWithoutFeedback onPress={this._onPress}>
+            <TouchableWithoutFeedback onPress={this._RemovePhoto}>
             <View
               style={{
                 width: this.props.width,
@@ -55,7 +55,7 @@ class ItemImage extends Component {
                   color: "#fff",
                   margin:10
                 }}
-                name="check-circle"
+                name="plus"
                 size={25}
               />
             </View>
@@ -68,6 +68,16 @@ class ItemImage extends Component {
 
   _onPress = ()=>{
       this.setState({checked:!this.state.checked})
+  }
+
+  _AddPhoto = () =>{
+    this.setState({checked:!this.state.checked});
+    this.props.addPhoto(this.props.item);
+  }
+
+  _RemovePhoto = ()=>{
+    this.setState({checked:!this.state.checked});
+    this.props.removePhoto(this.props.item);
   }
 }
 
