@@ -10,9 +10,9 @@ import {
   TouchableOpacity
 } from "react-native";
 import ItemImage from "./items/ItemImage";
-import Feather from "react-native-vector-icons/Feather";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const width = (Dimensions.get("window").width - 40) / 3;
+const width = (Dimensions.get("window").width - 18 ) / 3;
 
 export default class ImagePicker extends Component {
   constructor(props) {
@@ -32,8 +32,8 @@ export default class ImagePicker extends Component {
       <View
         style={{
           flex: 1,
-          backgroundColor: "#000",
-          paddingLeft: 10,
+          backgroundColor: "#fff",
+          paddingLeft: 3,
           paddingTop: 10
         }}
       >
@@ -45,28 +45,17 @@ export default class ImagePicker extends Component {
           keyExtractor={(item, index) => index.toString()}
           renderItem={this._renderItem}
         />
-        <TouchableOpacity
-          onPress={this._selectedPhotos}
-          style={myStyle.selectButton}
-        >
-          <Feather
-            style={{ color: "white" }}
-            name="send"
-            size={25}
-          />
-          {/* <Text style={{
-              marginLeft: -12,
-              marginBottom: -20,
-              width: 17,
-              height: 17,
-              textAlign: 'center',
-              backgroundColor: "#000",
-              color: "#fff",
-              borderRadius: 10,
-              padding: 1,
-              fontSize: 11
-            }}>{this.state.selectedPhotos.size}</Text> */}
-        </TouchableOpacity>
+        {this.state.selectedPhotos.size != 0 && (
+          <TouchableOpacity
+            onPress={this._selectedPhotos}
+            style={myStyle.selectButton}
+          >
+            <Text style={myStyle.textIcon}>
+              {this.state.selectedPhotos.size}
+            </Text>
+            <Ionicons style={{ color: "#fff" }} name="md-send" size={30} />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -100,36 +89,54 @@ export default class ImagePicker extends Component {
 
   _addPhoto = photo => {
     //this.setState({ selectedPhotos: this.state.selectedPhotos.add(photo) });
-    this.setState(state=>{
-      const selectedPhotos =new Set(state.selectedPhotos);
+    this.setState(state => {
+      const selectedPhotos = new Set(state.selectedPhotos);
       selectedPhotos.add(photo);
-      return {selectedPhotos};
-    })
+      return { selectedPhotos };
+    });
   };
 
   _removePhoto = photo => {
     //this.setState({ selectedPhotos: this.state.selectedPhotos.delete(photo) });
-    this.setState(state=>{
-      const selectedPhotos =new Set(state.selectedPhotos);
+    this.setState(state => {
+      const selectedPhotos = new Set(state.selectedPhotos);
       selectedPhotos.delete(photo);
-      return {selectedPhotos};
-    })
+      return { selectedPhotos };
+    });
   };
 
-  _selectedPhotos = ()=>{
-
-  }
+  _selectedPhotos = () => {
+    let src = new Set();
+    this.state.selected.forEach(value=>{
+      let file = {
+        uri: va,
+        name: response.fileName,
+        fileName: response.path,
+        type: response.type
+      };
+      API.UploadImage(file).then(pathImage => {
+        if (pathImage != "") {
+          pathImage = pathImage.replace(
+            "http://localhost",
+            API.getURL()
+          );
+          this.richtext.insertImage({ src: pathImage });
+        }
+      });
+    })
+    this.props.navigation.navigate("thembaiviet");
+  };
 }
 
 const myStyle = StyleSheet.create({
   selectButton: {
-    flexDirection: "row",
+    flexDirection: "column",
     position: "absolute",
     width: 50,
     height: 50,
     bottom: 0,
     right: 0,
-    backgroundColor: "#FF3333",
+    backgroundColor: "#0ABFBC",
     zIndex: 1,
     margin: 10,
     borderRadius: 50,
@@ -141,4 +148,19 @@ const myStyle = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5
   },
+  textIcon: {
+    //marginLeft: -12,
+    position: "absolute",
+    marginTop: -10,
+    bottom: 30,
+    right: 0,
+    width: 20,
+    height: 20,
+    textAlign: "center",
+    backgroundColor: "#000",
+    color: "#fff",
+    borderRadius: 50,
+    padding: 1,
+    fontSize: 12
+  }
 });
