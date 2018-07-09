@@ -15,13 +15,13 @@ class ItemImage extends Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={this._AddPhoto}>
+      <View style={{marginBottom:3, borderColor:"#808080", borderWidth:1,marginRight: 3}}>
+        <TouchableWithoutFeedback onPress={this._AddPhoto}>
         <ImageBackground
           source={{ uri: this.props.item.node.image.uri }}
           style={{
             width: this.props.width,
             height: this.props.width,
-            marginRight: 10,
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "flex-start"
@@ -55,7 +55,7 @@ class ItemImage extends Component {
                   color: "#fff",
                   margin:10
                 }}
-                name="plus"
+                name="check-circle"
                 size={25}
               />
             </View>
@@ -63,6 +63,7 @@ class ItemImage extends Component {
           )}
         </ImageBackground>
       </TouchableWithoutFeedback>
+      </View>
     );
   }
 
@@ -72,6 +73,11 @@ class ItemImage extends Component {
 
   _AddPhoto = () =>{
     this.setState({checked:!this.state.checked});
+    console.log(this.props.item.node.image.name);
+    var file = new File(["file"], this.props.item.node.image.uri, {
+      type: this.props.item.node.type,
+    });
+    console.log(file);
     this.props.addPhoto(this.props.item);
   }
 
