@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TagTo from './TagTo';
 import CategoryTo from './CategoryTo';
+import PageTo from './PageTo'
 
 
 
@@ -17,6 +18,7 @@ import CategoryTo from './CategoryTo';
     Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
     Category:{screen:CategoryTo},
     Tag:{screen:TagTo},
+    Page: {screen:PageTo},
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -30,6 +32,8 @@ import CategoryTo from './CategoryTo';
         } else if (routeName === "Category") {
           iconName = `ios-apps${focused ? '' : '-outline'}`;
         }else if (routeName === "Tag") {
+          iconName = `ios-pricetag${focused ? '' : '-outline'}`;
+        }else if (routeName === "Page") {
           iconName = `ios-pricetag${focused ? '' : '-outline'}`;
         }
         // trả về icon

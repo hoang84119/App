@@ -103,6 +103,56 @@ Tag ={
   },
 }
 
+Page ={
+  Remove: async function(id) {
+    try {
+      var base64 = await AsyncStorage.getItem("Base64", "");
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      let response = await fetch(
+        `${url}/thuctap/wp-json/wp/v2/pages/${id}?force=true`,
+        {
+          headers: {
+            Authorization: "Basic " + base64
+          },
+          method: "DELETE"
+        }
+      );
+      if (response.status === 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  Save: async function(id, name, slug, description) {
+    var urlTemp = `${url}/thuctap/wp-json/wp/v2/pages`;
+    var base64 = await AsyncStorage.getItem("Base64", "");
+    var formData = new FormData();
+    formData.append("name", name);
+    formData.append("slug", slug);
+    formData.append("description", description);
+    if (id != "") urlTemp = `${urlTemp}/${id}`;
+    let response = await fetch(`${urlTemp}`, {
+      headers: {
+        Authorization: "Basic " + base64
+      },
+      body: formData,
+      method: "POST"
+    });
+    if (response.status === 200) {
+      return true;
+    } else if (response.status === 201){
+      return true
+    } else {
+      return response.json();
+    }
+  },
+}
+
 module.exports = API = {
   getURL() {
     return url;
