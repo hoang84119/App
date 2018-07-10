@@ -218,7 +218,8 @@ export default class Media extends Component {
           fileName: response.path,
           type: response.type
         };
-        API.UploadImage(file).then(this.setState({uploading : true})).then(pathImage => {
+        console.log(file);
+        API.Image.UploadImage(file).then(this.setState({uploading : true})).then(pathImage => {
           if (pathImage != "") {
             this.setState({uploading : false})
             this._refresh();

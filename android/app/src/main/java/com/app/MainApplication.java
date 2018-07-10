@@ -3,6 +3,7 @@ package com.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new PickerPackage(),
             new ReactNativeRestartPackage(),
           new WebViewBridgePackage(),
           new ImagePickerPackage()
