@@ -27,14 +27,7 @@ export default class MediaDetail extends Component {
             Xóa
           </Text>
         </TouchableOpacity>
-        {navigation.getParam("src", 0) === "chinhsua" && (
-          <TouchableOpacity onPress={() => params.comeBack()}>
-            <Text style={{ fontSize: 18, fontWeight: "bold", marginRight: 10 }}>
-              Chọn
-            </Text>
-          </TouchableOpacity>
-        )}
-        {navigation.getParam("src", 0) === "thembaiviet" && (
+        {navigation.getParam("check", 0) === 1 && (
           <TouchableOpacity onPress={() => params.comeBack()}>
             <Text style={{ fontSize: 18, fontWeight: "bold", marginRight: 10 }}>
               Chọn

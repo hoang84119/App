@@ -131,9 +131,10 @@ class Tags extends Component {
           if (responseJson.length != 0) {
             dataTemp = dataTemp.concat(responseJson);
           }
-        } else if (response.status === 400) {
-          ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
-        }
+        } 
+        // else if (response.status === 400) {
+        //   ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+        // }
       }
       this.setState({
         data: dataTemp,
@@ -149,7 +150,7 @@ class Tags extends Component {
         let responseJson = await response.json();
         if (responseJson.length === 0) {
           ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
-          this.setState({ refreshing: false, loading: false, over: true });
+          this.setState({ refreshing: false, loading: false, over: true, page: this.state.page-1 });
         } else {
           this.setState({
             data: this.state.data.concat(responseJson),
@@ -158,9 +159,10 @@ class Tags extends Component {
             over: false
           });
         }
-      } else if (response.status === 400) {
-        ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
-      }
+      } 
+      // else if (response.status === 400) {
+      //   ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+      // }
     }
   }
 
