@@ -150,7 +150,7 @@ class Categories extends Component {
         let responseJson = await response.json();
         if (responseJson.length === 0) {
           ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
-          this.setState({ refreshing: false, loading: false, over: true });
+          this.setState({ refreshing: false, loading: false, over: true, page:this.state.page-1 });
         } else {
           this.setState({
             data: this.state.data.concat(responseJson),

@@ -5,9 +5,11 @@ import AddPage from "../components/Page/AddPage";
 import PageDetail from "../components/Page/PageDetail";
 import React from "react";
 import { View, StatusBar } from "react-native";
+import Media from "../components/Media/Media";
+import MediaDetail from "../components/Media/MediaDetail";
 
 const PageTo = createStackNavigator(
-  {
+    {
       Page: {
       screen: Page
     },
@@ -27,6 +29,24 @@ const PageTo = createStackNavigator(
       screen: PageDetail,
       navigationOptions: {
         headerTitle: "Chi tiết trang"
+      }
+    },
+    scmedia: {
+      screen: Media,
+      navigationOptions: {
+        headerTitle: "Chọn hình ảnh",
+        // headerStyle: {
+        //   height: 50
+        // }
+      }
+    },
+    scchitiet: {
+      screen: MediaDetail,
+      navigationOptions: {
+        headerTitle: "Chi tiết hình ảnh",
+        // headerStyle: {
+        //   height: 50
+        // }
       }
     },
   },
