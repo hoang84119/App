@@ -2,7 +2,7 @@ export const url = "http://192.168.1.128";
 import { AsyncStorage, ToastAndroid } from "react-native";
 import Base64 from "./Base64";
 
-Category ={
+Category = {
   Remove: async function(id) {
     try {
       var base64 = await AsyncStorage.getItem("Base64", "");
@@ -45,15 +45,15 @@ Category ={
     });
     if (response.status === 200) {
       return true;
-    } else if (response.status === 201){
-      return true
+    } else if (response.status === 201) {
+      return true;
     } else {
       return response.json();
     }
-  },
-}
+  }
+};
 
-Tag ={
+Tag = {
   Remove: async function(id) {
     try {
       var base64 = await AsyncStorage.getItem("Base64", "");
@@ -95,13 +95,44 @@ Tag ={
     });
     if (response.status === 200) {
       return true;
-    } else if (response.status === 201){
-      return true
+    } else if (response.status === 201) {
+      return true;
     } else {
       return response.json();
     }
-  },
-}
+  }
+};
+
+Image = {
+  UploadImage: async function(path) {
+    try {
+      var base64 = await AsyncStorage.getItem("Base64", "");
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      let formData = new FormData();
+      formData.append("file", path);
+      let response = await fetch(url + "/thuctap/wp-json/wp/v2/media/", {
+        headers: {
+          Authorization: "Basic " + base64,
+          "Content-Type": "multipart/form-data"
+        },
+        body: formData,
+        method: "POST"
+      });
+      console.log(response);
+      if (response.status === 201) {
+        let json = await response.json();
+        return json.guid.rendered;
+      }
+      console.log("Lỗi");
+      return "";
+    } catch (e) {
+      console.log(e);
+    }
+  }
+};
 
 Page ={
   Remove: async function(id) {
@@ -212,29 +243,6 @@ module.exports = API = {
       return null;
     }
   },
-  UploadImage: async function(path) {
-    try {
-      let formData = new FormData();
-      formData.append("file", path);
-      let response = await fetch(url + "/thuctap/wp-json/wp/v2/media/", {
-        headers: {
-          Authorization:
-            "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok"),
-          "Content-Type": "multipart/form-data"
-        },
-        body: formData,
-        method: "POST"
-      });
-      if (response.status === 201) {
-        let json = await response.json();
-        return json.guid.rendered;
-      }
-      console.log("Lỗi");
-      return "";
-    } catch (e) {
-      console.log(e);
-    }
-  },
   Login: async function(username, password) {
     let base64 = Base64.btoa(`${username}:${password}`);
     let response = await fetch(`${url}/thuctap/wp-json/wp/v2/users/me`, {
@@ -260,4 +268,5 @@ module.exports = API = {
   },
   Category: Category,
   Tag: Tag,
+  Image: Image
 };

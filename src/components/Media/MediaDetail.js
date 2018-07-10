@@ -125,8 +125,6 @@ export default class MediaDetail extends Component {
           } catch (e) {
             image = responseJson.media_details.sizes.full.source_url;
           }
-          console.log(image);
-          console.log(width+" "+height);
           this.setState({
             ten: responseJson.title.rendered,
             hinhanh: image,
