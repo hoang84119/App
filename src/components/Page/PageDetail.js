@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  ImageBackground,
   View,
   Text,
   StyleSheet,
@@ -71,45 +72,30 @@ class PageDetail extends Component {
           </View>
         )}
         {this.state.loaded && (
-          <View style={{ flex: 1 }}>
+          <ScrollView style={{ flex: 1 , backgroundColor: "#fff"}}>
             <ImageBackground
-          source={{ uri: this.props.featured_media }}
-          style={myStyle.imageCover}
-        >
-          <View style={myStyle.viewUser}>
-            <View style={myStyle.user}>
-              <Image
-                style={myStyle.avatar}
-                source={{ uri: this.props.tacgia.avatar_urls[96] }}
+              source={{ uri: this.props.navigation.getParam("featured_media","") }}
+              style={myStyle.imageCover}
+            >
+              <Text style={myStyle.title}>
+                {this.state.noidung.title.rendered}
+              </Text>
+              <Text style={myStyle.textCapNhat}>
+                Cập nhật lúc: {this._getDate()}
+              </Text>
+            </ImageBackground>
+
+            <View style={myStyle.container}>
+              <HTML
+                html={this.state.noidung.content.rendered.replace(
+                  "http://localhost",
+                  API.getURL()
+                )}
+                imagesMaxWidth={Dimensions.get("window").width - 10}
+                tagsStyles={htmlContentStyle}
               />
-              <Text style={myStyle.tenTacGia}>{this.props.tacgia.name}</Text>
             </View>
-          </View>
-        </ImageBackground>
-
-        <View style={myStyle.container}>
-          <Text style={myStyle.title}>{this.props.noidung.title.rendered}</Text>
-          <Text style={myStyle.textCapNhat}>
-            Cập nhật lúc: {this._getDate()}
-          </Text>
-
-          <View style={{ alignItems: "center", flex: 1, margin: 10 }}>
-            <Image
-              style={{ width: 150, height: 11 }}
-              source={require("../../../image/line.png")}
-            />
-          </View>
-
-          <HTML
-            html={this.props.noidung.content.rendered.replace(
-              "http://localhost",
-              API.getURL()
-            )}
-            imagesMaxWidth={Dimensions.get("window").width - 10}
-            tagsStyles={htmlContentStyle}
-          />
-        </View>
-          </View>
+          </ScrollView>
         )}
       </View>
     );
@@ -206,6 +192,10 @@ const myStyle = StyleSheet.create({
   textCapNhat: {
     fontSize: 14,
     marginBottom: 10
-  }
+  },
+  imageCover: {
+    flex: 1,
+    height: 150
+  },
 });
 export default PageDetail;
