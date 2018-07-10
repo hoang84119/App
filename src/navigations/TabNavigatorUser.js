@@ -52,7 +52,7 @@ import PageTo from './PageTo'
       //style: {height:40},
       scrollEnabled: true,
     },
-    initialRouteName: 'Page',
+    initialRouteName: 'Post',
     animationEnabled: true,//hiệu ứng chuyển tab
     //swipeEnabled: true,// cho phép vuốt để chuyển
   }

@@ -121,7 +121,6 @@ Image = {
         body: formData,
         method: "POST"
       });
-      console.log(response);
       if (response.status === 201) {
         let json = await response.json();
         return json.guid.rendered;
@@ -131,6 +130,20 @@ Image = {
     } catch (e) {
       console.log(e);
     }
+  },
+  DeleteImage: async function(id){
+    try {
+      var base64 = await AsyncStorage.getItem("Base64", "");
+    } catch (e) {
+      console.log(e);
+    }
+    return await fetch(`${url}/thuctap/wp-json/wp/v2/media/${id}?force=true`, {
+      headers: {
+        Authorization:
+          "Basic " + base64 //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+      },
+      method: "DELETE"
+    });
   }
 };
 

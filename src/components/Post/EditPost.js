@@ -60,6 +60,7 @@ class EditPost extends Component {
     this.props.navigation.addListener("willFocus", () => {
       let srcImage = this.props.navigation.getParam("srcImage", "");
       if (srcImage != "") {
+        this.refs.myModal.close();
         this.richtext.insertImage({ src: srcImage });
         this.props.navigation.setParams({ srcImage: "" });
       }
@@ -190,27 +191,25 @@ class EditPost extends Component {
     });
   }
 
-  _openCamera = () => {
-    ImagePicker.openCamera({
+  _openCamera = async () => {
+    let image = await ImagePicker.openCamera({
       width: 300,
       height: 400,
       cropping: true
-    }).then(image => {
-      this._uploadImage(image);
-      this.refs.myModal.close();
     });
+    await this._uploadImage(image);
+    this.refs.myModal.close();
   };
 
-  _openPicker = () => {
-    ImagePicker.openPicker({
+  _openPicker = async () => {
+    let images = await ImagePicker.openPicker({
       multiple: true,
       mediaType: "photo"
-    }).then(images => {
-      images.forEach(item => {
-        this._uploadImage(item);
-      });
-      this.refs.myModal.close();
     });
+    for (let item of images) {
+      await this._uploadImage(item);
+    }
+    this.refs.myModal.close();
   };
 
   _openLibraryWP = () => {
@@ -220,13 +219,13 @@ class EditPost extends Component {
     });
   };
 
-  _uploadImage = item => {
+  _uploadImage = async item => {
     var file = {
       uri: item.path,
       name: item.path.replace(/^.*[\\\/]/, ""),
       type: item.mime
     };
-    API.Image.UploadImage(file).then(pathImage => {
+    await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
         pathImage = pathImage.replace("http://localhost", API.getURL());
         this.richtext.insertImage({ src: pathImage });

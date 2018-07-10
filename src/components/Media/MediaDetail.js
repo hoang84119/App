@@ -110,15 +110,16 @@ export default class MediaDetail extends Component {
         if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
-          let image = "";
-          let width = 0,
-            height = 0;
-          if (responseJson.media_details.width < responseJson.media_details.height) {
+          image = "";
+          let width = screenWidth;
+          let height =
+            (screenWidth * responseJson.media_details.height) /
+            responseJson.media_details.width;
+          if (height > screenHeight) {
             height = screenHeight;
-            width = (screenHeight * responseJson.media_details.width) / responseJson.media_details.height;
-          } else {
-            width = screenWidth;
-            height = (screenWidth * responseJson.media_details.height) / responseJson.media_details.width;
+            width =
+              (screenHeight * responseJson.media_details.width) /
+              responseJson.media_details.height;
           }
           try {
             image = responseJson.media_details.sizes.large.source_url;
