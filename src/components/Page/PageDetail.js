@@ -82,7 +82,7 @@ class PageDetail extends Component {
                 {this.state.noidung.title.rendered}
               </Text>
               <Text style={myStyle.textCapNhat}>
-                Cập nhật lúc: {this._getDate()}
+                Cập nhật: {this._getDate()}
               </Text>
             </View>
             </ImageBackground>
@@ -189,10 +189,11 @@ const myStyle = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "500",
-    color: "#282828"
+    color: "#fff"
   },
   textCapNhat: {
-    fontSize: 14,
+    color: "#fff",
+    fontSize: 12,
     marginBottom: 10
   },
   imageCover: {
@@ -201,6 +202,7 @@ const myStyle = StyleSheet.create({
   },
   header:{
     flex: 1,
+    paddingHorizontal: 10,
     justifyContent: "flex-end",
     backgroundColor: "#00000099"
   }
