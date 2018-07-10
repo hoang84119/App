@@ -197,7 +197,7 @@ const myStyle = StyleSheet.create({
     shadowOpacity: 0.8,
     elevation: 5
   },
-  btnNoiDung: {backgroundColor: "#00000099", paddingLeft: 0, flex: 1 },
+  btnNoiDung: {backgroundColor: "#00000060", paddingLeft: 0, flex: 1 },
   hinh: {
     flex: 1,
     height: 150,

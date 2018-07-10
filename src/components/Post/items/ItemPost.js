@@ -39,27 +39,32 @@ class ItemPost extends Component {
 
   render() {
     return (
-      <View style={myStyle.cardItem}>
+      <ImageBackground
+      source={{ uri: this.state.featured_media }}
+       style={myStyle.cardItem}>
+       <View style={{flex:1, backgroundColor: "#00000060"}}>
         <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
           {this.state.loaded && (
-            <ImageBackground
-              source={{ uri: this.state.featured_media }}
-              style={myStyle.hinh}
-            >
+            // <ImageBackground
+            //   source={{ uri: this.state.featured_media }}
+            //   style={myStyle.hinh}
+            // >
               <View style={myStyle.title}>
                 <HTML
                   html={"<span>" + this.props.data.title.rendered + "</span>"}
                   tagsStyles={htmlStyle}
                 />
               </View>
-            </ImageBackground>
+            // </ImageBackground>
           )}
           {this.props.data.excerpt.rendered != "" && (
-            <HTML
+             <View style={myStyle.excerpt}>
+             <HTML
               html={this.formatExcerpt(this.props.data.excerpt.rendered)}
               //tagsStyles={htmlStyle}
               renderers={this.renderers}
             />
+            </View>
           )}
         </TouchableOpacity>
         <View style={myStyle.footer}>
@@ -79,7 +84,8 @@ class ItemPost extends Component {
             </View>
           )}
         </View>
-      </View>
+        </View>
+      </ImageBackground>
     );
   }
 
@@ -179,7 +185,7 @@ class ItemPost extends Component {
 
 const htmlStyle = {
   span: {
-    fontWeight: "300",
+    fontWeight: "bold",
     fontSize: 18,
     color: "#FFF"
   },
@@ -190,12 +196,9 @@ const htmlStyle = {
 };
 const myStyle = StyleSheet.create({
   cardItem: {
-    //borderWidth: 1,
     flexDirection: "column",
-    //borderColor: "#f4f4f4",
-    marginHorizontal: 5,
-    marginVertical: 5,
-    //padding: 10,
+    marginHorizontal: 10,
+    marginVertical: 7,
     backgroundColor: "white",
     borderRadius: 5,
     overflow: "hidden", //không cho item tràn ra ngoài
@@ -203,7 +206,8 @@ const myStyle = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: { width: 10, height: 10 },
     shadowOpacity: 0.8,
-    elevation: 2
+    elevation: 4,
+    height: 180,
   },
   btnNoiDung: { paddingLeft: 0, flex: 1 },
   hinh: {
@@ -214,23 +218,22 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   title: {
-    flex: 1,
-    backgroundColor: "rgba(100,100,100,0.3)",
+    color: "#fff",
+    //flex: 1,
+    //backgroundColor: "rgba(100,100,100,0.3)",
     paddingHorizontal:10,
     paddingVertical: 5
   },
   noidung: {
     padding: 10,
+    paddingBottom: 0,
     fontSize: 14,
-    color: "#4F4F4F"
+    color: "#fff"
   },
   footer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.5,
-    borderTopColor: "#f4f4f4",
-    borderTopWidth: 1,
     //backgroundColor:"#f3f3f3"
   },
   date: {
@@ -240,6 +243,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   dateContent: {
+    color: "#fff",
     fontSize: 12,
     textAlign: "center"
   },
@@ -248,8 +252,12 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  iconClock:{marginRight:5, color: "#868686" },
-  icon: { marginRight:10,marginLeft:3, color: "#868686" }
+  iconClock:{marginRight:5, color: "#fff" },
+  icon: { marginRight:10,marginLeft:3, color: "#fff" },
+  excerpt:{
+    flex:1,
+    justifyContent: "flex-end"
+  }
 });
 
 export default ItemPost;
