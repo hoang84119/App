@@ -77,12 +77,14 @@ class PageDetail extends Component {
               source={{ uri: this.props.navigation.getParam("featured_media","") }}
               style={myStyle.imageCover}
             >
+            <View style={myStyle.header}>
               <Text style={myStyle.title}>
                 {this.state.noidung.title.rendered}
               </Text>
               <Text style={myStyle.textCapNhat}>
-                Cập nhật lúc: {this._getDate()}
+                Cập nhật: {this._getDate()}
               </Text>
+            </View>
             </ImageBackground>
 
             <View style={myStyle.container}>
@@ -187,15 +189,22 @@ const myStyle = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "500",
-    color: "#282828"
+    color: "#fff"
   },
   textCapNhat: {
-    fontSize: 14,
+    color: "#fff",
+    fontSize: 12,
     marginBottom: 10
   },
   imageCover: {
     flex: 1,
     height: 150
   },
+  header:{
+    flex: 1,
+    paddingHorizontal: 10,
+    justifyContent: "flex-end",
+    backgroundColor: "#00000099"
+  }
 });
 export default PageDetail;
