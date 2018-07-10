@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TagTo from './TagTo';
 import CategoryTo from './CategoryTo';
+import PageTo from './PageTo'
 
 
 
@@ -18,6 +19,7 @@ import CategoryTo from './CategoryTo';
     Media: {screen: MediaTo},
     Category:{screen:CategoryTo},
     Tag:{screen:TagTo},
+    Page:{screen: PageTo}
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -29,11 +31,13 @@ import CategoryTo from './CategoryTo';
           // nếu màn hình được thì nối thêm chữ -outline
           iconName = `ios-book${focused ? '' : '-outline'}`; 
         } else if (routeName === "Media") {
-          iconName = `ios-albums${focused ? '' : '-outline'}`;
+          iconName = `ios-image${focused ? '' : '-outline'}`;
         } else if (routeName === "Category") {
           iconName = `ios-apps${focused ? '' : '-outline'}`;
         }else if (routeName === "Tag") {
           iconName = `ios-pricetag${focused ? '' : '-outline'}`;
+        }else if (routeName === "Page") {
+          iconName = `ios-albums${focused ? '' : '-outline'}`;
         }
         // trả về icon
         return <Ionicons name={iconName} size={20} color={tintColor} />;
@@ -48,7 +52,7 @@ import CategoryTo from './CategoryTo';
       //style: {height:40},
       scrollEnabled: true,
     },
-    initialRouteName: 'Post',
+    initialRouteName: 'Page',
     animationEnabled: true,//hiệu ứng chuyển tab
     //swipeEnabled: true,// cho phép vuốt để chuyển
   }
