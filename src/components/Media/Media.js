@@ -198,11 +198,12 @@ export default class Media extends Component {
           if (responseJson.length != 0) {
             dataTemp = dataTemp.concat(responseJson);
           }
-        } else if (response.status === 400) {
-          console.log(this.state.page);
-          console.log(response);
-          ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
-        }
+        } 
+        // else if (response.status === 400) {
+        //   console.log(this.state.page);
+        //   console.log(response);
+        //   ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
+        // }
       }
       this.setState({
         noidung: dataTemp,
