@@ -5,9 +5,8 @@ import {
   Text,
   StyleSheet,
   Alert,
-  Image,
   ToastAndroid,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import {
   RichTextEditor,
@@ -68,24 +67,9 @@ class EditPost extends Component {
   }
 
   render() {
-    let img =
-      this.state.avatarSource == null ? null : (
-        <Image
-          source={this.state.avatarSource}
-          style={{ height: 200, width: 200 }}
-        />
-      );
-
     return (
       <View style={myStyle.container}>
-        <Modal
-          ref={"myModal"}
-          style={myStyle.modal}
-          position="bottom"
-          onClosed={() => {
-            //this.props.parent.setState({isComment:false})
-          }}
-        >
+        <Modal ref={"myModal"} style={myStyle.modal} position="bottom">
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
               <Feather style={myStyle.iconImage} name="camera" size={20} />
