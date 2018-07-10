@@ -196,8 +196,8 @@ class EditPost extends Component {
       height: 400,
       cropping: true
     }).then(image => {
-      console.log(image);
       this._uploadImage(image);
+      this.refs.myModal.close();
     });
   };
 
@@ -207,9 +207,9 @@ class EditPost extends Component {
       mediaType: "photo"
     }).then(images => {
       images.forEach(item => {
-        console.log(item);
         this._uploadImage(item);
       });
+      this.refs.myModal.close();
     });
   };
 

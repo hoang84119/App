@@ -9,14 +9,9 @@ import ItemImage from "./items/ItemImage";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import Base64 from '../../config/Base64';
 import Feather from "react-native-vector-icons/Feather";
-var ImagePicker = require("react-native-image-picker");
+import ImagePicker from "react-native-image-crop-picker";
+import ModalBox from "react-native-modalbox";
 
-var options = {
-  title: "Chọn hình ảnh",
-  takePhotoButtonTitle: "Máy ảnh",
-  chooseFromLibraryButtonTitle: "Chọn hình ảnh sẵn có",
-  cancelButtonTitle: "Hủy"
-};
 
 export default class Media extends Component {
   constructor(props) {
@@ -69,6 +64,18 @@ export default class Media extends Component {
               </View>
             </View>
         </Modal> 
+        <ModalBox ref={"myModal"} style={myStyle.modal} position="bottom">
+          <View>
+            <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
+              <Feather style={myStyle.iconImage} name="camera" size={20} />
+              <Text style={myStyle.textImage}>Chụp ảnh</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._openPicker} style={myStyle.button}>
+              <Feather style={myStyle.iconImage} name="image" size={20} />
+              <Text style={myStyle.textImage}>Chọn hình từ thư viện</Text>
+            </TouchableOpacity>
+          </View>
+        </ModalBox>
         
         {this.props.navigation.getParam("check", 0) != 1 &&
           <View style={{ backgroundColor: "#0ABFBC" }}>
@@ -112,7 +119,7 @@ export default class Media extends Component {
           </TouchableOpacity>
         )}
         {this.state.selected.size == 0 && (
-          <TouchableOpacity onPress={this._upload_Selected} style={myStyle.uploadSelect}>
+          <TouchableOpacity onPress={()=>{this.refs.myModal.open()}} style={myStyle.uploadSelect}>
             <IonIcon style={{ color: "white" }} name="ios-cloud-upload-outline" size={32} />
           </TouchableOpacity>
         )}
@@ -249,6 +256,29 @@ export default class Media extends Component {
     );
     return true
   }
+
+    _openCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      this._uploadImage(image);
+      this.refs.myModal.close();
+    });
+  };
+
+  _openPicker = () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      mediaType: "photo"
+    }).then(images => {
+      images.forEach(item => {
+        this._uploadImage(item);
+      });
+      this.refs.myModal.close();
+    });
+  };
 }
 
 const myStyle = StyleSheet.create({
@@ -326,5 +356,20 @@ const myStyle = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around'
+  },
+  modal: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    height: 150
+  },
+  iconImage: {
+    color: "#808080",
+    marginRight: 10
+  },
+  textImage: { fontSize: 16 },
+  button: {
+    flexDirection: "row",
+    padding: 12,
+    alignItems: "center"
   }
 });
