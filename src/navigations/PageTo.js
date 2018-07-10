@@ -2,7 +2,7 @@ import { createStackNavigator, Header } from "react-navigation";
 import Page from "../components/Page/Page";
 import EditPage from "../components/Page/EditPage";
 import AddPage from "../components/Page/AddPage";
-// import PostTo from "./PostTo";
+import PageDetail from "../components/Page/PageDetail";
 import React from "react";
 import { View, StatusBar } from "react-native";
 
@@ -23,12 +23,12 @@ const PageTo = createStackNavigator(
         headerTitle: "Thêm trang mới"
       }
     },
-//     Posts: {
-//       screen: PostTo,
-//       navigationOptions: {
-//         header: null
-//       }
-//     }
+    PageDetail: {
+      screen: PageDetail,
+      navigationOptions: {
+        headerTitle: "Chi tiết trang"
+      }
+    },
   },
   {
     navigationOptions: {

@@ -13,7 +13,7 @@ import HTML from "react-native-render-html";
 import Feather from "react-native-vector-icons/Feather";
 const featured_media_default =
   "https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/background-thumb1.jpg";
-class ItemPost extends Component {
+class ItemPage extends Component {
   constructor(props) {
     super(props);
     this.state = { featured_media: "", loaded: false };
@@ -40,19 +40,16 @@ class ItemPost extends Component {
   render() {
     return (
       <View style={myStyle.cardItem}>
+      <ImageBackground style={{flex:1}} source={{ uri: this.state.featured_media }}>
         <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+        <View style={myStyle.center}>
           {this.state.loaded && (
-            <ImageBackground
-              source={{ uri: this.state.featured_media }}
-              style={myStyle.hinh}
-            >
               <View style={myStyle.title}>
                 <HTML
                   html={"<span>" + this.props.data.title.rendered + "</span>"}
                   tagsStyles={htmlStyle}
                 />
               </View>
-            </ImageBackground>
           )}
           {this.props.data.excerpt.rendered != "" && (
             <HTML
@@ -61,7 +58,7 @@ class ItemPost extends Component {
               renderers={this.renderers}
             />
           )}
-        </TouchableOpacity>
+          </View>
         <View style={myStyle.footer}>
           <View style={myStyle.date}>
             <Feather style={myStyle.iconClock} name="clock" size={16} />
@@ -79,12 +76,15 @@ class ItemPost extends Component {
             </View>
           )}
         </View>
+        
+        </TouchableOpacity>
+        </ImageBackground>
       </View>
     );
   }
 
   _xem = () => {
-    this.props.navigation.navigate("chitiet", { id: this.props.data.id, userName: this.props.userName, featured_media: this.state.featured_media});
+    this.props.navigation.navigate("PageDetail", { id: this.props.data.id, userName: this.props.userName, featured_media: this.state.featured_media});
   };
   _xoa = () => {
     this.props.delete(this.props.data.id, this.props.data.title.rendered);
@@ -167,70 +167,59 @@ class ItemPost extends Component {
   formatExcerpt(content) {
     //Mỗi trích đoạn chỉ lấy tối đa 100 ký tự
     //content = this.removeLink(content);
-    return content.length > 120
-      ? content.substring(0, 120) + "...</p>"
+    return content.length > 80
+      ? content.substring(0, 80) + "...</p>"
       : content;
   }
 }
-
-// const renderers = {
-//   p: (htmlAttribs, children) => <Text key={this.props.data.id} style={myStyle.noidung}>{children}</Text>
-// };
-
 const htmlStyle = {
   span: {
-    fontWeight: "300",
+    fontWeight: "bold",
     fontSize: 18,
     color: "#FFF"
   },
-  p: {
-    fontSize: 14,
-    color: "#9F9F9F"
-  }
 };
 const myStyle = StyleSheet.create({
-  cardItem: {
-    //borderWidth: 1,
-    flexDirection: "column",
-    //borderColor: "#f4f4f4",
-    marginHorizontal: 5,
-    marginVertical: 5,
-    //padding: 10,
-    backgroundColor: "white",
-    borderRadius: 5,
-    overflow: "hidden", //không cho item tràn ra ngoài
-    justifyContent: "space-between",
-    shadowColor: "#000",
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.8,
-    elevation: 2
+  center:{
+    alignItems: "center",
+    justifyContent: "center",
+    height: 150
   },
-  btnNoiDung: { paddingLeft: 0, flex: 1 },
+  cardItem: {
+    flexDirection: "column",
+    marginHorizontal: 15,
+    marginVertical: 9,
+    backgroundColor: "white",
+    borderRadius: 7,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 30, height: 30 },
+    shadowOpacity: 0.8,
+    elevation: 5
+  },
+  btnNoiDung: {backgroundColor: "#00000099", paddingLeft: 0, flex: 1 },
   hinh: {
     flex: 1,
     height: 150,
     flexDirection: "row",
-    alignItems: "flex-end",
+    alignItems: "center",
     justifyContent: "center"
   },
   title: {
-    flex: 1,
-    backgroundColor: "rgba(100,100,100,0.3)",
+    marginTop:30,
     paddingHorizontal:10,
-    paddingVertical: 5
   },
   noidung: {
-    padding: 10,
-    fontSize: 14,
-    color: "#4F4F4F"
+    paddingHorizontal:65,
+    textAlign: "center",
+    fontSize: 16,
+    color: "#fff"
   },
   footer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.5,
-    borderTopColor: "#f4f4f4",
-    borderTopWidth: 1,
+    marginTop: 0.5
     //backgroundColor:"#f3f3f3"
   },
   date: {
@@ -240,6 +229,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   dateContent: {
+    color: "#fff",
     fontSize: 12,
     textAlign: "center"
   },
@@ -248,8 +238,8 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  iconClock:{marginRight:5, color: "#868686" },
-  icon: { marginRight:10,marginLeft:3, color: "#868686" }
+  iconClock:{marginRight:5, color: "#fff" },
+  icon: { marginRight:10,marginLeft:3, color: "#fff" }
 });
 
-export default ItemPost;
+export default ItemPage;
