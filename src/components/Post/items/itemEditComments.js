@@ -59,7 +59,7 @@ export default class itemEditComments extends Component {
                   onSave: this._onSave.bind(this)
                 });
                 var cmt = (<HTML html={this.data.content.rendered}/>).toString()
-            this.setState({ noidung:  (this.data.content.rendered.replace("<p>","")).replace("</p>","")})
+            this.setState({ noidung:  ((this.data.content.rendered.replace("<p>","")).replace("</p>","")) })
       }
       render() {
             return (

@@ -28,13 +28,13 @@ import PageTo from './PageTo'
         let iconName;
         if (routeName === "Post") {
           // nếu màn hình được thì nối thêm chữ -outline
-          iconName = `ios-book${focused ? '' : '-outline'}`; 
+          iconName = `ios-paper${focused ? '' : '-outline'}`; 
         } else if (routeName === "Category") {
-          iconName = `ios-apps${focused ? '' : '-outline'}`;
+          iconName = `ios-list-box${focused ? '' : '-outline'}`;
         }else if (routeName === "Tag") {
           iconName = `ios-pricetag${focused ? '' : '-outline'}`;
         }else if (routeName === "Page") {
-          iconName = `ios-pricetag${focused ? '' : '-outline'}`;
+          iconName = `ios-book${focused ? '' : '-outline'}`;
         }
         // trả về icon
         return <Ionicons name={iconName} size={20} color={tintColor} />;

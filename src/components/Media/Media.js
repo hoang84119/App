@@ -74,7 +74,7 @@ export default class Media extends Component {
                 size={30}
                 animating={this.state.uploading}
               />
-              <Text size={16}>Đang tải lên...</Text>
+              <Text size={16}>Đang tải lên</Text>
             </View>
           </View>
         </Modal>
@@ -301,9 +301,9 @@ export default class Media extends Component {
       height: 400,
       cropping: true
     });
+    this.refs.myModal.close();
     this.setState({ uploading: true });
     await this._uploadImage(image);
-    this.refs.myModal.close();
     this.setState({ uploading: false });
     this._refresh();
     ToastAndroid.show("Hoàn thành!", ToastAndroid.TOP, ToastAndroid.SHORT);
@@ -315,10 +315,11 @@ export default class Media extends Component {
       mediaType: "photo"
     });
     this.setState({ uploading: true });
+    this.refs.myModal.close();
     for (let item of images) {
       await this._uploadImage(item);
     }
-    this.refs.myModal.close();
+    //this.refs.myModal.close();
     this.setState({ uploading: false });
     this._refresh();
     ToastAndroid.show("Hoàn thành!", ToastAndroid.TOP, ToastAndroid.SHORT);
