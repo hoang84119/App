@@ -11,9 +11,6 @@ import {
   TouchableOpacity
 } from "react-native";
 import Modal from "react-native-modalbox";
-import API from "../../../config/API";
-import Base64 from "../../../config/Base64";
-import PostDetail from "../PostDetail";
 
 var screen = Dimensions.get("window");
 export default class ModalComment extends Component {
@@ -27,8 +24,8 @@ export default class ModalComment extends Component {
       repname: ""
     };
   }
-  showModal = (x,y) => {
-    this.setState({idparent: x, repname: y})
+  showModal = (x, y) => {
+    this.setState({ idparent: x, repname: y });
     this.refs.myModal.open();
   };
   render() {
@@ -49,34 +46,52 @@ export default class ModalComment extends Component {
         }}
       >
         <View style={{ padding: 15 }}>
-        {this.state.idparent == "0" &&
-          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "#0ABFBC" }} >
-            Bình luận
-          </Text>
-        }
-        {this.state.idparent != "0" &&
-          <Text style={{marginBottom: 12, marginTop: 8, fontSize: 23, color: "#0ABFBC" }} >
-            Trả lời "{this.state.repname}"
-          </Text>
-        }
-          <TextInput
-            placeholderTextColor="#cfcfcf"
-            underlineColorAndroid="rgba(0,0,0,0)"
-            style={myStyle.ctmInput}
-            onChangeText={n => {
-              this.setState({ name: n });
-            }}
-            placeholder="(*)Tên của bạn"
-          />
-          <TextInput
-            placeholderTextColor="#cfcfcf"
-            underlineColorAndroid="rgba(0,0,0,0)"
-            style={myStyle.ctmInput}
-            onChangeText={e => {
-              this.setState({ email: e });
-            }}
-            placeholder="(*)Email của bạn"
-          />
+          {this.state.idparent == "0" && (
+            <Text
+              style={{
+                marginBottom: 12,
+                marginTop: 8,
+                fontSize: 23,
+                color: "#0ABFBC"
+              }}
+            >
+              Bình luận
+            </Text>
+          )}
+          {this.state.idparent != "0" && (
+            <Text
+              style={{
+                marginBottom: 12,
+                marginTop: 8,
+                fontSize: 23,
+                color: "#0ABFBC"
+              }}
+            >
+              Trả lời "{this.state.repname}"
+            </Text>
+          )}
+          {this.props.parent.props.dataUser.length ===0 && (
+              <View>
+                <TextInput
+                  placeholderTextColor="#cfcfcf"
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  style={myStyle.ctmInput}
+                  onChangeText={n => {
+                    this.setState({ name: n });
+                  }}
+                  placeholder="(*)Tên của bạn"
+                />
+                <TextInput
+                  placeholderTextColor="#cfcfcf"
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  style={myStyle.ctmInput}
+                  onChangeText={e => {
+                    this.setState({ email: e });
+                  }}
+                  placeholder="(*)Email của bạn"
+                />
+              </View>
+            )}
           <TextInput
             placeholderTextColor="#cfcfcf"
             underlineColorAndroid="rgba(0,0,0,0)"
@@ -94,28 +109,28 @@ export default class ModalComment extends Component {
               Chú ý: (*) Bắt buộc
             </Text>
             <View style={{ alignItems: "flex-end" }}>
-            {this.state.idparent == "0" &&
-              <TouchableOpacity
-                style={myStyle.ctmBottom}
-                onPress={this._comment}
-              >
-                <Text style={{ color: "white", fontSize: 18 }}>
-                  {" "}
-                  Bình luận{" "}
-                </Text>
-              </TouchableOpacity>
-            }
-            {this.state.idparent != "0" &&
-              <TouchableOpacity
-                style={myStyle.ctmBottom}
-                onPress={this._repcomment}
-              >
-                <Text style={{ color: "white", fontSize: 18 }}>
-                  {" "}
-                  Trả lời{" "}
-                </Text>
-              </TouchableOpacity>
-            }
+              {this.state.idparent == "0" && (
+                <TouchableOpacity
+                  style={myStyle.ctmBottom}
+                  onPress={this._comment}
+                >
+                  <Text style={{ color: "white", fontSize: 18 }}>
+                    {" "}
+                    Bình luận{" "}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              {this.state.idparent != "0" && (
+                <TouchableOpacity
+                  style={myStyle.ctmBottom}
+                  onPress={this._repcomment}
+                >
+                  <Text style={{ color: "white", fontSize: 18 }}>
+                    {" "}
+                    Trả lời{" "}
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </View>
@@ -140,7 +155,7 @@ const myStyle = StyleSheet.create({
     borderRadius: 10,
     //fontSize: 20,
     padding: 10,
-    backgroundColor: "#0ABFBC",
+    backgroundColor: "#0ABFBC"
     //textAlign: "center"
   },
   ctmInputContent: {

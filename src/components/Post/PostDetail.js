@@ -18,6 +18,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ItemComment from "./items/ItemComment";
 import ItemContentPost from "./items/ItemContentPost";
 import ModalComment from "./items/ModalComment";
+import { connect } from "react-redux";
 
 class PostDetail extends Component {
   constructor(props) {
@@ -357,4 +358,9 @@ const myStyle = StyleSheet.create({
     elevation: 5
   }
 });
-export default PostDetail;
+
+function mapStateToProps(state) {
+  return { dataUser: state.dataUser };
+}
+export default connect(mapStateToProps)(PostDetail);
+//export default PostDetail;

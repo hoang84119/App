@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    API.validate_account().then(response => {
+    API.Account.validate_account().then(response => {
       if (response != null) {
         store.dispatch({
           type: "SetDataUser",

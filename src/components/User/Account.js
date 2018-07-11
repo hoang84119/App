@@ -4,7 +4,8 @@ import {
     Alert, ActivityIndicator, AsyncStorage, Image,
     ImageBackground
 } from 'react-native';
-import Feather from "react-native-vector-icons/Feather"
+import Feather from "react-native-vector-icons/Feather";
+import { connect } from "react-redux";
 
 class Account extends Component {
     render() {
@@ -21,9 +22,9 @@ class Account extends Component {
                         <Feather style={myStyle.btnBack} size={25} name={"menu"}/>
                         </TouchableOpacity>
                         <View style={myStyle.header}>
-                        <Image style={myStyle.avatar} source={require("../../image/logo.png")} />
-                        <Text style={myStyle.name}>Huy Hiếu</Text>
-                            <Text style={myStyle.email}>id.huyhieu@gmail.com</Text>
+                        <Image style={myStyle.avatar} source={{uri: this.props.dataUser.avatar_urls[96]}} />
+                        <Text style={myStyle.name}>{this.props.dataUser.name}</Text>
+                            <Text style={myStyle.email}>{this.props.dataUser.email}</Text>
                         </View>
                 </ImageBackground>
                 </View>
@@ -38,7 +39,12 @@ class Account extends Component {
     }
 }
 
-export default Account;
+//export default Account;
+
+function mapStateToProps(state) {
+    return { dataUser: state.dataUser };
+  }
+  export default connect(mapStateToProps)(Account);
 
 const myStyle = StyleSheet.create({
     btnBack: {

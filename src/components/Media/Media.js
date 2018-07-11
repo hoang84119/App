@@ -301,6 +301,7 @@ export default class Media extends Component {
       height: 400,
       cropping: true
     });
+    this.setState({ uploading: true });
     await this._uploadImage(image);
     this.refs.myModal.close();
     this.setState({ uploading: false });
@@ -313,6 +314,7 @@ export default class Media extends Component {
       multiple: true,
       mediaType: "photo"
     });
+    this.setState({ uploading: true });
     for (let item of images) {
       await this._uploadImage(item);
     }

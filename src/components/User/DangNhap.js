@@ -6,10 +6,10 @@ import {
 } from "react-native";
 import API from "../../config/API";
 import IonIcons from "react-native-vector-icons/Ionicons"
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
 
-class App extends Component {
+class DangNhap extends Component {
   state = {
     user: "",
     pass: "",
@@ -44,13 +44,13 @@ class App extends Component {
         //     this.props.navigation.navigate("MainScreen");
         //   }
         // });
-        API.Login(this.state.user, this.state.pass).then(response => {
+        API.Account.Login(this.state.user, this.state.pass).then(response => {
           this.setState({ isLoading: false });
-          if (response != null) {
-            this.props.dispatch({
-              type: 'SetDataUser',
-              data: response
-            });
+          if (response) {
+            // this.props.dispatch({
+            //   type: 'SetDataUser',
+            //   data: response
+            // });
             //this.props.navigation.navigate("App");
             RNRestart.Restart();
           }
@@ -131,7 +131,8 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+//export default connect()(DangNhap);
+export default DangNhap;
 
 const myStyle = StyleSheet.create({
   vText: {
