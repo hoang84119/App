@@ -29,6 +29,7 @@ export default class ModalComment extends Component {
     this.refs.myModal.open();
   };
   render() {
+    let height = this.props.dataUser.length != 0 ? 230:330
     return (
       <Modal
         ref={"myModal"}
@@ -37,7 +38,7 @@ export default class ModalComment extends Component {
           borderRadius: 15,
           shadowRadius: 10,
           width: screen.width - 80,
-          height: 330
+          height: height
         }}
         position="center"
         backdrop={true}
@@ -70,7 +71,7 @@ export default class ModalComment extends Component {
               Trả lời "{this.state.repname}"
             </Text>
           )}
-          {this.props.parent.props.dataUser.length ===0 && (
+          {this.props.dataUser.length ===0 && (
               <View>
                 <TextInput
                   placeholderTextColor="#cfcfcf"
@@ -139,12 +140,20 @@ export default class ModalComment extends Component {
   }
   _comment = () => {
     let { name, email, content } = this.state;
-    this.props.parent._upLoadComment(name, content, email);
+    if(this.props.dataUser.length != 0) {
+      email = this.props.dataUser.email;
+      name = this.props.dataUser.name;
+    }
+    this.props.upLoadComment(name, content, email);
     this.refs.myModal.close();
   };
   _repcomment = () => {
     let { idparent, name, email, content } = this.state;
-    this.props.parent._repComment(idparent, name, content, email);
+    if(this.props.dataUser.length != 0) {
+      email = this.props.dataUser.email;
+      name = this.props.dataUser.name;
+    }
+    this.props.repComment(idparent, name, content, email);
     this.refs.myModal.close();
   };
 }

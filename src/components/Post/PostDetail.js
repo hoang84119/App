@@ -165,7 +165,10 @@ class PostDetail extends Component {
               ref={"addModal"}
               style={{ zIndex: 1 }}
               //noidung={this.state.noidung}
-              parent={this}
+              //parent={this}
+              dataUser ={this.props.dataUser}
+              repComment = {this._repComment}
+              upLoadComment = {this._upLoadComment}
             />
             {!this.state.isComment && (
               <TouchableOpacity
@@ -242,7 +245,7 @@ class PostDetail extends Component {
       });
   }
 
-  _upLoadComment(name, content, email) {
+  _upLoadComment = (name, content, email) => {
     fetch(
       API.getURL() +
         "/thuctap/wp-json/wp/v2/comments?post=" +
@@ -276,7 +279,7 @@ class PostDetail extends Component {
         Alert.alert("Cảnh báo", object.message);
       });
   }
-  _repComment(idparent, name, content, email) {
+  _repComment = (idparent, name, content, email) => {
     fetch(
       API.getURL() +
         "/thuctap/wp-json/wp/v2/comments?post=" +
