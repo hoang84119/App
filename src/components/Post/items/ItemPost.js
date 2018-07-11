@@ -42,8 +42,8 @@ class ItemPost extends Component {
       <ImageBackground
       source={{ uri: this.state.featured_media }}
        style={myStyle.cardItem}>
-       <View style={{flex:1, backgroundColor: "#00000060"}}>
-        <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+       <TouchableOpacity onPress={this._xem} style={{flex:1, backgroundColor: "#00000060"}}>
+        <View style={myStyle.btnNoiDung}>
           {this.state.loaded && (
             // <ImageBackground
             //   source={{ uri: this.state.featured_media }}
@@ -66,7 +66,7 @@ class ItemPost extends Component {
             />
             </View>
           )}
-        </TouchableOpacity>
+        </View>
         <View style={myStyle.footer}>
           <View style={myStyle.date}>
             <Feather style={myStyle.iconClock} name="clock" size={16} />
@@ -76,15 +76,15 @@ class ItemPost extends Component {
           {this.props.userName === "admin" && (
             <View style={myStyle.buttons}>
               <TouchableOpacity onPress={this._chinhsua}>
-                <Feather style={myStyle.icon} name="edit" size={15} />
+                <Feather style={[myStyle.icon, {marginLeft: 10}]} name="edit" size={15} />
               </TouchableOpacity>
               <TouchableOpacity onPress={this._xoa}>
-                <Feather style={myStyle.icon} name="trash" size={15} />
+                <Feather style={[myStyle.icon, {marginRight: 10}]} name="trash" size={15} />
               </TouchableOpacity>
             </View>
           )}
         </View>
-        </View>
+        </TouchableOpacity>
       </ImageBackground>
     );
   }
@@ -222,7 +222,7 @@ const myStyle = StyleSheet.create({
     //flex: 1,
     //backgroundColor: "rgba(100,100,100,0.3)",
     paddingHorizontal:10,
-    paddingVertical: 5
+    paddingVertical: 6
   },
   noidung: {
     padding: 10,
@@ -253,7 +253,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   iconClock:{marginRight:5, color: "#fff" },
-  icon: { marginRight:10,marginLeft:3, color: "#fff" },
+  icon: { margin:7, color: "#fff" },
   excerpt:{
     flex:1,
     justifyContent: "flex-end"

@@ -68,10 +68,10 @@ class ItemPage extends Component {
           {this.props.userName === "admin" && (
             <View style={myStyle.buttons}>
               <TouchableOpacity onPress={this._chinhsua}>
-                <Feather style={myStyle.icon} name="edit" size={15} />
+                <Feather style={[myStyle.icon, {marginLeft: 10}]} name="edit" size={15} />
               </TouchableOpacity>
               <TouchableOpacity onPress={this._xoa}>
-                <Feather style={myStyle.icon} name="trash" size={15} />
+                <Feather style={[myStyle.icon, {marginRight: 10}]} name="trash" size={15} />
               </TouchableOpacity>
             </View>
           )}
@@ -239,7 +239,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   iconClock:{marginRight:5, color: "#fff" },
-  icon: { marginRight:10,marginLeft:3, color: "#fff" }
+  icon: { margin:7, color: "#fff" }
 });
 
 export default ItemPage;
