@@ -62,7 +62,7 @@ class Tags extends Component {
                   size={25}
                 />
               </TouchableOpacity>
-              <Text style={myStyle.title}>Quản lý Thẻ</Text>
+              <Text style={myStyle.title}>Quản lý thẻ</Text>
             </View>
             {ButtonRight}
           </View>

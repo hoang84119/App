@@ -130,9 +130,7 @@ class PageDetail extends Component {
   }
 
   _onEdit() {
-    this.props.navigation.navigate("chinhsua", {
-      id: this.props.navigation.getParam("id", "")
-    });
+    this.props.navigation.navigate("EditPage", { id: this.props.navigation.getParam("id", "") });
   }
   _loadData() {
     fetch(
