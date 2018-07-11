@@ -49,7 +49,8 @@ class SlideMenu extends Component {
       <ImageBackground style={{ flex: 1 }} source={require('../image/background/Miaka.jpg')}>
         <Modal
           transparent={true}
-          visible={this.state.setmodal}>
+          visible={this.state.setmodal}
+          onRequestClose={() => null}>
 
             <View style={myStyle.modalBackground}>
               <View style={myStyle.activityIndicatorWrapper}>

@@ -34,63 +34,82 @@ class ItemPost extends Component {
     }
   }
   renderers = {
-    p: (htmlAttribs, children) => <Text key={this.props.data.id} style={myStyle.noidung}>{children}</Text>
+    p: (htmlAttribs, children) => (
+      <Text key={this.props.data.id} style={myStyle.noidung}>
+        {children}
+      </Text>
+    )
   };
 
   render() {
     return (
-      <ImageBackground
-      source={{ uri: this.state.featured_media }}
-       style={myStyle.cardItem}>
-       <TouchableOpacity onPress={this._xem} style={{flex:1, backgroundColor: "#00000060"}}>
-        <View style={myStyle.btnNoiDung}>
-          {this.state.loaded && (
-            // <ImageBackground
-            //   source={{ uri: this.state.featured_media }}
-            //   style={myStyle.hinh}
-            // >
-              <View style={myStyle.title}>
-                <HTML
-                  html={"<span>" + this.props.data.title.rendered + "</span>"}
-                  tagsStyles={htmlStyle}
-                />
+      <View>
+        {this.state.loaded && (
+          <ImageBackground
+            source={{ uri: this.state.featured_media }}
+            style={myStyle.cardItem}
+          >
+            <TouchableOpacity
+              onPress={this._xem}
+              style={{ flex: 1, backgroundColor: "#00000060" }}
+            >
+              <View style={myStyle.btnNoiDung}>
+                <View style={myStyle.title}>
+                  <HTML
+                    html={"<span>" + this.props.data.title.rendered + "</span>"}
+                    tagsStyles={htmlStyle}
+                  />
+                </View>
+                {this.props.data.excerpt.rendered != "" && (
+                  <View style={myStyle.excerpt}>
+                    <HTML
+                      html={this.formatExcerpt(
+                        this.props.data.excerpt.rendered
+                      )}
+                      //tagsStyles={htmlStyle}
+                      renderers={this.renderers}
+                    />
+                  </View>
+                )}
               </View>
-            // </ImageBackground>
-          )}
-          {this.props.data.excerpt.rendered != "" && (
-             <View style={myStyle.excerpt}>
-             <HTML
-              html={this.formatExcerpt(this.props.data.excerpt.rendered)}
-              //tagsStyles={htmlStyle}
-              renderers={this.renderers}
-            />
-            </View>
-          )}
-        </View>
-        <View style={myStyle.footer}>
-          <View style={myStyle.date}>
-            <Feather style={myStyle.iconClock} name="clock" size={16} />
-            <Text style={myStyle.dateContent}>{this._getDate()}</Text>
-          </View>
+              <View style={myStyle.footer}>
+                <View style={myStyle.date}>
+                  <Feather style={myStyle.iconClock} name="clock" size={16} />
+                  <Text style={myStyle.dateContent}>{this._getDate()}</Text>
+                </View>
 
-          {this.props.userName === "admin" && (
-            <View style={myStyle.buttons}>
-              <TouchableOpacity onPress={this._chinhsua}>
-                <Feather style={[myStyle.icon, {marginLeft: 10}]} name="edit" size={15} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this._xoa}>
-                <Feather style={[myStyle.icon, {marginRight: 10}]} name="trash" size={15} />
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-        </TouchableOpacity>
-      </ImageBackground>
+                {this.props.userName === "admin" && (
+                  <View style={myStyle.buttons}>
+                    <TouchableOpacity onPress={this._chinhsua}>
+                      <Feather
+                        style={[myStyle.icon, { marginLeft: 10 }]}
+                        name="edit"
+                        size={15}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this._xoa}>
+                      <Feather
+                        style={[myStyle.icon, { marginRight: 10 }]}
+                        name="trash"
+                        size={15}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
+          </ImageBackground>
+        )}
+      </View>
     );
   }
 
   _xem = () => {
-    this.props.navigation.navigate("chitiet", { id: this.props.data.id, userName: this.props.userName, featured_media: this.state.featured_media});
+    this.props.navigation.navigate("chitiet", {
+      id: this.props.data.id,
+      userName: this.props.userName,
+      featured_media: this.state.featured_media
+    });
   };
   _xoa = () => {
     this.props.delete(this.props.data.id, this.props.data.title.rendered);
@@ -207,7 +226,7 @@ const myStyle = StyleSheet.create({
     shadowOffset: { width: 10, height: 10 },
     shadowOpacity: 0.8,
     elevation: 4,
-    height: 180,
+    height: 180
   },
   btnNoiDung: { paddingLeft: 0, flex: 1 },
   hinh: {
@@ -218,10 +237,10 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   title: {
-    color: "#fff",
+    //color: "#fff",
     //flex: 1,
     //backgroundColor: "rgba(100,100,100,0.3)",
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
     paddingVertical: 6
   },
   noidung: {
@@ -233,7 +252,7 @@ const myStyle = StyleSheet.create({
   footer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
     //backgroundColor:"#f3f3f3"
   },
   date: {
@@ -252,10 +271,10 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  iconClock:{marginRight:5, color: "#fff" },
-  icon: { margin:7, color: "#fff" },
-  excerpt:{
-    flex:1,
+  iconClock: { marginRight: 5, color: "#fff" },
+  icon: { margin: 7, color: "#fff" },
+  excerpt: {
+    flex: 1,
     justifyContent: "flex-end"
   }
 });

@@ -66,6 +66,7 @@ export default class Media extends Component {
           transparent={true}
           animationType={"none"}
           visible={this.state.uploading}
+          onRequestClose={() => null}>
         >
           <View style={myStyle.modalBackground}>
             <View style={myStyle.activityIndicatorWrapper}>

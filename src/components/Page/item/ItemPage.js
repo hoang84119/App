@@ -34,57 +34,79 @@ class ItemPage extends Component {
     }
   }
   renderers = {
-    p: (htmlAttribs, children) => <Text key={this.props.data.id} style={myStyle.noidung}>{children}</Text>
+    p: (htmlAttribs, children) => (
+      <Text key={this.props.data.id} style={myStyle.noidung}>
+        {children}
+      </Text>
+    )
   };
 
   render() {
     return (
       <View style={myStyle.cardItem}>
-      <ImageBackground style={{flex:1}} source={{ uri: this.state.featured_media }}>
-        <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
-        <View style={myStyle.center}>
-          {this.state.loaded && (
-              <View style={myStyle.title}>
-                <HTML
-                  html={"<span>" + this.props.data.title.rendered + "</span>"}
-                  tagsStyles={htmlStyle}
-                />
+        {this.state.loaded && (
+          <ImageBackground
+            style={{ flex: 1 }}
+            source={{ uri: this.state.featured_media }}
+          >
+            <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+              <View style={myStyle.center}>
+                {this.state.loaded && (
+                  <View style={myStyle.title}>
+                    <HTML
+                      html={
+                        "<span>" + this.props.data.title.rendered + "</span>"
+                      }
+                      tagsStyles={htmlStyle}
+                    />
+                  </View>
+                )}
+                {this.props.data.excerpt.rendered != "" && (
+                  <HTML
+                    html={this.formatExcerpt(this.props.data.excerpt.rendered)}
+                    //tagsStyles={htmlStyle}
+                    renderers={this.renderers}
+                  />
+                )}
               </View>
-          )}
-          {this.props.data.excerpt.rendered != "" && (
-            <HTML
-              html={this.formatExcerpt(this.props.data.excerpt.rendered)}
-              //tagsStyles={htmlStyle}
-              renderers={this.renderers}
-            />
-          )}
-          </View>
-        <View style={myStyle.footer}>
-          <View style={myStyle.date}>
-            <Feather style={myStyle.iconClock} name="clock" size={16} />
-            <Text style={myStyle.dateContent}>{this._getDate()}</Text>
-          </View>
+              <View style={myStyle.footer}>
+                <View style={myStyle.date}>
+                  <Feather style={myStyle.iconClock} name="clock" size={16} />
+                  <Text style={myStyle.dateContent}>{this._getDate()}</Text>
+                </View>
 
-          {this.props.userName === "admin" && (
-            <View style={myStyle.buttons}>
-              <TouchableOpacity onPress={this._chinhsua}>
-                <Feather style={[myStyle.icon, {marginLeft: 10}]} name="edit" size={15} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this._xoa}>
-                <Feather style={[myStyle.icon, {marginRight: 10}]} name="trash" size={15} />
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-        
-        </TouchableOpacity>
-        </ImageBackground>
+                {this.props.userName === "admin" && (
+                  <View style={myStyle.buttons}>
+                    <TouchableOpacity onPress={this._chinhsua}>
+                      <Feather
+                        style={[myStyle.icon, { marginLeft: 10 }]}
+                        name="edit"
+                        size={15}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this._xoa}>
+                      <Feather
+                        style={[myStyle.icon, { marginRight: 10 }]}
+                        name="trash"
+                        size={15}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
+          </ImageBackground>
+        )}
       </View>
     );
   }
 
   _xem = () => {
-    this.props.navigation.navigate("PageDetail", { id: this.props.data.id, userName: this.props.userName, featured_media: this.state.featured_media});
+    this.props.navigation.navigate("PageDetail", {
+      id: this.props.data.id,
+      userName: this.props.userName,
+      featured_media: this.state.featured_media
+    });
   };
   _xoa = () => {
     this.props.delete(this.props.data.id, this.props.data.title.rendered);
@@ -167,9 +189,7 @@ class ItemPage extends Component {
   formatExcerpt(content) {
     //Mỗi trích đoạn chỉ lấy tối đa 100 ký tự
     //content = this.removeLink(content);
-    return content.length > 80
-      ? content.substring(0, 80) + "...</p>"
-      : content;
+    return content.length > 80 ? content.substring(0, 80) + "...</p>" : content;
   }
 }
 const htmlStyle = {
@@ -177,10 +197,10 @@ const htmlStyle = {
     fontWeight: "bold",
     fontSize: 18,
     color: "#FFF"
-  },
+  }
 };
 const myStyle = StyleSheet.create({
-  center:{
+  center: {
     alignItems: "center",
     justifyContent: "center",
     height: 150
@@ -197,7 +217,7 @@ const myStyle = StyleSheet.create({
     shadowOpacity: 0.8,
     elevation: 5
   },
-  btnNoiDung: {backgroundColor: "#00000060", paddingLeft: 0, flex: 1 },
+  btnNoiDung: { backgroundColor: "#00000060", paddingLeft: 0, flex: 1 },
   hinh: {
     flex: 1,
     height: 150,
@@ -206,11 +226,11 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   title: {
-    marginTop:30,
-    paddingHorizontal:10,
+    marginTop: 30,
+    paddingHorizontal: 10
   },
   noidung: {
-    paddingHorizontal:65,
+    paddingHorizontal: 65,
     textAlign: "center",
     fontSize: 16,
     color: "#fff"
@@ -238,8 +258,8 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  iconClock:{marginRight:5, color: "#fff" },
-  icon: { margin:7, color: "#fff" }
+  iconClock: { marginRight: 5, color: "#fff" },
+  icon: { margin: 7, color: "#fff" }
 });
 
 export default ItemPage;
