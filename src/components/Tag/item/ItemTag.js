@@ -78,18 +78,18 @@ class ItemCategory extends Component {
 
 const myStyle = StyleSheet.create({
   cardItem: {
-    overflow: 'hidden',
+    overflow: "hidden",
     flexDirection: "row",
-    marginVertical:5,
+    marginVertical:6,
     marginHorizontal: 8,
     padding: 10,
     paddingVertical: 25,
-    borderRadius: 0,
+    borderRadius:2,
     justifyContent: "space-between",
     shadowColor: "#000",
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.8,
-    elevation: 2
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    elevation: 3
   },
   btnNoiDung: {
     flex: 5,

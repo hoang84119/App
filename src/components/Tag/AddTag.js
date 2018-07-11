@@ -66,7 +66,7 @@ class AddTag extends Component {
               <TextInput
                 style={myStyle.inputText}
                 placeholder="Mời bạn nhập"
-                underlineColorAndroid="mediumseagreen"
+                underlineColorAndroid="#0ABFBC"
                 onChangeText={text => this.setState({ ten: text })}
               />
               <Text style={myStyle.note}>
@@ -79,7 +79,7 @@ class AddTag extends Component {
               <TextInput
                 style={myStyle.inputText}
                 placeholder="Mời bạn nhập"
-                underlineColorAndroid="mediumseagreen"
+                underlineColorAndroid="#0ABFBC"
                 onChangeText={text => this.setState({ duongDan: text })}
               />
               <Text style={myStyle.note}>
@@ -95,7 +95,8 @@ class AddTag extends Component {
                 style={[myStyle.inputText, { height: 100 }]}
                 multiline={true}
                 placeholder="Mời bạn nhập"
-                underlineColorAndroid="mediumseagreen"
+                underlineColorAndroid="#0ABFBC"
+                textAlignVertical = {"top"}
                 onChangeText={text => this.setState({ moTa: text })}
               />
               <Text style={myStyle.note}>
@@ -128,34 +129,37 @@ const myStyle = StyleSheet.create({
   container: {
     flexDirection: "column",
     //alignItems: "center",
-    padding: 10,
+    //padding: 10,
     backgroundColor: "white"
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold"
-    //marginTop: 15
+    fontWeight: "bold",
+    color: "#0ABFBC"
   },
   inputText: {
     fontSize: 15,
     marginBottom: 5
   },
+  picker: {},
+  itemStyle: {},
   note: {
     fontStyle: "italic"
   },
   card: {
     //borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: "#d3d3d3",
-    marginTop: 10,
+    //borderWidth: 1,
+    //borderColor: "#d3d3d3",
+    margin: 10,
+    marginBottom: 5,
     padding: 10,
     backgroundColor: "white",
     borderRadius: 5,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 20, height: 20 },
-    // shadowOpacity: 1.0,
-    // shadowRadius: 10,
-    // elevation: 5
+    shadowColor: "#000",
+    shadowOffset: { width: 20, height: 20 },
+    shadowOpacity: 1.0,
+    shadowRadius: 0,
+    elevation: 4
   }
 });
 

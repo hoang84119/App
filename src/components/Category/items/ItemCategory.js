@@ -152,8 +152,9 @@ const myStyle = StyleSheet.create({
     padding: 10,
     //backgroundColor: "#FFF0F5",
     justifyContent: "space-between",
-    marginVertical: 2,
-    marginRight: 4
+    marginVertical: 3,
+    marginRight: 4,
+    borderRadius: 2,
   },
   cardItemChild: {
     borderLeftWidth: 3,
