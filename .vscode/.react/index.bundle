@@ -99881,7 +99881,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       };
 
       _this.state = {
-        featured_media: "",
+        featured_media: featured_media_default,
         loaded: false
       };
       return _this;
@@ -99909,174 +99909,165 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       key: "render",
       value: function render() {
         return _react3.default.createElement(
-          _reactNative.View,
+          _reactNative.ImageBackground,
           {
+            source: {
+              uri: this.state.featured_media
+            },
+            style: myStyle.cardItem,
             __source: {
               fileName: _jsxFileName,
               lineNumber: 46
             }
           },
-          this.state.loaded && _react3.default.createElement(
-            _reactNative.ImageBackground,
+          _react3.default.createElement(
+            _reactNative.TouchableOpacity,
             {
-              source: {
-                uri: this.state.featured_media
+              onPress: this._xem,
+              style: {
+                flex: 1,
+                backgroundColor: "#00000060"
               },
-              style: myStyle.cardItem,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 48
+                lineNumber: 50
               }
             },
             _react3.default.createElement(
-              _reactNative.TouchableOpacity,
+              _reactNative.View,
               {
-                onPress: this._xem,
-                style: {
-                  flex: 1,
-                  backgroundColor: "#00000060"
-                },
+                style: myStyle.btnNoiDung,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 52
+                  lineNumber: 54
                 }
               },
               _react3.default.createElement(
                 _reactNative.View,
                 {
-                  style: myStyle.btnNoiDung,
+                  style: myStyle.title,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 55
+                  }
+                },
+                _react3.default.createElement(_reactNativeRenderHtml2.default, {
+                  html: "<span>" + this.props.data.title.rendered + "</span>",
+                  tagsStyles: htmlStyle,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 56
                   }
-                },
-                _react3.default.createElement(
-                  _reactNative.View,
-                  {
-                    style: myStyle.title,
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 57
-                    }
-                  },
-                  _react3.default.createElement(_reactNativeRenderHtml2.default, {
-                    html: "<span>" + this.props.data.title.rendered + "</span>",
-                    tagsStyles: htmlStyle,
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 58
-                    }
-                  })
-                ),
-                this.props.data.excerpt.rendered != "" && _react3.default.createElement(
-                  _reactNative.View,
-                  {
-                    style: myStyle.excerpt,
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 64
-                    }
-                  },
-                  _react3.default.createElement(_reactNativeRenderHtml2.default, {
-                    html: this.formatExcerpt(this.props.data.excerpt.rendered),
-                    renderers: this.renderers,
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 65
-                    }
-                  })
-                )
+                })
               ),
+              this.props.data.excerpt.rendered != "" && _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: myStyle.excerpt,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 62
+                  }
+                },
+                _react3.default.createElement(_reactNativeRenderHtml2.default, {
+                  html: this.formatExcerpt(this.props.data.excerpt.rendered),
+                  renderers: this.renderers,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 63
+                  }
+                })
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: myStyle.footer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 71
+                }
+              },
               _react3.default.createElement(
                 _reactNative.View,
                 {
-                  style: myStyle.footer,
+                  style: myStyle.date,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 75
+                    lineNumber: 72
+                  }
+                },
+                _react3.default.createElement(_Feather2.default, {
+                  style: myStyle.iconClock,
+                  name: "clock",
+                  size: 16,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 73
+                  }
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: myStyle.dateContent,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 74
+                    }
+                  },
+                  this._getDate()
+                )
+              ),
+              this.props.userName === "admin" && _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: myStyle.buttons,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 78
                   }
                 },
                 _react3.default.createElement(
-                  _reactNative.View,
+                  _reactNative.TouchableOpacity,
                   {
-                    style: myStyle.date,
+                    onPress: this._chinhsua,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 76
+                      lineNumber: 79
                     }
                   },
                   _react3.default.createElement(_Feather2.default, {
-                    style: myStyle.iconClock,
-                    name: "clock",
-                    size: 16,
+                    style: [myStyle.icon, {
+                      marginLeft: 10
+                    }],
+                    name: "edit",
+                    size: 15,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 77
+                      lineNumber: 80
                     }
-                  }),
-                  _react3.default.createElement(
-                    _reactNative.Text,
-                    {
-                      style: myStyle.dateContent,
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 78
-                      }
-                    },
-                    this._getDate()
-                  )
+                  })
                 ),
-                this.props.userName === "admin" && _react3.default.createElement(
-                  _reactNative.View,
+                _react3.default.createElement(
+                  _reactNative.TouchableOpacity,
                   {
-                    style: myStyle.buttons,
+                    onPress: this._xoa,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 82
+                      lineNumber: 86
                     }
                   },
-                  _react3.default.createElement(
-                    _reactNative.TouchableOpacity,
-                    {
-                      onPress: this._chinhsua,
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 83
-                      }
-                    },
-                    _react3.default.createElement(_Feather2.default, {
-                      style: [myStyle.icon, {
-                        marginLeft: 10
-                      }],
-                      name: "edit",
-                      size: 15,
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 84
-                      }
-                    })
-                  ),
-                  _react3.default.createElement(
-                    _reactNative.TouchableOpacity,
-                    {
-                      onPress: this._xoa,
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 90
-                      }
-                    },
-                    _react3.default.createElement(_Feather2.default, {
-                      style: [myStyle.icon, {
-                        marginRight: 10
-                      }],
-                      name: "trash",
-                      size: 15,
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 91
-                      }
-                    })
-                  )
+                  _react3.default.createElement(_Feather2.default, {
+                    style: [myStyle.icon, {
+                      marginRight: 10
+                    }],
+                    name: "trash",
+                    size: 15,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 87
+                    }
+                  })
                 )
               )
             )
@@ -108186,7 +108177,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       };
 
       _this.state = {
-        featured_media: "",
+        featured_media: featured_media_default,
         loaded: false
       };
       return _this;
@@ -108222,7 +108213,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               lineNumber: 46
             }
           },
-          this.state.loaded && _react3.default.createElement(
+          _react3.default.createElement(
             _reactNative.ImageBackground,
             {
               style: {
@@ -108233,7 +108224,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 48
+                lineNumber: 47
               }
             },
             _react3.default.createElement(
@@ -108243,7 +108234,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.btnNoiDung,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 52
+                  lineNumber: 51
                 }
               },
               _react3.default.createElement(
@@ -108252,7 +108243,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.center,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 53
+                    lineNumber: 52
                   }
                 },
                 this.state.loaded && _react3.default.createElement(
@@ -108261,7 +108252,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.title,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 55
+                      lineNumber: 54
                     }
                   },
                   _react3.default.createElement(_reactNativeRenderHtml2.default, {
@@ -108269,7 +108260,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     tagsStyles: htmlStyle,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 56
+                      lineNumber: 55
                     }
                   })
                 ),
@@ -108278,7 +108269,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   renderers: this.renderers,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 65
+                    lineNumber: 62
                   }
                 })
               ),
@@ -108288,7 +108279,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.footer,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 72
+                    lineNumber: 69
                   }
                 },
                 _react3.default.createElement(
@@ -108297,7 +108288,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.date,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 73
+                      lineNumber: 70
                     }
                   },
                   _react3.default.createElement(_Feather2.default, {
@@ -108306,7 +108297,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 74
+                      lineNumber: 71
                     }
                   }),
                   _react3.default.createElement(
@@ -108315,7 +108306,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.dateContent,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 75
+                        lineNumber: 72
                       }
                     },
                     this._getDate()
@@ -108327,7 +108318,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.buttons,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 79
+                      lineNumber: 76
                     }
                   },
                   _react3.default.createElement(
@@ -108336,7 +108327,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       onPress: this._chinhsua,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 80
+                        lineNumber: 77
                       }
                     },
                     _react3.default.createElement(_Feather2.default, {
@@ -108347,7 +108338,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       size: 15,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 81
+                        lineNumber: 78
                       }
                     })
                   ),
@@ -108357,7 +108348,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       onPress: this._xoa,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 87
+                        lineNumber: 84
                       }
                     },
                     _react3.default.createElement(_Feather2.default, {
@@ -108368,7 +108359,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       size: 15,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 88
+                        lineNumber: 85
                       }
                     })
                   )

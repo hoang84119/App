@@ -16,7 +16,7 @@ const featured_media_default =
 class ItemPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { featured_media: "", loaded: false };
+    this.state = { featured_media: featured_media_default, loaded: false };
   }
 
   componentDidMount() {
@@ -44,59 +44,55 @@ class ItemPage extends Component {
   render() {
     return (
       <View style={myStyle.cardItem}>
-        {this.state.loaded && (
-          <ImageBackground
-            style={{ flex: 1 }}
-            source={{ uri: this.state.featured_media }}
-          >
-            <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
-              <View style={myStyle.center}>
-                {this.state.loaded && (
-                  <View style={myStyle.title}>
-                    <HTML
-                      html={
-                        "<span>" + this.props.data.title.rendered + "</span>"
-                      }
-                      tagsStyles={htmlStyle}
-                    />
-                  </View>
-                )}
-                {this.props.data.excerpt.rendered != "" && (
+        <ImageBackground
+          style={{ flex: 1 }}
+          source={{ uri: this.state.featured_media }}
+        >
+          <TouchableOpacity onPress={this._xem} style={myStyle.btnNoiDung}>
+            <View style={myStyle.center}>
+              {this.state.loaded && (
+                <View style={myStyle.title}>
                   <HTML
-                    html={this.formatExcerpt(this.props.data.excerpt.rendered)}
-                    //tagsStyles={htmlStyle}
-                    renderers={this.renderers}
+                    html={"<span>" + this.props.data.title.rendered + "</span>"}
+                    tagsStyles={htmlStyle}
                   />
-                )}
-              </View>
-              <View style={myStyle.footer}>
-                <View style={myStyle.date}>
-                  <Feather style={myStyle.iconClock} name="clock" size={16} />
-                  <Text style={myStyle.dateContent}>{this._getDate()}</Text>
                 </View>
-
-                {this.props.userName === "admin" && (
-                  <View style={myStyle.buttons}>
-                    <TouchableOpacity onPress={this._chinhsua}>
-                      <Feather
-                        style={[myStyle.icon, { marginLeft: 10 }]}
-                        name="edit"
-                        size={15}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this._xoa}>
-                      <Feather
-                        style={[myStyle.icon, { marginRight: 10 }]}
-                        name="trash"
-                        size={15}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                )}
+              )}
+              {this.props.data.excerpt.rendered != "" && (
+                <HTML
+                  html={this.formatExcerpt(this.props.data.excerpt.rendered)}
+                  //tagsStyles={htmlStyle}
+                  renderers={this.renderers}
+                />
+              )}
+            </View>
+            <View style={myStyle.footer}>
+              <View style={myStyle.date}>
+                <Feather style={myStyle.iconClock} name="clock" size={16} />
+                <Text style={myStyle.dateContent}>{this._getDate()}</Text>
               </View>
-            </TouchableOpacity>
-          </ImageBackground>
-        )}
+
+              {this.props.userName === "admin" && (
+                <View style={myStyle.buttons}>
+                  <TouchableOpacity onPress={this._chinhsua}>
+                    <Feather
+                      style={[myStyle.icon, { marginLeft: 10 }]}
+                      name="edit"
+                      size={15}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={this._xoa}>
+                    <Feather
+                      style={[myStyle.icon, { marginRight: 10 }]}
+                      name="trash"
+                      size={15}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
+        </ImageBackground>
       </View>
     );
   }
@@ -176,8 +172,8 @@ class ItemPage extends Component {
     let days = parseInt(time / msPerDay);
     if (days < 30) return `${days} ngày trước`;
     else {
-      let month = parseInt(days/30);
-      return `${month} thang trước`
+      let month = parseInt(days / 30);
+      return `${month} thang trước`;
     }
   };
 

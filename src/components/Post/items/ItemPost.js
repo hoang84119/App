@@ -16,7 +16,7 @@ const featured_media_default =
 class ItemPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { featured_media: "", loaded: false };
+    this.state = { featured_media: featured_media_default, loaded: false };
   }
 
   componentDidMount() {
@@ -43,64 +43,58 @@ class ItemPost extends Component {
 
   render() {
     return (
-      <View>
-        {this.state.loaded && (
-          <ImageBackground
-            source={{ uri: this.state.featured_media }}
-            style={myStyle.cardItem}
-          >
-            <TouchableOpacity
-              onPress={this._xem}
-              style={{ flex: 1, backgroundColor: "#00000060" }}
-            >
-              <View style={myStyle.btnNoiDung}>
-                <View style={myStyle.title}>
-                  <HTML
-                    html={"<span>" + this.props.data.title.rendered + "</span>"}
-                    tagsStyles={htmlStyle}
-                  />
-                </View>
-                {this.props.data.excerpt.rendered != "" && (
-                  <View style={myStyle.excerpt}>
-                    <HTML
-                      html={this.formatExcerpt(
-                        this.props.data.excerpt.rendered
-                      )}
-                      //tagsStyles={htmlStyle}
-                      renderers={this.renderers}
-                    />
-                  </View>
-                )}
+      <ImageBackground
+        source={{ uri: this.state.featured_media }}
+        style={myStyle.cardItem}
+      >
+        <TouchableOpacity
+          onPress={this._xem}
+          style={{ flex: 1, backgroundColor: "#00000060" }}
+        >
+          <View style={myStyle.btnNoiDung}>
+            <View style={myStyle.title}>
+              <HTML
+                html={"<span>" + this.props.data.title.rendered + "</span>"}
+                tagsStyles={htmlStyle}
+              />
+            </View>
+            {this.props.data.excerpt.rendered != "" && (
+              <View style={myStyle.excerpt}>
+                <HTML
+                  html={this.formatExcerpt(this.props.data.excerpt.rendered)}
+                  //tagsStyles={htmlStyle}
+                  renderers={this.renderers}
+                />
               </View>
-              <View style={myStyle.footer}>
-                <View style={myStyle.date}>
-                  <Feather style={myStyle.iconClock} name="clock" size={16} />
-                  <Text style={myStyle.dateContent}>{this._getDate()}</Text>
-                </View>
+            )}
+          </View>
+          <View style={myStyle.footer}>
+            <View style={myStyle.date}>
+              <Feather style={myStyle.iconClock} name="clock" size={16} />
+              <Text style={myStyle.dateContent}>{this._getDate()}</Text>
+            </View>
 
-                {this.props.userName === "admin" && (
-                  <View style={myStyle.buttons}>
-                    <TouchableOpacity onPress={this._chinhsua}>
-                      <Feather
-                        style={[myStyle.icon, { marginLeft: 10 }]}
-                        name="edit"
-                        size={15}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this._xoa}>
-                      <Feather
-                        style={[myStyle.icon, { marginRight: 10 }]}
-                        name="trash"
-                        size={15}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                )}
+            {this.props.userName === "admin" && (
+              <View style={myStyle.buttons}>
+                <TouchableOpacity onPress={this._chinhsua}>
+                  <Feather
+                    style={[myStyle.icon, { marginLeft: 10 }]}
+                    name="edit"
+                    size={15}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this._xoa}>
+                  <Feather
+                    style={[myStyle.icon, { marginRight: 10 }]}
+                    name="trash"
+                    size={15}
+                  />
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </ImageBackground>
-        )}
-      </View>
+            )}
+          </View>
+        </TouchableOpacity>
+      </ImageBackground>
     );
   }
 
@@ -179,8 +173,8 @@ class ItemPost extends Component {
     let days = parseInt(time / msPerDay);
     if (days < 30) return `${days} ngày trước`;
     else {
-      let month = parseInt(days/30);
-      return `${month} thang trước`
+      let month = parseInt(days / 30);
+      return `${month} thang trước`;
     }
   };
 

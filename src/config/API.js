@@ -205,7 +205,6 @@ Post={
     else if (idTag != "") address = `${address}?tags=${idTag}`;
     let response = await fetch(address);
     let responseJson = await response.json();
-    console.log(responseJson);
     return responseJson;
   },
   Delete: async function(id) {
