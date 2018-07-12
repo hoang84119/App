@@ -14,7 +14,6 @@ import {
   RichTextToolbar
 } from "react-native-zss-rich-text-editor";
 import Feather from "react-native-vector-icons/Feather";
-import Base64 from "../../config/Base64";
 import ImagePicker from "react-native-image-crop-picker";
 import ModalB from "react-native-modalbox";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -135,20 +134,8 @@ class AddPost extends Component {
   async _onAdd() {
     if (this.props.navigation.state.params.isAdding == true) return;
     this.props.navigation.setParams({ isAdding: true });
-    //var formData = new FormData();
     let title = await this.richtext.getTitleHtml();
     let content = await this.richtext.getContentHtml();
-    // formData.append("title", title);
-    // formData.append("content", content);
-    // formData.append("status", "publish");
-    // fetch(API.getURL() + "/wp-json/wp/v2/posts/", {
-    //   headers: {
-    //     Authorization:
-    //       "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
-    //   },
-    //   body: formData,
-    //   method: "POST"
-    // })
     API.Post.Save("",title,content).then(response => {
       if (response) {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);

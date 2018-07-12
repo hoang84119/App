@@ -14,7 +14,6 @@ import {
   RichTextToolbar
 } from "react-native-zss-rich-text-editor";
 import Feather from "react-native-vector-icons/Feather";
-import Base64 from "../../config/Base64";
 import ImagePicker from "react-native-image-crop-picker";
 import ModalB from "react-native-modalbox";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -72,26 +71,31 @@ class EditPost extends Component {
   render() {
     return (
       <View style={myStyle.container}>
-      {this.state.uploading && (
-        <Modal
-          transparent={true}
-          animationType={"none"}
-          visible={this.state.uploading}
+        {this.state.uploading && (
+          <Modal
+            transparent={true}
+            animationType={"none"}
+            visible={this.state.uploading}
+            onRequestClose={() => null}
+          >
+            <View style={myStyle.modalBackground}>
+              <View style={myStyle.activityIndicatorWrapper}>
+                <ActivityIndicator
+                  color={"#0ABFBC"}
+                  size={30}
+                  animating={this.state.uploading}
+                />
+                <Text size={16}>Đang xử lý</Text>
+              </View>
+            </View>
+          </Modal>
+        )}
+        <ModalB
+          ref={"myModal"}
+          style={myStyle.modal}
+          position="bottom"
           onRequestClose={() => null}
         >
-          <View style={myStyle.modalBackground}>
-            <View style={myStyle.activityIndicatorWrapper}>
-              <ActivityIndicator
-                color={"#0ABFBC"}
-                size={30}
-                animating={this.state.uploading}
-              />
-              <Text size={16}>Đang xử lý</Text>
-            </View>
-          </View>
-        </Modal>
-      )}
-        <ModalB ref={"myModal"} style={myStyle.modal} position="bottom" onRequestClose={() => null}>
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
               <Feather style={myStyle.iconImage} name="camera" size={20} />
@@ -145,26 +149,10 @@ class EditPost extends Component {
   async _onSave() {
     if (this.props.navigation.state.params.isSaving == true) return;
     this.props.navigation.setParams({ isSaving: true });
-    //var formData = new FormData();
     let id = this.props.navigation.getParam("id", "");
     let title = await this.richtext.getTitleHtml();
     let content = await this.richtext.getContentHtml();
-    // formData.append("title", title);
-    // formData.append("content", content);
-    // fetch(
-    //   API.getURL() +
-    //     "/wp-json/wp/v2/posts/" +
-    //     this.props.navigation.getParam("id", ""),
-    //   {
-    //     headers: {
-    //       Authorization:
-    //         "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK135: yEgN NbO6 w6k3 vSuU xBjV E8Ok
-    //     },
-    //     body: formData,
-    //     method: "POST"
-    //   }
-    // )
-    API.Post.Save(id,title,content).then(response => {
+    API.Post.Save(id, title, content).then(response => {
       if (response) {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
         this.props.navigation.navigate("main");
@@ -176,14 +164,9 @@ class EditPost extends Component {
   }
 
   async loadData() {
-    fetch(
-      API.getURL() +
-        "/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", "")
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson == null) {
+    API.Post.GetPostDetail(this.props.navigation.getParam("id", "")).then(
+      responseJson => {
+        if (responseJson.length === 0) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
           this.setState({
@@ -191,7 +174,8 @@ class EditPost extends Component {
             loaded: true
           });
         }
-      });
+      }
+    );
   }
 
   onEditorInitialized() {
@@ -306,7 +290,7 @@ const myStyle = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around"
-  },
+  }
 });
 
 export default EditPost;
