@@ -124,7 +124,7 @@ class Page extends Component {
         )}
 
         {/* Noi dung */}
-
+        {!this.state.empty && (
         <FlatList
           //style={myStyle.item}
           refreshing={this.state.refreshing}
@@ -141,6 +141,7 @@ class Page extends Component {
             />
           )}
         />
+        )}
       </View>
     );
   }
