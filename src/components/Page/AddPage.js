@@ -5,7 +5,9 @@ import {
   Alert,
   TouchableOpacity,
   ToastAndroid,
-  Text
+  Text,
+  ActivityIndicator,
+  Modal
 } from "react-native";
 import {
   RichTextEditor,
@@ -14,13 +16,16 @@ import {
 import Feather from "react-native-vector-icons/Feather";
 import Base64 from "../../config/Base64";
 import ImagePicker from "react-native-image-crop-picker";
-import Modal from "react-native-modalbox";
+import ModalB from "react-native-modalbox";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import API from "../../config/API";
 
 class AddPage extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      uploading: false
+    };
     this.getHTML = this.getHTML.bind(this);
     this.setFocusHandlers = this.setFocusHandlers.bind(this);
   }
@@ -61,7 +66,26 @@ class AddPage extends Component {
   render() {
     return (
       <View style={myStyle.container}>
-      <Modal ref={"myModal"} style={myStyle.modal} position="bottom">
+      {this.state.uploading && (
+        <Modal
+          transparent={true}
+          animationType={"none"}
+          visible={this.state.uploading}
+          onRequestClose={() => null}
+        >
+          <View style={myStyle.modalBackground}>
+            <View style={myStyle.activityIndicatorWrapper}>
+              <ActivityIndicator
+                color={"#0ABFBC"}
+                size={30}
+                animating={this.state.uploading}
+              />
+              <Text size={16}>Đang xử lý</Text>
+            </View>
+          </View>
+        </Modal>
+      )}
+      <ModalB ref={"myModal"} style={myStyle.modal} position="bottom">
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
               <Feather style={myStyle.iconImage} name="camera" size={20} />
@@ -85,7 +109,7 @@ class AddPage extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-        </Modal>
+        </ModalB>
         <RichTextEditor
           ref={r => (this.richtext = r)}
           style={myStyle.richText}
@@ -153,8 +177,10 @@ class AddPage extends Component {
       height: 400,
       cropping: true
     });
-    await this._uploadImage(image);
     this.refs.myModal.close();
+    this.setState({ uploading: true });
+    await this._uploadImage(image);
+    this.setState({ uploading: false });
   };
 
   _openPicker = async () => {
@@ -162,10 +188,12 @@ class AddPage extends Component {
       multiple: true,
       mediaType: "photo"
     });
+    this.refs.myModal.close();
+    this.setState({ uploading: true });
     for (let item of images) {
       await this._uploadImage(item);
     }
-    this.refs.myModal.close();
+    this.setState({ uploading: false });
   };
 
   _openLibraryWP = () => {
