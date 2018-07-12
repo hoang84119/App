@@ -6,13 +6,18 @@ import {
   View,
   ActivityIndicator,
   Text,
-  StyleSheet
+  StyleSheet,
+  Modal,
+  AsyncStorage,
+  TextInput,
+  TouchableOpacity
 } from "react-native";
 import API from "./src/config/API";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import DrawerNavigatorUser from "./src/navigations/DrawerNavigatorUser";
 import DrawerNavigator from "./src/navigations/DrawerNavigator";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 //Tạo store trong redux
 const defaultState = { dataUser: [] };
@@ -31,27 +36,21 @@ class App extends Component {
     super(props);
     this.state = {
       loading: true,
-      logged: false
+      logged: false,
+      haveUrl: false,
+      showModal: false,
+      url: ""
     };
   }
 
   componentDidMount() {
-    API.Account.validate_account().then(response => {
-      if (response != null) {
-        store.dispatch({
-          type: "SetDataUser",
-          data: response
-        });
-        this.setState({
-          loading: false,
-          logged: true
-        });
-      }
-      else {
-        this.setState({
-          loading: false,
-          logged: false
-        });
+    AsyncStorage.getItem("URL").then(url => {
+      if (url === null) {
+        this.setState({ loading: false, haveUrl: false });
+      } else {
+        API.setURL(url);
+        this._validateAccount();
+        this.setState({ loading: false, haveUrl: true });
       }
     });
   }
@@ -62,11 +61,7 @@ class App extends Component {
         style={{ flex: 1 }}
         source={require("./src/image/background/Miaka.jpg")}
       >
-        <StatusBar
-          translucent
-          backgroundColor="rgba(0, 0, 0, 0)"
-          animated
-        />
+        <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
         <View style={{ flex: 1, padding: 5 }}>
           <View style={myStyle.khung}>
             <Image
@@ -78,20 +73,89 @@ class App extends Component {
         </View>
       </ImageBackground>
     );
+    if (!this.state.haveUrl)
+      var AddUrl = (
+        <ImageBackground
+          style={{ flex: 1 }}
+          source={require("./src/image/background/Miaka.jpg")}
+        >
+          <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
+          <View style={{ flex: 1, padding: 5 }}>
+            <View style={myStyle.khung}>
+              <Image
+                style={{ width: 100, height: 100, marginBottom: 25 }}
+                source={require("./src/image/logo.png")}
+              />
+              <View style={myStyle.vText}>
+                <View style={{ width: 30, alignItems: "center" }}>
+                  <FontAwesome
+                    name="globe"
+                    size={30}
+                    style={{ color: "white" }}
+                  />
+                </View>
+                <TextInput
+                  placeholderTextColor="white"
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  style={myStyle.ctmInput}
+                  onChangeText={p => {
+                    this.setState({ url: p });
+                  }}
+                  placeholder="Địa chỉ trang web"
+                />
+              </View>
+              <View style={{ height: 50, alignItems: "center" }}>
+                <TouchableOpacity onPress={this._addURL}>
+                  <Text style={myStyle.ctmBottom}>Tiếp tục</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </ImageBackground>
+      );
     let mainView = this.state.loading ? (
       loadingView
-    ) //: <DrawerNavigator />
-    :this.state.logged ? (
+    ) : !this.state.haveUrl ? (
+      AddUrl
+    ) : this.state.logged ? (
       <DrawerNavigatorUser />
     ) : (
-          <DrawerNavigator />
-        );
+      <DrawerNavigator />
+    );
     return (
       <Provider store={store}>
         {/* {mainView} */}
         {mainView}
       </Provider>
     );
+  }
+
+  _addURL = () => {
+    AsyncStorage.setItem("URL", this.state.url).then(() => {
+      API.setURL(this.state.url);
+      this._validateAccount();
+      this.setState({ loading: false, haveUrl: true });
+    });
+  };
+
+  _validateAccount() {
+    API.Account.validate_account().then(response => {
+      if (response != null) {
+        store.dispatch({
+          type: "SetDataUser",
+          data: response
+        });
+        this.setState({
+          loading: false,
+          logged: true
+        });
+      } else {
+        this.setState({
+          loading: false,
+          logged: false
+        });
+      }
+    });
   }
 }
 
@@ -101,5 +165,52 @@ const myStyle = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
+  },
+  vText: {
+    borderRadius: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: 240,
+    alignItems: "center",
+    marginBottom: 15,
+    flexDirection: "row",
+    backgroundColor: "rgba(255,255,255,0.1)"
+  },
+  ctmBottom: {
+    borderRadius: 40,
+    fontSize: 20,
+    color: "#fff",
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingBottom: 10,
+    paddingRight: 10,
+    backgroundColor: "#EB3E53",
+    textAlign: "center",
+    width: 240
+  },
+  ctmInput: {
+    backgroundColor: "rgba(255,255,255,0)",
+    fontSize: 20,
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    color: "white"
+  },
+  nen: {
+    flex: 1
+    //backgroundColor: "#36BC63"
+  },
+  header: {
+    fontSize: 30,
+    textAlign: "center",
+    color: "white",
+    marginBottom: 30
+  },
+
+  khungDangNhap: {
+    flex: 0.4,
+    height: 100,
+    flexDirection: "row",
+    justifyContent: "center"
   }
 });
