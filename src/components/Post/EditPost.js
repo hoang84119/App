@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Alert,
   ToastAndroid,
-  TouchableOpacity
+  TouchableOpacity,
+  Modal
 } from "react-native";
 import {
   RichTextEditor,
@@ -15,7 +16,7 @@ import {
 import Feather from "react-native-vector-icons/Feather";
 import Base64 from "../../config/Base64";
 import ImagePicker from "react-native-image-crop-picker";
-import Modal from "react-native-modalbox";
+import ModalB from "react-native-modalbox";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import API from "../../config/API";
 
@@ -26,7 +27,8 @@ class EditPost extends Component {
     this.setFocusHandlers = this.setFocusHandlers.bind(this);
     this.state = {
       noidung: [],
-      loaded: false
+      loaded: false,
+      uploading: false
     };
   }
 
@@ -70,7 +72,26 @@ class EditPost extends Component {
   render() {
     return (
       <View style={myStyle.container}>
-        <Modal ref={"myModal"} style={myStyle.modal} position="bottom" onRequestClose={() => null}>
+      {this.state.uploading && (
+        <Modal
+          transparent={true}
+          animationType={"none"}
+          visible={this.state.uploading}
+          onRequestClose={() => null}
+        >
+          <View style={myStyle.modalBackground}>
+            <View style={myStyle.activityIndicatorWrapper}>
+              <ActivityIndicator
+                color={"#0ABFBC"}
+                size={30}
+                animating={this.state.uploading}
+              />
+              <Text size={16}>Đang xử lý</Text>
+            </View>
+          </View>
+        </Modal>
+      )}
+        <ModalB ref={"myModal"} style={myStyle.modal} position="bottom" onRequestClose={() => null}>
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
               <Feather style={myStyle.iconImage} name="camera" size={20} />
@@ -94,7 +115,7 @@ class EditPost extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-        </Modal>
+        </ModalB>
         {this.state.loaded && (
           <RichTextEditor
             ref={r => (this.richtext = r)}
@@ -200,8 +221,10 @@ class EditPost extends Component {
       height: 400,
       cropping: true
     });
-    await this._uploadImage(image);
     this.refs.myModal.close();
+    this.setState({ uploading: true });
+    await this._uploadImage(image);
+    this.setState({ uploading: false });
   };
 
   _openPicker = async () => {
@@ -209,10 +232,12 @@ class EditPost extends Component {
       multiple: true,
       mediaType: "photo"
     });
+    this.refs.myModal.close();
+    this.setState({ uploading: true });
     for (let item of images) {
       await this._uploadImage(item);
     }
-    this.refs.myModal.close();
+    this.setState({ uploading: false });
   };
 
   _openLibraryWP = () => {
@@ -264,7 +289,24 @@ const myStyle = StyleSheet.create({
     flexDirection: "row",
     padding: 12,
     alignItems: "center"
-  }
+  },
+  modalBackground: {
+    flex: 1,
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    backgroundColor: "#00000040"
+  },
+  activityIndicatorWrapper: {
+    padding: 10,
+    backgroundColor: "#FFFFFF",
+    height: 100,
+    //width: 100,
+    borderRadius: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around"
+  },
 });
 
 export default EditPost;
