@@ -72,40 +72,6 @@ class PostDetail extends Component {
     this._loadComments();
   }
 
-  // Hàm xóa comments
-
-  _deleteComments = i => {
-    Alert.alert(
-      "Thông báo",
-      "Bạn có thật sự muốn xóa bình luận này không?",
-      [
-        {
-          text: "Xóa",
-          onPress: () => {
-            fetch(API.getURL() + "/wp-json/wp/v2/comments/" + i, {
-              headers: {
-                Authorization:
-                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
-              },
-              method: "DELETE"
-            }).then(response => {
-              if (response.status == 200) {
-                this.refresh();
-                ToastAndroid.show(
-                  "Xóa thành công !",
-                  ToastAndroid.CENTER,
-                  ToastAndroid.LONG
-                );
-              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
-            });
-          }
-        },
-        { text: "Hủy", style: "cancel" }
-      ],
-      { cancelable: false }
-    );
-  };
-
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -166,9 +132,9 @@ class PostDetail extends Component {
               style={{ zIndex: 1 }}
               //noidung={this.state.noidung}
               //parent={this}
-              dataUser ={this.props.dataUser}
-              repComment = {this._repComment}
-              upLoadComment = {this._upLoadComment}
+              dataUser={this.props.dataUser}
+              repComment={this._repComment}
+              upLoadComment={this._upLoadComment}
             />
             {!this.state.isComment && (
               <TouchableOpacity
@@ -187,10 +153,44 @@ class PostDetail extends Component {
       </View>
     );
   }
+
+  // Hàm xóa comments
+
+  _deleteComments = i => {
+    Alert.alert(
+      "Thông báo",
+      "Bạn có thật sự muốn xóa bình luận này không?",
+      [
+        {
+          text: "Xóa",
+          onPress: () => {
+            fetch(API.getURL() + "/wp-json/wp/v2/comments/" + i, {
+              headers: {
+                Authorization:
+                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+              },
+              method: "DELETE"
+            }).then(response => {
+              if (response.status == 200) {
+                this.refresh();
+                ToastAndroid.show(
+                  "Xóa thành công !",
+                  ToastAndroid.CENTER,
+                  ToastAndroid.LONG
+                );
+              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+            });
+          }
+        },
+        { text: "Hủy", style: "cancel" }
+      ],
+      { cancelable: false }
+    );
+  };
+
   _onOpenModal() {
-    this.refs.addModal.showModal(0,0);
+    this.refs.addModal.showModal(0, 0);
     //this.setState({isComment:true});
-    
   }
 
   _onEdit() {
@@ -199,33 +199,25 @@ class PostDetail extends Component {
     });
   }
   _loadData() {
-    fetch(
-      API.getURL() +
-        "/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", "")
-    )
-      .then(response => response.json())
-      .then(responseJson => {
+    API.Post.GetPostDetail(this.props.navigation.getParam("id", "")).then(
+      responseJson => {
         if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
           this.setState({ noidung: responseJson });
           this._loadTacGia();
         }
-      });
+      }
+    );
   }
   _loadTacGia() {
-    fetch(
-      API.getURL() + "/wp-json/wp/v2/users/" + this.state.noidung.author
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson == null) {
-          Alert.alert("Lỗi", "Không có nội dung");
-        } else {
-          this.setState({ tacgia: responseJson, loaded: true });
-        }
-      });
+    API.User.getUser(this.state.noidung.author).then(responseJson => {
+      if (responseJson.length == 0) {
+        Alert.alert("Lỗi", "Không có nội dung");
+      } else {
+        this.setState({ tacgia: responseJson, loaded: true });
+      }
+    });
   }
 
   _loadComments() {
@@ -278,13 +270,13 @@ class PostDetail extends Component {
       .then(function(object) {
         Alert.alert("Cảnh báo", object.message);
       });
-  }
+  };
   _repComment = (idparent, name, content, email) => {
     fetch(
       API.getURL() +
         "/wp-json/wp/v2/comments?post=" +
         this.state.noidung.id +
-        "&parent="+ 
+        "&parent=" +
         idparent +
         "&author_name=" +
         name +
@@ -314,7 +306,7 @@ class PostDetail extends Component {
       .then(function(object) {
         Alert.alert("Cảnh báo", object.message);
       });
-  }
+  };
 }
 const height_cmt = 49;
 const pw = Dimensions.get("window").width;

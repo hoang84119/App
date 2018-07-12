@@ -1,6 +1,6 @@
 //export const url = "http://192.168.1.71/thuctap";
 //export const url = "https://gp1700000000029.gsoft.com.vn"
-var url="";
+var url = "";
 
 import { AsyncStorage, ToastAndroid } from "react-native";
 import Base64 from "./Base64";
@@ -64,15 +64,12 @@ Tag = {
       console.log(e);
     }
     try {
-      let response = await fetch(
-        `${url}/wp-json/wp/v2/tags/${id}?force=true`,
-        {
-          headers: {
-            Authorization: "Basic " + base64
-          },
-          method: "DELETE"
-        }
-      );
+      let response = await fetch(`${url}/wp-json/wp/v2/tags/${id}?force=true`, {
+        headers: {
+          Authorization: "Basic " + base64
+        },
+        method: "DELETE"
+      });
       if (response.status === 200) {
         return true;
       }
@@ -199,14 +196,18 @@ Page = {
   }
 };
 
-Post={
-  GetAllPost: async function (idCategory,idTag){
+Post = {
+  GetAllPost: async function(idCategory, idTag) {
     let address = url + "/wp-json/wp/v2/posts";
     if (idCategory != "") address = `${address}?categories=${idCategory}`;
     else if (idTag != "") address = `${address}?tags=${idTag}`;
     let response = await fetch(address);
     let responseJson = await response.json();
     return responseJson;
+  },
+  GetPostDetail: async function(id) {
+    let response = await fetch(API.getURL() + "/wp-json/wp/v2/posts/" + id);
+    if(response.status === 200) return response.json();
   },
   Delete: async function(id) {
     try {
@@ -215,15 +216,12 @@ Post={
       console.log(e);
     }
     try {
-      let response = await fetch(
-        `${url}/wp-json/wp/v2/posts/${id}`,
-        {
-          headers: {
-            Authorization: "Basic " + base64
-          },
-          method: "DELETE"
-        }
-      );
+      let response = await fetch(`${url}/wp-json/wp/v2/posts/${id}`, {
+        headers: {
+          Authorization: "Basic " + base64
+        },
+        method: "DELETE"
+      });
       if (response.status === 200) {
         return true;
       }
@@ -256,7 +254,14 @@ Post={
       return response.json();
     }
   }
-}
+};
+
+User = {
+  getUser: async function(id) {
+    let response = await fetch(API.getURL() + "/wp-json/wp/v2/users/" + id);
+    if (response.status === 200) return response.json();
+  }
+};
 
 Account = {
   validate_account: async function() {
@@ -282,7 +287,7 @@ Account = {
       let responseUser = await fetch(
         `${url}/api/auth/get_currentuserinfo/?cookie=${cookie}&insecure=cool`
       );
-      if(responseUser.status===404) return null;
+      if (responseUser.status === 404) return null;
       let user = await responseUser.json();
       json["email"] = user.user.email;
       json["capabilities"] = user.user.capabilities;
@@ -325,12 +330,13 @@ Account = {
 };
 
 module.exports = API = {
-  getURL(){
+  getURL() {
     return url;
   },
-  setURL(urlTemp){
-    url=urlTemp;
+  setURL(urlTemp) {
+    url = urlTemp;
   },
+  User:User,
   Post: Post,
   Account: Account,
   Category: Category,

@@ -39,7 +39,7 @@ class App extends Component {
       logged: false,
       haveUrl: false,
       showModal: false,
-      url: ""
+      url: "http://"
     };
   }
 
@@ -102,6 +102,7 @@ class App extends Component {
                     this.setState({ url: p });
                   }}
                   placeholder="Địa chỉ trang web"
+                  value={this.state.url}
                 />
               </View>
               <View style={{ height: 50, alignItems: "center" }}>
