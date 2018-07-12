@@ -66,6 +66,7 @@ class AddPost extends Component {
   render() {
     return (
       <View style={myStyle.container}>
+      {this.state.uploading && (
         <Modal
           transparent={true}
           animationType={"none"}
@@ -83,6 +84,7 @@ class AddPost extends Component {
             </View>
           </View>
         </Modal>
+      )}
         <ModalB ref={"myModal"} style={myStyle.modal} position="bottom">
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
