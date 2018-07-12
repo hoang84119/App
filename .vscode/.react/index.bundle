@@ -1437,7 +1437,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     return _App2.default;
   });
 
-  _reactNative.YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
+  console.disableYellowBox = true;
 },11,[12,491,780],"index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
@@ -62040,8 +62040,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             case 3:
               base64 = _context11.sent;
               formData = new FormData();
-              formData.append("name", title);
-              formData.append("slug", content);
+              formData.append("title", title);
+              formData.append("content", content);
               if (id != "") urlTemp = urlTemp + "/" + id;else formData.append("status", "publish");
               _context11.next = 10;
               return regeneratorRuntime.awrap(fetch("" + urlTemp, {
@@ -62054,26 +62054,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
             case 10:
               response = _context11.sent;
+              console.log(response);
 
               if (!(response.status === 200)) {
-                _context11.next = 15;
+                _context11.next = 16;
                 break;
               }
 
               return _context11.abrupt("return", true);
 
-            case 15:
+            case 16:
               if (!(response.status === 201)) {
-                _context11.next = 19;
+                _context11.next = 20;
                 break;
               }
 
               return _context11.abrupt("return", true);
-
-            case 19:
-              return _context11.abrupt("return", response.json());
 
             case 20:
+              return _context11.abrupt("return", response.json());
+
+            case 21:
             case "end":
               return _context11.stop();
           }
