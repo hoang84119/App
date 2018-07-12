@@ -96244,13 +96244,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
               case 2:
                 image = _context.sent;
-                _context.next = 5;
-                return regeneratorRuntime.awrap(_this._uploadImage(image));
 
-              case 5:
                 _this.refs.myModal.close();
 
-              case 6:
+                _this.setState({
+                  uploading: true
+                });
+
+                _context.next = 7;
+                return regeneratorRuntime.awrap(_this._uploadImage(image));
+
+              case 7:
+                _this.setState({
+                  uploading: false
+                });
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -96273,52 +96282,61 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
               case 2:
                 images = _context2.sent;
+
+                _this.refs.myModal.close();
+
+                _this.setState({
+                  uploading: true
+                });
+
                 _iterator = images, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? typeof Symbol === "function" ? typeof Symbol === "function" ? Symbol.iterator : "@@iterator" : "@@iterator" : "@@iterator"]();
 
-              case 4:
+              case 6:
                 if (!_isArray) {
-                  _context2.next = 10;
+                  _context2.next = 12;
                   break;
                 }
 
                 if (!(_i >= _iterator.length)) {
-                  _context2.next = 7;
+                  _context2.next = 9;
                   break;
                 }
 
-                return _context2.abrupt("break", 19);
+                return _context2.abrupt("break", 21);
 
-              case 7:
+              case 9:
                 _ref = _iterator[_i++];
-                _context2.next = 14;
+                _context2.next = 16;
                 break;
 
-              case 10:
+              case 12:
                 _i = _iterator.next();
 
                 if (!_i.done) {
-                  _context2.next = 13;
+                  _context2.next = 15;
                   break;
                 }
 
-                return _context2.abrupt("break", 19);
+                return _context2.abrupt("break", 21);
 
-              case 13:
+              case 15:
                 _ref = _i.value;
 
-              case 14:
+              case 16:
                 item = _ref;
-                _context2.next = 17;
+                _context2.next = 19;
                 return regeneratorRuntime.awrap(_this._uploadImage(item));
 
-              case 17:
-                _context2.next = 4;
+              case 19:
+                _context2.next = 6;
                 break;
 
-              case 19:
-                _this.refs.myModal.close();
+              case 21:
+                _this.setState({
+                  uploading: false
+                });
 
-              case 20:
+              case 22:
               case "end":
                 return _context2.stop();
             }
@@ -96367,7 +96385,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _this.setFocusHandlers = _this.setFocusHandlers.bind(_this);
       _this.state = {
         noidung: [],
-        loaded: false
+        loaded: false,
+        uploading: false
       };
       return _this;
     }
@@ -96409,9 +96428,64 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 72
+              lineNumber: 74
             }
           },
+          this.state.uploading && _react3.default.createElement(
+            _reactNative.Modal,
+            {
+              transparent: true,
+              animationType: "none",
+              visible: this.state.uploading,
+              onRequestClose: function onRequestClose() {
+                return null;
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 76
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: myStyle.modalBackground,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 82
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: myStyle.activityIndicatorWrapper,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 83
+                  }
+                },
+                _react3.default.createElement(_reactNative.ActivityIndicator, {
+                  color: "#0ABFBC",
+                  size: 30,
+                  animating: this.state.uploading,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 84
+                  }
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    size: 16,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 89
+                    }
+                  },
+                  "\u0110ang x\u1EED l\xFD"
+                )
+              )
+            )
+          ),
           _react3.default.createElement(
             _reactNativeModalbox2.default,
             {
@@ -96423,7 +96497,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 73
+                lineNumber: 94
               }
             },
             _react3.default.createElement(
@@ -96431,7 +96505,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 74
+                  lineNumber: 95
                 }
               },
               _react3.default.createElement(
@@ -96441,7 +96515,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 75
+                    lineNumber: 96
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -96450,7 +96524,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 97
                   }
                 }),
                 _react3.default.createElement(
@@ -96459,7 +96533,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 77
+                      lineNumber: 98
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -96472,7 +96546,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 79
+                    lineNumber: 100
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -96481,7 +96555,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 80
+                    lineNumber: 101
                   }
                 }),
                 _react3.default.createElement(
@@ -96490,7 +96564,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 81
+                      lineNumber: 102
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -96503,7 +96577,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 83
+                    lineNumber: 104
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -96512,7 +96586,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 87
+                    lineNumber: 108
                   }
                 }),
                 _react3.default.createElement(
@@ -96521,7 +96595,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 92
+                      lineNumber: 113
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -96538,7 +96612,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             initialContentHTML: this.state.noidung.content.rendered.replace("http://localhost/thuctap", _API2.default.getURL()),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 99
+              lineNumber: 120
             }
           }),
           this.state.loaded && _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -96550,7 +96624,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 110
+              lineNumber: 131
             }
           }),
           this.state.loaded === false && _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -96558,7 +96632,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: "#0000ff",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 118
+              lineNumber: 139
             }
           })
         );
@@ -96707,7 +96781,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 37
+          lineNumber: 39
         }
       },
       _react3.default.createElement(_Feather2.default, {
@@ -96716,7 +96790,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         size: 24,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 47
+          lineNumber: 49
         }
       })
     );
@@ -96759,6 +96833,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       flexDirection: "row",
       padding: 12,
       alignItems: "center"
+    },
+    modalBackground: {
+      flex: 1,
+      alignItems: "center",
+      flexDirection: "column",
+      justifyContent: "space-around",
+      backgroundColor: "#00000040"
+    },
+    activityIndicatorWrapper: {
+      padding: 10,
+      backgroundColor: "#FFFFFF",
+      height: 100,
+      borderRadius: 10,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-around"
     }
   });
 
@@ -100788,7 +100878,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               lineNumber: 68
             }
           },
-          _react3.default.createElement(
+          this.state.uploading && _react3.default.createElement(
             _reactNative.Modal,
             {
               transparent: true,
@@ -100799,7 +100889,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 69
+                lineNumber: 70
               }
             },
             _react3.default.createElement(
@@ -100808,7 +100898,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 75
+                  lineNumber: 76
                 }
               },
               _react3.default.createElement(
@@ -100817,7 +100907,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 77
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -100826,7 +100916,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 77
+                    lineNumber: 78
                   }
                 }),
                 _react3.default.createElement(
@@ -100835,7 +100925,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 82
+                      lineNumber: 83
                     }
                   },
                   "\u0110ang x\u1EED l\xFD"
@@ -100851,7 +100941,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 86
+                lineNumber: 88
               }
             },
             _react3.default.createElement(
@@ -100859,7 +100949,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 87
+                  lineNumber: 89
                 }
               },
               _react3.default.createElement(
@@ -100869,7 +100959,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 90
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -100878,7 +100968,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 91
                   }
                 }),
                 _react3.default.createElement(
@@ -100887,7 +100977,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 90
+                      lineNumber: 92
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -100900,7 +100990,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 92
+                    lineNumber: 94
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -100909,7 +100999,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 93
+                    lineNumber: 95
                   }
                 }),
                 _react3.default.createElement(
@@ -100918,7 +101008,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 94
+                      lineNumber: 96
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -100931,7 +101021,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 96
+                    lineNumber: 98
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -100940,7 +101030,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 100
+                    lineNumber: 102
                   }
                 }),
                 _react3.default.createElement(
@@ -100949,7 +101039,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 105
+                      lineNumber: 107
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -100966,7 +101056,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             contentPlaceholder: "Nội dung bài viết",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 111
+              lineNumber: 113
             }
           }),
           _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -100978,7 +101068,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 117
+              lineNumber: 119
             }
           })
         );

@@ -265,7 +265,6 @@ Account = {
     } catch (e) {
       console.log(e);
     }
-    console.log(base64);
     if (base64 == "") return null;
     let response = await fetch(`${url}/wp-json/wp/v2/users/me`, {
       headers: {
@@ -273,25 +272,20 @@ Account = {
       },
       method: "GET"
     });
-    console.log(response);
     if (response.status === 200) {
       let json = await response.json();
-      console.log(json);
       try {
         var cookie = await AsyncStorage.getItem("Cookie", "");
       } catch (e) {
         console.log(e);
       }
-      console.log(cookie);
       let responseUser = await fetch(
         `${url}/api/auth/get_currentuserinfo/?cookie=${cookie}&insecure=cool`
       );
-      console.log(responseUser);
       if(responseUser.status===404) return null;
       let user = await responseUser.json();
       json["email"] = user.user.email;
       json["capabilities"] = user.user.capabilities;
-      console.log(json)
       return json;
     } else {
       return null;
@@ -312,9 +306,7 @@ Account = {
         `${url}/api/auth/generate_auth_cookie/?username=${username}&password=${password}&insecure=cool`
       );
       let json = await response.json();
-      console.log(json);
       await AsyncStorage.setItem("Cookie", json.cookie.toString());
-      console.log(json.cookie.toString());
       //return json;
       return true;
     } else {
