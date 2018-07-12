@@ -1,5 +1,6 @@
-export const url = "http://192.168.1.71/thuctap";
+//export const url = "http://192.168.1.71/thuctap";
 //export const url = "https://gp1700000000029.gsoft.com.vn"
+var url="";
 
 import { AsyncStorage, ToastAndroid } from "react-native";
 import Base64 from "./Base64";
@@ -331,6 +332,9 @@ Account = {
 module.exports = API = {
   getURL(){
     return url;
+  },
+  setURL(urlTemp){
+    url=urlTemp;
   },
   Post: Post,
   Account: Account,

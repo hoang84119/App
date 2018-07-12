@@ -122,7 +122,7 @@ class EditPost extends Component {
             style={myStyle.richText}
             initialTitleHTML={this.state.noidung.title.rendered}
             initialContentHTML={this.state.noidung.content.rendered.replace(
-              "http://localhost",
+              "http://localhost/thuctap",
               API.getURL()
             )}
           />
@@ -255,7 +255,7 @@ class EditPost extends Component {
     };
     await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
-        pathImage = pathImage.replace("http://localhost", API.getURL());
+        pathImage = pathImage.replace("http://localhost/thuctap", API.getURL());
         this.richtext.insertImage({ src: pathImage });
       }
     });

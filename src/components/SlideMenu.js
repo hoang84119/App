@@ -125,8 +125,7 @@ class SlideMenu extends Component {
                 <Text style={myStyle.txt}>Tài khoản</Text>
               </TouchableOpacity>
             )}
-
-            <TouchableOpacity style={myStyle.button}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Setting")} style={myStyle.button}>
               <Feather style={myStyle.icon} name="settings" size={18} />
               <Text style={myStyle.txt}>Cài đặt</Text>
             </TouchableOpacity>

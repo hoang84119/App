@@ -183,7 +183,7 @@ class AddPage extends Component {
     };
     await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
-        pathImage = pathImage.replace("http://localhost", API.getURL());
+        pathImage = pathImage.replace("http://localhost/thuctap", API.getURL());
         this.richtext.insertImage({ src: pathImage });
       }
     });
