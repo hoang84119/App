@@ -235,8 +235,8 @@ Post={
     var urlTemp = `${url}/wp-json/wp/v2/posts`;
     var base64 = await AsyncStorage.getItem("Base64", "");
     var formData = new FormData();
-    formData.append("name", title);
-    formData.append("slug", content);
+    formData.append("title", title);
+    formData.append("content", content);
     if (id != "") urlTemp = `${urlTemp}/${id}`;
     else formData.append("status", "publish");
     let response = await fetch(`${urlTemp}`, {
@@ -246,6 +246,7 @@ Post={
       body: formData,
       method: "POST"
     });
+    console.log(response);
     if (response.status === 200) {
       return true;
     } else if (response.status === 201) {

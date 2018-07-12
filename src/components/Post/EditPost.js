@@ -70,7 +70,7 @@ class EditPost extends Component {
   render() {
     return (
       <View style={myStyle.container}>
-        <Modal ref={"myModal"} style={myStyle.modal} position="bottom">
+        <Modal ref={"myModal"} style={myStyle.modal} position="bottom" onRequestClose={() => null}>
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
               <Feather style={myStyle.iconImage} name="camera" size={20} />

@@ -76,7 +76,7 @@ export default class MediaDetail extends Component {
   _comeBack() {
     //Alert.alert("T", this.state.hinhanh.replace("http://localhost", API.getURL()));
     this.props.navigation.navigate(`${this.props.navigation.getParam("src")}`, {
-      srcImage: this.state.hinhanh.replace("http://localhost", API.getURL())
+      srcImage: this.state.hinhanh.replace("http://localhost/thuctap", API.getURL())
     });
   }
 
@@ -155,7 +155,7 @@ export default class MediaDetail extends Component {
               }}
               source={{
                 uri: `${this.state.hinhanh.replace(
-                  "http://localhost",
+                  "http://localhost/thuctap",
                   API.getURL()
                 )}`
               }}

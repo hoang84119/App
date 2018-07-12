@@ -1437,7 +1437,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     return _App2.default;
   });
 
-  _reactNative.YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
+  console.disableYellowBox = true;
 },11,[12,491,780],"index.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
@@ -61963,10 +61963,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
             case 7:
               responseJson = _context9.sent;
-              console.log(responseJson);
               return _context9.abrupt("return", responseJson);
 
-            case 10:
+            case 9:
             case "end":
               return _context9.stop();
           }
@@ -62041,8 +62040,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             case 3:
               base64 = _context11.sent;
               formData = new FormData();
-              formData.append("name", title);
-              formData.append("slug", content);
+              formData.append("title", title);
+              formData.append("content", content);
               if (id != "") urlTemp = urlTemp + "/" + id;else formData.append("status", "publish");
               _context11.next = 10;
               return regeneratorRuntime.awrap(fetch("" + urlTemp, {
@@ -62055,26 +62054,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
             case 10:
               response = _context11.sent;
+              console.log(response);
 
               if (!(response.status === 200)) {
-                _context11.next = 15;
+                _context11.next = 16;
                 break;
               }
 
               return _context11.abrupt("return", true);
 
-            case 15:
+            case 16:
               if (!(response.status === 201)) {
-                _context11.next = 19;
+                _context11.next = 20;
                 break;
               }
 
               return _context11.abrupt("return", true);
-
-            case 19:
-              return _context11.abrupt("return", response.json());
 
             case 20:
+              return _context11.abrupt("return", response.json());
+
+            case 21:
             case "end":
               return _context11.stop();
           }
@@ -96177,6 +96177,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               ref: "myModal",
               style: myStyle.modal,
               position: "bottom",
+              onRequestClose: function onRequestClose() {
+                return null;
+              },
               __source: {
                 fileName: _jsxFileName,
                 lineNumber: 73
@@ -100550,6 +100553,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               transparent: true,
               animationType: "none",
               visible: this.state.uploading,
+              onRequestClose: function onRequestClose() {
+                return null;
+              },
               __source: {
                 fileName: _jsxFileName,
                 lineNumber: 69
@@ -100561,7 +100567,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 74
+                  lineNumber: 75
                 }
               },
               _react3.default.createElement(
@@ -100570,7 +100576,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 75
+                    lineNumber: 76
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -100579,7 +100585,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 77
                   }
                 }),
                 _react3.default.createElement(
@@ -100588,7 +100594,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 81
+                      lineNumber: 82
                     }
                   },
                   "\u0110ang x\u1EED l\xFD"
@@ -100604,7 +100610,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 85
+                lineNumber: 86
               }
             },
             _react3.default.createElement(
@@ -100612,7 +100618,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 86
+                  lineNumber: 87
                 }
               },
               _react3.default.createElement(
@@ -100622,7 +100628,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 87
+                    lineNumber: 88
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -100631,7 +100637,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 89
                   }
                 }),
                 _react3.default.createElement(
@@ -100640,7 +100646,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 89
+                      lineNumber: 90
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -100653,7 +100659,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 91
+                    lineNumber: 92
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -100662,7 +100668,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 92
+                    lineNumber: 93
                   }
                 }),
                 _react3.default.createElement(
@@ -100671,7 +100677,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 93
+                      lineNumber: 94
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -100684,7 +100690,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 95
+                    lineNumber: 96
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -100693,7 +100699,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 99
+                    lineNumber: 100
                   }
                 }),
                 _react3.default.createElement(
@@ -100702,7 +100708,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 104
+                      lineNumber: 105
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -100719,7 +100725,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             contentPlaceholder: "Nội dung bài viết",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 110
+              lineNumber: 111
             }
           }),
           _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -100731,7 +100737,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 116
+              lineNumber: 117
             }
           })
         );
