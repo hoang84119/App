@@ -1,4 +1,4 @@
-//export const url = "http://192.168.1.128/thuctap";
+//export const url = "http://192.168.1.71/thuctap";
 export const url = "https://gp1700000000029.gsoft.com.vn"
 
 import { AsyncStorage, ToastAndroid } from "react-native";

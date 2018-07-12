@@ -178,7 +178,10 @@ class ItemPost extends Component {
 
     let days = parseInt(time / msPerDay);
     if (days < 30) return `${days} ngày trước`;
-    else return `${days} test`;
+    else {
+      let month = localDate.getMonth()-date.getMonth(); 
+      return `${month} thang trước`
+    }
   };
 
   // Xóa link trong nội dung
