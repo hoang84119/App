@@ -48,7 +48,7 @@ export default class MediaDetail extends Component {
           onPress: () => {
             fetch(
               API.getURL() +
-                "/thuctap/wp-json/wp/v2/media/" +
+                "/wp-json/wp/v2/media/" +
                 this.props.navigation.getParam("id", "") +
                 "?force=true",
               {
@@ -95,7 +95,7 @@ export default class MediaDetail extends Component {
   async loadData() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/media/" +
+        "/wp-json/wp/v2/media/" +
         this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())

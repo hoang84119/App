@@ -158,7 +158,7 @@ class AddCategory extends Component {
 
   async _loadData() {
     let categories = await fetch(
-      `${API.getURL()}/thuctap/wp-json/wp/v2/categories/`
+      `${API.getURL()}/wp-json/wp/v2/categories/`
     );
     let categoriesJson = await categories.json();
     if (categoriesJson != null) {

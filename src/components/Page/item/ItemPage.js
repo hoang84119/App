@@ -118,7 +118,7 @@ class ItemPage extends Component {
     if (this.props.data.featured_media != 0) {
       let idImage = this.props.data.featured_media;
       let response = await fetch(
-        `${API.getURL()}/thuctap/wp-json/wp/v2/media/${idImage}`
+        `${API.getURL()}/wp-json/wp/v2/media/${idImage}`
       );
       if (response.status === 200) {
         let json = await response.json();

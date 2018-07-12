@@ -82,7 +82,7 @@ class PostDetail extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/comments/" + i, {
+            fetch(API.getURL() + "/wp-json/wp/v2/comments/" + i, {
               headers: {
                 Authorization:
                   "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
@@ -201,7 +201,7 @@ class PostDetail extends Component {
   _loadData() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/posts/" +
+        "/wp-json/wp/v2/posts/" +
         this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())
@@ -216,7 +216,7 @@ class PostDetail extends Component {
   }
   _loadTacGia() {
     fetch(
-      API.getURL() + "/thuctap/wp-json/wp/v2/users/" + this.state.noidung.author
+      API.getURL() + "/wp-json/wp/v2/users/" + this.state.noidung.author
     )
       .then(response => response.json())
       .then(responseJson => {
@@ -231,7 +231,7 @@ class PostDetail extends Component {
   _loadComments() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/comments?post=" +
+        "/wp-json/wp/v2/comments?post=" +
         this.props.navigation.getParam("id", "") +
         "&parent=0"
     )
@@ -248,7 +248,7 @@ class PostDetail extends Component {
   _upLoadComment = (name, content, email) => {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/comments?post=" +
+        "/wp-json/wp/v2/comments?post=" +
         this.state.noidung.id +
         "&author_name=" +
         name +
@@ -282,7 +282,7 @@ class PostDetail extends Component {
   _repComment = (idparent, name, content, email) => {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/comments?post=" +
+        "/wp-json/wp/v2/comments?post=" +
         this.state.noidung.id +
         "&parent="+ 
         idparent +

@@ -124,7 +124,7 @@ class Tags extends Component {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
         let response = await fetch(
-          `${API.getURL()}/thuctap/wp-json/wp/v2/tags?page=${i}`
+          `${API.getURL()}/wp-json/wp/v2/tags?page=${i}`
         );
         if (response.status === 200) {
           let responseJson = await response.json();
@@ -144,7 +144,7 @@ class Tags extends Component {
       });
     } else {
       let response = await fetch(
-        `${API.getURL()}/thuctap/wp-json/wp/v2/tags?page=${this.state.page}`
+        `${API.getURL()}/wp-json/wp/v2/tags?page=${this.state.page}`
       );
       if (response.status === 200) {
         let responseJson = await response.json();

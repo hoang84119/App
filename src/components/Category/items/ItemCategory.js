@@ -35,7 +35,7 @@ class ItemCategory extends Component {
 
   _checkChild() {
     fetch(
-      `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=${
+      `${API.getURL()}/wp-json/wp/v2/categories?parent=${
         this.props.data.id
       }`
     )

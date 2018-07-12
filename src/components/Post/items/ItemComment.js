@@ -24,7 +24,7 @@ class ItemComment extends Component {
   _loadCommentsChild() {
     fetch(
       API.getURL() +
-      "/thuctap/wp-json/wp/v2/comments?post=" +
+      "/wp-json/wp/v2/comments?post=" +
       this.props.data.post + "&parent=" + this.props.data.id
     )
       .then(response => response.json())
@@ -47,7 +47,7 @@ class ItemComment extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/comments/" + i, {
+            fetch(API.getURL() + "/wp-json/wp/v2/comments/" + i, {
               headers: {
                 Authorization:
                   "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD

@@ -136,7 +136,7 @@ class Posts extends Component {
             <ItemPost
               data={item}
               navigation={this.props.navigation}
-              delete={this._delete}
+              delete={this._beforeDelete}
               userName={this.props.dataUser.name}
             />
           )}
@@ -145,32 +145,40 @@ class Posts extends Component {
     );
   }
 
-  _delete = (i, t) => {
+  _beforeDelete = (id, t) => {
     Alert.alert(
       "Thông báo",
       "Bạn có thật sự muốn xóa ''" + t + "'' không?",
       [
         {
           text: "Xóa",
-          onPress: () => {
-            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
-              headers: {
-                Authorization:
-                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
-              },
-              method: "DELETE"
-            }).then(response => {
-              if (response.status == 200) {
-                ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-                this.refresh();
-              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
-            });
-          }
+          onPress: this._delete(id)
         },
         { text: "Hủy", style: "cancel" }
       ],
       { cancelable: false }
     );
+  };
+
+  _delete = (id) => {
+    API.Post.Delete(id).then(response => {
+      if (response) {
+        ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
+        this.refresh();
+      } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+    });
+    // fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
+    //   headers: {
+    //     Authorization:
+    //       "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
+    //   },
+    //   method: "DELETE"
+    // }).then(response => {
+    //   if (response.status == 200) {
+    //     ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
+    //     this.refresh();
+    //   } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+    // });
   };
 
   refresh() {
@@ -180,20 +188,27 @@ class Posts extends Component {
   _loadData() {
     this.setState({ refreshing: true });
     //this.props.dispatch({type:'RefreshPost'});
-    let url = API.getURL() + "/thuctap/wp-json/wp/v2/posts";
+    //let url = API.getURL() + "/thuctap/wp-json/wp/v2/posts";
     let idCategory = this.props.navigation.getParam("idCategory", "");
     let idTag = this.props.navigation.getParam("idTag", "");
-    if (idCategory != "") url = `${url}?categories=${idCategory}`;
-    else if (idTag != "") url = `${url}?tags=${idTag}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.length === 0) {
-          this.setState({ empty: true, refreshing: false });
-        } else {
-          this.setState({ noidung: responseJson, refreshing: false });
-        }
-      });
+    // if (idCategory != "") url = `${url}?categories=${idCategory}`;
+    // else if (idTag != "") url = `${url}?tags=${idTag}`;
+    // fetch(url)
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     if (responseJson.length === 0) {
+    //       this.setState({ empty: true, refreshing: false });
+    //     } else {
+    //       this.setState({ noidung: responseJson, refreshing: false });
+    //     }
+    //   });
+    API.Post.GetAllPost(idCategory,idTag).then(responseJson=>{
+      if (responseJson.length === 0) {
+        this.setState({ empty: true, refreshing: false });
+      } else {
+        this.setState({ noidung: responseJson, refreshing: false });
+      }
+    })
   }
 
   _onLogin() {

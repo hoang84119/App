@@ -153,7 +153,7 @@ class Page extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            fetch(API.getURL() + "/thuctap/wp-json/wp/v2/pages/" + i, {
+            fetch(API.getURL() + "/wp-json/wp/v2/pages/" + i, {
               headers: {
                 Authorization:
                   "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
@@ -180,7 +180,7 @@ class Page extends Component {
   _loadData() {
     this.setState({ refreshing: true });
     //this.props.dispatch({type:'RefreshPost'});
-    let url = API.getURL() + "/thuctap/wp-json/wp/v2/pages";
+    let url = API.getURL() + "/wp-json/wp/v2/pages";
     let idCategory = this.props.navigation.getParam("idCategory", "");
     let idTag = this.props.navigation.getParam("idTag", "");
     if (idCategory != "") url = `${url}?categories=${idCategory}`;

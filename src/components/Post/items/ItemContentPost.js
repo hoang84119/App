@@ -49,7 +49,7 @@ class ItemContentPost extends Component {
 
           <HTML
             html={this.props.noidung.content.rendered.replace(
-              "http://localhost",
+              "http://localhost/thuctap",
               API.getURL()
             )}
             imagesMaxWidth={Dimensions.get("window").width - 10}

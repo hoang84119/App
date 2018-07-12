@@ -135,7 +135,7 @@ class PageDetail extends Component {
   _loadData() {
     fetch(
       API.getURL() +
-        "/thuctap/wp-json/wp/v2/pages/" +
+        "/wp-json/wp/v2/pages/" +
         this.props.navigation.getParam("id", "")
     )
       .then(response => response.json())

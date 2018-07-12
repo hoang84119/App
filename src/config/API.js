@@ -1,4 +1,6 @@
-export const url = "http://192.168.1.128";
+//export const url = "http://192.168.1.128/thuctap";
+export const url = "https://gp1700000000029.gsoft.com.vn"
+
 import { AsyncStorage, ToastAndroid } from "react-native";
 import Base64 from "./Base64";
 
@@ -11,7 +13,7 @@ Category = {
     }
     try {
       let response = await fetch(
-        `${url}/thuctap/wp-json/wp/v2/categories/${id}?force=true`,
+        `${url}/wp-json/wp/v2/categories/${id}?force=true`,
         {
           headers: {
             Authorization: "Basic " + base64
@@ -28,7 +30,7 @@ Category = {
     }
   },
   Save: async function(id, name, slug, description, parent) {
-    var urlTemp = `${url}/thuctap/wp-json/wp/v2/categories`;
+    var urlTemp = `${url}/wp-json/wp/v2/categories`;
     var base64 = await AsyncStorage.getItem("Base64", "");
     var formData = new FormData();
     formData.append("name", name);
@@ -62,7 +64,7 @@ Tag = {
     }
     try {
       let response = await fetch(
-        `${url}/thuctap/wp-json/wp/v2/tags/${id}?force=true`,
+        `${url}/wp-json/wp/v2/tags/${id}?force=true`,
         {
           headers: {
             Authorization: "Basic " + base64
@@ -79,7 +81,7 @@ Tag = {
     }
   },
   Save: async function(id, name, slug, description) {
-    var urlTemp = `${url}/thuctap/wp-json/wp/v2/tags`;
+    var urlTemp = `${url}/wp-json/wp/v2/tags`;
     var base64 = await AsyncStorage.getItem("Base64", "");
     var formData = new FormData();
     formData.append("name", name);
@@ -113,7 +115,7 @@ Image = {
     try {
       let formData = new FormData();
       formData.append("file", path);
-      let response = await fetch(url + "/thuctap/wp-json/wp/v2/media/", {
+      let response = await fetch(url + "/wp-json/wp/v2/media/", {
         headers: {
           Authorization: "Basic " + base64,
           "Content-Type": "multipart/form-data"
@@ -137,7 +139,7 @@ Image = {
     } catch (e) {
       console.log(e);
     }
-    return await fetch(`${url}/thuctap/wp-json/wp/v2/media/${id}?force=true`, {
+    return await fetch(`${url}/wp-json/wp/v2/media/${id}?force=true`, {
       headers: {
         Authorization: "Basic " + base64 //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
       },
@@ -155,7 +157,7 @@ Page = {
     }
     try {
       let response = await fetch(
-        `${url}/thuctap/wp-json/wp/v2/pages/${id}?force=true`,
+        `${url}/wp-json/wp/v2/pages/${id}?force=true`,
         {
           headers: {
             Authorization: "Basic " + base64
@@ -172,7 +174,7 @@ Page = {
     }
   },
   Save: async function(id, name, slug, description) {
-    var urlTemp = `${url}/thuctap/wp-json/wp/v2/pages`;
+    var urlTemp = `${url}/wp-json/wp/v2/pages`;
     var base64 = await AsyncStorage.getItem("Base64", "");
     var formData = new FormData();
     formData.append("name", name);
@@ -196,6 +198,41 @@ Page = {
   }
 };
 
+Post={
+  GetAllPost: async function (idCategory,idTag){
+    let address = url + "/wp-json/wp/v2/posts";
+    if (idCategory != "") address = `${address}?categories=${idCategory}`;
+    else if (idTag != "") address = `${address}?tags=${idTag}`;
+    let response = await fetch(address);
+    let responseJson = await response.json();
+    return responseJson;
+  },
+  Delete: async function(id) {
+    try {
+      var base64 = await AsyncStorage.getItem("Base64", "");
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      let response = await fetch(
+        `${url}/wp-json/wp/v2/posts/${id}`,
+        {
+          headers: {
+            Authorization: "Basic " + base64
+          },
+          method: "DELETE"
+        }
+      );
+      if (response.status === 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+}
+
 Account = {
   validate_account: async function() {
     try {
@@ -204,7 +241,7 @@ Account = {
       console.log(e);
     }
     if (base64 == "") return null;
-    let response = await fetch(`${url}/thuctap/wp-json/wp/v2/users/me`, {
+    let response = await fetch(`${url}/wp-json/wp/v2/users/me`, {
       headers: {
         Authorization: "Basic " + base64
       },
@@ -220,7 +257,7 @@ Account = {
       }
       //console.log(cookie);
       let responseUser = await fetch(
-        `${url}/thuctap/api/auth/get_currentuserinfo/?cookie=${cookie}&insecure=cool`
+        `${url}/api/auth/get_currentuserinfo/?cookie=${cookie}&insecure=cool`
       );
       if(responseUser.status===404) return null;
       let user = await responseUser.json();
@@ -234,7 +271,7 @@ Account = {
   },
   Login: async function(username, password) {
     let base64 = Base64.btoa(`${username}:${password}`);
-    let response = await fetch(`${url}/thuctap/wp-json/wp/v2/users/me`, {
+    let response = await fetch(`${url}/wp-json/wp/v2/users/me`, {
       headers: {
         Authorization: "Basic " + base64
       },
@@ -244,7 +281,7 @@ Account = {
       //let json = await response.json();
       await AsyncStorage.setItem("Base64", base64);
       response = await fetch(
-        `${url}/thuctap/api/auth/generate_auth_cookie/?username=${username}&password=${password}&insecure=cool`
+        `${url}/api/auth/generate_auth_cookie/?username=${username}&password=${password}&insecure=cool`
       );
       let json = await response.json();
       console.log(json);
@@ -272,7 +309,7 @@ module.exports = API = {
     return url;
   },
   getAllPost() {
-    return fetch(`${url}/thuctap/wp-json/wp/v2/posts`)
+    return fetch(`${url}/wp-json/wp/v2/posts`)
       .then(function(response) {
         return response.json();
       })
@@ -284,7 +321,7 @@ module.exports = API = {
       });
   },
   getCTBaiBao(id) {
-    return fetch(`${url}/thuctap/wp-json/wp/v2/posts/${id}`)
+    return fetch(`${url}/wp-json/wp/v2/posts/${id}`)
       .then(response => {
         return response.json();
       })
@@ -297,7 +334,7 @@ module.exports = API = {
   },
   generate_auth_cookie(username, password) {
     return fetch(
-      `${url}/thuctap/api/auth/generate_auth_cookie/?username=${username}&password=${password}&seconds=86400&insecure=cool`
+      `${url}/api/auth/generate_auth_cookie/?username=${username}&password=${password}&seconds=86400&insecure=cool`
     )
       .then(response => {
         return response.json();
@@ -306,6 +343,7 @@ module.exports = API = {
         return json;
       });
   },
+  Post: Post,
   Account: Account,
   Category: Category,
   Tag: Tag,

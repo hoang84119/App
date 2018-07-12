@@ -125,7 +125,7 @@ class Categories extends Component {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
         let response = await fetch(
-          `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=0&page=${i}`
+          `${API.getURL()}/wp-json/wp/v2/categories?parent=0&page=${i}`
         );
         if (response.status === 200) {
           let responseJson = await response.json();
@@ -144,7 +144,7 @@ class Categories extends Component {
       });
     } else {
       let response = await fetch(
-        `${API.getURL()}/thuctap/wp-json/wp/v2/categories?parent=0&page=${this.state.page}`
+        `${API.getURL()}/wp-json/wp/v2/categories?parent=0&page=${this.state.page}`
       );
       if (response.status === 200) {
         let responseJson = await response.json();
@@ -167,7 +167,7 @@ class Categories extends Component {
 
   loadData() {
     this.setState({ refreshing: true });
-    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/categories?parent=0")
+    fetch(API.getURL() + "/wp-json/wp/v2/categories?parent=0")
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson == null) {

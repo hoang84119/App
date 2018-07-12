@@ -167,7 +167,7 @@ class EditCategory extends Component {
   async _loadData() {
     let id = this.props.navigation.getParam("id", "");
     let response = await fetch(
-      `${API.getURL()}/thuctap/wp-json/wp/v2/categories/${id}`
+      `${API.getURL()}/wp-json/wp/v2/categories/${id}`
     );
     let json = await response.json();
     if (json == null) {
@@ -180,7 +180,7 @@ class EditCategory extends Component {
         moTa: json.description
       });
       let categories = await fetch(
-        `${API.getURL()}/thuctap/wp-json/wp/v2/categories?exclude=${id}`
+        `${API.getURL()}/wp-json/wp/v2/categories?exclude=${id}`
       );
       let categoriesJson = await categories.json();
       if (categoriesJson != null) {

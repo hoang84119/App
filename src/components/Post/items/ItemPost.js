@@ -121,13 +121,13 @@ class ItemPost extends Component {
     if (this.props.data.featured_media != 0) {
       let idImage = this.props.data.featured_media;
       let response = await fetch(
-        `${API.getURL()}/thuctap/wp-json/wp/v2/media/${idImage}`
+        `${API.getURL()}/wp-json/wp/v2/media/${idImage}`
       );
       if (response.status === 200) {
         let json = await response.json();
         let src = json.media_details.sizes.medium.source_url;
         this.setState({
-          featured_media: src.replace("http://localhost", API.getURL()),
+          featured_media: src.replace("http://localhost/thuctap", API.getURL()),
           loaded: true
         });
       } else {
@@ -150,7 +150,7 @@ class ItemPost extends Component {
         //lấy đường dẫn
         src = content
           .substring(indexSrcStart, indexSrcEnd)
-          .replace("http://localhost", API.getURL());
+          .replace("http://localhost/thuctap", API.getURL());
         let response = await fetch(src);
         if (response.status != 200) src = featured_media_default;
       }
@@ -178,6 +178,7 @@ class ItemPost extends Component {
 
     let days = parseInt(time / msPerDay);
     if (days < 30) return `${days} ngày trước`;
+    else return `${days} test`;
   };
 
   // Xóa link trong nội dung

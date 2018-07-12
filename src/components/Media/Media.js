@@ -192,7 +192,7 @@ export default class Media extends Component {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
         let response = await fetch(
-          `${API.getURL()}/thuctap/wp-json/wp/v2/media?page=${i}`
+          `${API.getURL()}/wp-json/wp/v2/media?page=${i}`
         );
         if (response.status === 200) {
           let responseJson = await response.json();
@@ -214,7 +214,7 @@ export default class Media extends Component {
       });
     } else {
       let response = await fetch(
-        `${API.getURL()}/thuctap/wp-json/wp/v2/media?page=${this.state.page}`
+        `${API.getURL()}/wp-json/wp/v2/media?page=${this.state.page}`
       );
       if (response.status === 200) {
         let responseJson = await response.json();

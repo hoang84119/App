@@ -117,7 +117,7 @@ class AddPage extends Component {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("status", "publish");
-    fetch(API.getURL() + "/thuctap/wp-json/wp/v2/pages/", {
+    fetch(API.getURL() + "/wp-json/wp/v2/pages/", {
       headers: {
         Authorization:
           "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")

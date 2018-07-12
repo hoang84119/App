@@ -139,7 +139,7 @@ class EditCategory extends Component {
   async _loadData() {
     let id = this.props.navigation.getParam("id", "");
     let response = await fetch(
-      `${API.getURL()}/thuctap/wp-json/wp/v2/tags/${id}`
+      `${API.getURL()}/wp-json/wp/v2/tags/${id}`
     );
     let json = await response.json();
     if (json == null) {

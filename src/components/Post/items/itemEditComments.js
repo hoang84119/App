@@ -35,7 +35,7 @@ export default class itemEditComments extends Component {
             formData.append("content", this.state.noidung);
             fetch(
                   API.getURL() +
-                  "/thuctap/wp-json/wp/v2/comments/" +
+                  "/wp-json/wp/v2/comments/" +
                   this.data.id,
                   {
                         headers: {
