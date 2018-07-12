@@ -132,25 +132,28 @@ class AddPost extends Component {
   async _onAdd() {
     if (this.props.navigation.state.params.isAdding == true) return;
     this.props.navigation.setParams({ isAdding: true });
-    var formData = new FormData();
+    //var formData = new FormData();
     let title = await this.richtext.getTitleHtml();
     let content = await this.richtext.getContentHtml();
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("status", "publish");
-    fetch(API.getURL() + "/wp-json/wp/v2/posts/", {
-      headers: {
-        Authorization:
-          "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
-      },
-      body: formData,
-      method: "POST"
-    }).then(response => {
-      var t = response.status;
-      if (response.status == 201) {
+    // formData.append("title", title);
+    // formData.append("content", content);
+    // formData.append("status", "publish");
+    // fetch(API.getURL() + "/wp-json/wp/v2/posts/", {
+    //   headers: {
+    //     Authorization:
+    //       "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok")
+    //   },
+    //   body: formData,
+    //   method: "POST"
+    // })
+    API.Post.Save("",title,content).then(response => {
+      if (response) {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
         this.props.navigation.navigate("main");
-      } else Alert.alert("Lỗi", "Thất bại");
+      } else {
+        ToastAndroid.show(response.message, ToastAndroid.LONG);
+        this.props.navigation.setParams({ isSaving: false });
+      }
     });
   }
 
@@ -207,7 +210,7 @@ class AddPost extends Component {
     };
     await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
-        pathImage = pathImage.replace("http://localhost", API.getURL());
+        pathImage = pathImage.replace("http://localhost/thuctap", API.getURL());
         this.richtext.insertImage({ src: pathImage });
       }
     });

@@ -1,5 +1,5 @@
-//export const url = "http://192.168.1.71/thuctap";
-export const url = "https://gp1700000000029.gsoft.com.vn"
+export const url = "http://192.168.1.71/thuctap";
+//export const url = "https://gp1700000000029.gsoft.com.vn"
 
 import { AsyncStorage, ToastAndroid } from "react-native";
 import Base64 from "./Base64";
@@ -205,6 +205,7 @@ Post={
     else if (idTag != "") address = `${address}?tags=${idTag}`;
     let response = await fetch(address);
     let responseJson = await response.json();
+    console.log(responseJson);
     return responseJson;
   },
   Delete: async function(id) {
@@ -231,6 +232,29 @@ Post={
       console.log(e);
     }
   },
+  Save: async function(id, title, content) {
+    var urlTemp = `${url}/wp-json/wp/v2/posts`;
+    var base64 = await AsyncStorage.getItem("Base64", "");
+    var formData = new FormData();
+    formData.append("name", title);
+    formData.append("slug", content);
+    if (id != "") urlTemp = `${urlTemp}/${id}`;
+    else formData.append("status", "publish");
+    let response = await fetch(`${urlTemp}`, {
+      headers: {
+        Authorization: "Basic " + base64
+      },
+      body: formData,
+      method: "POST"
+    });
+    if (response.status === 200) {
+      return true;
+    } else if (response.status === 201) {
+      return true;
+    } else {
+      return response.json();
+    }
+  }
 }
 
 Account = {
@@ -305,43 +329,8 @@ Account = {
 };
 
 module.exports = API = {
-  getURL() {
+  getURL(){
     return url;
-  },
-  getAllPost() {
-    return fetch(`${url}/wp-json/wp/v2/posts`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(json) {
-        return json;
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
-  getCTBaiBao(id) {
-    return fetch(`${url}/wp-json/wp/v2/posts/${id}`)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        return json;
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
-  generate_auth_cookie(username, password) {
-    return fetch(
-      `${url}/api/auth/generate_auth_cookie/?username=${username}&password=${password}&seconds=86400&insecure=cool`
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        return json;
-      });
   },
   Post: Post,
   Account: Account,

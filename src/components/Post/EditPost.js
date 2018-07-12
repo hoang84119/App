@@ -124,30 +124,33 @@ class EditPost extends Component {
   async _onSave() {
     if (this.props.navigation.state.params.isSaving == true) return;
     this.props.navigation.setParams({ isSaving: true });
-    var formData = new FormData();
+    //var formData = new FormData();
+    let id = this.props.navigation.getParam("id", "");
     let title = await this.richtext.getTitleHtml();
     let content = await this.richtext.getContentHtml();
-    formData.append("title", title);
-    formData.append("content", content);
-    fetch(
-      API.getURL() +
-        "/wp-json/wp/v2/posts/" +
-        this.props.navigation.getParam("id", ""),
-      {
-        headers: {
-          Authorization:
-            "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK135: yEgN NbO6 w6k3 vSuU xBjV E8Ok
-        },
-        body: formData,
-        method: "POST"
-      }
-    ).then(response => {
-      var t = response.status;
-      if (response.status == "200") {
+    // formData.append("title", title);
+    // formData.append("content", content);
+    // fetch(
+    //   API.getURL() +
+    //     "/wp-json/wp/v2/posts/" +
+    //     this.props.navigation.getParam("id", ""),
+    //   {
+    //     headers: {
+    //       Authorization:
+    //         "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK135: yEgN NbO6 w6k3 vSuU xBjV E8Ok
+    //     },
+    //     body: formData,
+    //     method: "POST"
+    //   }
+    // )
+    API.Post.Save(id,title,content).then(response => {
+      if (response) {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
-        //this.props.dispatch({type:'RefreshPost'});
         this.props.navigation.navigate("main");
-      } else Alert.alert("Lỗi", "Thất bại");
+      } else {
+        ToastAndroid.show(response.message, ToastAndroid.LONG);
+        this.props.navigation.setParams({ isSaving: false });
+      }
     });
   }
 

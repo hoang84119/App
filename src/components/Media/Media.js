@@ -257,7 +257,7 @@ export default class Media extends Component {
     <ItemImage
       id={item.id}
       guid={item.media_details.sizes.medium.source_url.replace(
-        "http://localhost",
+        "http://localhost/thuctap",
         API.getURL()
       )}
       title={item.title.rendered}
