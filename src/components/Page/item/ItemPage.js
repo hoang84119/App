@@ -175,6 +175,10 @@ class ItemPage extends Component {
 
     let days = parseInt(time / msPerDay);
     if (days < 30) return `${days} ngày trước`;
+    else {
+      let month = parseInt(days/30);
+      return `${month} thang trước`
+    }
   };
 
   // Xóa link trong nội dung

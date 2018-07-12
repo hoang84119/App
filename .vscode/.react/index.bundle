@@ -99849,7 +99849,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         if (hours < 24) return hours + " gi\u1EDD tr\u01B0\u1EDBc";
         var days = parseInt(time / msPerDay);
         if (days < 30) return days + " ng\xE0y tr\u01B0\u1EDBc";else {
-          var month = localDate.getMonth() - date.getMonth();
+          var month = parseInt(days / 30);
           return month + " thang tr\u01B0\u1EDBc";
         }
       };
