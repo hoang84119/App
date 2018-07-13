@@ -57,6 +57,21 @@ export default class Media extends Component {
           </TouchableOpacity>
           <Text style={myStyle.title}>Thư viện hình ảnh</Text>
         </View>
+        {this.state.selected.size != 0 && (
+          <TouchableOpacity
+            style={myStyle.buttons}
+            onPress={() => {
+              this.state.selected.clear();
+              console.log(this.state.selected);
+              this.setState({
+                selected:this.state.selected
+              })
+            }}
+          >
+            <Feather style={myStyle.icon} name="x-circle" size={25} />
+            <Text style={{ fontSize: 16, color: "#fff" }}>Bỏ chọn</Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
 
@@ -391,7 +406,8 @@ const myStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flex: 1,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    paddingRight: 10
   },
   headerTitleBar: {
     backgroundColor: "#0ABFBC",
@@ -403,7 +419,7 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     height: 50,
     flexDirection: "row",
-    flex: 4
+    flex: 3
   },
   title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
   modalBackground: {

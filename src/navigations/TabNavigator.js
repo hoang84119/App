@@ -15,10 +15,30 @@ import PageTo from './PageTo'
   export default createBottomTabNavigator(
   {
     //Định nghĩa các màn hình 
-    Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
-    Category:{screen:CategoryTo},
-    Tag:{screen:TagTo},
-    Page: {screen:PageTo},
+    Post: {
+      screen: PostTo,
+      navigationOptions: {
+        title: "Bài viết"
+      }
+    },
+    Category: {
+      screen: CategoryTo,
+      navigationOptions: {
+        title: "Chuyên mục"
+      }
+    },
+    Tag: {
+      screen: TagTo,
+      navigationOptions: {
+        title: "Thẻ"
+      }
+    },
+    Page: {
+      screen: PageTo,
+      navigationOptions: {
+        title: "Trang"
+      }
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({

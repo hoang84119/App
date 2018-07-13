@@ -9,9 +9,12 @@ import Media from "../components/Media/Media";
 import MediaDetail from "../components/Media/MediaDetail";
 
 const PageTo = createStackNavigator(
-    {
-      Page: {
-      screen: Page
+  {
+    Page: {
+      screen: Page,
+      navigationOptions:{
+        headerTransparent: true
+      }
     },
     EditPage: {
       screen: EditPage,
@@ -34,7 +37,7 @@ const PageTo = createStackNavigator(
     scmedia: {
       screen: Media,
       navigationOptions: {
-        headerTitle: "Chọn hình ảnh",
+        headerTitle: "Chọn hình ảnh"
         // headerStyle: {
         //   height: 50
         // }
@@ -43,18 +46,18 @@ const PageTo = createStackNavigator(
     scchitiet: {
       screen: MediaDetail,
       navigationOptions: {
-        headerTitle: "Chi tiết hình ảnh",
+        headerTitle: "Chi tiết hình ảnh"
         // headerStyle: {
         //   height: 50
         // }
       }
-    },
+    }
   },
   {
     navigationOptions: {
       headerStyle: {
         backgroundColor: "#0ABFBC",
-        elevation: 0,
+        elevation: 0
       },
       headerTintColor: "white",
       header: props => (

@@ -1,43 +1,67 @@
-import React from 'react';
+import React from "react";
 import PostTo from "./PostTo";
 import MediaTo from "./MediaTo";
 //import { TabNavigator, TabBarBottom } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import TagTo from './TagTo';
-import CategoryTo from './CategoryTo';
-import PageTo from './PageTo'
-
-
+import TagTo from "./TagTo";
+import CategoryTo from "./CategoryTo";
+import PageTo from "./PageTo";
 
 //tạo thanh Tab
 //export default TabNavigator(
-  export default createBottomTabNavigator(
+export default createBottomTabNavigator(
   {
-    //Định nghĩa các màn hình 
-    Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
-    Media: {screen: MediaTo},
-    Category:{screen:CategoryTo},
-    Tag:{screen:TagTo},
-    Page:{screen: PageTo}
+    //Định nghĩa các màn hình
+    //Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
+    Post: {
+      screen: PostTo,
+      navigationOptions: {
+        title: "Bài viết"
+      }
+    },
+    Media: {
+      screen: MediaTo,
+      navigationOptions: {
+        title: "Thư viện"
+      }
+    },
+    Category: {
+      screen: CategoryTo,
+      navigationOptions: {
+        title: "Chuyên mục"
+      }
+    },
+    Tag: {
+      screen: TagTo,
+      navigationOptions: {
+        title: "Thẻ"
+      }
+    },
+    Page: {
+      screen: PageTo,
+      navigationOptions: {
+        title: "Trang"
+      }
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({
       //Đặt Icon đại diện cho các màn hình
-      tabBarIcon: ({focused,tintColor }) => {
+      tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
         if (routeName === "Post") {
           // nếu màn hình được thì nối thêm chữ -outline
-          iconName = `ios-paper${focused ? '' : '-outline'}`; 
+          iconName = `ios-paper${focused ? "" : "-outline"}`;
         } else if (routeName === "Media") {
-          iconName = `ios-image${focused ? '' : '-outline'}`;
+          iconName = `ios-image${focused ? "" : "-outline"}`;
         } else if (routeName === "Category") {
-          iconName = `ios-list-box${focused ? '' : '-outline'}`;
-        }else if (routeName === "Tag") {
-          iconName = `ios-pricetag${focused ? '' : '-outline'}`;
-        }else if (routeName === "Page") {
-          iconName = `ios-book${focused ? '' : '-outline'}`;
+          iconName = `ios-list-box${focused ? "" : "-outline"}`;
+        } else if (routeName === "Tag") {
+          iconName = `ios-pricetag${focused ? "" : "-outline"}`;
+        } else if (routeName === "Page") {
+          iconName = `ios-book${focused ? "" : "-outline"}`;
         }
         // trả về icon
         return <Ionicons name={iconName} size={20} color={tintColor} />;
@@ -50,10 +74,10 @@ import PageTo from './PageTo'
       activeTintColor: "#0ABFBC", //màu khi màn hình được chọn
       inactiveTintColor: "gray", // màu khi màn hình không được chọn
       //style: {height:40},
-      scrollEnabled: true,
+      scrollEnabled: true
     },
-    initialRouteName: 'Post',
-    animationEnabled: true,//hiệu ứng chuyển tab
+    initialRouteName: "Post",
+    animationEnabled: true //hiệu ứng chuyển tab
     //swipeEnabled: true,// cho phép vuốt để chuyển
   }
 );

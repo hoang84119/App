@@ -9,7 +9,8 @@ import {
   ToastAndroid,
   AsyncStorage,
   Text,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import API from "../../config/API";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -22,43 +23,14 @@ class Page extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      noidung: "",
+      noidung: [],
       refreshing: true,
-      featured_media: "",
+      loading: false,
+      page: 1,
+      over: false,
       empty: false
     };
   }
-  static navigationOptions = ({ navigation }) => {
-    let idCategory = navigation.getParam("idCategory", "");
-    let idTag = navigation.getParam("idTag", "");
-    let headerTransparent = true;
-    //let headerTitle = "Thêm chuyên mục";
-    if (idCategory != "" || idTag != "") {
-      let headerTitle;
-      let headerLeft = (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack(null);
-          }}
-        >
-          <Feather
-            style={[myStyle.icon, { marginLeft: 15 }]}
-            name="arrow-left"
-            size={25}
-          />
-        </TouchableOpacity>
-      );
-      if (idCategory != "") {
-        headerTitle = navigation.getParam("nameCategory", "");
-        headerTransparent = false;
-      } else if (idTag != "") {
-        headerTitle = navigation.getParam("nameTag", "");
-        headerTransparent = false;
-      }
-      return { headerTitle, headerTransparent,headerLeft };
-    }
-    return {headerTransparent };
-  };
 
   // static navigationOptions = {
   //   header: null,
@@ -69,49 +41,38 @@ class Page extends Component {
     //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
     if (this.props.dataUser.name === "admin")
       this.props.navigation.addListener("didFocus", () => {
-        this._loadData();
+        this._refresh();
       });
-    else this._loadData();
-    // this.props.navigation.setParams({
-    //   onAdd: this._onAdd.bind(this),
-    //   onLogout: this._onLogout.bind(this),
-    //   onLogin: this._onLogin.bind(this),
-    //   userName: this.props.dataUser.name
-    //   //,isAdding: false
-    // });
+    else this._refresh();
   }
 
   render() {
-    if (
-      this.props.navigation.getParam("idCategory", "") == "" &&
-      this.props.navigation.getParam("idTag", "") == ""
-    )
-      var headerBar = (
-        <View style={myStyle.headerTitleBar}>
-          <View style={myStyle.headerTitle}>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.openDrawer();
-              }}
-            >
-              <Feather
-                style={[myStyle.icon, { marginLeft: 15 }]}
-                name="menu"
-                size={25}
-              />
-            </TouchableOpacity>
-            <Text style={myStyle.title}>Quản lý trang</Text>
-          </View>
-          {this.props.dataUser.name === "admin" && (
-            <TouchableOpacity
-              style={myStyle.buttons}
-              onPress={() => this._onAdd()}
-            >
-              <Feather style={myStyle.icon} name="plus" size={34} />
-            </TouchableOpacity>
-          )}
+    var headerBar = (
+      <View style={myStyle.headerTitleBar}>
+        <View style={myStyle.headerTitle}>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.openDrawer();
+            }}
+          >
+            <Feather
+              style={[myStyle.icon, { marginLeft: 15 }]}
+              name="menu"
+              size={25}
+            />
+          </TouchableOpacity>
+          <Text style={myStyle.title}>Quản lý trang</Text>
         </View>
-      );
+        {this.props.dataUser.name === "admin" && (
+          <TouchableOpacity
+            style={myStyle.buttons}
+            onPress={() => this._onAdd()}
+          >
+            <Feather style={myStyle.icon} name="plus" size={34} />
+          </TouchableOpacity>
+        )}
+      </View>
+    );
     return (
       <View style={myStyle.container}>
         {/* Thanh bar */}
@@ -125,22 +86,26 @@ class Page extends Component {
 
         {/* Noi dung */}
         {!this.state.empty && (
-        <FlatList
-          //style={myStyle.item}
-          refreshing={this.state.refreshing}
-          //refreshing={this.props.refreshing}
-          onRefresh={() => this.refresh()}
-          data={this.state.noidung}
-          keyExtractor={(item, index) => item.id.toString()}
-          renderItem={({ item }) => (
-            <ItemPage
-              data={item}
-              navigation={this.props.navigation}
-              delete={this._delete}
-              userName={this.props.dataUser.name}
-            />
-          )}
-        />
+          <FlatList
+            //style={myStyle.item}
+            refreshing={this.state.refreshing}
+            onRefresh={() => this.refresh()}
+            data={this.state.noidung}
+            keyExtractor={(item, index) => item.id.toString()}
+            renderItem={({ item }) => (
+              <ItemPage
+                data={item}
+                navigation={this.props.navigation}
+                delete={this._delete}
+                userName={this.props.dataUser.name}
+              />
+            )}
+            onEndReachedThreshold={0.1}
+            onEndReached={() => {
+              this._loadMore();
+            }}
+            ListFooterComponent={this._renderFooter}
+          />
         )}
       </View>
     );
@@ -174,27 +139,85 @@ class Page extends Component {
     );
   };
 
-  refresh() {
-    this._loadData();
+  _renderFooter = () => {
+    if (this.state.loading)
+      return (
+        <View style={myStyle.loading}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    else if (this.state.over)
+      return (
+        <View style={myStyle.loading}>
+          <Text style={myStyle.textOver}>Hết nội dung</Text>
+        </View>
+      );
+    else return null;
+  };
+
+  _refresh() {
+    this.setState({ refreshing: true }, () => {
+      this._loadData();
+    });
   }
 
-  _loadData() {
-    this.setState({ refreshing: true });
-    //this.props.dispatch({type:'RefreshPost'});
-    let url = API.getURL() + "/wp-json/wp/v2/pages";
-    let idCategory = this.props.navigation.getParam("idCategory", "");
-    let idTag = this.props.navigation.getParam("idTag", "");
-    if (idCategory != "") url = `${url}?categories=${idCategory}`;
-    else if (idTag != "") url = `${url}?tags=${idTag}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.length === 0) {
-          this.setState({ empty: true, refreshing: false });
-        } else {
-          this.setState({ noidung: responseJson, refreshing: false });
+  _loadMore() {
+    if (!this.state.over)
+      if (!this.state.loading)
+        this.setState({ page: this.state.page + 1, loading: true }, () => {
+          this._loadData();
+        });
+  }
+
+  // _loadData() {
+  //   this.setState({ refreshing: true });
+  //   API.Page.GetAllPage(1)
+  //     .then(responseJson => {
+  //       if (responseJson.length === 0) {
+  //         this.setState({ empty: true, refreshing: false });
+  //       } else {
+  //         this.setState({ noidung: responseJson, refreshing: false });
+  //       }
+  //     });
+  // }
+  async _loadData() {
+    if (this.state.refreshing) {
+      let dataTemp = [];
+      for (let i = 1; i <= this.state.page; i++) {
+        let response = await API.Page.GetAllPage(i);
+        if (response != null) {
+          if (response.length === 0) {
+            this.setState({ empty: true });
+            break;
+          } else {
+            dataTemp = dataTemp.concat(response);
+          }
         }
+      }
+      this.setState({
+        noidung: dataTemp,
+        refreshing: false,
+        loading: false,
+        over: false
       });
+    } else {
+      let response = await API.Post.GetAllPost(this.state.page);
+      if (response != null) {
+        this.setState({
+          noidung: [...this.state.noidung, ...response],
+          refreshing: false,
+          loading: false,
+          over: false
+        });
+      } else {
+        this.setState({
+          refreshing: false,
+          loading: false,
+          over: true,
+          page: this.state.page - 1
+        });
+      }
+    }
   }
 
   _onLogin() {
@@ -251,12 +274,18 @@ const myStyle = StyleSheet.create({
     flex: 4
   },
   title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
-  loading: { paddingVertical: 10 },
   empty: {
     flexDirection: "column",
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  loading: {
+    paddingVertical: 10,
+    alignItems: "center"
+  },
+  textOver: {
+    fontSize: 16
   }
 });
 

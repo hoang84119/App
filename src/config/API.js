@@ -154,6 +154,15 @@ Image = {
 };
 
 Page = {
+  GetAllPage: async function(page) {
+    let address = `${url}/wp-json/wp/v2/pages?page=${page}`;
+    let response = await fetch(address);
+    if(response.status === 200) {
+      let responseJson = await response.json();
+      return responseJson;
+    }
+    return null;
+  },
   Remove: async function(id) {
     try {
       var base64 = await AsyncStorage.getItem("Base64", "");
@@ -348,6 +357,7 @@ module.exports = API = {
   },
   User:User,
   Post: Post,
+  Page:Page,
   Account: Account,
   Category: Category,
   Tag: Tag,
