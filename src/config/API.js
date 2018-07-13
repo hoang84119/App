@@ -123,7 +123,14 @@ Image = {
       });
       if (response.status === 201) {
         let json = await response.json();
-        return json.guid.rendered;
+        //return json.guid.rendered;
+        let image;
+        try {
+          image = json.media_details.sizes.large.source_url;
+        } catch (e) {
+          image = json.media_details.sizes.full.source_url;
+        }
+        return image;
       }
       console.log("Lỗi");
       return "";
@@ -197,13 +204,16 @@ Page = {
 };
 
 Post = {
-  GetAllPost: async function(idCategory, idTag) {
-    let address = url + "/wp-json/wp/v2/posts";
-    if (idCategory != "") address = `${address}?categories=${idCategory}`;
-    else if (idTag != "") address = `${address}?tags=${idTag}`;
+  GetAllPost: async function(idCategory, idTag, page) {
+    let address = `${url}/wp-json/wp/v2/posts?page=${page}`;
+    if (idCategory != "") address = `${address}&categories=${idCategory}`;
+    else if (idTag != "") address = `${address}&tags=${idTag}`;
     let response = await fetch(address);
-    let responseJson = await response.json();
-    return responseJson;
+    if(response.status === 200) {
+      let responseJson = await response.json();
+      return responseJson;
+    }
+    return null;
   },
   GetPostDetail: async function(id) {
     let response = await fetch(API.getURL() + "/wp-json/wp/v2/posts/" + id);

@@ -18,34 +18,43 @@ class ItemCategory extends Component {
       featured_media: "",
       hasChild: false,
       dataChild: [],
+      soBaiViet: 0,
       isOpen: false,
-      iconName:"chevron-right",
+      iconName: "chevron-right"
     };
   }
 
   componentDidMount() {
-    this.setState({ hasChild: false }, this._checkChild());
+    //this.setState({ hasChild: false }, this._checkChild());
+    this._checkPost();
+    this._checkChild();
+    
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps != this.props) {
+      this._checkPost();
       this._checkChild();
     }
   }
 
+  _checkPost() {
+    API.Post.GetAllPost(this.props.data.id, "",1).then(response => {
+      if (response.length != 0) this.setState({ soBaiViet: response.length });
+    });
+  }
+
   _checkChild() {
     fetch(
-      `${API.getURL()}/wp-json/wp/v2/categories?parent=${
-        this.props.data.id
-      }`
+      `${API.getURL()}/wp-json/wp/v2/categories?parent=${this.props.data.id}`
     )
       .then(response => response.json())
       .then(responseJson => {
-        if (responseJson.length === 0) {
-          this.setState({ hasChild: false });
-        } else {
-          this.setState({ dataChild: responseJson, hasChild: true });
-        }
+        // if (responseJson.length === 0) {
+        //   this.setState({ hasChild: false });
+        // } else {
+          this.setState({ dataChild: responseJson});
+        //}
       });
   }
 
@@ -69,11 +78,20 @@ class ItemCategory extends Component {
           <View style={myStyle.btnNoiDung}>
             <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
             <Text style={myStyle.moTa}>{this.props.data.description}</Text>
+            {this.state.soBaiViet != 0 && (
+              <Text style={myStyle.soBaiViet}>
+              {this.state.soBaiViet === 10 ? `+${this.state.soBaiViet}`:this.state.soBaiViet} bài viết
+              </Text>
+            )}
           </View>
-          {this.state.hasChild && (
+          {this.state.dataChild.length!=0 && (
             <View style={myStyle.buttons}>
               <TouchableOpacity onPress={this._showChild} style={myStyle.btn}>
-                <Feather style={myStyle.icon} name={this.state.iconName} size={24} />
+                <Feather
+                  style={myStyle.icon}
+                  name={this.state.iconName}
+                  size={24}
+                />
               </TouchableOpacity>
             </View>
           )}
@@ -87,7 +105,6 @@ class ItemCategory extends Component {
               </TouchableOpacity>
             </View>
           )}
-          
         </TouchableOpacity>
         {this.state.isOpen && (
           <FlatList
@@ -122,8 +139,9 @@ class ItemCategory extends Component {
     this.props.navigation.navigate("EditCategory", { id: this.props.data.id });
   };
   _showChild = () => {
-    if (this.state.isOpen) this.setState({ isOpen: false,iconName:"chevron-right" });
-    else this.setState({ isOpen: true,iconName:"chevron-down" });
+    if (this.state.isOpen)
+      this.setState({ isOpen: false, iconName: "chevron-right" });
+    else this.setState({ isOpen: true, iconName: "chevron-down" });
   };
 }
 
@@ -154,7 +172,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "space-between",
     marginVertical: 3,
     marginRight: 4,
-    borderRadius: 2,
+    borderRadius: 2
   },
   cardItemChild: {
     borderLeftWidth: 3,
@@ -173,12 +191,13 @@ const myStyle = StyleSheet.create({
     marginBottom: 5
   },
   moTa: { fontStyle: "italic" },
+  soBaiViet: { marginTop: 3 },
   buttons: {
     //flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginRight:5
+    marginRight: 5
   },
   icon: {
     marginHorizontal: 5,

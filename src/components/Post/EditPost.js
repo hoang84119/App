@@ -126,7 +126,7 @@ class EditPost extends Component {
             style={myStyle.richText}
             initialTitleHTML={this.state.noidung.title.rendered}
             initialContentHTML={this.state.noidung.content.rendered.replace(
-              "http://localhost/thuctap",
+              /http:\/\/localhost\/thuctap/g,
               API.getURL()
             )}
           />
@@ -173,6 +173,11 @@ class EditPost extends Component {
             noidung: responseJson,
             loaded: true
           });
+          
+          console.log(this.state.noidung.content.rendered.replace(
+            /http:\/\/localhost\/thuctap/g,
+            API.getURL()
+          ));
         }
       }
     );
@@ -203,7 +208,7 @@ class EditPost extends Component {
     let image = await ImagePicker.openCamera({
       width: 300,
       height: 400,
-      cropping: true
+      //cropping: true
     });
     this.refs.myModal.close();
     this.setState({ uploading: true });
@@ -239,7 +244,7 @@ class EditPost extends Component {
     };
     await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
-        pathImage = pathImage.replace("http://localhost/thuctap", API.getURL());
+        pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, API.getURL());
         this.richtext.insertImage({ src: pathImage });
       }
     });

@@ -50,7 +50,7 @@ class App extends Component {
       } else {
         API.setURL(url);
         this._validateAccount();
-        this.setState({ loading: false, haveUrl: true });
+        this.setState({ loading: true, haveUrl: true });
       }
     });
   }

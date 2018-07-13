@@ -111,6 +111,7 @@ class ItemPage extends Component {
     this.props.navigation.navigate("EditPage", { id: this.props.data.id });
   };
   async _getFeaturedMedia() {
+    console.log("_getFeaturedMedia");
     if (this.props.data.featured_media != 0) {
       let idImage = this.props.data.featured_media;
       let response = await fetch(
@@ -120,7 +121,7 @@ class ItemPage extends Component {
         let json = await response.json();
         let src = json.media_details.sizes.medium.source_url;
         this.setState({
-          featured_media: src.replace("http://localhost", API.getURL()),
+          featured_media: src.replace(/http:\/\/localhost\/thuctap/g, API.getURL()),
           loaded: true
         });
       } else {
@@ -143,7 +144,7 @@ class ItemPage extends Component {
         //lấy đường dẫn
         src = content
           .substring(indexSrcStart, indexSrcEnd)
-          .replace("http://localhost", API.getURL());
+          .replace(/http:\/\/localhost\/thuctap/g, API.getURL());
         let response = await fetch(src);
         if (response.status != 200) src = featured_media_default;
       }
@@ -173,7 +174,7 @@ class ItemPage extends Component {
     if (days < 30) return `${days} ngày trước`;
     else {
       let month = parseInt(days / 30);
-      return `${month} thang trước`;
+      return `${month} tháng trước`;
     }
   };
 

@@ -95,18 +95,25 @@ class Categories extends Component {
   }
 
   _renderFooter = () => {
-    if (!this.state.loading) return null;
-    return (
-      <View style={myStyle.loading}>
-        <ActivityIndicator animating size="large" />
-      </View>
-    );
+    if (this.state.loading)
+      return (
+        <View style={myStyle.loading}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    else if (this.state.over)
+      return (
+        <View style={myStyle.loading}>
+          <Text style={myStyle.textOver}>Hết nội dung</Text>
+        </View>
+      );
+    else return null;
   };
 
   _refreshing() {
     //let p = this.state.page;
     //for(i=1; i<=p;i++){
-    this.setState({refreshing: true }, () => {
+    this.setState({ refreshing: true }, () => {
       this._loadData();
     });
     //}
@@ -144,13 +151,19 @@ class Categories extends Component {
       });
     } else {
       let response = await fetch(
-        `${API.getURL()}/wp-json/wp/v2/categories?parent=0&page=${this.state.page}`
+        `${API.getURL()}/wp-json/wp/v2/categories?parent=0&page=${
+          this.state.page
+        }`
       );
       if (response.status === 200) {
         let responseJson = await response.json();
         if (responseJson.length === 0) {
-          ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
-          this.setState({ refreshing: false, loading: false, over: true, page:this.state.page-1 });
+          this.setState({
+            refreshing: false,
+            loading: false,
+            over: true,
+            page: this.state.page - 1
+          });
         } else {
           this.setState({
             data: this.state.data.concat(responseJson),
@@ -237,6 +250,16 @@ const myStyle = StyleSheet.create({
     fontSize: 20,
     color: "#fff",
     fontWeight: "bold"
+  },
+  textOver: {
+    fontSize: 16
+  },
+  loading: {
+    paddingVertical: 10,
+    alignItems: "center"
+  },
+  textOver: {
+    fontSize: 16
   }
 });
 

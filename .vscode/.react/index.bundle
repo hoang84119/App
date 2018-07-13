@@ -61373,7 +61373,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         logged: false,
         haveUrl: false,
         showModal: false,
-        url: ""
+        url: "http://"
       };
       return _this;
     }
@@ -61395,7 +61395,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             _this2._validateAccount();
 
             _this2.setState({
-              loading: false,
+              loading: true,
               haveUrl: true
             });
           }
@@ -61569,6 +61569,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     });
                   },
                   placeholder: "\u0110\u1ECBa ch\u1EC9 trang web",
+                  value: this.state.url,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 97
@@ -61584,7 +61585,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 107
+                    lineNumber: 108
                   }
                 },
                 _react3.default.createElement(
@@ -61593,7 +61594,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     onPress: this._addURL,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 108
+                      lineNumber: 109
                     }
                   },
                   _react3.default.createElement(
@@ -61602,7 +61603,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.ctmBottom,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 109
+                        lineNumber: 110
                       }
                     },
                     "Ti\u1EBFp t\u1EE5c"
@@ -61615,12 +61616,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var mainView = this.state.loading ? loadingView : !this.state.haveUrl ? AddUrl : this.state.logged ? _react3.default.createElement(_DrawerNavigatorUser2.default, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 121
+            lineNumber: 122
           }
         }) : _react3.default.createElement(_DrawerNavigator2.default, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 123
+            lineNumber: 124
           }
         });
         return _react3.default.createElement(
@@ -61629,7 +61630,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             store: store,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 126
+              lineNumber: 127
             }
           },
           mainView
@@ -61718,7 +61719,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       justifyContent: "center"
     }
   });
-},491,[118,179,12,492,494,497,516,789,671,757,758],"App.js");
+},491,[118,179,12,492,494,497,516,790,671,757,758],"App.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   var _reactNative = _require(_dependencyMap[0], "react-native");
 
@@ -61954,7 +61955,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   };
   Image = {
     UploadImage: function UploadImage(path) {
-      var base64, formData, response, json;
+      var base64, formData, response, json, image;
       return regeneratorRuntime.async(function UploadImage$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -61991,7 +61992,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               response = _context5.sent;
 
               if (!(response.status === 201)) {
-                _context5.next = 20;
+                _context5.next = 22;
                 break;
               }
 
@@ -62000,23 +62001,31 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
             case 18:
               json = _context5.sent;
-              return _context5.abrupt("return", json.guid.rendered);
+              image = void 0;
 
-            case 20:
+              try {
+                image = json.media_details.sizes.large.source_url;
+              } catch (e) {
+                image = json.media_details.sizes.full.source_url;
+              }
+
+              return _context5.abrupt("return", image);
+
+            case 22:
               console.log("Lỗi");
               return _context5.abrupt("return", "");
 
-            case 24:
-              _context5.prev = 24;
+            case 26:
+              _context5.prev = 26;
               _context5.t1 = _context5["catch"](9);
               console.log(_context5.t1);
 
-            case 27:
+            case 29:
             case "end":
               return _context5.stop();
           }
         }
-      }, null, this, [[0, 6], [9, 24]]);
+      }, null, this, [[0, 6], [9, 26]]);
     },
     DeleteImage: function DeleteImage(id) {
       var base64;
@@ -62170,27 +62179,36 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   };
   Post = {
-    GetAllPost: function GetAllPost(idCategory, idTag) {
+    GetAllPost: function GetAllPost(idCategory, idTag, page) {
       var address, response, responseJson;
       return regeneratorRuntime.async(function GetAllPost$(_context9) {
         while (1) {
           switch (_context9.prev = _context9.next) {
             case 0:
-              address = url + "/wp-json/wp/v2/posts";
-              if (idCategory != "") address = address + "?categories=" + idCategory;else if (idTag != "") address = address + "?tags=" + idTag;
+              address = url + "/wp-json/wp/v2/posts?page=" + page;
+              if (idCategory != "") address = address + "&categories=" + idCategory;else if (idTag != "") address = address + "&tags=" + idTag;
               _context9.next = 4;
               return regeneratorRuntime.awrap(fetch(address));
 
             case 4:
               response = _context9.sent;
-              _context9.next = 7;
+
+              if (!(response.status === 200)) {
+                _context9.next = 10;
+                break;
+              }
+
+              _context9.next = 8;
               return regeneratorRuntime.awrap(response.json());
 
-            case 7:
+            case 8:
               responseJson = _context9.sent;
               return _context9.abrupt("return", responseJson);
 
-            case 9:
+            case 10:
+              return _context9.abrupt("return", null);
+
+            case 11:
             case "end":
               return _context9.stop();
           }
@@ -64390,7 +64408,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         }
     });
     exports.default = Drawer;
-},516,[118,517,621,755,785,787,792],"src\\navigations\\DrawerNavigatorUser.js");
+},516,[118,517,621,755,785,787,789],"src\\navigations\\DrawerNavigatorUser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     get createNavigationContainer() {
@@ -81984,7 +82002,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 111
+              lineNumber: 77
             }
           },
           this.state.loaded == false && _react3.default.createElement(
@@ -81993,7 +82011,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.loadingContainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 113
+                lineNumber: 79
               }
             },
             _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -82001,7 +82019,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               color: "#088A4B",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 114
+                lineNumber: 80
               }
             }),
             _react3.default.createElement(
@@ -82012,7 +82030,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 115
+                  lineNumber: 81
                 }
               },
               "\u0110ang t\u1EA3i"
@@ -82026,7 +82044,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 119
+                lineNumber: 85
               }
             },
             _react3.default.createElement(
@@ -82035,7 +82053,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.container,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 120
+                  lineNumber: 86
                 }
               },
               _react3.default.createElement(_ItemContentPost2.default, {
@@ -82045,7 +82063,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 featured_media: this.props.navigation.getParam("featured_media", ""),
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 121
+                  lineNumber: 87
                 }
               }),
               _react3.default.createElement(
@@ -82056,7 +82074,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 131
+                    lineNumber: 97
                   }
                 },
                 _react3.default.createElement(
@@ -82073,7 +82091,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 132
+                      lineNumber: 98
                     }
                   },
                   "B\xECnh lu\u1EADn"
@@ -82098,13 +82116,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       loaded: _this3.state.loaded,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 152
+                        lineNumber: 118
                       }
                     });
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 145
+                    lineNumber: 111
                   }
                 })
               )
@@ -82119,7 +82137,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               upLoadComment: this._upLoadComment,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 164
+                lineNumber: 130
               }
             }),
             !this.state.isComment && _react3.default.createElement(
@@ -82131,7 +82149,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 174
+                  lineNumber: 140
                 }
               },
               _react3.default.createElement(_Feather2.default, {
@@ -82142,7 +82160,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 size: 28,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 178
+                  lineNumber: 144
                 }
               })
             )
@@ -96276,8 +96294,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context.next = 2;
                 return regeneratorRuntime.awrap(_reactNativeImageCropPicker2.default.openCamera({
                   width: 300,
-                  height: 400,
-                  cropping: true
+                  height: 400
                 }));
 
               case 2:
@@ -96403,7 +96420,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context3.next = 3;
                 return regeneratorRuntime.awrap(_API2.default.Image.UploadImage(file).then(function (pathImage) {
                   if (pathImage != "") {
-                    pathImage = pathImage.replace("http://localhost/thuctap", _API2.default.getURL());
+                    pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL());
 
                     _this.richtext.insertImage({
                       src: pathImage
@@ -96647,7 +96664,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             style: myStyle.richText,
             initialTitleHTML: this.state.noidung.title.rendered,
-            initialContentHTML: this.state.noidung.content.rendered.replace("http://localhost/thuctap", _API2.default.getURL()),
+            initialContentHTML: this.state.noidung.content.rendered.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL()),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 124
@@ -96746,6 +96763,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       noidung: responseJson,
                       loaded: true
                     });
+
+                    console.log(_this6.state.noidung.content.rendered.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL()));
                   }
                 });
 
@@ -99728,6 +99747,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+  function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -99760,6 +99781,52 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _classCallCheck(this, Posts);
 
       var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this, props));
+
+      _this._renderFooter = function () {
+        if (_this.state.loading) return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              paddingVertical: 10
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 145
+            }
+          },
+          _react3.default.createElement(_reactNative.ActivityIndicator, {
+            animating: true,
+            size: "large",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 146
+            }
+          })
+        );else if (_this.state.over) return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              paddingVertical: 10,
+              alignItems: "center"
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 151
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.Text,
+            {
+              style: myStyle.textOver,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 152
+              }
+            },
+            "H\u1EBFt n\u1ED9i dung"
+          )
+        );else return null;
+      };
 
       _this._beforeDelete = function (id, t) {
         _reactNative.Alert.alert("Thông báo", "Bạn có thật sự muốn xóa ''" + t + "'' không?", [{
@@ -99800,9 +99867,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       };
 
       _this.state = {
-        noidung: "",
+        noidung: [],
         refreshing: true,
-        featured_media: "",
+        loading: false,
+        page: 1,
+        over: false,
         empty: false
       };
       return _this;
@@ -99814,8 +99883,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var _this2 = this;
 
         if (this.props.dataUser.name === "admin") this.props.navigation.addListener("didFocus", function () {
-          _this2._loadData();
-        });else this._loadData();
+          _this2._refresh();
+        });else this._refresh();
       }
     }, {
       key: "render",
@@ -99828,7 +99897,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.headerTitleBar,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 90
+              lineNumber: 80
             }
           },
           _react3.default.createElement(
@@ -99837,7 +99906,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.headerTitle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 91
+                lineNumber: 81
               }
             },
             _react3.default.createElement(
@@ -99848,7 +99917,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 92
+                  lineNumber: 82
                 }
               },
               _react3.default.createElement(_Feather2.default, {
@@ -99859,7 +99928,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 size: 25,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 97
+                  lineNumber: 87
                 }
               })
             ),
@@ -99869,7 +99938,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.title,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 103
+                  lineNumber: 93
                 }
               },
               "B\xE0i vi\u1EBFt"
@@ -99884,7 +99953,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 106
+                lineNumber: 96
               }
             },
             _react3.default.createElement(_Feather2.default, {
@@ -99893,7 +99962,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 34,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 110
+                lineNumber: 100
               }
             })
           )
@@ -99904,7 +99973,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 116
+              lineNumber: 106
             }
           },
           headerBar,
@@ -99914,7 +99983,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.empty,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 120
+                lineNumber: 110
               }
             },
             _react3.default.createElement(_Feather2.default, {
@@ -99922,7 +99991,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 60,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 121
+                lineNumber: 111
               }
             }),
             _react3.default.createElement(
@@ -99934,7 +100003,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 122
+                  lineNumber: 112
                 }
               },
               "Kh\xF4ng c\xF3 n\u1ED9i dung"
@@ -99943,7 +100012,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _react3.default.createElement(_reactNative.FlatList, {
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
-              return _this3.refresh();
+              return _this3._refresh();
             },
             data: this.state.noidung,
             keyExtractor: function keyExtractor(item, index) {
@@ -99958,46 +100027,139 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 userName: _this3.props.dataUser.name,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 136
+                  lineNumber: 125
                 }
               });
             },
+            onEndReachedThreshold: 0.1,
+            onEndReached: function onEndReached() {
+              _this3._loadMore();
+            },
+            ListFooterComponent: this._renderFooter,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 128
+              lineNumber: 118
             }
           })
         );
       }
     }, {
-      key: "refresh",
-      value: function refresh() {
-        this._loadData();
-      }
-    }, {
-      key: "_loadData",
-      value: function _loadData() {
+      key: "_refresh",
+      value: function _refresh() {
         var _this4 = this;
 
         this.setState({
           refreshing: true
+        }, function () {
+          _this4._loadData();
         });
-        var idCategory = this.props.navigation.getParam("idCategory", "");
-        var idTag = this.props.navigation.getParam("idTag", "");
+      }
+    }, {
+      key: "_loadMore",
+      value: function _loadMore() {
+        var _this5 = this;
 
-        _API2.default.Post.GetAllPost(idCategory, idTag).then(function (responseJson) {
-          if (responseJson.length === 0) {
-            _this4.setState({
-              empty: true,
-              refreshing: false
-            });
-          } else {
-            _this4.setState({
-              noidung: responseJson,
-              refreshing: false
-            });
-          }
+        if (!this.state.over) if (!this.state.loading) this.setState({
+          page: this.state.page + 1,
+          loading: true
+        }, function () {
+          _this5._loadData();
         });
+      }
+    }, {
+      key: "_loadData",
+      value: function _loadData() {
+        var idCategory, idTag, dataTemp, i, response, _response;
+
+        return regeneratorRuntime.async(function _loadData$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                idCategory = this.props.navigation.getParam("idCategory", "");
+                idTag = this.props.navigation.getParam("idTag", "");
+
+                if (!this.state.refreshing) {
+                  _context.next = 22;
+                  break;
+                }
+
+                dataTemp = [];
+                i = 1;
+
+              case 5:
+                if (!(i <= this.state.page)) {
+                  _context.next = 19;
+                  break;
+                }
+
+                _context.next = 8;
+                return regeneratorRuntime.awrap(_API2.default.Post.GetAllPost(idCategory, idTag, i));
+
+              case 8:
+                response = _context.sent;
+
+                if (!(response != null)) {
+                  _context.next = 16;
+                  break;
+                }
+
+                if (!(response.length === 0)) {
+                  _context.next = 15;
+                  break;
+                }
+
+                this.setState({
+                  empty: true
+                });
+                return _context.abrupt("break", 19);
+
+              case 15:
+                dataTemp = dataTemp.concat(response);
+
+              case 16:
+                i++;
+                _context.next = 5;
+                break;
+
+              case 19:
+                this.setState({
+                  noidung: dataTemp,
+                  refreshing: false,
+                  loading: false,
+                  over: false
+                });
+                _context.next = 26;
+                break;
+
+              case 22:
+                _context.next = 24;
+                return regeneratorRuntime.awrap(_API2.default.Post.GetAllPost(idCategory, idTag, this.state.page));
+
+              case 24:
+                _response = _context.sent;
+
+                if (_response != null) {
+                  this.setState({
+                    noidung: [].concat(_toConsumableArray(this.state.noidung), _toConsumableArray(_response)),
+                    refreshing: false,
+                    loading: false,
+                    over: false
+                  });
+                } else {
+                  this.setState({
+                    refreshing: false,
+                    loading: false,
+                    over: true,
+                    page: this.state.page - 1
+                  });
+                }
+
+              case 26:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, this);
       }
     }, {
       key: "_onLogin",
@@ -100007,10 +100169,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }, {
       key: "_onLogout",
       value: function _onLogout() {
-        var _this5 = this;
+        var _this6 = this;
 
         _reactNative.AsyncStorage.removeItem("Base64").then(function () {
-          _this5.props.dispatch({
+          _this6.props.dispatch({
             type: "DeleteDataUser"
           });
 
@@ -100042,7 +100204,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 39
+            lineNumber: 42
           }
         },
         _react3.default.createElement(_Feather2.default, {
@@ -100053,7 +100215,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           size: 25,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 44
+            lineNumber: 47
           }
         })
       );
@@ -100119,6 +100281,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       flex: 1,
       alignItems: "center",
       justifyContent: "center"
+    },
+    textOver: {
+      fontSize: 16
     }
   });
 
@@ -100246,7 +100411,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var days = parseInt(time / msPerDay);
         if (days < 30) return days + " ng\xE0y tr\u01B0\u1EDBc";else {
           var month = parseInt(days / 30);
-          return month + " thang tr\u01B0\u1EDBc";
+          return month + " th\xE1ng tr\u01B0\u1EDBc";
         }
       };
 
@@ -100477,7 +100642,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 json = _context.sent;
                 _src = json.media_details.sizes.medium.source_url;
                 this.setState({
-                  featured_media: _src.replace("http://localhost/thuctap", API.getURL()),
+                  featured_media: _src.replace(/http:\/\/localhost\/thuctap/g, API.getURL()),
                   loaded: true
                 });
                 _context.next = 14;
@@ -100505,7 +100670,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
                 indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
                 indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
-                src = content.substring(indexSrcStart, indexSrcEnd).replace("http://localhost/thuctap", API.getURL());
+                src = content.substring(indexSrcStart, indexSrcEnd).replace(/http:\/\/localhost\/thuctap/g, API.getURL());
                 _context.next = 25;
                 return regeneratorRuntime.awrap(fetch(src));
 
@@ -100720,8 +100885,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context.next = 2;
                 return regeneratorRuntime.awrap(_reactNativeImageCropPicker2.default.openCamera({
                   width: 300,
-                  height: 400,
-                  cropping: true
+                  height: 400
                 }));
 
               case 2:
@@ -100847,7 +101011,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context3.next = 3;
                 return regeneratorRuntime.awrap(_API2.default.Image.UploadImage(file).then(function (pathImage) {
                   if (pathImage != "") {
-                    pathImage = pathImage.replace("http://localhost/thuctap", _API2.default.getURL());
+                    pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL());
 
                     _this.richtext.insertImage({
                       src: pathImage
@@ -101378,8 +101542,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       var _this = _possibleConstructorReturn(this, (Media.__proto__ || Object.getPrototypeOf(Media)).call(this, props));
 
       _this._renderFooter = function () {
-        if (!_this.state.loading) return null;
-        return _react3.default.createElement(
+        if (_this.state.loading) return _react3.default.createElement(
           _reactNative.View,
           {
             style: {
@@ -101398,7 +101561,30 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               lineNumber: 241
             }
           })
-        );
+        );else if (_this.state.over) return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              paddingVertical: 10,
+              alignItems: "center"
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 246
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.Text,
+            {
+              style: myStyle.textOver,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 247
+              }
+            },
+            "H\u1EBFt n\u1ED9i dung"
+          )
+        );else return null;
       };
 
       _this._onLongPressItem = function (id) {
@@ -101423,7 +101609,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           navigation: _this.props.navigation,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 257
+            lineNumber: 264
           }
         });
       };
@@ -101721,7 +101907,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 71
+                  lineNumber: 72
                 }
               },
               _react3.default.createElement(
@@ -101730,7 +101916,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 72
+                    lineNumber: 73
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -101739,7 +101925,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 73
+                    lineNumber: 74
                   }
                 }),
                 _react3.default.createElement(
@@ -101748,7 +101934,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 78
+                      lineNumber: 79
                     }
                   },
                   "\u0110ang t\u1EA3i l\xEAn"
@@ -101764,7 +101950,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 82
+                lineNumber: 83
               }
             },
             _react3.default.createElement(
@@ -101772,7 +101958,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 83
+                  lineNumber: 84
                 }
               },
               _react3.default.createElement(
@@ -101782,7 +101968,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 84
+                    lineNumber: 85
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -101791,7 +101977,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 85
+                    lineNumber: 86
                   }
                 }),
                 _react3.default.createElement(
@@ -101800,7 +101986,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 86
+                      lineNumber: 87
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -101813,7 +101999,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 89
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -101822,7 +102008,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 90
                   }
                 }),
                 _react3.default.createElement(
@@ -101831,7 +102017,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 90
+                      lineNumber: 91
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -101847,7 +102033,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 96
+                lineNumber: 97
               }
             },
             _react3.default.createElement(_reactNative.StatusBar, {
@@ -101856,7 +102042,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               animated: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 97
+                lineNumber: 98
               }
             }),
             _react3.default.createElement(_reactNative.View, {
@@ -101865,7 +102051,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 102
+                lineNumber: 103
               }
             }),
             headerBar
@@ -101880,7 +102066,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 107
+                lineNumber: 108
               }
             },
             _react3.default.createElement(_reactNative.FlatList, {
@@ -101902,7 +102088,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               ListFooterComponent: this._renderFooter,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 110
+                lineNumber: 111
               }
             })
           ),
@@ -101913,7 +102099,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.deleteSelect,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 126
+                lineNumber: 127
               }
             },
             _react3.default.createElement(_Ionicons2.default, {
@@ -101925,7 +102111,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 32,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 130
+                lineNumber: 131
               }
             }),
             _react3.default.createElement(
@@ -101945,7 +102131,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 135
+                  lineNumber: 136
                 }
               },
               this.state.selected.size
@@ -101960,7 +102146,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.uploadSelect,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 156
+                lineNumber: 157
               }
             },
             _react3.default.createElement(_Ionicons2.default, {
@@ -101971,7 +102157,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 32,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 162
+                lineNumber: 163
               }
             })
           )
@@ -102087,8 +102273,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
               case 28:
                 if (_response.status === 400) {
-                  _reactNative.ToastAndroid.show("Cuối trang", _reactNative.ToastAndroid.SHORT);
-
                   this.setState({
                     refreshing: false,
                     loading: false,
@@ -102223,6 +102407,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       flexDirection: "row",
       padding: 12,
       alignItems: "center"
+    },
+    textOver: {
+      fontSize: 16
     }
   });
 },748,[118,179,12,492,749,743,493,624,742,725],"src\\components\\Media\\Media.js");
@@ -104339,8 +104526,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       var _this = _possibleConstructorReturn(this, (Tags.__proto__ || Object.getPrototypeOf(Tags)).call(this, props));
 
       _this._renderFooter = function () {
-        if (!_this.state.loading) return null;
-        return _react3.default.createElement(
+        if (_this.state.loading) return _react3.default.createElement(
           _reactNative.View,
           {
             style: myStyle.loading,
@@ -104357,7 +104543,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               lineNumber: 100
             }
           })
-        );
+        );else if (_this.state.over) return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: myStyle.loading,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 105
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.Text,
+            {
+              style: myStyle.textOver,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 106
+              }
+            },
+            "H\u1EBFt n\u1ED9i dung"
+          )
+        );else return null;
       };
 
       _this._delete = function (i, t) {
@@ -104667,8 +104873,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _responseJson = _context.sent;
 
                 if (_responseJson.length === 0) {
-                  _reactNative.ToastAndroid.show("Cuối trang", _reactNative.ToastAndroid.SHORT);
-
                   this.setState({
                     refreshing: false,
                     loading: false,
@@ -104743,7 +104947,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontWeight: "bold"
     },
     loading: {
-      paddingVertical: 10
+      paddingVertical: 10,
+      alignItems: "center"
+    },
+    textOver: {
+      fontSize: 16
     }
   });
 
@@ -104778,6 +104986,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _Feather2 = _interopRequireDefault(_Feather);
 
+  var _API = _require(_dependencyMap[4], "../../../config/API");
+
+  var _API2 = _interopRequireDefault(_API);
+
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -104805,7 +105017,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     };
   }
 
-  var randomImages = [_require(_dependencyMap[4], '../../../image/tag/img0.jpg'), _require(_dependencyMap[5], '../../../image/tag/img1.jpg'), _require(_dependencyMap[6], '../../../image/tag/img2.jpg'), _require(_dependencyMap[7], '../../../image/tag/img4.jpg'), _require(_dependencyMap[8], '../../../image/tag/img5.jpg'), _require(_dependencyMap[9], '../../../image/tag/img6.jpg'), _require(_dependencyMap[10], '../../../image/tag/img7.jpg'), _require(_dependencyMap[11], '../../../image/tag/img8.jpg')];
+  var randomImages = [_require(_dependencyMap[5], '../../../image/tag/img0.jpg'), _require(_dependencyMap[6], '../../../image/tag/img1.jpg'), _require(_dependencyMap[7], '../../../image/tag/img2.jpg'), _require(_dependencyMap[8], '../../../image/tag/img4.jpg'), _require(_dependencyMap[9], '../../../image/tag/img5.jpg'), _require(_dependencyMap[10], '../../../image/tag/img6.jpg'), _require(_dependencyMap[11], '../../../image/tag/img7.jpg'), _require(_dependencyMap[12], '../../../image/tag/img8.jpg')];
 
   var ItemCategory = _wrapComponent("ItemCategory")(function (_Component) {
     _inherits(ItemCategory, _Component);
@@ -104836,27 +105048,35 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         featured_media: "",
         loaded: false,
         hasChild: false,
-        dataChild: []
+        dataChild: [],
+        soBaiViet: 0
       };
       return _this;
     }
 
     _createClass(ItemCategory, [{
       key: "componentDidMount",
-      value: function componentDidMount() {}
+      value: function componentDidMount() {
+        this._checkPost();
+      }
     }, {
       key: "componentWillReceiveProps",
-      value: function componentWillReceiveProps(nextProps) {}
+      value: function componentWillReceiveProps(nextProps) {
+        if (nextProps != this.props) {
+          this._checkPost();
+        }
+      }
     }, {
       key: "render",
       value: function render() {
+        console.log(this.state.soBaiViet);
         return _react3.default.createElement(
           _reactNative.TouchableOpacity,
           {
             onPress: this._xem,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 40
+              lineNumber: 49
             }
           },
           _react3.default.createElement(
@@ -104866,7 +105086,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.cardItem,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 41
+                lineNumber: 50
               }
             },
             _react3.default.createElement(
@@ -104875,7 +105095,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.btnNoiDung,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 43
+                  lineNumber: 52
                 }
               },
               _react3.default.createElement(
@@ -104884,7 +105104,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.noiDung,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 44
+                    lineNumber: 53
                   }
                 },
                 this.props.data.name
@@ -104895,10 +105115,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.moTa,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 45
+                    lineNumber: 54
                   }
                 },
                 this.props.data.description
+              ),
+              this.state.soBaiViet != 0 && _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: myStyle.soBaiViet,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 56
+                  }
+                },
+                this.state.soBaiViet === 10 ? "+" + this.state.soBaiViet : this.state.soBaiViet,
+                " b\xE0i vi\u1EBFt"
               )
             ),
             this.props.userName === "admin" && _react3.default.createElement(
@@ -104907,7 +105139,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.buttons,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 49
+                  lineNumber: 63
                 }
               },
               _react3.default.createElement(
@@ -104917,7 +105149,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 50
+                    lineNumber: 64
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -104926,7 +105158,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 51
+                    lineNumber: 65
                   }
                 })
               ),
@@ -104937,7 +105169,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 53
+                    lineNumber: 67
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -104946,13 +105178,24 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 54
+                    lineNumber: 68
                   }
                 })
               )
             )
           )
         );
+      }
+    }, {
+      key: "_checkPost",
+      value: function _checkPost() {
+        var _this2 = this;
+
+        _API2.default.Post.GetAllPost("", this.props.data.id, 1).then(function (response) {
+          if (response.length != 0) _this2.setState({
+            soBaiViet: response.length
+          });
+        });
       }
     }]);
 
@@ -104991,6 +105234,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontStyle: "italic",
       color: "#fafafa"
     },
+    soBaiViet: {
+      marginTop: 5,
+      color: "#fafafa"
+    },
     buttons: {
       flex: 1,
       flexDirection: "row",
@@ -105005,7 +105252,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 
   exports.default = ItemCategory;
-},763,[118,179,12,624,764,765,766,767,768,769,770,771],"src\\components\\Tag\\item\\ItemTag.js");
+},763,[118,179,12,624,492,764,765,766,767,768,769,770,771],"src\\components\\Tag\\item\\ItemTag.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -106054,8 +106301,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       var _this = _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this, props));
 
       _this._renderFooter = function () {
-        if (!_this.state.loading) return null;
-        return _react3.default.createElement(
+        if (_this.state.loading) return _react3.default.createElement(
           _reactNative.View,
           {
             style: myStyle.loading,
@@ -106072,7 +106318,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               lineNumber: 101
             }
           })
-        );
+        );else if (_this.state.over) return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: myStyle.loading,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 106
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.Text,
+            {
+              style: myStyle.textOver,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 107
+              }
+            },
+            "H\u1EBFt n\u1ED9i dung"
+          )
+        );else return null;
       };
 
       _this._delete = function (i, t) {
@@ -106391,8 +106657,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _responseJson = _context.sent;
 
                 if (_responseJson.length === 0) {
-                  _reactNative.ToastAndroid.show("Cuối trang", _reactNative.ToastAndroid.SHORT);
-
                   this.setState({
                     refreshing: false,
                     loading: false,
@@ -106494,6 +106758,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontSize: 20,
       color: "#fff",
       fontWeight: "bold"
+    },
+    textOver: {
+      fontSize: 16
+    },
+    loading: {
+      paddingVertical: 10,
+      alignItems: "center"
+    },
+    textOver: {
+      fontSize: 16
     }
   });
 
@@ -106606,6 +106880,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         featured_media: "",
         hasChild: false,
         dataChild: [],
+        soBaiViet: 0,
         isOpen: false,
         iconName: "chevron-right"
       };
@@ -106615,41 +106890,47 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     _createClass(ItemCategory, [{
       key: "componentDidMount",
       value: function componentDidMount() {
-        this.setState({
-          hasChild: false
-        }, this._checkChild());
+        this._checkPost();
+
+        this._checkChild();
       }
     }, {
       key: "componentWillReceiveProps",
       value: function componentWillReceiveProps(nextProps) {
         if (nextProps != this.props) {
+          this._checkPost();
+
           this._checkChild();
         }
       }
     }, {
+      key: "_checkPost",
+      value: function _checkPost() {
+        var _this2 = this;
+
+        _API2.default.Post.GetAllPost(this.props.data.id, "", 1).then(function (response) {
+          if (response.length != 0) _this2.setState({
+            soBaiViet: response.length
+          });
+        });
+      }
+    }, {
       key: "_checkChild",
       value: function _checkChild() {
-        var _this2 = this;
+        var _this3 = this;
 
         fetch(_API2.default.getURL() + "/wp-json/wp/v2/categories?parent=" + this.props.data.id).then(function (response) {
           return response.json();
         }).then(function (responseJson) {
-          if (responseJson.length === 0) {
-            _this2.setState({
-              hasChild: false
-            });
-          } else {
-            _this2.setState({
-              dataChild: responseJson,
-              hasChild: true
-            });
-          }
+          _this3.setState({
+            dataChild: responseJson
+          });
         });
       }
     }, {
       key: "render",
       value: function render() {
-        var _this3 = this;
+        var _this4 = this;
 
         return _react3.default.createElement(
           _reactNative.View,
@@ -106659,7 +106940,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 54
+              lineNumber: 63
             }
           },
           _react3.default.createElement(
@@ -106672,7 +106953,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }],
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 59
+                lineNumber: 68
               }
             },
             _react3.default.createElement(
@@ -106681,7 +106962,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.btnNoiDung,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 69
+                  lineNumber: 78
                 }
               },
               _react3.default.createElement(
@@ -106690,7 +106971,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.noiDung,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 70
+                    lineNumber: 79
                   }
                 },
                 this.props.data.name
@@ -106701,19 +106982,31 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.moTa,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 71
+                    lineNumber: 80
                   }
                 },
                 this.props.data.description
+              ),
+              this.state.soBaiViet != 0 && _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: myStyle.soBaiViet,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 82
+                  }
+                },
+                this.state.soBaiViet,
+                " b\xE0i vi\u1EBFt"
               )
             ),
-            this.state.hasChild && _react3.default.createElement(
+            this.state.dataChild.length != 0 && _react3.default.createElement(
               _reactNative.View,
               {
                 style: myStyle.buttons,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 74
+                  lineNumber: 88
                 }
               },
               _react3.default.createElement(
@@ -106723,7 +107016,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 75
+                    lineNumber: 89
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -106732,7 +107025,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 24,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 90
                   }
                 })
               )
@@ -106743,7 +107036,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.buttons,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 81
+                  lineNumber: 99
                 }
               },
               _react3.default.createElement(
@@ -106753,7 +107046,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 82
+                    lineNumber: 100
                   }
                 },
                 _react3.default.createElement(_FontAwesome2.default, {
@@ -106762,7 +107055,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 83
+                    lineNumber: 101
                   }
                 })
               ),
@@ -106773,7 +107066,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 85
+                    lineNumber: 103
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -106782,7 +107075,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 86
+                    lineNumber: 104
                   }
                 })
               )
@@ -106797,21 +107090,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               var item = _ref.item;
               return _react3.default.createElement(ItemCategory, {
                 data: item,
-                navigation: _this3.props.navigation,
+                navigation: _this4.props.navigation,
                 "delete": function _delete(id, title) {
-                  return _this3.props.delete(id, title);
+                  return _this4.props.delete(id, title);
                 },
-                userName: _this3.props.userName,
-                level: _this3.props.level + 1,
+                userName: _this4.props.userName,
+                level: _this4.props.level + 1,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 97
+                  lineNumber: 114
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 93
+              lineNumber: 110
             }
           })
         );
@@ -106854,6 +107147,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     moTa: {
       fontStyle: "italic"
+    },
+    soBaiViet: {
+      marginTop: 3
     },
     buttons: {
       flexDirection: "row",
@@ -108541,7 +108837,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         var days = parseInt(time / msPerDay);
         if (days < 30) return days + " ng\xE0y tr\u01B0\u1EDBc";else {
           var month = parseInt(days / 30);
-          return month + " thang tr\u01B0\u1EDBc";
+          return month + " th\xE1ng tr\u01B0\u1EDBc";
         }
       };
 
@@ -108747,73 +109043,75 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                console.log("_getFeaturedMedia");
+
                 if (!(this.props.data.featured_media != 0)) {
-                  _context.next = 16;
+                  _context.next = 17;
                   break;
                 }
 
                 idImage = this.props.data.featured_media;
-                _context.next = 4;
+                _context.next = 5;
                 return regeneratorRuntime.awrap(fetch(API.getURL() + "/wp-json/wp/v2/media/" + idImage));
 
-              case 4:
+              case 5:
                 response = _context.sent;
 
                 if (!(response.status === 200)) {
-                  _context.next = 13;
+                  _context.next = 14;
                   break;
                 }
 
-                _context.next = 8;
+                _context.next = 9;
                 return regeneratorRuntime.awrap(response.json());
 
-              case 8:
+              case 9:
                 json = _context.sent;
                 _src = json.media_details.sizes.medium.source_url;
                 this.setState({
-                  featured_media: _src.replace("http://localhost", API.getURL()),
+                  featured_media: _src.replace(/http:\/\/localhost\/thuctap/g, API.getURL()),
                   loaded: true
                 });
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 13:
+              case 14:
                 this.setState({
                   featured_media: featured_media_default,
                   loaded: true
                 });
 
-              case 14:
-                _context.next = 28;
+              case 15:
+                _context.next = 29;
                 break;
 
-              case 16:
+              case 17:
                 content = this.props.data.content.rendered;
                 indexImg = content.toString().indexOf("<img");
                 src = featured_media_default;
 
                 if (!(indexImg != -1)) {
-                  _context.next = 27;
+                  _context.next = 28;
                   break;
                 }
 
                 indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
                 indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
-                src = content.substring(indexSrcStart, indexSrcEnd).replace("http://localhost", API.getURL());
-                _context.next = 25;
+                src = content.substring(indexSrcStart, indexSrcEnd).replace(/http:\/\/localhost\/thuctap/g, API.getURL());
+                _context.next = 26;
                 return regeneratorRuntime.awrap(fetch(src));
 
-              case 25:
+              case 26:
                 _response = _context.sent;
                 if (_response.status != 200) src = featured_media_default;
 
-              case 27:
+              case 28:
                 this.setState({
                   featured_media: src,
                   loaded: true
                 });
 
-              case 28:
+              case 29:
               case "end":
                 return _context.stop();
             }
@@ -109015,19 +109313,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context.next = 2;
                 return regeneratorRuntime.awrap(_reactNativeImageCropPicker2.default.openCamera({
                   width: 300,
-                  height: 400,
-                  cropping: true
+                  height: 400
                 }));
 
               case 2:
                 image = _context.sent;
-                _context.next = 5;
-                return regeneratorRuntime.awrap(_this._uploadImage(image));
 
-              case 5:
                 _this.refs.myModal.close();
 
-              case 6:
+                _this.setState({
+                  uploading: true
+                });
+
+                _context.next = 7;
+                return regeneratorRuntime.awrap(_this._uploadImage(image));
+
+              case 7:
+                _this.setState({
+                  uploading: false
+                });
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -109050,52 +109356,61 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
               case 2:
                 images = _context2.sent;
+
+                _this.refs.myModal.close();
+
+                _this.setState({
+                  uploading: true
+                });
+
                 _iterator = images, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? typeof Symbol === "function" ? typeof Symbol === "function" ? Symbol.iterator : "@@iterator" : "@@iterator" : "@@iterator"]();
 
-              case 4:
+              case 6:
                 if (!_isArray) {
-                  _context2.next = 10;
+                  _context2.next = 12;
                   break;
                 }
 
                 if (!(_i >= _iterator.length)) {
-                  _context2.next = 7;
+                  _context2.next = 9;
                   break;
                 }
 
-                return _context2.abrupt("break", 19);
+                return _context2.abrupt("break", 21);
 
-              case 7:
+              case 9:
                 _ref = _iterator[_i++];
-                _context2.next = 14;
+                _context2.next = 16;
                 break;
 
-              case 10:
+              case 12:
                 _i = _iterator.next();
 
                 if (!_i.done) {
-                  _context2.next = 13;
+                  _context2.next = 15;
                   break;
                 }
 
-                return _context2.abrupt("break", 19);
+                return _context2.abrupt("break", 21);
 
-              case 13:
+              case 15:
                 _ref = _i.value;
 
-              case 14:
+              case 16:
                 item = _ref;
-                _context2.next = 17;
+                _context2.next = 19;
                 return regeneratorRuntime.awrap(_this._uploadImage(item));
 
-              case 17:
-                _context2.next = 4;
+              case 19:
+                _context2.next = 6;
                 break;
 
-              case 19:
-                _this.refs.myModal.close();
+              case 21:
+                _this.setState({
+                  uploading: false
+                });
 
-              case 20:
+              case 22:
               case "end":
                 return _context2.stop();
             }
@@ -109124,7 +109439,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context3.next = 3;
                 return regeneratorRuntime.awrap(_API2.default.Image.UploadImage(file).then(function (pathImage) {
                   if (pathImage != "") {
-                    pathImage = pathImage.replace("http://localhost/thuctap", _API2.default.getURL());
+                    pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL());
 
                     _this.richtext.insertImage({
                       src: pathImage
@@ -109144,7 +109459,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _this.setFocusHandlers = _this.setFocusHandlers.bind(_this);
       _this.state = {
         noidung: [],
-        loaded: false
+        loaded: false,
+        uploading: false
       };
       return _this;
     }
@@ -109186,9 +109502,64 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 73
+              lineNumber: 75
             }
           },
+          this.state.uploading && _react3.default.createElement(
+            _reactNative.Modal,
+            {
+              transparent: true,
+              animationType: "none",
+              visible: this.state.uploading,
+              onRequestClose: function onRequestClose() {
+                return null;
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 77
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: myStyle.modalBackground,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 83
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: myStyle.activityIndicatorWrapper,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 84
+                  }
+                },
+                _react3.default.createElement(_reactNative.ActivityIndicator, {
+                  color: "#0ABFBC",
+                  size: 30,
+                  animating: this.state.uploading,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 85
+                  }
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    size: 16,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 90
+                    }
+                  },
+                  "\u0110ang x\u1EED l\xFD"
+                )
+              )
+            )
+          ),
           _react3.default.createElement(
             _reactNativeModalbox2.default,
             {
@@ -109197,7 +109568,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 74
+                lineNumber: 95
               }
             },
             _react3.default.createElement(
@@ -109205,7 +109576,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 75
+                  lineNumber: 96
                 }
               },
               _react3.default.createElement(
@@ -109215,7 +109586,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 97
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -109224,7 +109595,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 77
+                    lineNumber: 98
                   }
                 }),
                 _react3.default.createElement(
@@ -109233,7 +109604,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 78
+                      lineNumber: 99
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -109246,7 +109617,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 80
+                    lineNumber: 101
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -109255,7 +109626,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 81
+                    lineNumber: 102
                   }
                 }),
                 _react3.default.createElement(
@@ -109264,7 +109635,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 82
+                      lineNumber: 103
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -109277,7 +109648,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 84
+                    lineNumber: 105
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -109286,7 +109657,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 109
                   }
                 }),
                 _react3.default.createElement(
@@ -109295,7 +109666,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 93
+                      lineNumber: 114
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -109309,10 +109680,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             style: myStyle.richText,
             initialTitleHTML: this.state.noidung.title.rendered,
-            initialContentHTML: this.state.noidung.content.rendered.replace("http://localhost/thuctap", _API2.default.getURL()),
+            initialContentHTML: this.state.noidung.content.rendered.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL()),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 100
+              lineNumber: 121
             }
           }),
           this.state.loaded && _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -109324,7 +109695,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 111
+              lineNumber: 132
             }
           }),
           this.state.loaded === false && _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -109332,7 +109703,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: "#0000ff",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 119
+              lineNumber: 140
             }
           })
         );
@@ -109484,7 +109855,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 38
+          lineNumber: 40
         }
       },
       _react3.default.createElement(_Feather2.default, {
@@ -109493,7 +109864,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         size: 24,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 48
+          lineNumber: 50
         }
       })
     );
@@ -109536,6 +109907,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       flexDirection: "row",
       padding: 12,
       alignItems: "center"
+    },
+    modalBackground: {
+      flex: 1,
+      alignItems: "center",
+      flexDirection: "column",
+      justifyContent: "space-around",
+      backgroundColor: "#00000040"
+    },
+    activityIndicatorWrapper: {
+      padding: 10,
+      backgroundColor: "#FFFFFF",
+      height: 100,
+      borderRadius: 10,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-around"
     }
   });
 
@@ -109634,19 +110021,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context.next = 2;
                 return regeneratorRuntime.awrap(_reactNativeImageCropPicker2.default.openCamera({
                   width: 300,
-                  height: 400,
-                  cropping: true
+                  height: 400
                 }));
 
               case 2:
                 image = _context.sent;
-                _context.next = 5;
-                return regeneratorRuntime.awrap(_this._uploadImage(image));
 
-              case 5:
                 _this.refs.myModal.close();
 
-              case 6:
+                _this.setState({
+                  uploading: true
+                });
+
+                _context.next = 7;
+                return regeneratorRuntime.awrap(_this._uploadImage(image));
+
+              case 7:
+                _this.setState({
+                  uploading: false
+                });
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -109669,52 +110064,61 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
               case 2:
                 images = _context2.sent;
+
+                _this.refs.myModal.close();
+
+                _this.setState({
+                  uploading: true
+                });
+
                 _iterator = images, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? typeof Symbol === "function" ? typeof Symbol === "function" ? Symbol.iterator : "@@iterator" : "@@iterator" : "@@iterator"]();
 
-              case 4:
+              case 6:
                 if (!_isArray) {
-                  _context2.next = 10;
+                  _context2.next = 12;
                   break;
                 }
 
                 if (!(_i >= _iterator.length)) {
-                  _context2.next = 7;
+                  _context2.next = 9;
                   break;
                 }
 
-                return _context2.abrupt("break", 19);
+                return _context2.abrupt("break", 21);
 
-              case 7:
+              case 9:
                 _ref = _iterator[_i++];
-                _context2.next = 14;
+                _context2.next = 16;
                 break;
 
-              case 10:
+              case 12:
                 _i = _iterator.next();
 
                 if (!_i.done) {
-                  _context2.next = 13;
+                  _context2.next = 15;
                   break;
                 }
 
-                return _context2.abrupt("break", 19);
+                return _context2.abrupt("break", 21);
 
-              case 13:
+              case 15:
                 _ref = _i.value;
 
-              case 14:
+              case 16:
                 item = _ref;
-                _context2.next = 17;
+                _context2.next = 19;
                 return regeneratorRuntime.awrap(_this._uploadImage(item));
 
-              case 17:
-                _context2.next = 4;
+              case 19:
+                _context2.next = 6;
                 break;
 
-              case 19:
-                _this.refs.myModal.close();
+              case 21:
+                _this.setState({
+                  uploading: false
+                });
 
-              case 20:
+              case 22:
               case "end":
                 return _context2.stop();
             }
@@ -109743,7 +110147,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 _context3.next = 3;
                 return regeneratorRuntime.awrap(_API2.default.Image.UploadImage(file).then(function (pathImage) {
                   if (pathImage != "") {
-                    pathImage = pathImage.replace("http://localhost/thuctap", _API2.default.getURL());
+                    pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL());
 
                     _this.richtext.insertImage({
                       src: pathImage
@@ -109759,6 +110163,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         }, null, _this2);
       };
 
+      _this.state = {
+        uploading: false
+      };
       _this.getHTML = _this.getHTML.bind(_this);
       _this.setFocusHandlers = _this.setFocusHandlers.bind(_this);
       return _this;
@@ -109800,9 +110207,64 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 63
+              lineNumber: 68
             }
           },
+          this.state.uploading && _react3.default.createElement(
+            _reactNative.Modal,
+            {
+              transparent: true,
+              animationType: "none",
+              visible: this.state.uploading,
+              onRequestClose: function onRequestClose() {
+                return null;
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 70
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: myStyle.modalBackground,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 76
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: myStyle.activityIndicatorWrapper,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 77
+                  }
+                },
+                _react3.default.createElement(_reactNative.ActivityIndicator, {
+                  color: "#0ABFBC",
+                  size: 30,
+                  animating: this.state.uploading,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 78
+                  }
+                }),
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    size: 16,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 83
+                    }
+                  },
+                  "\u0110ang x\u1EED l\xFD"
+                )
+              )
+            )
+          ),
           _react3.default.createElement(
             _reactNativeModalbox2.default,
             {
@@ -109811,7 +110273,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 64
+                lineNumber: 88
               }
             },
             _react3.default.createElement(
@@ -109819,7 +110281,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 65
+                  lineNumber: 89
                 }
               },
               _react3.default.createElement(
@@ -109829,7 +110291,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 66
+                    lineNumber: 90
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -109838,7 +110300,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 67
+                    lineNumber: 91
                   }
                 }),
                 _react3.default.createElement(
@@ -109847,7 +110309,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 68
+                      lineNumber: 92
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -109860,7 +110322,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 70
+                    lineNumber: 94
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -109869,7 +110331,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 71
+                    lineNumber: 95
                   }
                 }),
                 _react3.default.createElement(
@@ -109878,7 +110340,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 72
+                      lineNumber: 96
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -109891,7 +110353,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 74
+                    lineNumber: 98
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -109900,7 +110362,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 78
+                    lineNumber: 102
                   }
                 }),
                 _react3.default.createElement(
@@ -109909,7 +110371,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 83
+                      lineNumber: 107
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -109926,7 +110388,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             contentPlaceholder: "Nội dung trang",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 89
+              lineNumber: 113
             }
           }),
           _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -109938,7 +110400,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 95
+              lineNumber: 119
             }
           })
         );
@@ -110061,7 +110523,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32
+          lineNumber: 37
         }
       },
       _react3.default.createElement(_Feather2.default, {
@@ -110070,7 +110532,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         size: 24,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 40
+          lineNumber: 45
         }
       })
     );
@@ -110113,6 +110575,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       flexDirection: "row",
       padding: 12,
       alignItems: "center"
+    },
+    modalBackground: {
+      flex: 1,
+      alignItems: "center",
+      flexDirection: "column",
+      justifyContent: "space-around",
+      backgroundColor: "#00000040"
+    },
+    activityIndicatorWrapper: {
+      padding: 10,
+      backgroundColor: "#FFFFFF",
+      height: 100,
+      borderRadius: 10,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-around"
     }
   });
 
@@ -111522,7 +112000,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }(_react2.Component));
 
   exports.default = Setting;
-},792,[118,179,12,492,756],"src\\components\\Setting.js");
+},789,[118,179,12,492,756],"src\\components\\Setting.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -111584,7 +112062,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         }
     });
     exports.default = Drawer;
-},789,[118,517,790,755,785,787,792],"src\\navigations\\DrawerNavigator.js");
+},790,[118,517,791,755,785,787,789],"src\\navigations\\DrawerNavigator.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -111681,7 +112159,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     initialRouteName: 'Post',
     animationEnabled: true
   });
-},790,[118,622,760,517,743,761,774,779],"src\\navigations\\TabNavigator.js");
+},791,[118,622,760,517,743,761,774,779],"src\\navigations\\TabNavigator.js");
 require(44);
 require(11);
 //# sourceMappingURL=index.map

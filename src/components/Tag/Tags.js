@@ -94,18 +94,25 @@ class Tags extends Component {
   }
 
   _renderFooter = () => {
-    if (!this.state.loading) return null;
-    return (
-      <View style={myStyle.loading}>
-        <ActivityIndicator animating size="large" />
-      </View>
-    );
+    if (this.state.loading)
+      return (
+        <View style={myStyle.loading}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    else if (this.state.over)
+      return (
+        <View style={myStyle.loading}>
+          <Text style={myStyle.textOver}>Hết nội dung</Text>
+        </View>
+      );
+    else return null;
   };
 
   _refreshing() {
     //let p = this.state.page;
     //for(i=1; i<=p;i++){
-    this.setState({refreshing: true }, () => {
+    this.setState({ refreshing: true }, () => {
       this._loadData();
     });
     //}
@@ -131,7 +138,7 @@ class Tags extends Component {
           if (responseJson.length != 0) {
             dataTemp = dataTemp.concat(responseJson);
           }
-        } 
+        }
         // else if (response.status === 400) {
         //   ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
         // }
@@ -149,8 +156,12 @@ class Tags extends Component {
       if (response.status === 200) {
         let responseJson = await response.json();
         if (responseJson.length === 0) {
-          ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
-          this.setState({ refreshing: false, loading: false, over: true, page: this.state.page-1 });
+          this.setState({
+            refreshing: false,
+            loading: false,
+            over: true,
+            page: this.state.page - 1
+          });
         } else {
           this.setState({
             data: this.state.data.concat(responseJson),
@@ -159,7 +170,7 @@ class Tags extends Component {
             over: false
           });
         }
-      } 
+      }
       // else if (response.status === 400) {
       //   ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
       // }
@@ -223,7 +234,11 @@ const myStyle = StyleSheet.create({
     fontWeight: "bold"
   },
   loading: {
-    paddingVertical: 10
+    paddingVertical: 10,
+    alignItems: "center"
+  },
+  textOver: {
+    fontSize: 16
   }
 });
 

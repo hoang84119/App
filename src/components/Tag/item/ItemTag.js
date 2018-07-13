@@ -6,6 +6,7 @@ import {
   Text
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
+import API from '../../../config/API'
 
 var randomImages = [
   require('../../../image/tag/img0.jpg'),
@@ -27,13 +28,20 @@ class ItemCategory extends Component {
       featured_media: "",
       loaded: false,
       hasChild: false,
-      dataChild: []
+      dataChild: [],
+      soBaiViet: 0,
     };
   }
 
-  componentDidMount() { }
+  componentDidMount() { 
+    this._checkPost();
+  }
 
-  componentWillReceiveProps(nextProps) { }
+  componentWillReceiveProps(nextProps) { 
+    if (nextProps != this.props) {
+      this._checkPost();
+    }
+  }
 
   render() {
     return (
@@ -43,6 +51,11 @@ class ItemCategory extends Component {
           <View style={myStyle.btnNoiDung}>
             <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
             <Text style={myStyle.moTa}>{this.props.data.description}</Text>
+            {this.state.soBaiViet != 0 && (
+              <Text style={myStyle.soBaiViet}>
+                {this.state.soBaiViet === 10 ? `+${this.state.soBaiViet}`:this.state.soBaiViet} bài viết
+              </Text>
+            )}
           </View>
 
           {this.props.userName === "admin" && (
@@ -74,6 +87,12 @@ class ItemCategory extends Component {
   _chinhsua = () => {
     this.props.navigation.navigate("EditTag", { id: this.props.data.id });
   };
+
+  _checkPost(){
+    API.Post.GetAllPost("", this.props.data.id,1).then(response => {
+      if (response.length != 0) this.setState({ soBaiViet: response.length });
+    });
+  }
 }
 
 const myStyle = StyleSheet.create({
@@ -103,6 +122,10 @@ const myStyle = StyleSheet.create({
   },
   moTa: {
     fontStyle: "italic",
+    color: "#fafafa"
+  },
+  soBaiViet:{
+    marginTop: 5,
     color: "#fafafa"
   },
   buttons: {

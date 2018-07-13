@@ -9,7 +9,8 @@ import {
   ToastAndroid,
   AsyncStorage,
   Text,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import API from "../../config/API";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -22,9 +23,11 @@ class Posts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      noidung: "",
+      noidung: [],
       refreshing: true,
-      featured_media: "",
+      loading: false,
+      page: 1,
+      over: false,
       empty: false
     };
   }
@@ -55,30 +58,17 @@ class Posts extends Component {
         headerTitle = navigation.getParam("nameTag", "");
         headerTransparent = false;
       }
-      return { headerTitle, headerTransparent,headerLeft };
+      return { headerTitle, headerTransparent, headerLeft };
     }
-    return {headerTransparent };
+    return { headerTransparent };
   };
 
-  // static navigationOptions = {
-  //   header: null,
-  // };
-
   componentDidMount() {
-    //this._loadData();
-    //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
     if (this.props.dataUser.name === "admin")
       this.props.navigation.addListener("didFocus", () => {
-        this._loadData();
+        this._refresh();
       });
-    else this._loadData();
-    // this.props.navigation.setParams({
-    //   onAdd: this._onAdd.bind(this),
-    //   onLogout: this._onLogout.bind(this),
-    //   onLogin: this._onLogin.bind(this),
-    //   userName: this.props.dataUser.name
-    //   //,isAdding: false
-    // });
+    else this._refresh();
   }
 
   render() {
@@ -128,8 +118,7 @@ class Posts extends Component {
         <FlatList
           //style={myStyle.item}
           refreshing={this.state.refreshing}
-          //refreshing={this.props.refreshing}
-          onRefresh={() => this.refresh()}
+          onRefresh={() => this._refresh()}
           data={this.state.noidung}
           keyExtractor={(item, index) => item.id.toString()}
           renderItem={({ item }) => (
@@ -140,9 +129,44 @@ class Posts extends Component {
               userName={this.props.dataUser.name}
             />
           )}
+          onEndReachedThreshold={0.1}
+          onEndReached={() => {
+            this._loadMore();
+          }}
+          ListFooterComponent={this._renderFooter}
         />
       </View>
     );
+  }
+
+  _renderFooter = () => {
+    if (this.state.loading)
+      return (
+        <View style={{ paddingVertical: 10 }}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    else if (this.state.over)
+      return (
+        <View style={{ paddingVertical: 10, alignItems: "center" }}>
+          <Text style={myStyle.textOver}>Hết nội dung</Text>
+        </View>
+      );
+    else return null;
+  };
+
+  _refresh() {
+    this.setState({ refreshing: true }, () => {
+      this._loadData();
+    });
+  }
+
+  _loadMore() {
+    if (!this.state.over)
+      if (!this.state.loading)
+        this.setState({ page: this.state.page + 1, loading: true }, () => {
+          this._loadData();
+        });
   }
 
   _beforeDelete = (id, t) => {
@@ -160,55 +184,63 @@ class Posts extends Component {
     );
   };
 
-  _delete = (id) => {
+  _delete = id => {
     API.Post.Delete(id).then(response => {
       if (response) {
         ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
         this.refresh();
       } else Alert.alert("Cảnh báo", "Xóa thất bại!");
     });
-    // fetch(API.getURL() + "/thuctap/wp-json/wp/v2/posts/" + i, {
-    //   headers: {
-    //     Authorization:
-    //       "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
-    //   },
-    //   method: "DELETE"
-    // }).then(response => {
-    //   if (response.status == 200) {
-    //     ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-    //     this.refresh();
-    //   } else Alert.alert("Cảnh báo", "Xóa thất bại!");
-    // });
   };
 
-  refresh() {
-    this._loadData();
-  }
+  // _refresh() {
+  //   this._loadData();
+  // }
 
-  _loadData() {
-    this.setState({ refreshing: true });
-    //this.props.dispatch({type:'RefreshPost'});
-    //let url = API.getURL() + "/thuctap/wp-json/wp/v2/posts";
+  async _loadData() {
     let idCategory = this.props.navigation.getParam("idCategory", "");
     let idTag = this.props.navigation.getParam("idTag", "");
-    // if (idCategory != "") url = `${url}?categories=${idCategory}`;
-    // else if (idTag != "") url = `${url}?tags=${idTag}`;
-    // fetch(url)
-    //   .then(response => response.json())
-    //   .then(responseJson => {
-    //     if (responseJson.length === 0) {
-    //       this.setState({ empty: true, refreshing: false });
-    //     } else {
-    //       this.setState({ noidung: responseJson, refreshing: false });
-    //     }
-    //   });
-    API.Post.GetAllPost(idCategory,idTag).then(responseJson=>{
-      if (responseJson.length === 0) {
-        this.setState({ empty: true, refreshing: false });
-      } else {
-        this.setState({ noidung: responseJson, refreshing: false });
+    if (this.state.refreshing) {
+      let dataTemp = [];
+      for (let i = 1; i <= this.state.page; i++) {
+        let response = await API.Post.GetAllPost(idCategory, idTag, i);
+        if (response != null) {
+          if (response.length === 0) {
+            this.setState({ empty: true });
+            break;
+          } else {
+            dataTemp = dataTemp.concat(response);
+          }
+        }
       }
-    })
+      this.setState({
+        noidung: dataTemp,
+        refreshing: false,
+        loading: false,
+        over: false
+      });
+    } else {
+      let response = await API.Post.GetAllPost(
+        idCategory,
+        idTag,
+        this.state.page
+      );
+      if (response != null) {
+        this.setState({
+          noidung: [...this.state.noidung, ...response],
+          refreshing: false,
+          loading: false,
+          over: false
+        });
+      } else {
+        this.setState({
+          refreshing: false,
+          loading: false,
+          over: true,
+          page: this.state.page - 1
+        });
+      }
+    }
   }
 
   _onLogin() {
@@ -271,6 +303,9 @@ const myStyle = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  textOver: {
+    fontSize: 16
   }
 });
 

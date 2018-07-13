@@ -66,8 +66,9 @@ export default class Media extends Component {
           transparent={true}
           animationType={"none"}
           visible={this.state.uploading}
-          onRequestClose={() => null}>
+          onRequestClose={() => null}
         >
+          >
           <View style={myStyle.modalBackground}>
             <View style={myStyle.activityIndicatorWrapper}>
               <ActivityIndicator
@@ -199,12 +200,7 @@ export default class Media extends Component {
           if (responseJson.length != 0) {
             dataTemp = dataTemp.concat(responseJson);
           }
-        } 
-        // else if (response.status === 400) {
-        //   console.log(this.state.page);
-        //   console.log(response);
-        //   ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
-        // }
+        }
       }
       this.setState({
         noidung: dataTemp,
@@ -225,8 +221,12 @@ export default class Media extends Component {
           over: false
         });
       } else if (response.status === 400) {
-        ToastAndroid.show("Cuối trang", ToastAndroid.SHORT);
-        this.setState({ refreshing: false, loading: false, over: true, page:this.state.page-1 });
+        this.setState({
+          refreshing: false,
+          loading: false,
+          over: true,
+          page: this.state.page - 1
+        });
       } else {
         Alert.alert("Lỗi", "Không có nội dung");
         this.setState({ refreshing: false, loading: false });
@@ -235,12 +235,19 @@ export default class Media extends Component {
   }
 
   _renderFooter = () => {
-    if (!this.state.loading) return null;
-    return (
-      <View style={{ paddingVertical: 10 }}>
-        <ActivityIndicator animating size="large" />
-      </View>
-    );
+    if (this.state.loading)
+      return (
+        <View style={{ paddingVertical: 10 }}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    else if (this.state.over)
+      return (
+        <View style={{ paddingVertical: 10, alignItems: "center" }}>
+          <Text style={myStyle.textOver}>Hết nội dung</Text>
+        </View>
+      );
+    else return null;
   };
 
   //xử lý khi nhấn lâu vào một item
@@ -430,5 +437,8 @@ const myStyle = StyleSheet.create({
     flexDirection: "row",
     padding: 12,
     alignItems: "center"
+  },
+  textOver: {
+    fontSize: 16
   }
 });
