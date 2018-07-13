@@ -64,6 +64,7 @@ class Setting extends Component {
                 <Text style={myStyle.title}>Thay đổi địa chỉ</Text>
               </View>
               <TextInput
+                autoFocus={true}
                 style={myStyle.input}
                 onChangeText={p => {
                   this.setState({ url: p });
