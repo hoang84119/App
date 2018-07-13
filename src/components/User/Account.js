@@ -18,65 +18,59 @@ import { connect } from "react-redux";
 class Account extends Component {
   render() {
     return (
-      <View>
-        {this.props.dataUser.length != 0 && (
-          <ImageBackground
-            style={{
-              flex: 1,
-              padding: 10,
-              paddingTop: StatusBar.currentHeight
-            }}
-            source={require("../../image/background/KyooPal.jpg")}
-          >
-            <StatusBar
-              translucent
-              backgroundColor="rgba(0, 0, 0, 0)"
-              animated
-            />
-            <View
-              style={{
-                borderRadius: 5,
-                overflow: "hidden",
-                flex: 0.4,
-                marginBottom: 15
-              }}
+      <ImageBackground
+        style={{
+          flex: 1,
+          padding: 10,
+          paddingTop: StatusBar.currentHeight
+        }}
+        source={require("../../image/background/KyooPal.jpg")}
+      >
+        <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
+        <View
+          style={{
+            borderRadius: 5,
+            overflow: "hidden",
+            flex: 0.4,
+            marginBottom: 15
+          }}
+        >
+          {this.props.dataUser.length != 0 && (
+            <ImageBackground
+              style={{ flex: 1 }}
+              source={require("../../image/Material-Background.png")}
             >
-              <ImageBackground
-                style={{ flex: 1 }}
-                source={require("../../image/Material-Background.png")}
+              <TouchableOpacity
+                onPress={() => this.props.navigation.openDrawer()}
               >
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.openDrawer()}
-                >
-                  <Feather style={myStyle.btnBack} size={25} name={"menu"} />
-                </TouchableOpacity>
-                <View style={myStyle.header}>
-                  <Image
-                    style={myStyle.avatar}
-                    source={{ uri: this.props.dataUser.avatar_urls[96] }}
-                  />
-                  <Text style={myStyle.name}>{this.props.dataUser.name}</Text>
-                  <Text style={myStyle.email}>{this.props.dataUser.email}</Text>
-                </View>
-              </ImageBackground>
-            </View>
-            <View style={myStyle.control}>
-              <TouchableOpacity style={myStyle.options}>
-                <Text style={{ fontSize: 18 }}>Empty</Text>
+                <Feather style={myStyle.btnBack} size={25} name={"menu"} />
               </TouchableOpacity>
-              <TouchableOpacity style={myStyle.options}>
-                <Text style={{ fontSize: 18 }}>Empty</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={myStyle.options}>
-                <Text style={{ fontSize: 18 }}>Empty</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={myStyle.options}>
-                <Text style={{ fontSize: 18 }}>Empty</Text>
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
-        )}
-      </View>
+              <View style={myStyle.header}>
+                <Image
+                  style={myStyle.avatar}
+                  source={{ uri: this.props.dataUser.avatar_urls[96] }}
+                />
+                <Text style={myStyle.name}>{this.props.dataUser.name}</Text>
+                <Text style={myStyle.email}>{this.props.dataUser.email}</Text>
+              </View>
+            </ImageBackground>
+          )}
+        </View>
+        <View style={myStyle.control}>
+          <TouchableOpacity style={myStyle.options}>
+            <Text style={{ fontSize: 18 }}>Empty</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={myStyle.options}>
+            <Text style={{ fontSize: 18 }}>Empty</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={myStyle.options}>
+            <Text style={{ fontSize: 18 }}>Empty</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={myStyle.options}>
+            <Text style={{ fontSize: 18 }}>Empty</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     );
   }
 }
