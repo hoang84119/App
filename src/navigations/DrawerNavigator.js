@@ -4,7 +4,7 @@ import TabNavigator from './TabNavigator'
 import Login from '../components/User/DangNhap'
 import SlideMenu from '../components/SlideMenu'
 import Account from '../components/User/Account';
-import Setting from '../components/Setting'
+import Setting from '../setting/Setting'
 
 const Drawer = createDrawerNavigator({
     Home: {screen: TabNavigator},
