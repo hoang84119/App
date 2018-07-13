@@ -62065,67 +62065,150 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           }
         }
       }, null, this, [[0, 6]]);
+    },
+    GetSrcImage: function GetSrcImage(ids) {
+      var srcImage, src, _iterator, _isArray, _i, _ref, id, response, json;
+
+      return regeneratorRuntime.async(function GetSrcImage$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              srcImage = [];
+              src = "";
+              _iterator = ids, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? typeof Symbol === "function" ? Symbol.iterator : "@@iterator" : "@@iterator"]();
+
+            case 3:
+              if (!_isArray) {
+                _context7.next = 9;
+                break;
+              }
+
+              if (!(_i >= _iterator.length)) {
+                _context7.next = 6;
+                break;
+              }
+
+              return _context7.abrupt("break", 25);
+
+            case 6:
+              _ref = _iterator[_i++];
+              _context7.next = 13;
+              break;
+
+            case 9:
+              _i = _iterator.next();
+
+              if (!_i.done) {
+                _context7.next = 12;
+                break;
+              }
+
+              return _context7.abrupt("break", 25);
+
+            case 12:
+              _ref = _i.value;
+
+            case 13:
+              id = _ref;
+              _context7.next = 16;
+              return regeneratorRuntime.awrap(fetch(url + "/wp-json/wp/v2/media/" + id));
+
+            case 16:
+              response = _context7.sent;
+
+              if (!(response.status === 200)) {
+                _context7.next = 23;
+                break;
+              }
+
+              _context7.next = 20;
+              return regeneratorRuntime.awrap(response.json());
+
+            case 20:
+              json = _context7.sent;
+
+              try {
+                src = json.media_details.sizes.large.source_url;
+              } catch (e) {
+                src = json.media_details.sizes.full.source_url;
+              }
+
+              srcImage.push(src.replace(/http:\/\/localhost\/thuctap/g, url));
+
+            case 23:
+              _context7.next = 3;
+              break;
+
+            case 25:
+              return _context7.abrupt("return", srcImage);
+
+            case 26:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, null, this);
     }
   };
   Page = {
     GetAllPage: function GetAllPage(page) {
       var address, response, responseJson;
-      return regeneratorRuntime.async(function GetAllPage$(_context7) {
+      return regeneratorRuntime.async(function GetAllPage$(_context8) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
               address = url + "/wp-json/wp/v2/pages?page=" + page;
-              _context7.next = 3;
+              _context8.next = 3;
               return regeneratorRuntime.awrap(fetch(address));
 
             case 3:
-              response = _context7.sent;
+              response = _context8.sent;
 
               if (!(response.status === 200)) {
-                _context7.next = 9;
+                _context8.next = 9;
                 break;
               }
 
-              _context7.next = 7;
+              _context8.next = 7;
               return regeneratorRuntime.awrap(response.json());
 
             case 7:
-              responseJson = _context7.sent;
-              return _context7.abrupt("return", responseJson);
+              responseJson = _context8.sent;
+              return _context8.abrupt("return", responseJson);
 
             case 9:
-              return _context7.abrupt("return", null);
+              return _context8.abrupt("return", null);
 
             case 10:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
         }
       }, null, this);
     },
     Remove: function Remove(id) {
       var base64, response;
-      return regeneratorRuntime.async(function Remove$(_context8) {
+      return regeneratorRuntime.async(function Remove$(_context9) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context9.prev = _context9.next) {
             case 0:
-              _context8.prev = 0;
-              _context8.next = 3;
+              _context9.prev = 0;
+              _context9.next = 3;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem("Base64", ""));
 
             case 3:
-              base64 = _context8.sent;
-              _context8.next = 9;
+              base64 = _context9.sent;
+              _context9.next = 9;
               break;
 
             case 6:
-              _context8.prev = 6;
-              _context8.t0 = _context8["catch"](0);
-              console.log(_context8.t0);
+              _context9.prev = 6;
+              _context9.t0 = _context9["catch"](0);
+              console.log(_context9.t0);
 
             case 9:
-              _context8.prev = 9;
-              _context8.next = 12;
+              _context9.prev = 9;
+              _context9.next = 12;
               return regeneratorRuntime.awrap(fetch(url + "/wp-json/wp/v2/pages/" + id + "?force=true", {
                 headers: {
                   Authorization: "Basic " + base64
@@ -62134,48 +62217,48 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }));
 
             case 12:
-              response = _context8.sent;
+              response = _context9.sent;
 
               if (!(response.status === 200)) {
-                _context8.next = 15;
+                _context9.next = 15;
                 break;
               }
 
-              return _context8.abrupt("return", true);
+              return _context9.abrupt("return", true);
 
             case 15:
-              return _context8.abrupt("return", false);
+              return _context9.abrupt("return", false);
 
             case 18:
-              _context8.prev = 18;
-              _context8.t1 = _context8["catch"](9);
-              console.log(_context8.t1);
+              _context9.prev = 18;
+              _context9.t1 = _context9["catch"](9);
+              console.log(_context9.t1);
 
             case 21:
             case "end":
-              return _context8.stop();
+              return _context9.stop();
           }
         }
       }, null, this, [[0, 6], [9, 18]]);
     },
     Save: function Save(id, name, slug, description) {
       var urlTemp, base64, formData, response;
-      return regeneratorRuntime.async(function Save$(_context9) {
+      return regeneratorRuntime.async(function Save$(_context10) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context10.prev = _context10.next) {
             case 0:
               urlTemp = url + "/wp-json/wp/v2/pages";
-              _context9.next = 3;
+              _context10.next = 3;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem("Base64", ""));
 
             case 3:
-              base64 = _context9.sent;
+              base64 = _context10.sent;
               formData = new FormData();
               formData.append("name", name);
               formData.append("slug", slug);
               formData.append("description", description);
               if (id != "") urlTemp = urlTemp + "/" + id;
-              _context9.next = 11;
+              _context10.next = 11;
               return regeneratorRuntime.awrap(fetch("" + urlTemp, {
                 headers: {
                   Authorization: "Basic " + base64
@@ -62185,29 +62268,29 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }));
 
             case 11:
-              response = _context9.sent;
+              response = _context10.sent;
 
               if (!(response.status === 200)) {
-                _context9.next = 16;
+                _context10.next = 16;
                 break;
               }
 
-              return _context9.abrupt("return", true);
+              return _context10.abrupt("return", true);
 
             case 16:
               if (!(response.status === 201)) {
-                _context9.next = 20;
+                _context10.next = 20;
                 break;
               }
 
-              return _context9.abrupt("return", true);
+              return _context10.abrupt("return", true);
 
             case 20:
-              return _context9.abrupt("return", response.json());
+              return _context10.abrupt("return", response.json());
 
             case 21:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
         }
       }, null, this);
@@ -62216,89 +62299,89 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   Post = {
     GetAllPost: function GetAllPost(idCategory, idTag, page) {
       var address, response, responseJson;
-      return regeneratorRuntime.async(function GetAllPost$(_context10) {
-        while (1) {
-          switch (_context10.prev = _context10.next) {
-            case 0:
-              address = url + "/wp-json/wp/v2/posts?page=" + page;
-              if (idCategory != "") address = address + "&categories=" + idCategory;else if (idTag != "") address = address + "&tags=" + idTag;
-              _context10.next = 4;
-              return regeneratorRuntime.awrap(fetch(address));
-
-            case 4:
-              response = _context10.sent;
-
-              if (!(response.status === 200)) {
-                _context10.next = 10;
-                break;
-              }
-
-              _context10.next = 8;
-              return regeneratorRuntime.awrap(response.json());
-
-            case 8:
-              responseJson = _context10.sent;
-              return _context10.abrupt("return", responseJson);
-
-            case 10:
-              return _context10.abrupt("return", null);
-
-            case 11:
-            case "end":
-              return _context10.stop();
-          }
-        }
-      }, null, this);
-    },
-    GetPostDetail: function GetPostDetail(id) {
-      var response;
-      return regeneratorRuntime.async(function GetPostDetail$(_context11) {
+      return regeneratorRuntime.async(function GetAllPost$(_context11) {
         while (1) {
           switch (_context11.prev = _context11.next) {
             case 0:
-              _context11.next = 2;
-              return regeneratorRuntime.awrap(fetch(API.getURL() + "/wp-json/wp/v2/posts/" + id));
+              address = url + "/wp-json/wp/v2/posts?page=" + page;
+              if (idCategory != "") address = address + "&categories=" + idCategory;else if (idTag != "") address = address + "&tags=" + idTag;
+              _context11.next = 4;
+              return regeneratorRuntime.awrap(fetch(address));
 
-            case 2:
+            case 4:
               response = _context11.sent;
 
               if (!(response.status === 200)) {
-                _context11.next = 5;
+                _context11.next = 10;
                 break;
               }
 
-              return _context11.abrupt("return", response.json());
+              _context11.next = 8;
+              return regeneratorRuntime.awrap(response.json());
 
-            case 5:
+            case 8:
+              responseJson = _context11.sent;
+              return _context11.abrupt("return", responseJson);
+
+            case 10:
+              return _context11.abrupt("return", null);
+
+            case 11:
             case "end":
               return _context11.stop();
           }
         }
       }, null, this);
     },
-    Delete: function Delete(id) {
-      var base64, response;
-      return regeneratorRuntime.async(function Delete$(_context12) {
+    GetPostDetail: function GetPostDetail(id) {
+      var response;
+      return regeneratorRuntime.async(function GetPostDetail$(_context12) {
         while (1) {
           switch (_context12.prev = _context12.next) {
             case 0:
-              _context12.prev = 0;
-              _context12.next = 3;
+              _context12.next = 2;
+              return regeneratorRuntime.awrap(fetch(API.getURL() + "/wp-json/wp/v2/posts/" + id));
+
+            case 2:
+              response = _context12.sent;
+
+              if (!(response.status === 200)) {
+                _context12.next = 5;
+                break;
+              }
+
+              return _context12.abrupt("return", response.json());
+
+            case 5:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, null, this);
+    },
+    Delete: function Delete(id) {
+      var base64, response;
+      return regeneratorRuntime.async(function Delete$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              _context13.prev = 0;
+              _context13.next = 3;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem("Base64", ""));
 
             case 3:
-              base64 = _context12.sent;
-              _context12.next = 9;
+              base64 = _context13.sent;
+              _context13.next = 9;
               break;
 
             case 6:
-              _context12.prev = 6;
-              _context12.t0 = _context12["catch"](0);
-              console.log(_context12.t0);
+              _context13.prev = 6;
+              _context13.t0 = _context13["catch"](0);
+              console.log(_context13.t0);
 
             case 9:
-              _context12.prev = 9;
-              _context12.next = 12;
+              _context13.prev = 9;
+              _context13.next = 12;
               return regeneratorRuntime.awrap(fetch(url + "/wp-json/wp/v2/posts/" + id, {
                 headers: {
                   Authorization: "Basic " + base64
@@ -62307,47 +62390,47 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }));
 
             case 12:
-              response = _context12.sent;
+              response = _context13.sent;
 
               if (!(response.status === 200)) {
-                _context12.next = 15;
+                _context13.next = 15;
                 break;
               }
 
-              return _context12.abrupt("return", true);
+              return _context13.abrupt("return", true);
 
             case 15:
-              return _context12.abrupt("return", false);
+              return _context13.abrupt("return", false);
 
             case 18:
-              _context12.prev = 18;
-              _context12.t1 = _context12["catch"](9);
-              console.log(_context12.t1);
+              _context13.prev = 18;
+              _context13.t1 = _context13["catch"](9);
+              console.log(_context13.t1);
 
             case 21:
             case "end":
-              return _context12.stop();
+              return _context13.stop();
           }
         }
       }, null, this, [[0, 6], [9, 18]]);
     },
     Save: function Save(id, title, content) {
       var urlTemp, base64, formData, response;
-      return regeneratorRuntime.async(function Save$(_context13) {
+      return regeneratorRuntime.async(function Save$(_context14) {
         while (1) {
-          switch (_context13.prev = _context13.next) {
+          switch (_context14.prev = _context14.next) {
             case 0:
               urlTemp = url + "/wp-json/wp/v2/posts";
-              _context13.next = 3;
+              _context14.next = 3;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem("Base64", ""));
 
             case 3:
-              base64 = _context13.sent;
+              base64 = _context14.sent;
               formData = new FormData();
               formData.append("title", title);
               formData.append("content", content);
               if (id != "") urlTemp = urlTemp + "/" + id;else formData.append("status", "publish");
-              _context13.next = 10;
+              _context14.next = 10;
               return regeneratorRuntime.awrap(fetch("" + urlTemp, {
                 headers: {
                   Authorization: "Basic " + base64
@@ -62357,30 +62440,29 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }));
 
             case 10:
-              response = _context13.sent;
-              console.log(response);
+              response = _context14.sent;
 
               if (!(response.status === 200)) {
-                _context13.next = 16;
+                _context14.next = 15;
                 break;
               }
 
-              return _context13.abrupt("return", true);
+              return _context14.abrupt("return", true);
 
-            case 16:
+            case 15:
               if (!(response.status === 201)) {
-                _context13.next = 20;
+                _context14.next = 19;
                 break;
               }
 
-              return _context13.abrupt("return", true);
+              return _context14.abrupt("return", true);
+
+            case 19:
+              return _context14.abrupt("return", response.json());
 
             case 20:
-              return _context13.abrupt("return", response.json());
-
-            case 21:
             case "end":
-              return _context13.stop();
+              return _context14.stop();
           }
         }
       }, null, this);
@@ -62389,26 +62471,26 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   User = {
     getUser: function getUser(id) {
       var response;
-      return regeneratorRuntime.async(function getUser$(_context14) {
+      return regeneratorRuntime.async(function getUser$(_context15) {
         while (1) {
-          switch (_context14.prev = _context14.next) {
+          switch (_context15.prev = _context15.next) {
             case 0:
-              _context14.next = 2;
+              _context15.next = 2;
               return regeneratorRuntime.awrap(fetch(API.getURL() + "/wp-json/wp/v2/users/" + id));
 
             case 2:
-              response = _context14.sent;
+              response = _context15.sent;
 
               if (!(response.status === 200)) {
-                _context14.next = 5;
+                _context15.next = 5;
                 break;
               }
 
-              return _context14.abrupt("return", response.json());
+              return _context15.abrupt("return", response.json());
 
             case 5:
             case "end":
-              return _context14.stop();
+              return _context15.stop();
           }
         }
       }, null, this);
@@ -62417,34 +62499,34 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   Account = {
     validate_account: function validate_account() {
       var base64, response, json, cookie, responseUser, user;
-      return regeneratorRuntime.async(function validate_account$(_context15) {
+      return regeneratorRuntime.async(function validate_account$(_context16) {
         while (1) {
-          switch (_context15.prev = _context15.next) {
+          switch (_context16.prev = _context16.next) {
             case 0:
-              _context15.prev = 0;
-              _context15.next = 3;
+              _context16.prev = 0;
+              _context16.next = 3;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem("Base64", ""));
 
             case 3:
-              base64 = _context15.sent;
-              _context15.next = 9;
+              base64 = _context16.sent;
+              _context16.next = 9;
               break;
 
             case 6:
-              _context15.prev = 6;
-              _context15.t0 = _context15["catch"](0);
-              console.log(_context15.t0);
+              _context16.prev = 6;
+              _context16.t0 = _context16["catch"](0);
+              console.log(_context16.t0);
 
             case 9:
               if (!(base64 == "")) {
-                _context15.next = 11;
+                _context16.next = 11;
                 break;
               }
 
-              return _context15.abrupt("return", null);
+              return _context16.abrupt("return", null);
 
             case 11:
-              _context15.next = 13;
+              _context16.next = 13;
               return regeneratorRuntime.awrap(fetch(url + "/wp-json/wp/v2/users/me", {
                 headers: {
                   Authorization: "Basic " + base64
@@ -62453,62 +62535,62 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }));
 
             case 13:
-              response = _context15.sent;
+              response = _context16.sent;
 
               if (!(response.status === 200)) {
-                _context15.next = 40;
+                _context16.next = 40;
                 break;
               }
 
-              _context15.next = 17;
+              _context16.next = 17;
               return regeneratorRuntime.awrap(response.json());
 
             case 17:
-              json = _context15.sent;
-              _context15.prev = 18;
-              _context15.next = 21;
+              json = _context16.sent;
+              _context16.prev = 18;
+              _context16.next = 21;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.getItem("Cookie", ""));
 
             case 21:
-              cookie = _context15.sent;
-              _context15.next = 27;
+              cookie = _context16.sent;
+              _context16.next = 27;
               break;
 
             case 24:
-              _context15.prev = 24;
-              _context15.t1 = _context15["catch"](18);
-              console.log(_context15.t1);
+              _context16.prev = 24;
+              _context16.t1 = _context16["catch"](18);
+              console.log(_context16.t1);
 
             case 27:
-              _context15.next = 29;
+              _context16.next = 29;
               return regeneratorRuntime.awrap(fetch(url + "/api/auth/get_currentuserinfo/?cookie=" + cookie + "&insecure=cool"));
 
             case 29:
-              responseUser = _context15.sent;
+              responseUser = _context16.sent;
 
               if (!(responseUser.status === 404)) {
-                _context15.next = 32;
+                _context16.next = 32;
                 break;
               }
 
-              return _context15.abrupt("return", null);
+              return _context16.abrupt("return", null);
 
             case 32:
-              _context15.next = 34;
+              _context16.next = 34;
               return regeneratorRuntime.awrap(responseUser.json());
 
             case 34:
-              user = _context15.sent;
+              user = _context16.sent;
               json["email"] = user.user.email;
               json["capabilities"] = user.user.capabilities;
-              return _context15.abrupt("return", json);
+              return _context16.abrupt("return", json);
 
             case 40:
-              return _context15.abrupt("return", null);
+              return _context16.abrupt("return", null);
 
             case 41:
             case "end":
-              return _context15.stop();
+              return _context16.stop();
           }
         }
       }, null, this, [[0, 6], [18, 24]]);
@@ -62516,12 +62598,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     Login: function Login(username, password) {
       var base64, response, json, _json;
 
-      return regeneratorRuntime.async(function Login$(_context16) {
+      return regeneratorRuntime.async(function Login$(_context17) {
         while (1) {
-          switch (_context16.prev = _context16.next) {
+          switch (_context17.prev = _context17.next) {
             case 0:
               base64 = _Base2.default.btoa(username + ":" + password);
-              _context16.next = 3;
+              _context17.next = 3;
               return regeneratorRuntime.awrap(fetch(url + "/wp-json/wp/v2/users/me", {
                 headers: {
                   Authorization: "Basic " + base64
@@ -62530,62 +62612,62 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }));
 
             case 3:
-              response = _context16.sent;
+              response = _context17.sent;
 
               if (!(response.status === 200)) {
-                _context16.next = 18;
+                _context17.next = 18;
                 break;
               }
 
-              _context16.next = 7;
+              _context17.next = 7;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.setItem("Base64", base64));
 
             case 7:
-              _context16.next = 9;
+              _context17.next = 9;
               return regeneratorRuntime.awrap(fetch(url + "/api/auth/generate_auth_cookie/?username=" + username + "&password=" + password + "&insecure=cool"));
 
             case 9:
-              response = _context16.sent;
-              _context16.next = 12;
+              response = _context17.sent;
+              _context17.next = 12;
               return regeneratorRuntime.awrap(response.json());
 
             case 12:
-              json = _context16.sent;
-              _context16.next = 15;
+              json = _context17.sent;
+              _context17.next = 15;
               return regeneratorRuntime.awrap(_reactNative.AsyncStorage.setItem("Cookie", json.cookie.toString()));
 
             case 15:
-              return _context16.abrupt("return", true);
+              return _context17.abrupt("return", true);
 
             case 18:
-              _context16.next = 20;
+              _context17.next = 20;
               return regeneratorRuntime.awrap(response.json());
 
             case 20:
-              _json = _context16.sent;
+              _json = _context17.sent;
 
               if (!(_json.code === "incorrect_password")) {
-                _context16.next = 26;
+                _context17.next = 26;
                 break;
               }
 
               _reactNative.ToastAndroid.show("Sai mật khẩu", _reactNative.ToastAndroid.LONG);
 
-              return _context16.abrupt("return", false);
+              return _context17.abrupt("return", false);
 
             case 26:
               if (!(_json.code === "invalid_username")) {
-                _context16.next = 29;
+                _context17.next = 29;
                 break;
               }
 
               _reactNative.ToastAndroid.show("Tên người dùng không hợp lệ", _reactNative.ToastAndroid.LONG);
 
-              return _context16.abrupt("return", false);
+              return _context17.abrupt("return", false);
 
             case 29:
             case "end":
-              return _context16.stop();
+              return _context17.stop();
           }
         }
       }, null, this);
@@ -96516,6 +96598,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               srcImage: ""
             });
           }
+
+          var images = _this3.props.navigation.getParam("Images", []);
+
+          if (images.length != 0) {
+            _this3.refs.myModal.close();
+
+            images.forEach(function (src) {
+              _this3.richtext.insertImage({
+                src: src
+              });
+            });
+
+            _this3.props.navigation.setParams({
+              Images: []
+            });
+          }
         });
       }
     }, {
@@ -96529,7 +96627,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 73
+              lineNumber: 81
             }
           },
           this.state.uploading && _react3.default.createElement(
@@ -96543,7 +96641,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 75
+                lineNumber: 83
               }
             },
             _react3.default.createElement(
@@ -96552,7 +96650,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 81
+                  lineNumber: 89
                 }
               },
               _react3.default.createElement(
@@ -96561,7 +96659,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 82
+                    lineNumber: 90
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -96570,7 +96668,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 83
+                    lineNumber: 91
                   }
                 }),
                 _react3.default.createElement(
@@ -96579,7 +96677,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 88
+                      lineNumber: 96
                     }
                   },
                   "\u0110ang x\u1EED l\xFD"
@@ -96598,7 +96696,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 93
+                lineNumber: 101
               }
             },
             _react3.default.createElement(
@@ -96606,7 +96704,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 99
+                  lineNumber: 107
                 }
               },
               _react3.default.createElement(
@@ -96616,7 +96714,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 100
+                    lineNumber: 108
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -96625,7 +96723,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 101
+                    lineNumber: 109
                   }
                 }),
                 _react3.default.createElement(
@@ -96634,7 +96732,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 102
+                      lineNumber: 110
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -96647,7 +96745,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 104
+                    lineNumber: 112
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -96656,7 +96754,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 105
+                    lineNumber: 113
                   }
                 }),
                 _react3.default.createElement(
@@ -96665,7 +96763,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 106
+                      lineNumber: 114
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -96678,7 +96776,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 108
+                    lineNumber: 116
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -96687,7 +96785,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 112
+                    lineNumber: 120
                   }
                 }),
                 _react3.default.createElement(
@@ -96696,7 +96794,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 117
+                      lineNumber: 125
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -96713,7 +96811,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             initialContentHTML: this.state.noidung.content.rendered.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL()),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 124
+              lineNumber: 132
             }
           }),
           this.state.loaded && _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -96725,7 +96823,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 135
+              lineNumber: 143
             }
           }),
           this.state.loaded === false && _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -96733,7 +96831,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: "#0000ff",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 143
+              lineNumber: 151
             }
           })
         );
@@ -101104,6 +101202,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               srcImage: ""
             });
           }
+
+          var images = _this3.props.navigation.getParam("Images", []);
+
+          if (images.length != 0) {
+            _this3.refs.myModal.close();
+
+            images.forEach(function (src) {
+              _this3.richtext.insertImage({
+                src: src
+              });
+            });
+
+            _this3.props.navigation.setParams({
+              Images: []
+            });
+          }
         });
       }
     }, {
@@ -101117,7 +101231,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 67
+              lineNumber: 75
             }
           },
           this.state.uploading && _react3.default.createElement(
@@ -101131,7 +101245,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 69
+                lineNumber: 77
               }
             },
             _react3.default.createElement(
@@ -101140,7 +101254,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 75
+                  lineNumber: 83
                 }
               },
               _react3.default.createElement(
@@ -101149,7 +101263,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 84
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -101158,7 +101272,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 77
+                    lineNumber: 85
                   }
                 }),
                 _react3.default.createElement(
@@ -101167,7 +101281,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 82
+                      lineNumber: 90
                     }
                   },
                   "\u0110ang x\u1EED l\xFD"
@@ -101183,7 +101297,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 87
+                lineNumber: 95
               }
             },
             _react3.default.createElement(
@@ -101191,7 +101305,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 88
+                  lineNumber: 96
                 }
               },
               _react3.default.createElement(
@@ -101201,7 +101315,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 97
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -101210,7 +101324,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 90
+                    lineNumber: 98
                   }
                 }),
                 _react3.default.createElement(
@@ -101219,7 +101333,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 91
+                      lineNumber: 99
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -101232,7 +101346,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 93
+                    lineNumber: 101
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -101241,7 +101355,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 94
+                    lineNumber: 102
                   }
                 }),
                 _react3.default.createElement(
@@ -101250,7 +101364,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 95
+                      lineNumber: 103
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -101263,7 +101377,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 97
+                    lineNumber: 105
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -101272,7 +101386,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 101
+                    lineNumber: 109
                   }
                 }),
                 _react3.default.createElement(
@@ -101281,7 +101395,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 106
+                      lineNumber: 114
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -101298,7 +101412,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             contentPlaceholder: "Nội dung bài viết",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 112
+              lineNumber: 120
             }
           }),
           _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -101310,7 +101424,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 118
+              lineNumber: 126
             }
           })
         );
@@ -101596,7 +101710,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 255
+              lineNumber: 263
             }
           },
           _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -101604,7 +101718,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             size: "large",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 256
+              lineNumber: 264
             }
           })
         );else if (_this.state.over) return _react3.default.createElement(
@@ -101616,7 +101730,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 261
+              lineNumber: 269
             }
           },
           _react3.default.createElement(
@@ -101625,7 +101739,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.textOver,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 262
+                lineNumber: 270
               }
             },
             "H\u1EBFt n\u1ED9i dung"
@@ -101655,8 +101769,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           navigation: _this.props.navigation,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 279
+            lineNumber: 287
           }
+        });
+      };
+
+      _this._insertImage = function () {
+        _API2.default.Image.GetSrcImage(_this.state.selected).then(function (response) {
+          _this.props.navigation.navigate("" + _this.props.navigation.getParam("src"), {
+            Images: response
+          });
         });
       };
 
@@ -101962,6 +102084,105 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           )
         );
 
+        var buttonUpload = null;
+        if (this.state.selected.size == 0) if (this.props.navigation.getParam("check", 0) != 1) buttonUpload = _react3.default.createElement(
+          _reactNative.TouchableOpacity,
+          {
+            onPress: function onPress() {
+              _this4.refs.myModal.open();
+            },
+            style: [myStyle.select, {
+              backgroundColor: "#0ABFBC"
+            }],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 81
+            }
+          },
+          _react3.default.createElement(_Ionicons2.default, {
+            style: {
+              color: "white"
+            },
+            name: "ios-cloud-upload-outline",
+            size: 32,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 87
+            }
+          })
+        );
+        var buttonInsertDelete = null;
+        if (this.state.selected.size != 0) if (this.props.navigation.getParam("check", 0) != 1) buttonInsertDelete = _react3.default.createElement(
+          _reactNative.TouchableOpacity,
+          {
+            onPress: this._before_Delete,
+            style: [myStyle.select, {
+              backgroundColor: "#FF3333"
+            }],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 98
+            }
+          },
+          _react3.default.createElement(_Ionicons2.default, {
+            style: {
+              color: "white",
+              marginLeft: 6
+            },
+            name: "md-trash",
+            size: 32,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 102
+            }
+          }),
+          _react3.default.createElement(
+            _reactNative.Text,
+            {
+              style: myStyle.textDotButton,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 107
+              }
+            },
+            this.state.selected.size
+          )
+        );else buttonInsertDelete = _react3.default.createElement(
+          _reactNative.TouchableOpacity,
+          {
+            onPress: this._insertImage,
+            style: [myStyle.select, {
+              backgroundColor: "#0ABFBC"
+            }],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 114
+            }
+          },
+          _react3.default.createElement(_Ionicons2.default, {
+            style: {
+              color: "white",
+              marginLeft: 6
+            },
+            name: "md-send",
+            size: 32,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 118
+            }
+          }),
+          _react3.default.createElement(
+            _reactNative.Text,
+            {
+              style: myStyle.textDotButton,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 123
+              }
+            },
+            this.state.selected.size
+          )
+        );
         return _react3.default.createElement(
           _reactNative.View,
           {
@@ -101971,7 +102192,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 79
+              lineNumber: 129
             }
           },
           _react3.default.createElement(
@@ -101985,7 +102206,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 80
+                lineNumber: 130
               }
             },
             ">",
@@ -101995,7 +102216,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 87
+                  lineNumber: 137
                 }
               },
               _react3.default.createElement(
@@ -102004,7 +102225,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 138
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -102013,7 +102234,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 139
                   }
                 }),
                 _react3.default.createElement(
@@ -102022,7 +102243,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 94
+                      lineNumber: 144
                     }
                   },
                   "\u0110ang t\u1EA3i l\xEAn"
@@ -102038,7 +102259,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 98
+                lineNumber: 148
               }
             },
             _react3.default.createElement(
@@ -102046,7 +102267,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 99
+                  lineNumber: 149
                 }
               },
               _react3.default.createElement(
@@ -102056,7 +102277,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 100
+                    lineNumber: 150
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -102065,7 +102286,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 101
+                    lineNumber: 151
                   }
                 }),
                 _react3.default.createElement(
@@ -102074,7 +102295,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 102
+                      lineNumber: 152
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -102087,7 +102308,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 104
+                    lineNumber: 154
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -102096,7 +102317,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 105
+                    lineNumber: 155
                   }
                 }),
                 _react3.default.createElement(
@@ -102105,7 +102326,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 106
+                      lineNumber: 156
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -102121,7 +102342,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 112
+                lineNumber: 162
               }
             },
             _react3.default.createElement(_reactNative.StatusBar, {
@@ -102130,7 +102351,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               animated: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 113
+                lineNumber: 163
               }
             }),
             _react3.default.createElement(_reactNative.View, {
@@ -102139,7 +102360,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 118
+                lineNumber: 168
               }
             }),
             headerBar
@@ -102154,7 +102375,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 123
+                lineNumber: 173
               }
             },
             _react3.default.createElement(_reactNative.FlatList, {
@@ -102176,79 +102397,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               ListFooterComponent: this._renderFooter,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 126
+                lineNumber: 176
               }
             })
           ),
-          this.state.selected.size != 0 && _react3.default.createElement(
-            _reactNative.TouchableOpacity,
-            {
-              onPress: this._before_Delete,
-              style: myStyle.deleteSelect,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 142
-              }
-            },
-            _react3.default.createElement(_Ionicons2.default, {
-              style: {
-                color: "white",
-                marginLeft: 6
-              },
-              name: "md-trash",
-              size: 32,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 146
-              }
-            }),
-            _react3.default.createElement(
-              _reactNative.Text,
-              {
-                style: {
-                  marginLeft: -12,
-                  marginBottom: -20,
-                  width: 17,
-                  height: 17,
-                  textAlign: "center",
-                  backgroundColor: "#000",
-                  color: "#fff",
-                  borderRadius: 10,
-                  padding: 1,
-                  fontSize: 11
-                },
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 151
-                }
-              },
-              this.state.selected.size
-            )
-          ),
-          this.state.selected.size == 0 && _react3.default.createElement(
-            _reactNative.TouchableOpacity,
-            {
-              onPress: function onPress() {
-                _this4.refs.myModal.open();
-              },
-              style: myStyle.uploadSelect,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 172
-              }
-            },
-            _react3.default.createElement(_Ionicons2.default, {
-              style: {
-                color: "white"
-              },
-              name: "ios-cloud-upload-outline",
-              size: 32,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 178
-              }
-            })
-          )
+          buttonInsertDelete,
+          buttonUpload
         );
       }
     }, {
@@ -102391,36 +102545,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   exports.default = Media;
 
   var myStyle = _reactNative.StyleSheet.create({
-    deleteSelect: {
+    select: {
       flexDirection: "row",
       position: "absolute",
       width: 50,
       height: 50,
       bottom: 0,
       right: 0,
-      backgroundColor: "#FF3333",
-      zIndex: 1,
-      margin: 10,
-      borderRadius: 50,
-      justifyContent: "center",
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 20,
-        height: 20
-      },
-      shadowOpacity: 1.0,
-      shadowRadius: 10,
-      elevation: 5
-    },
-    uploadSelect: {
-      flexDirection: "row",
-      position: "absolute",
-      width: 50,
-      height: 50,
-      bottom: 0,
-      right: 0,
-      backgroundColor: "#0ABFBC",
       zIndex: 1,
       margin: 10,
       borderRadius: 50,
@@ -102499,6 +102630,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     textOver: {
       fontSize: 16
+    },
+    textDotButton: {
+      marginLeft: -12,
+      marginBottom: -20,
+      width: 17,
+      height: 17,
+      textAlign: "center",
+      backgroundColor: "#000",
+      color: "#fff",
+      borderRadius: 10,
+      padding: 1,
+      fontSize: 11
     }
   });
 },748,[118,179,12,492,749,743,493,624,742,725],"src\\components\\Media\\Media.js");
@@ -102780,7 +102923,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       key: "_comeBack",
       value: function _comeBack() {
         this.props.navigation.navigate("" + this.props.navigation.getParam("src"), {
-          srcImage: this.state.hinhanh.replace("http://localhost/thuctap", _API2.default.getURL())
+          srcImage: this.state.hinhanh.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL())
         });
       }
     }]);
@@ -102932,6 +103075,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _reactNative.Text,
           {
             style: {
+              color: "#fff",
               fontSize: 18,
               fontWeight: "bold",
               marginRight: 15
@@ -102959,6 +103103,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _reactNative.Text,
           {
             style: {
+              color: "#fff",
               fontSize: 18,
               fontWeight: "bold",
               marginRight: 10
@@ -108666,7 +108811,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           !this.state.empty && _react3.default.createElement(_reactNative.FlatList, {
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
-              return _this3.refresh();
+              return _this3._refresh();
             },
             data: this.state.noidung,
             keyExtractor: function keyExtractor(item, index) {
@@ -109664,6 +109809,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               srcImage: ""
             });
           }
+
+          var images = _this3.props.navigation.getParam("Images", []);
+
+          if (images.length != 0) {
+            _this3.refs.myModal.close();
+
+            images.forEach(function (src) {
+              _this3.richtext.insertImage({
+                src: src
+              });
+            });
+
+            _this3.props.navigation.setParams({
+              Images: []
+            });
+          }
         });
       }
     }, {
@@ -109677,7 +109838,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 75
+              lineNumber: 83
             }
           },
           this.state.uploading && _react3.default.createElement(
@@ -109691,7 +109852,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 77
+                lineNumber: 85
               }
             },
             _react3.default.createElement(
@@ -109700,7 +109861,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 83
+                  lineNumber: 91
                 }
               },
               _react3.default.createElement(
@@ -109709,7 +109870,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 84
+                    lineNumber: 92
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -109718,7 +109879,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 85
+                    lineNumber: 93
                   }
                 }),
                 _react3.default.createElement(
@@ -109727,7 +109888,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 90
+                      lineNumber: 98
                     }
                   },
                   "\u0110ang x\u1EED l\xFD"
@@ -109743,7 +109904,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 95
+                lineNumber: 103
               }
             },
             _react3.default.createElement(
@@ -109751,7 +109912,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 96
+                  lineNumber: 104
                 }
               },
               _react3.default.createElement(
@@ -109761,7 +109922,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 97
+                    lineNumber: 105
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -109770,7 +109931,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 98
+                    lineNumber: 106
                   }
                 }),
                 _react3.default.createElement(
@@ -109779,7 +109940,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 99
+                      lineNumber: 107
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -109792,7 +109953,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 101
+                    lineNumber: 109
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -109801,7 +109962,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 102
+                    lineNumber: 110
                   }
                 }),
                 _react3.default.createElement(
@@ -109810,7 +109971,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 103
+                      lineNumber: 111
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -109823,7 +109984,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 105
+                    lineNumber: 113
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -109832,7 +109993,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 109
+                    lineNumber: 117
                   }
                 }),
                 _react3.default.createElement(
@@ -109841,7 +110002,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 114
+                      lineNumber: 122
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -109858,7 +110019,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             initialContentHTML: this.state.noidung.content.rendered.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL()),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 121
+              lineNumber: 129
             }
           }),
           this.state.loaded && _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -109870,7 +110031,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 132
+              lineNumber: 140
             }
           }),
           this.state.loaded === false && _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -109878,7 +110039,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: "#0000ff",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 140
+              lineNumber: 148
             }
           })
         );
@@ -110369,6 +110530,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               srcImage: ""
             });
           }
+
+          var images = _this3.props.navigation.getParam("Images", []);
+
+          if (images.length != 0) {
+            _this3.refs.myModal.close();
+
+            images.forEach(function (src) {
+              _this3.richtext.insertImage({
+                src: src
+              });
+            });
+
+            _this3.props.navigation.setParams({
+              Images: []
+            });
+          }
         });
       }
     }, {
@@ -110382,7 +110559,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 68
+              lineNumber: 76
             }
           },
           this.state.uploading && _react3.default.createElement(
@@ -110396,7 +110573,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 70
+                lineNumber: 78
               }
             },
             _react3.default.createElement(
@@ -110405,7 +110582,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.modalBackground,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 76
+                  lineNumber: 84
                 }
               },
               _react3.default.createElement(
@@ -110414,7 +110591,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.activityIndicatorWrapper,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 77
+                    lineNumber: 85
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -110423,7 +110600,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   animating: this.state.uploading,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 78
+                    lineNumber: 86
                   }
                 }),
                 _react3.default.createElement(
@@ -110432,7 +110609,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 16,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 83
+                      lineNumber: 91
                     }
                   },
                   "\u0110ang x\u1EED l\xFD"
@@ -110448,7 +110625,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               position: "bottom",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 88
+                lineNumber: 96
               }
             },
             _react3.default.createElement(
@@ -110456,7 +110633,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 89
+                  lineNumber: 97
                 }
               },
               _react3.default.createElement(
@@ -110466,7 +110643,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 90
+                    lineNumber: 98
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -110475,7 +110652,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 91
+                    lineNumber: 99
                   }
                 }),
                 _react3.default.createElement(
@@ -110484,7 +110661,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 92
+                      lineNumber: 100
                     }
                   },
                   "Ch\u1EE5p \u1EA3nh"
@@ -110497,7 +110674,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 94
+                    lineNumber: 102
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -110506,7 +110683,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 20,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 95
+                    lineNumber: 103
                   }
                 }),
                 _react3.default.createElement(
@@ -110515,7 +110692,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 96
+                      lineNumber: 104
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n"
@@ -110528,7 +110705,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.button,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 98
+                    lineNumber: 106
                   }
                 },
                 _react3.default.createElement(_Ionicons2.default, {
@@ -110537,7 +110714,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 25,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 102
+                    lineNumber: 110
                   }
                 }),
                 _react3.default.createElement(
@@ -110546,7 +110723,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.textImage,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 107
+                      lineNumber: 115
                     }
                   },
                   "Ch\u1ECDn h\xECnh t\u1EEB th\u01B0 vi\u1EC7n WordPress"
@@ -110563,7 +110740,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             contentPlaceholder: "Nội dung trang",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 113
+              lineNumber: 121
             }
           }),
           _react3.default.createElement(_reactNativeZssRichTextEditor.RichTextToolbar, {
@@ -110575,7 +110752,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 119
+              lineNumber: 127
             }
           })
         );

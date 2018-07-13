@@ -65,6 +65,14 @@ class EditPost extends Component {
         this.richtext.insertImage({ src: srcImage });
         this.props.navigation.setParams({ srcImage: "" });
       }
+      let images = this.props.navigation.getParam("Images", []);
+      if (images.length != 0) {
+        this.refs.myModal.close();
+        images.forEach(src => {
+          this.richtext.insertImage({ src: src });
+        });
+        this.props.navigation.setParams({ Images: [] });
+      }
     });
   }
 

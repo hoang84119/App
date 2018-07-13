@@ -150,6 +150,24 @@ Image = {
       },
       method: "DELETE"
     });
+  },
+  GetSrcImage: async function(ids){
+    let srcImage =[];
+    let src ="";
+    for(let id of ids)
+    {
+      let response = await fetch(`${url}/wp-json/wp/v2/media/${id}`);
+      if(response.status===200){
+        let json = await response.json();
+        try {
+          src = json.media_details.sizes.large.source_url;
+        } catch (e) {
+          src = json.media_details.sizes.full.source_url;
+        }
+        srcImage.push(src.replace(/http:\/\/localhost\/thuctap/g, url));
+      }
+    }
+    return srcImage;
   }
 };
 
@@ -264,7 +282,6 @@ Post = {
       body: formData,
       method: "POST"
     });
-    console.log(response);
     if (response.status === 200) {
       return true;
     } else if (response.status === 201) {

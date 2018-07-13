@@ -89,7 +89,7 @@ class Page extends Component {
           <FlatList
             //style={myStyle.item}
             refreshing={this.state.refreshing}
-            onRefresh={() => this.refresh()}
+            onRefresh={() => this._refresh()}
             data={this.state.noidung}
             keyExtractor={(item, index) => item.id.toString()}
             renderItem={({ item }) => (

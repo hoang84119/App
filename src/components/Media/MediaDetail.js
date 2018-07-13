@@ -23,13 +23,13 @@ export default class MediaDetail extends Component {
     let headerRight = (
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity onPress={() => params.onDelete()}>
-          <Text style={{ fontSize: 18, fontWeight: "bold", marginRight: 15 }}>
+          <Text style={{color:"#fff", fontSize: 18, fontWeight: "bold", marginRight: 15 }}>
             Xóa
           </Text>
         </TouchableOpacity>
         {navigation.getParam("check", 0) === 1 && (
           <TouchableOpacity onPress={() => params.comeBack()}>
-            <Text style={{ fontSize: 18, fontWeight: "bold", marginRight: 10 }}>
+            <Text style={{color:"#fff", fontSize: 18, fontWeight: "bold", marginRight: 10 }}>
               Chọn
             </Text>
           </TouchableOpacity>
@@ -76,7 +76,7 @@ export default class MediaDetail extends Component {
   _comeBack() {
     //Alert.alert("T", this.state.hinhanh.replace("http://localhost", API.getURL()));
     this.props.navigation.navigate(`${this.props.navigation.getParam("src")}`, {
-      srcImage: this.state.hinhanh.replace("http://localhost/thuctap", API.getURL())
+      srcImage: this.state.hinhanh.replace(/http:\/\/localhost\/thuctap/g, API.getURL())
     });
   }
 

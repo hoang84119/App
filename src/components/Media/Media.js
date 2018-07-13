@@ -41,7 +41,7 @@ export default class Media extends Component {
   }
 
   render() {
-    var headerBar = (
+    let headerBar = (
       <View style={myStyle.headerTitleBar}>
         <View style={myStyle.headerTitle}>
           <TouchableOpacity
@@ -64,8 +64,8 @@ export default class Media extends Component {
               this.state.selected.clear();
               console.log(this.state.selected);
               this.setState({
-                selected:this.state.selected
-              })
+                selected: this.state.selected
+              });
             }}
           >
             <Feather style={myStyle.icon} name="x-circle" size={25} />
@@ -74,7 +74,57 @@ export default class Media extends Component {
         )}
       </View>
     );
-
+    let buttonUpload = null;
+    if (this.state.selected.size == 0)
+      if (this.props.navigation.getParam("check", 0) != 1)
+        buttonUpload = (
+          <TouchableOpacity
+            onPress={() => {
+              this.refs.myModal.open();
+            }}
+            style={[myStyle.select, { backgroundColor: "#0ABFBC" }]}
+          >
+            <IonIcon
+              style={{ color: "white" }}
+              name="ios-cloud-upload-outline"
+              size={32}
+            />
+          </TouchableOpacity>
+        );
+    let buttonInsertDelete = null;
+    if (this.state.selected.size != 0)
+      if (this.props.navigation.getParam("check", 0) != 1)
+        buttonInsertDelete = (
+          <TouchableOpacity
+            onPress={this._before_Delete}
+            style={[myStyle.select, { backgroundColor: "#FF3333" }]}
+          >
+            <IonIcon
+              style={{ color: "white", marginLeft: 6 }}
+              name="md-trash"
+              size={32}
+            />
+            <Text style={myStyle.textDotButton}>
+              {this.state.selected.size}
+            </Text>
+          </TouchableOpacity>
+        );
+      else
+        buttonInsertDelete = (
+          <TouchableOpacity
+            onPress={this._insertImage}
+            style={[myStyle.select, { backgroundColor: "#0ABFBC" }]}
+          >
+            <IonIcon
+              style={{ color: "white", marginLeft: 6 }}
+              name="md-send"
+              size={32}
+            />
+            <Text style={myStyle.textDotButton}>
+              {this.state.selected.size}
+            </Text>
+          </TouchableOpacity>
+        );
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <Modal
@@ -138,50 +188,8 @@ export default class Media extends Component {
             ListFooterComponent={this._renderFooter}
           />
         </View>
-        {this.state.selected.size != 0 && (
-          <TouchableOpacity
-            onPress={this._before_Delete}
-            style={myStyle.deleteSelect}
-          >
-            <IonIcon
-              style={{ color: "white", marginLeft: 6 }}
-              name="md-trash"
-              size={32}
-            />
-            <Text
-              style={{
-                // borderWidth: 1,
-                // borderColor: "#FF3030",
-                marginLeft: -12,
-                marginBottom: -20,
-                width: 17,
-                height: 17,
-                textAlign: "center",
-                backgroundColor: "#000",
-                color: "#fff",
-                borderRadius: 10,
-                padding: 1,
-                fontSize: 11
-              }}
-            >
-              {this.state.selected.size}
-            </Text>
-          </TouchableOpacity>
-        )}
-        {this.state.selected.size == 0 && (
-          <TouchableOpacity
-            onPress={() => {
-              this.refs.myModal.open();
-            }}
-            style={myStyle.uploadSelect}
-          >
-            <IonIcon
-              style={{ color: "white" }}
-              name="ios-cloud-upload-outline"
-              size={32}
-            />
-          </TouchableOpacity>
-        )}
+        {buttonInsertDelete}
+        {buttonUpload}
       </View>
     );
   }
@@ -290,6 +298,17 @@ export default class Media extends Component {
     />
   );
 
+  _insertImage = () => {
+    API.Image.GetSrcImage(this.state.selected).then(response => {
+      this.props.navigation.navigate(
+        `${this.props.navigation.getParam("src")}`,
+        {
+          Images: response
+        }
+      );
+    });
+  };
+
   _delete = () => {
     this.state.selected.forEach(value => {
       API.Image.DeleteImage(value).then(response => {
@@ -363,33 +382,13 @@ export default class Media extends Component {
 }
 
 const myStyle = StyleSheet.create({
-  deleteSelect: {
+  select: {
     flexDirection: "row",
     position: "absolute",
     width: 50,
     height: 50,
     bottom: 0,
     right: 0,
-    backgroundColor: "#FF3333",
-    zIndex: 1,
-    margin: 10,
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 20, height: 20 },
-    shadowOpacity: 1.0,
-    shadowRadius: 10,
-    elevation: 5
-  },
-  uploadSelect: {
-    flexDirection: "row",
-    position: "absolute",
-    width: 50,
-    height: 50,
-    bottom: 0,
-    right: 0,
-    backgroundColor: "#0ABFBC",
     zIndex: 1,
     margin: 10,
     borderRadius: 50,
@@ -456,5 +455,19 @@ const myStyle = StyleSheet.create({
   },
   textOver: {
     fontSize: 16
+  },
+  textDotButton: {
+    // borderWidth: 1,
+    // borderColor: "#FF3030",
+    marginLeft: -12,
+    marginBottom: -20,
+    width: 17,
+    height: 17,
+    textAlign: "center",
+    backgroundColor: "#000",
+    color: "#fff",
+    borderRadius: 10,
+    padding: 1,
+    fontSize: 11
   }
 });
