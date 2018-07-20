@@ -72,19 +72,21 @@ class PageDetail extends Component {
           </View>
         )}
         {this.state.loaded && (
-          <ScrollView style={{ flex: 1 , backgroundColor: "#fff"}}>
+          <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
             <ImageBackground
-              source={{ uri: this.props.navigation.getParam("featured_media","") }}
+              source={{
+                uri: this.props.navigation.getParam("featured_media", "")
+              }}
               style={myStyle.imageCover}
             >
-            <View style={myStyle.header}>
-              <Text style={myStyle.title}>
-                {this.state.noidung.title.rendered}
-              </Text>
-              <Text style={myStyle.textCapNhat}>
-                Cập nhật: {this._getDate()}
-              </Text>
-            </View>
+              <View style={myStyle.header}>
+                <Text style={myStyle.title}>
+                  {this.state.noidung.title.rendered}
+                </Text>
+                <Text style={myStyle.textCapNhat}>
+                  Cập nhật: {this._getDate()}
+                </Text>
+              </View>
             </ImageBackground>
 
             <View style={myStyle.container}>
@@ -130,23 +132,20 @@ class PageDetail extends Component {
   }
 
   _onEdit() {
-    this.props.navigation.navigate("EditPage", { id: this.props.navigation.getParam("id", "") });
+    this.props.navigation.navigate("EditPage", {
+      id: this.props.navigation.getParam("id", "")
+    });
   }
   _loadData() {
-    fetch(
-      API.getURL() +
-        "/wp-json/wp/v2/pages/" +
-        this.props.navigation.getParam("id", "")
-    )
-      .then(response => response.json())
-      .then(responseJson => {
+    API.Page.GetPageDetail(this.props.navigation.getParam("id", "")).then(
+      responseJson => {
         if (responseJson == null) {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
-          console.log("xong ne");
           this.setState({ noidung: responseJson, loaded: true });
         }
-      });
+      }
+    );
   }
 }
 const htmlContentStyle = {
@@ -198,7 +197,7 @@ const myStyle = StyleSheet.create({
     flex: 1,
     height: 150
   },
-  header:{
+  header: {
     flex: 1,
     paddingHorizontal: 10,
     justifyContent: "flex-end",
