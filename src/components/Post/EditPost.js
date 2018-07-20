@@ -22,8 +22,6 @@ import API from "../../config/API";
 class EditPost extends Component {
   constructor(props) {
     super(props);
-    //this.getHTML = this.getHTML.bind(this);
-    //this.setFocusHandlers = this.setFocusHandlers.bind(this);
     this.state = {
       noidung: [],
       loaded: false,
@@ -32,7 +30,6 @@ class EditPost extends Component {
   }
 
   static navigationOptions = ({ navigation }) => {
-    //let headerTitle = navigation.state.params.title;
     const { params = {} } = navigation.state;
     let headerRight = (
       <TouchableOpacity
@@ -185,28 +182,6 @@ class EditPost extends Component {
       }
     );
   }
-
-  // onEditorInitialized() {
-  //   this.setFocusHandlers();
-  //   this.getHTML();
-  // }
-
-  // async getHTML() {
-  //   const titleHtml = await this.richtext.getTitleHtml();
-  //   const contentHtml = await this.richtext.getContentHtml();
-  //   var html = contentHtml;
-  //   alert(titleHtml + " " + contentHtml);
-  // }
-
-  // setFocusHandlers() {
-  //   this.richtext.setTitleFocusHandler(() => {
-  //     //alert('title focus');
-  //   });
-  //   this.richtext.setContentFocusHandler(() => {
-  //     //alert('content focus');
-  //   });
-  // }
-
   _openCamera = async () => {
     let image = await ImagePicker.openCamera({
       width: 300,

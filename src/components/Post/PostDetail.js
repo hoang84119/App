@@ -205,12 +205,12 @@ class PostDetail extends Component {
           Alert.alert("Lỗi", "Không có nội dung");
         } else {
           this.setState({ noidung: responseJson });
-          this._loadTacGia();
+          this._loadAuthor();
         }
       }
     );
   }
-  _loadTacGia() {
+  _loadAuthor() {
     API.User.getUser(this.state.noidung.author).then(responseJson => {
       if (responseJson.length == 0) {
         Alert.alert("Lỗi", "Không có nội dung");
