@@ -197,7 +197,7 @@ class Tags extends Component {
             API.Tag.Remove(i).then(response => {
               if (response === true) {
                 ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-                this._loadData();
+                this._refreshing();
               } else Alert.alert("Cảnh báo", "Xóa thất bại!");
             });
           }
