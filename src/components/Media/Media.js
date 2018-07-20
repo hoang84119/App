@@ -323,7 +323,7 @@ export default class Media extends Component {
   _delete = () => {
     this.state.selected.forEach(value => {
       API.Image.DeleteImage(value).then(response => {
-        if (response.status == 200) {
+        if (response) {
           this.state.selected.clear();
           ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
           this._refresh();
