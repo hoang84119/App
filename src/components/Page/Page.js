@@ -27,8 +27,7 @@ class Page extends Component {
       refreshing: true,
       loading: false,
       page: 1,
-      over: false,
-      empty: false
+      over: false
     };
   }
 
@@ -77,20 +76,13 @@ class Page extends Component {
       <View style={myStyle.container}>
         {/* Thanh bar */}
         {headerBar}
-        {this.state.empty && (
-          <View style={myStyle.empty}>
-            <Feather name="alert-circle" size={60} />
-            <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
-          </View>
-        )}
-
         {/* Noi dung */}
-        {!this.state.empty && (
           <FlatList
             //style={myStyle.item}
             refreshing={this.state.refreshing}
             onRefresh={() => this._refresh()}
             data={this.state.noidung}
+            ListEmptyComponent={this._renderEmpty}
             keyExtractor={(item, index) => item.id.toString()}
             renderItem={({ item }) => (
               <ItemPage
@@ -106,7 +98,6 @@ class Page extends Component {
             }}
             ListFooterComponent={this._renderFooter}
           />
-        )}
       </View>
     );
   }
@@ -128,7 +119,7 @@ class Page extends Component {
             }).then(response => {
               if (response.status == 200) {
                 ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-                this.refresh();
+                this._refresh();
               } else Alert.alert("Cảnh báo", "Xóa thất bại!");
             });
           }
@@ -136,6 +127,16 @@ class Page extends Component {
         { text: "Hủy", style: "cancel" }
       ],
       { cancelable: false }
+    );
+  };
+
+  _renderEmpty = () => {
+    if(this.state.refreshing) return null;
+    return (
+      <View style={myStyle.empty}>
+        <Feather name="alert-circle" size={60} />
+        <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
+      </View>
     );
   };
 
@@ -169,27 +170,13 @@ class Page extends Component {
         });
   }
 
-  // _loadData() {
-  //   this.setState({ refreshing: true });
-  //   API.Page.GetAllPage(1)
-  //     .then(responseJson => {
-  //       if (responseJson.length === 0) {
-  //         this.setState({ empty: true, refreshing: false });
-  //       } else {
-  //         this.setState({ noidung: responseJson, refreshing: false });
-  //       }
-  //     });
-  // }
   async _loadData() {
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
         let response = await API.Page.GetAllPage(i);
         if (response != null) {
-          if (response.length === 0) {
-            this.setState({ empty: true });
-            break;
-          } else {
+          if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
           }
         }
@@ -276,7 +263,8 @@ const myStyle = StyleSheet.create({
   title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
   empty: {
     flexDirection: "column",
-    flex: 1,
+    //flex: 1,
+    marginTop:20,
     alignItems: "center",
     justifyContent: "center"
   },

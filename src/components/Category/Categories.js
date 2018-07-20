@@ -74,6 +74,7 @@ class Categories extends Component {
           refreshing={this.state.refreshing}
           onRefresh={() => this._refreshing()}
           data={this.state.data}
+          ListEmptyComponent={this._renderEmpty}
           keyExtractor={(item, index) => item.id.toString()}
           renderItem={({ item }) => (
             <ItemCategory
@@ -93,6 +94,16 @@ class Categories extends Component {
       </View>
     );
   }
+
+  _renderEmpty = () => {
+    if(this.state.refreshing) return null;
+    return (
+      <View style={myStyle.empty}>
+        <Feather name="alert-circle" size={60} />
+        <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
+      </View>
+    );
+  };
 
   _renderFooter = () => {
     if (this.state.loading)
@@ -131,15 +142,12 @@ class Categories extends Component {
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
-        let response = await fetch(
-          `${API.getURL()}/wp-json/wp/v2/categories?parent=0&page=${i}`
-        );
-        if (response.status === 200) {
-          let responseJson = await response.json();
-          if (responseJson.length != 0) {
-            dataTemp = dataTemp.concat(responseJson);
+        let response = await API.Category.GetAllCategory(i);
+        if (response != null) {
+          if (response.length != 0) {
+            dataTemp = dataTemp.concat(response);
           }
-        } else if (response.status === 400) {
+        } else{
           ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
         }
       }
@@ -150,14 +158,9 @@ class Categories extends Component {
         over: false
       });
     } else {
-      let response = await fetch(
-        `${API.getURL()}/wp-json/wp/v2/categories?parent=0&page=${
-          this.state.page
-        }`
-      );
-      if (response.status === 200) {
-        let responseJson = await response.json();
-        if (responseJson.length === 0) {
+      let response = await API.Category.GetAllCategory(this.state.page);
+      if (response != null) {
+        if (response.length === 0) {
           this.setState({
             refreshing: false,
             loading: false,
@@ -166,29 +169,16 @@ class Categories extends Component {
           });
         } else {
           this.setState({
-            data: this.state.data.concat(responseJson),
+            data: this.state.data.concat(response),
             refreshing: false,
             loading: false,
             over: false
           });
         }
-      } else if (response.status === 400) {
+      } else{
         ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
       }
     }
-  }
-
-  loadData() {
-    this.setState({ refreshing: true });
-    fetch(API.getURL() + "/wp-json/wp/v2/categories?parent=0")
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson == null) {
-          Alert.alert("Lỗi", "Không có nội dung");
-        } else {
-          this.setState({ data: responseJson, refreshing: false });
-        }
-      });
   }
 
   _onAdd() {
@@ -260,7 +250,13 @@ const myStyle = StyleSheet.create({
   },
   textOver: {
     fontSize: 16
-  }
+  },
+  empty: {
+    flexDirection: "column",
+    marginTop:20,
+    alignItems: "center",
+    justifyContent: "center"
+  },
 });
 
 function mapStateToProps(state) {

@@ -6,6 +6,15 @@ import { AsyncStorage, ToastAndroid } from "react-native";
 import Base64 from "./Base64";
 
 Category = {
+  GetAllCategory: async function(page) {
+    let address = `${url}/wp-json/wp/v2/categories?parent=0&page=${page}`;
+    let response = await fetch(address);
+    if(response.status === 200) {
+      let responseJson = await response.json();
+      return responseJson;
+    }
+    return null;
+  },
   Remove: async function(id) {
     try {
       var base64 = await AsyncStorage.getItem("Base64", "");
@@ -57,6 +66,15 @@ Category = {
 };
 
 Tag = {
+  GetAllTag: async function(page) {
+    let address = `${url}/wp-json/wp/v2/tags?page=${page}`;
+    let response = await fetch(address);
+    if(response.status === 200) {
+      let responseJson = await response.json();
+      return responseJson;
+    }
+    return null;
+  },
   Remove: async function(id) {
     try {
       var base64 = await AsyncStorage.getItem("Base64", "");
@@ -180,6 +198,10 @@ Page = {
       return responseJson;
     }
     return null;
+  },
+  GetPageDetail: async function(id) {
+    let response = await fetch(API.getURL() + "/wp-json/wp/v2/pages/" + id);
+    if(response.status === 200) return response.json();
   },
   Remove: async function(id) {
     try {

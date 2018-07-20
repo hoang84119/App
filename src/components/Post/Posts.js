@@ -27,8 +27,7 @@ class Posts extends Component {
       refreshing: true,
       loading: false,
       page: 1,
-      over: false,
-      empty: false
+      over: false
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -106,20 +105,14 @@ class Posts extends Component {
       <View style={myStyle.container}>
         {/* Thanh bar */}
         {headerBar}
-        {this.state.empty && (
-          <View style={myStyle.empty}>
-            <Feather name="alert-circle" size={60} />
-            <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
-          </View>
-        )}
 
         {/* Noi dung */}
-
         <FlatList
-          //style={myStyle.item}
+          //style={{flex:1, justifyContent:"center", alignItems:"center"}}
           refreshing={this.state.refreshing}
           onRefresh={() => this._refresh()}
           data={this.state.noidung}
+          ListEmptyComponent={this._renderEmpty}
           keyExtractor={(item, index) => item.id.toString()}
           renderItem={({ item }) => (
             <ItemPost
@@ -138,6 +131,16 @@ class Posts extends Component {
       </View>
     );
   }
+
+  _renderEmpty = () => {
+    if(this.state.refreshing) return null;
+    return (
+      <View style={myStyle.empty}>
+        <Feather name="alert-circle" size={60} />
+        <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
+      </View>
+    );
+  };
 
   _renderFooter = () => {
     if (this.state.loading)
@@ -188,7 +191,7 @@ class Posts extends Component {
     API.Post.Delete(id).then(response => {
       if (response) {
         ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-        this.refresh();
+        this._refresh();
       } else Alert.alert("Cảnh báo", "Xóa thất bại!");
     });
   };
@@ -205,10 +208,7 @@ class Posts extends Component {
       for (let i = 1; i <= this.state.page; i++) {
         let response = await API.Post.GetAllPost(idCategory, idTag, i);
         if (response != null) {
-          if (response.length === 0) {
-            this.setState({ empty: true });
-            break;
-          } else {
+          if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
           }
         }
@@ -300,7 +300,7 @@ const myStyle = StyleSheet.create({
   loading: { paddingVertical: 10 },
   empty: {
     flexDirection: "column",
-    flex: 1,
+    marginTop:20,
     alignItems: "center",
     justifyContent: "center"
   },

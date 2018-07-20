@@ -25,8 +25,8 @@ class AddPost extends Component {
     this.state={
       uploading: false
     };
-    this.getHTML = this.getHTML.bind(this);
-    this.setFocusHandlers = this.setFocusHandlers.bind(this);
+    // this.getHTML = this.getHTML.bind(this);
+    // this.setFocusHandlers = this.setFocusHandlers.bind(this);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -133,11 +133,11 @@ class AddPost extends Component {
     );
   }
 
-  async getHTML() {
-    const titleHtml = await this.richtext.getTitleHtml();
-    const contentHtml = await this.richtext.getContentHtml();
-    alert(titleHtml + " " + contentHtml);
-  }
+  // async getHTML() {
+  //   const titleHtml = await this.richtext.getTitleHtml();
+  //   const contentHtml = await this.richtext.getContentHtml();
+  //   alert(titleHtml + " " + contentHtml);
+  // }
 
   async _onAdd() {
     if (this.props.navigation.state.params.isAdding == true) return;
@@ -155,19 +155,19 @@ class AddPost extends Component {
     });
   }
 
-  onEditorInitialized() {
-    this.setFocusHandlers();
-    this.getHTML();
-  }
+  // onEditorInitialized() {
+  //   this.setFocusHandlers();
+  //   this.getHTML();
+  // }
 
-  setFocusHandlers() {
-    this.richtext.setTitleFocusHandler(() => {
-      //alert('title focus');
-    });
-    this.richtext.setContentFocusHandler(() => {
-      //alert('content focus');
-    });
-  }
+  // setFocusHandlers() {
+  //   this.richtext.setTitleFocusHandler(() => {
+  //     //alert('title focus');
+  //   });
+  //   this.richtext.setContentFocusHandler(() => {
+  //     //alert('content focus');
+  //   });
+  // }
   _openCamera = async () => {
     let image = await ImagePicker.openCamera({
       width: 300,
