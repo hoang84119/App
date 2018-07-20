@@ -154,20 +154,7 @@ class AddPost extends Component {
       }
     });
   }
-
-  // onEditorInitialized() {
-  //   this.setFocusHandlers();
-  //   this.getHTML();
-  // }
-
-  // setFocusHandlers() {
-  //   this.richtext.setTitleFocusHandler(() => {
-  //     //alert('title focus');
-  //   });
-  //   this.richtext.setContentFocusHandler(() => {
-  //     //alert('content focus');
-  //   });
-  // }
+  
   _openCamera = async () => {
     let image = await ImagePicker.openCamera({
       width: 300,

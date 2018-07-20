@@ -195,11 +195,7 @@ class Posts extends Component {
       } else Alert.alert("Cảnh báo", "Xóa thất bại!");
     });
   };
-
-  // _refresh() {
-  //   this._loadData();
-  // }
-
+  
   async _loadData() {
     let idCategory = this.props.navigation.getParam("idCategory", "");
     let idTag = this.props.navigation.getParam("idTag", "");
@@ -243,37 +239,10 @@ class Posts extends Component {
     }
   }
 
-  _onLogin() {
-    this.props.navigation.navigate("login");
-  }
-
-  _onLogout() {
-    AsyncStorage.removeItem("Base64").then(() => {
-      this.props.dispatch({
-        type: "DeleteDataUser"
-      });
-      ToastAndroid.show("Đã đăng xuất", ToastAndroid.LONG);
-      //BackHandler.exitApp();
-    });
-  }
   _onAdd() {
-    // if (this.props.navigation.state.params.isAdding == true) return;
-    // this.props.navigation.setParams({ isAdding: true });
     this.props.navigation.navigate("thembaiviet");
   }
 
-  onBackButtonPress = () => {
-    Alert.alert(
-      "Thoát",
-      "Bạn muốn thoát không",
-      [
-        { text: "Đồng ý", onPress: () => BackHandler.exitApp() },
-        { text: "Hủy", style: "cancel" }
-      ],
-      { cancelable: false }
-    );
-    return true;
-  };
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
