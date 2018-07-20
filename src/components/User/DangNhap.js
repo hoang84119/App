@@ -131,7 +131,6 @@ class DangNhap extends Component {
   }
 }
 
-//export default connect()(DangNhap);
 export default DangNhap;
 
 const myStyle = StyleSheet.create({

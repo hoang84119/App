@@ -64,6 +64,7 @@ class Setting extends Component {
                 <Text style={myStyle.title}>Thay đổi địa chỉ</Text>
               </View>
               <TextInput
+                underlineColorAndroid="#0ABFBC"
                 autoFocus={true}
                 style={myStyle.input}
                 onChangeText={p => {
@@ -72,7 +73,7 @@ class Setting extends Component {
                 value={this.state.url}
                 placeholder="Địa chỉ trang web"
               />
-              <Text> VD: http://abc.com, https://xyz.org...</Text>
+              <Text style={{marginBottom: 10}}> VD: http://abc.com, https://xyz.org...</Text>
               <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "flex-end"}}>
                 <TouchableOpacity onPress={() =>  { this.setState({address: false})}}><Text style={[myStyle.txt,{color: "gray"}]} >Hủy</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() =>  { this._addURL()}}><Text style={myStyle.txt} >Chỉnh sửa</Text></TouchableOpacity>
@@ -90,45 +91,29 @@ class Setting extends Component {
           <FontAwesome name="globe" size={24} style={myStyle.icon} />
           <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress = {() => this._onAnddres()} style={myStyle.btn}>
-          <FontAwesome name="globe" size={24} style={myStyle.icon} />
-          <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress = {() => this._onAnddres()} style={myStyle.btn}>
-          <FontAwesome name="globe" size={24} style={myStyle.icon} />
-          <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress = {() => this._onAnddres()} style={myStyle.btn}>
-          <FontAwesome name="globe" size={24} style={myStyle.icon} />
-          <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress = {() => this._onAnddres()} style={myStyle.btn}>
-          <FontAwesome name="globe" size={24} style={myStyle.icon} />
-          <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress = {() => this._onAnddres()} style={myStyle.btn}>
-          <FontAwesome name="globe" size={24} style={myStyle.icon} />
-          <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress = {() => this._onAnddres()} style={myStyle.btn}>
-          <FontAwesome name="globe" size={24} style={myStyle.icon} />
-          <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress = {() => this._onAnddres()} style={myStyle.btn}>
-          <FontAwesome name="globe" size={24} style={myStyle.icon} />
-          <Text style={myStyle.text}>Thay đổi địa chỉ</Text>
-        </TouchableOpacity>
       </ScrollView>
       </ImageBackground>
     );
   }
 
-  _addURL = ()=>{
-    this.setState({address: false})
-    AsyncStorage.setItem("URL", this.state.url).then(()=>{
-        RNRestart.Restart();
-    })
-  }
+  _addURL = () => {
+    if(this.state.url == "http://" || this.state.url == "" || this.state.url == "https://" || this.state.url.indexOf(".") == -1)
+      ToastAndroid.show("Trang web không hợp lệ!", ToastAndroid.LONG);
+    else if(this.state.url.indexOf("http://") != -1 || this.state.url.indexOf("https://") != -1 )
+            {
+              this.setState({address: false})
+              AsyncStorage.setItem("URL", this.state.url).then(()=>{
+                  RNRestart.Restart();
+              })
+            }
+            else{
+              this.setState({address: false})
+              AsyncStorage.setItem("URL", "http://" + this.state.url).then(()=>{
+                  RNRestart.Restart();
+              })
+            }
+
+  };
 }
 
 const myStyle = StyleSheet.create({
@@ -174,15 +159,16 @@ const myStyle = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "center",
     width: 300,
-    height: 150
+    height: 170
   },
   title:{
     color: "#0ABFBC",
     fontSize: 20,
+    marginBottom: 12
   }, 
   txt:{
-    paddingHorizontal: 5,
-    paddingTop: 5,
+    paddingHorizontal: 10,
+    //paddingTop: 3,
     textAlign: "right",
     color: "#0ABFBC",
     fontSize: 17,

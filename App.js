@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Text,
   StyleSheet,
-  Modal,
+  ToastAndroid,
   AsyncStorage,
   TextInput,
   TouchableOpacity
@@ -39,7 +39,7 @@ class App extends Component {
       logged: false,
       haveUrl: false,
       showModal: false,
-      url: "http://"
+      url: ""
     };
   }
 
@@ -132,11 +132,22 @@ class App extends Component {
   }
 
   _addURL = () => {
-    AsyncStorage.setItem("URL", this.state.url).then(() => {
-      API.setURL(this.state.url);
-      this._validateAccount();
-      this.setState({ loading: false, haveUrl: true });
-    });
+    if(this.state.url == "http://" || this.state.url == "" || this.state.url == "https://" || this.state.url.indexOf(".") == -1)
+      ToastAndroid.show("Trang web không hợp lệ!", ToastAndroid.LONG);
+    else if(this.state.url.indexOf("http://") != -1 || this.state.url.indexOf("https://") != -1 ){
+      //this.setState({url: this.state.url.replace("http://", "").replace("https://", "")})
+      AsyncStorage.setItem("URL",this.state.url).then(() => {
+        API.setURL(this.state.url);
+        this._validateAccount();
+        this.setState({ loading: false, haveUrl: true });
+      });
+    }else{
+      AsyncStorage.setItem("URL", "http://" + this.state.url).then(() => {
+        API.setURL("http://"+ this.state.url);
+        this._validateAccount();
+        this.setState({ loading: false, haveUrl: true });
+      });
+    }
   };
 
   _validateAccount() {
