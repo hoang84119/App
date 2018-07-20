@@ -46,22 +46,8 @@ export default class MediaDetail extends Component {
         {
           text: "Xóa",
           onPress: () => {
-            fetch(
-              API.getURL() +
-                "/wp-json/wp/v2/media/" +
-                this.props.navigation.getParam("id", "") +
-                "?force=true",
-              {
-                headers: {
-                  Authorization:
-                    "Basic " +
-                    Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
-                },
-                method: "DELETE"
-              }
-            ).then(response => {
-              var t = response.status;
-              if (response.status == 200) {
+            API.Image.DeleteImage(this.props.navigation.getParam("id", "")).then(response => {
+              if (response) {
                 ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
                 this.props.navigation.navigate("scmedia");
               } else Alert.alert("Cảnh báo", "Xóa thất bại!");
