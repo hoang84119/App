@@ -88,7 +88,7 @@ class Page extends Component {
               <ItemPage
                 data={item}
                 navigation={this.props.navigation}
-                delete={this._delete}
+                delete={this._beforeDelete}
                 userName={this.props.dataUser.name}
               />
             )}
@@ -102,32 +102,28 @@ class Page extends Component {
     );
   }
 
-  _delete = (i, t) => {
+  _beforeDelete = (id, t) => {
     Alert.alert(
       "Thông báo",
       "Bạn có thật sự muốn xóa ''" + t + "'' không?",
       [
         {
           text: "Xóa",
-          onPress: () => {
-            fetch(API.getURL() + "/wp-json/wp/v2/pages/" + i, {
-              headers: {
-                Authorization:
-                  "Basic " + Base64.btoa("admin:yEgN NbO6 w6k3 vSuU xBjV E8Ok") //MK: SO1H sjHe BmAm jzX1 wQZc 5LlD
-              },
-              method: "DELETE"
-            }).then(response => {
-              if (response.status == 200) {
-                ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-                this._refresh();
-              } else Alert.alert("Cảnh báo", "Xóa thất bại!");
-            });
-          }
+          onPress: ()=> this._delete(id)
         },
         { text: "Hủy", style: "cancel" }
       ],
       { cancelable: false }
     );
+  };
+
+  _delete = id => {
+    API.Page.Delete(id).then(response => {
+      if (response) {
+        ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
+        this._refresh();
+      } else Alert.alert("Cảnh báo", "Xóa thất bại!");
+    });
   };
 
   _renderEmpty = () => {

@@ -179,7 +179,7 @@ class Posts extends Component {
       [
         {
           text: "Xóa",
-          onPress: this._delete(id)
+          onPress: ()=> this._delete(id)
         },
         { text: "Hủy", style: "cancel" }
       ],

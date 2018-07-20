@@ -203,7 +203,7 @@ Page = {
     let response = await fetch(API.getURL() + "/wp-json/wp/v2/pages/" + id);
     if(response.status === 200) return response.json();
   },
-  Remove: async function(id) {
+  Delete: async function(id) {
     try {
       var base64 = await AsyncStorage.getItem("Base64", "");
     } catch (e) {
@@ -211,7 +211,7 @@ Page = {
     }
     try {
       let response = await fetch(
-        `${url}/wp-json/wp/v2/pages/${id}?force=true`,
+        `${url}/wp-json/wp/v2/pages/${id}`,
         {
           headers: {
             Authorization: "Basic " + base64
