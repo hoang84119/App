@@ -172,10 +172,10 @@ class Posts extends Component {
         });
   }
 
-  _beforeDelete = (id, t) => {
+  _beforeDelete = (id) => {
     Alert.alert(
       "Thông báo",
-      "Bạn có thật sự muốn xóa ''" + t + "'' không?",
+      "Bạn có thật sự muốn xóa bài viết này không?",
       [
         {
           text: "Xóa",

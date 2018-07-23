@@ -19,7 +19,7 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: "",
+      data: [],
       refreshing: true,
       page: 1,
       over: false,
