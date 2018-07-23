@@ -172,7 +172,7 @@ class Posts extends Component {
         });
   }
 
-  _beforeDelete = (id, t) => {
+  _beforeDelete = (id) => {
     Alert.alert(
       "Thông báo",
       "Bạn có thật sự muốn xóa bài viết này không?",
