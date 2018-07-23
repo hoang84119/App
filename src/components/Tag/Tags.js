@@ -158,7 +158,7 @@ class Tags extends Component {
         over: false
       });
     } else {
-      let response = await API.Tag.GetAllTag(i)
+      let response = await API.Tag.GetAllTag(this.state.page)
       if (response != null) {
         if (response.length === 0) {
           this.setState({

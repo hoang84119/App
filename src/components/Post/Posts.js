@@ -175,7 +175,7 @@ class Posts extends Component {
   _beforeDelete = (id, t) => {
     Alert.alert(
       "Thông báo",
-      "Bạn có thật sự muốn xóa ''" + t + "'' không?",
+      "Bạn có thật sự muốn xóa bài viết này không?",
       [
         {
           text: "Xóa",
