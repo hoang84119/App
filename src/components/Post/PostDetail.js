@@ -122,6 +122,7 @@ class PostDetail extends Component {
                       data={item}
                       deleteComments={this._deleteComments}
                       loaded={this.state.loaded}
+                      dataUser={this.props.dataUser}
                     />
                   )}
                 />
