@@ -126,10 +126,6 @@ class PageDetail extends Component {
     let days = parseInt(time / msPerDay);
     if (days < 30) return `${days} ngày trước`;
   };
-  _onOpenModal() {
-    this.refs.addModal.showModal(0, 0);
-    //this.setState({isComment:true});
-  }
 
   _onEdit() {
     this.props.navigation.navigate("EditPage", {
