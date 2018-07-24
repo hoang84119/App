@@ -11,6 +11,15 @@ import HTML from "react-native-render-html";
 import API from "../../../config/API";
 
 class ItemContentPost extends Component {
+
+  renderers = {
+    span: (htmlAttribs, children) => (
+      <Text style={myStyle.title}>
+        {children}
+      </Text>
+    )
+  };
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -30,7 +39,12 @@ class ItemContentPost extends Component {
         </ImageBackground>
 
         <View style={myStyle.container}>
-          <Text style={myStyle.title}>{this.props.noidung.title.rendered}</Text>
+          {/* <Text style={myStyle.title}>{this.props.noidung.title.rendered}</Text> */}
+                <HTML
+                  html={`<span style="fontSize:20">${this.props.noidung.title.rendered}</span>`}
+                  //tagsStyles={htmlStyle}
+                  renderers={this.renderers}
+                />
           <Text style={myStyle.textCapNhat}>
             Cập nhật lúc: {this._getDate()}
           </Text>
@@ -121,7 +135,6 @@ const myStyle = StyleSheet.create({
     flexDirection: "column"
   },
   title: {
-    fontSize: 20,
     fontWeight: "500",
     color: "#282828"
   },
