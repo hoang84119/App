@@ -151,8 +151,9 @@ class Posts extends Component {
       );
     else if (this.state.over)
       return (
-        <View style={{ paddingVertical: 10, alignItems: "center" }}>
-          <Text style={myStyle.textOver}>Hết nội dung</Text>
+        <View style={{ flexDirection: "row", justifyContent: "center", paddingVertical: 10, alignItems: "center" }}>
+          <Feather name="alert-circle" size= {14}/>
+          <Text style={myStyle.textOver}> Hết nội dung</Text>
         </View>
       );
     else return null;
@@ -274,7 +275,7 @@ const myStyle = StyleSheet.create({
     justifyContent: "center"
   },
   textOver: {
-    fontSize: 16
+    fontSize: 10
   }
 });
 

@@ -113,9 +113,10 @@ class Tags extends Component {
       );
     else if (this.state.over)
       return (
-        <View style={myStyle.loading}>
-          <Text style={myStyle.textOver}>Hết nội dung</Text>
-        </View>
+        <View style={{ flexDirection: "row", justifyContent: "center", paddingVertical: 10, alignItems: "center" }}>
+        <Feather name="alert-circle" size= {14}/>
+        <Text style={myStyle.textOver}> Hết nội dung</Text>
+      </View>
       );
     else return null;
   };
@@ -243,7 +244,7 @@ const myStyle = StyleSheet.create({
     alignItems: "center"
   },
   textOver: {
-    fontSize: 16
+    fontSize: 10
   },
   empty: {
     flexDirection: "column",
