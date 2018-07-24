@@ -62,6 +62,14 @@ class PageDetail extends Component {
     });
   }
 
+  renderers = {
+    span: (htmlAttribs, children) => (
+      <Text style={myStyle.title}>
+        {children}
+      </Text>
+    )
+  };
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -80,9 +88,14 @@ class PageDetail extends Component {
               style={myStyle.imageCover}
             >
               <View style={myStyle.header}>
-                <Text style={myStyle.title}>
+                {/* <Text style={myStyle.title}>
                   {this.state.noidung.title.rendered}
-                </Text>
+                </Text> */}
+                <HTML
+                  html={`<span style="fontSize:20">${this.state.noidung.title.rendered}</span>`}
+                  //tagsStyles={htmlStyle}
+                  renderers={this.renderers}
+                />
                 <Text style={myStyle.textCapNhat}>
                   Cập nhật: {this._getDate()}
                 </Text>
