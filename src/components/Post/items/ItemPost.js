@@ -178,18 +178,8 @@ class ItemPost extends Component {
     }
   };
 
-  // Xóa link trong nội dung
-  removeLink(content) {
-    //tìm thẻ img đầu tiên
-    let indexLink = content.toString().indexOf("&hellip");
-    //không tìm thấy trả lại nội dung
-    if (indexLink == -1) return content;
-    // cắt bỏ đường link
-    return content.substring(0, indexLink + 8);
-  }
   formatExcerpt(content) {
     //Mỗi trích đoạn chỉ lấy tối đa 100 ký tự
-    //content = this.removeLink(content);
     return content.length > 120
       ? content.substring(0, 120) + "...</p>"
       : content;

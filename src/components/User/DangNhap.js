@@ -31,32 +31,13 @@ class DangNhap extends Component {
       Alert.alert("Lỗi", "Mật khẩu không được rỗng");
     } else {
       try {
-        // API.generate_auth_cookie(this.state.user, this.state.pass).then(async response => {
-        //   if (response.status == "error") {
-        //     Alert.alert("Lỗi", "Sai tên đăng nhập hoặc mật khẩu");
-        //     this.setState({
-        //       isLoading: false
-        //     });
-        //   } else {
-        //     this.setState({ isLoading: false });
-        //     await AsyncStorage.setItem("Cookie", response.cookie);
-        //     let value = await AsyncStorage.getItem("Cookie");
-        //     this.props.navigation.navigate("MainScreen");
-        //   }
-        // });
         API.Account.Login(this.state.user, this.state.pass).then(response => {
           this.setState({ isLoading: false });
           if (response) {
-            // this.props.dispatch({
-            //   type: 'SetDataUser',
-            //   data: response
-            // });
-            //this.props.navigation.navigate("App");
             RNRestart.Restart();
           }
           else {
             //ToastAndroid.show(response.admin,ToastAndroid.LONG);
-            
           }
         })
       } catch (e) {

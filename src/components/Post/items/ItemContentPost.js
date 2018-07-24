@@ -14,11 +14,6 @@ class ItemContentPost extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        {/* <ImageBackground
-          style={{ width: Dimensions.get("window").width, height: 200 }}
-          source={{ uri: this.props.featured_media }}
-          resizeMode="cover"
-        /> */}
         <ImageBackground
           source={{ uri: this.props.featured_media }}
           style={myStyle.imageCover}
@@ -57,9 +52,6 @@ class ItemContentPost extends Component {
           />
         </View>
       </View>
-      //         <HTML
-      //           html={"<span>" + this.props.noidung.title.rendered + "</span>"}
-      //           tagsStyles={htmlTitleStyle}
     );
   }
 
@@ -91,12 +83,6 @@ const htmlContentStyle = {
     margin: 5,
     color: "#000"
   }
-  // img: {
-  //   // width: 800,
-  //   // height: 400
-  //   // borderColor: "black",
-  //   // borderWidth: 1
-  // }
 };
 const myStyle = StyleSheet.create({
   imageCover: {
@@ -128,14 +114,11 @@ const myStyle = StyleSheet.create({
   },
   container: {
     margin: 10
-    // flexDirection:"column",
-    // alignItems:"center"
   },
   content: {
     padding: 5,
     flex: 1,
     flexDirection: "column"
-    //alignItems: "center"
   },
   title: {
     fontSize: 20,
