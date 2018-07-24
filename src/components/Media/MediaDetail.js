@@ -41,7 +41,7 @@ export default class MediaDetail extends Component {
   _onDelete() {
     Alert.alert(
       "Thông báo",
-      "Bạn có thật sự muốn xóa ''" + this.state.ten + "'' không?",
+      "Hình này sẽ được xóa vĩnh viễn trong trang web của bạn",
       [
         {
           text: "Xóa",

@@ -258,6 +258,16 @@ export default class Media extends Component {
     }
   }
 
+  _renderEmpty = () => {
+    if(this.state.refreshing) return null;
+    return (
+      <View style={myStyle.empty}>
+        <Feather name="alert-circle" size={60} />
+        <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
+      </View>
+    );
+  };
+  
   _renderFooter = () => {
     if (this.state.loading)
       return (
@@ -282,16 +292,6 @@ export default class Media extends Component {
       //selected.set(id, !selected.get(id));
       return { selected };
     });
-  };
-
-  _renderEmpty = () => {
-    if(this.state.refreshing) return null;
-    return (
-      <View style={myStyle.empty}>
-        <Feather name="alert-circle" size={60} />
-        <Text style={{ margin: 10, fontSize: 16 }}>Không có nội dung</Text>
-      </View>
-    );
   };
 
   _renderItem = ({ item }) => (
