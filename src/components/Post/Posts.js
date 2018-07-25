@@ -28,7 +28,8 @@ class Posts extends Component {
       refreshing: true,
       loading: false,
       page: 1,
-      over: false
+      over: false,
+      strSearch: ""
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -101,7 +102,7 @@ class Posts extends Component {
                 underlineColorAndroid="rgba(0,0,0,0)"
                 style={myStyle.ctmInput}
                 onChangeText={u => {
-                  this.setState({ user: u });
+                  this.setState({ strSearch: u });
                 }}
                 placeholder="Tìm bài viết"
               />
