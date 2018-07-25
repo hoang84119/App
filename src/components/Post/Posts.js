@@ -142,7 +142,7 @@ class Posts extends Component {
               }}
             >
               <Feather
-                style={[myStyle.icon, { marginRight: 0 }]}
+                style={myStyle.icon}
                 name="search"
                 size={28}
               />
@@ -322,7 +322,7 @@ class Posts extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginRight: 10, marginLeft: 5, color: "#fff" },
+  icon: { marginRight: 10, color: "#fff" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -355,6 +355,7 @@ const myStyle = StyleSheet.create({
     borderRadius: 40,
     paddingLeft: 10,
     paddingRight: 10,
+    marginRight: 7,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
