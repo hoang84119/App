@@ -96,8 +96,8 @@ class ItemCategory extends Component {
   }
   
   _formatExcerpt(content) {
-    //Mỗi trích đoạn chỉ lấy tối đa 120 ký tự
-    return content.length > 120 ? content.substring(0, 120) : content;
+    //Mỗi trích đoạn chỉ lấy tối đa 100 ký tự
+    return content.length > 100 ? content.substring(0, 100) + "..." : content;
   }
 }
 
