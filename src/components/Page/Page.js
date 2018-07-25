@@ -10,7 +10,8 @@ import {
   AsyncStorage,
   Text,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
+  TextInput
 } from "react-native";
 import API from "../../config/API";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -60,8 +61,48 @@ class Page extends Component {
               size={25}
             />
           </TouchableOpacity>
-          <Text style={myStyle.title}>Quản lý trang</Text>
-        </View>
+          {!this.state.isSearch && (<Text style={myStyle.title}>Quản lý trang</Text>)}
+            {
+              this.state.isSearch &&(
+                <View style={myStyle.vText}>
+              <TouchableOpacity onPress={() => this.setState({isSearch: false})} style={{ width: 30, alignItems: 'center' }}>
+                <Feather name="search" size={24} style={{ color: "white" }} />
+              </TouchableOpacity>
+              <TextInput
+                onEndEditing={() => this.setState({isSearch: false})}
+                autoFocus = {true}
+                placeholderTextColor="white"
+                underlineColorAndroid="rgba(0,0,0,0)"
+                style={myStyle.ctmInput}
+                onChangeText={u => {
+                  this.setState({ strSearch: u })
+                  this.setState({isClear: true})
+                  if(u =="")
+                    this.setState({isClear: false})
+                }}
+                onSubmitEditing={this._search}
+                value = {this.state.strSearch}
+                placeholder="Tìm trang"
+              />
+              {this.state.isClear&&(
+                <TouchableOpacity onPress = {() => this.setState({strSearch : "", isClear: false})} style={{ width: 30, alignItems: 'center' }}>
+                  <Feather name="x" size={24} style={{ color: "white" }} />
+                </TouchableOpacity>
+              )}
+            </View>
+              )
+            }
+          </View>
+          {!this.state.isSearch && (
+            <TouchableOpacity
+              style={myStyle.buttons}
+              onPress={() => {
+                this.setState({isSearch: true})
+              }}
+            >
+              <Feather style={[myStyle.icon, {marginRight: 0}]} name="search" size={28} />
+            </TouchableOpacity>
+          )}
         {this.props.dataUser.name === "admin" && (
           <TouchableOpacity
             style={myStyle.buttons}
@@ -242,7 +283,6 @@ const myStyle = StyleSheet.create({
   buttons: {
     flexDirection: "row",
     alignItems: "center",
-    flex: 1,
     justifyContent: "flex-end"
   },
   headerTitleBar: {
@@ -271,7 +311,27 @@ const myStyle = StyleSheet.create({
   },
   textOver: {
     fontSize: 10
-  }
+  },
+  vText: {
+    borderRadius: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
+    flex:1,
+    justifyContent: "center",
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    marginVertical: 5
+  },
+  ctmInput: {
+    backgroundColor: "rgba(255,255,255,0)",
+    fontSize: 16,
+    flex: 1,
+    paddingVertical: 5,
+    paddingLeft: 7,
+    paddingRight: 7,
+    color: "white"
+  },
 });
 
 //export default Page;
