@@ -20,21 +20,19 @@ import Base64 from "../../config/Base64";
 import { connect } from "react-redux";
 import Feather from "react-native-vector-icons/Feather";
 
-const initState = {
-  noidung: [],
-  refreshing: true,
-  loading: false,
-  page: 1,
-  over: false,
-  strSearch: "",
-  isClear: false,
-  isSearch: false
-};
-
 class Page extends Component {
   constructor(props) {
     super(props);
-    this.state = initState;
+    this.state = {
+      noidung: [],
+      refreshing: true,
+      loading: false,
+      page: 1,
+      over: false,
+      strSearch: "",
+      isClear: false,
+      isSearch: false
+    };
   }
 
   // static navigationOptions = {
@@ -45,7 +43,7 @@ class Page extends Component {
     //this._loadData();
     //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
     this.props.navigation.addListener("didFocus", () => {
-      this.setState(initState);
+      this.setState({strSearch:""});
       this._refresh();
     });
   }
