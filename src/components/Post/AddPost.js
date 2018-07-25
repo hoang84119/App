@@ -22,8 +22,9 @@ import API from "../../config/API";
 class AddPost extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      uploading: false
+    this.state = {
+      uploading: false,
+      isTitle: true
     };
     // this.getHTML = this.getHTML.bind(this);
     // this.setFocusHandlers = this.setFocusHandlers.bind(this);
@@ -73,25 +74,25 @@ class AddPost extends Component {
   render() {
     return (
       <View style={myStyle.container}>
-      {this.state.uploading && (
-        <Modal
-          transparent={true}
-          animationType={"none"}
-          visible={this.state.uploading}
-          onRequestClose={() => null}
-        >
-          <View style={myStyle.modalBackground}>
-            <View style={myStyle.activityIndicatorWrapper}>
-              <ActivityIndicator
-                color={"#0ABFBC"}
-                size={30}
-                animating={this.state.uploading}
-              />
-              <Text size={16}>Đang xử lý</Text>
+        {this.state.uploading && (
+          <Modal
+            transparent={true}
+            animationType={"none"}
+            visible={this.state.uploading}
+            onRequestClose={() => null}
+          >
+            <View style={myStyle.modalBackground}>
+              <View style={myStyle.activityIndicatorWrapper}>
+                <ActivityIndicator
+                  color={"#0ABFBC"}
+                  size={30}
+                  animating={this.state.uploading}
+                />
+                <Text size={16}>Đang xử lý</Text>
+              </View>
             </View>
-          </View>
-        </Modal>
-      )}
+          </Modal>
+        )}
         <ModalB ref={"myModal"} style={myStyle.modal} position="bottom">
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
@@ -122,10 +123,23 @@ class AddPost extends Component {
           style={myStyle.richText}
           titlePlaceholder={"Tiêu đề bài viết"}
           contentPlaceholder={"Nội dung bài viết"}
+          editorInitializedCallback={() => {
+            this.richtext.setTitleFocusHandler(() => {
+              this.setState({ isTitle: true });
+            });
+            this.richtext.setContentFocusHandler(() => {
+              this.setState({ isTitle: false });
+            });
+          }}
         />
         <RichTextToolbar
           onPressAddImage={() => {
-            this.refs.myModal.open();
+            if (this.state.isTitle)
+              ToastAndroid.show(
+                "Không được chèn hình ở tiêu đề",
+                ToastAndroid.SHORT
+              );
+            else this.refs.myModal.open();
           }}
           getEditor={() => this.richtext}
         />
@@ -144,7 +158,7 @@ class AddPost extends Component {
     this.props.navigation.setParams({ isAdding: true });
     let title = await this.richtext.getTitleHtml();
     let content = await this.richtext.getContentHtml();
-    API.Post.Save("",title,content).then(response => {
+    API.Post.Save("", title, content).then(response => {
       if (response) {
         ToastAndroid.show("Lưu thành công", ToastAndroid.LONG);
         this.props.navigation.navigate("main");
@@ -154,11 +168,11 @@ class AddPost extends Component {
       }
     });
   }
-  
+
   _openCamera = async () => {
     let image = await ImagePicker.openCamera({
       width: 300,
-      height: 400,
+      height: 400
       //cropping: true
     });
     this.refs.myModal.close();
@@ -195,7 +209,10 @@ class AddPost extends Component {
     };
     await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
-        pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, API.getURL());
+        pathImage = pathImage.replace(
+          /http:\/\/localhost\/thuctap/g,
+          API.getURL()
+        );
         this.richtext.insertImage({ src: pathImage });
       }
     });
@@ -246,7 +263,7 @@ const myStyle = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around"
-  },
+  }
 });
 
 export default AddPost;

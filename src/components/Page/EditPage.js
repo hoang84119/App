@@ -81,26 +81,26 @@ class EditPage extends Component {
   render() {
     return (
       <View style={myStyle.container}>
-      {this.state.uploading && (
-        <Modal
-          transparent={true}
-          animationType={"none"}
-          visible={this.state.uploading}
-          onRequestClose={() => null}
-        >
-          <View style={myStyle.modalBackground}>
-            <View style={myStyle.activityIndicatorWrapper}>
-              <ActivityIndicator
-                color={"#0ABFBC"}
-                size={30}
-                animating={this.state.uploading}
-              />
-              <Text size={16}>Đang xử lý</Text>
+        {this.state.uploading && (
+          <Modal
+            transparent={true}
+            animationType={"none"}
+            visible={this.state.uploading}
+            onRequestClose={() => null}
+          >
+            <View style={myStyle.modalBackground}>
+              <View style={myStyle.activityIndicatorWrapper}>
+                <ActivityIndicator
+                  color={"#0ABFBC"}
+                  size={30}
+                  animating={this.state.uploading}
+                />
+                <Text size={16}>Đang xử lý</Text>
+              </View>
             </View>
-          </View>
-        </Modal>
-      )}
-      <ModalB ref={"myModal"} style={myStyle.modal} position="bottom">
+          </Modal>
+        )}
+        <ModalB ref={"myModal"} style={myStyle.modal} position="bottom">
           <View>
             <TouchableOpacity onPress={this._openCamera} style={myStyle.button}>
               <Feather style={myStyle.iconImage} name="camera" size={20} />
@@ -134,12 +134,25 @@ class EditPage extends Component {
               /http:\/\/localhost\/thuctap/g,
               API.getURL()
             )}
+            editorInitializedCallback={() => {
+              this.richtext.setTitleFocusHandler(() => {
+                this.setState({ isTitle: true });
+              });
+              this.richtext.setContentFocusHandler(() => {
+                this.setState({ isTitle: false });
+              });
+            }}
           />
         )}
         {this.state.loaded && (
           <RichTextToolbar
             onPressAddImage={() => {
-              this.refs.myModal.open();
+              if (this.state.isTitle)
+              ToastAndroid.show(
+                "Không được chèn hình ở tiêu đề",
+                ToastAndroid.SHORT
+              );
+            else this.refs.myModal.open();
             }}
             getEditor={() => this.richtext}
           />
@@ -224,7 +237,7 @@ class EditPage extends Component {
   _openCamera = async () => {
     let image = await ImagePicker.openCamera({
       width: 300,
-      height: 400,
+      height: 400
       //cropping: true
     });
     this.refs.myModal.close();
@@ -261,7 +274,10 @@ class EditPage extends Component {
     };
     await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
-        pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, API.getURL());
+        pathImage = pathImage.replace(
+          /http:\/\/localhost\/thuctap/g,
+          API.getURL()
+        );
         this.richtext.insertImage({ src: pathImage });
       }
     });
@@ -312,7 +328,7 @@ const myStyle = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around"
-  },
+  }
 });
 
 export default EditPage;

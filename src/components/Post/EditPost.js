@@ -25,7 +25,8 @@ class EditPost extends Component {
     this.state = {
       noidung: [],
       loaded: false,
-      uploading: false
+      uploading: false,
+      isTitle: true
     };
   }
 
@@ -134,12 +135,25 @@ class EditPost extends Component {
               /http:\/\/localhost\/thuctap/g,
               API.getURL()
             )}
+            editorInitializedCallback={() => {
+              this.richtext.setTitleFocusHandler(() => {
+                this.setState({ isTitle: true });
+              });
+              this.richtext.setContentFocusHandler(() => {
+                this.setState({ isTitle: false });
+              });
+            }}
           />
         )}
         {this.state.loaded && (
           <RichTextToolbar
             onPressAddImage={() => {
-              this.refs.myModal.open();
+              if (this.state.isTitle)
+                ToastAndroid.show(
+                  "Không được chèn hình ở tiêu đề",
+                  ToastAndroid.SHORT
+                );
+              else this.refs.myModal.open();
             }}
             getEditor={() => this.richtext}
           />
@@ -185,7 +199,7 @@ class EditPost extends Component {
   _openCamera = async () => {
     let image = await ImagePicker.openCamera({
       width: 300,
-      height: 400,
+      height: 400
       //cropping: true
     });
     this.refs.myModal.close();
@@ -222,7 +236,10 @@ class EditPost extends Component {
     };
     await API.Image.UploadImage(file).then(pathImage => {
       if (pathImage != "") {
-        pathImage = pathImage.replace(/http:\/\/localhost\/thuctap/g, API.getURL());
+        pathImage = pathImage.replace(
+          /http:\/\/localhost\/thuctap/g,
+          API.getURL()
+        );
         this.richtext.insertImage({ src: pathImage });
       }
     });

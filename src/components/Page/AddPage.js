@@ -123,10 +123,23 @@ class AddPage extends Component {
           style={myStyle.richText}
           titlePlaceholder={"Tiêu đề trang"}
           contentPlaceholder={"Nội dung trang"}
+          editorInitializedCallback={() => {
+            this.richtext.setTitleFocusHandler(() => {
+              this.setState({ isTitle: true });
+            });
+            this.richtext.setContentFocusHandler(() => {
+              this.setState({ isTitle: false });
+            });
+          }}
         />
         <RichTextToolbar
           onPressAddImage={() => {
-            this.refs.myModal.open();
+            if (this.state.isTitle)
+              ToastAndroid.show(
+                "Không được chèn hình ở tiêu đề",
+                ToastAndroid.SHORT
+              );
+            else this.refs.myModal.open();
           }}
           getEditor={() => this.richtext}
         />
