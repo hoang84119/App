@@ -288,7 +288,7 @@ class Tags extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
+  icon: {marginRight: 10, color: "#fff" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -332,7 +332,8 @@ const myStyle = StyleSheet.create({
     borderRadius: 40,
     paddingLeft: 10,
     paddingRight: 10,
-    flex: 1,
+    marginRight: 7,
+    flex:1,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
