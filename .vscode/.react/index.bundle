@@ -100051,7 +100051,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.empty,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 165
+              lineNumber: 188
             }
           },
           _react3.default.createElement(_Feather2.default, {
@@ -100059,7 +100059,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             size: 60,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 166
+              lineNumber: 189
             }
           }),
           _react3.default.createElement(
@@ -100071,7 +100071,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 167
+                lineNumber: 190
               }
             },
             "Kh\xF4ng c\xF3 n\u1ED9i dung"
@@ -100088,7 +100088,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 175
+              lineNumber: 198
             }
           },
           _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -100096,7 +100096,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             size: "large",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 176
+              lineNumber: 199
             }
           })
         );else if (_this.state.over) return _react3.default.createElement(
@@ -100110,7 +100110,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 181
+              lineNumber: 204
             }
           },
           _react3.default.createElement(_Feather2.default, {
@@ -100118,7 +100118,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             size: 14,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 182
+              lineNumber: 205
             }
           }),
           _react3.default.createElement(
@@ -100127,7 +100127,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.textOver,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 183
+                lineNumber: 206
               }
             },
             " H\u1EBFt n\u1ED9i dung"
@@ -100165,7 +100165,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         loading: false,
         page: 1,
         over: false,
-        strSearch: ""
+        strSearch: "",
+        isClear: false,
+        isSearch: false
       };
       return _this;
     }
@@ -100190,7 +100192,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.headerTitleBar,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 81
+              lineNumber: 83
             }
           },
           _react3.default.createElement(
@@ -100199,7 +100201,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.headerTitle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 82
+                lineNumber: 84
               }
             },
             _react3.default.createElement(
@@ -100210,7 +100212,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 83
+                  lineNumber: 85
                 }
               },
               _react3.default.createElement(_Feather2.default, {
@@ -100221,29 +100223,45 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 size: 25,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 88
+                  lineNumber: 90
                 }
               })
             ),
-            _react3.default.createElement(
+            !this.state.isSearch && _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: myStyle.title,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 96
+                }
+              },
+              "B\xE0i vi\u1EBFt"
+            ),
+            this.state.isSearch && _react3.default.createElement(
               _reactNative.View,
               {
                 style: myStyle.vText,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 95
+                  lineNumber: 99
                 }
               },
               _react3.default.createElement(
-                _reactNative.View,
+                _reactNative.TouchableOpacity,
                 {
+                  onPress: function onPress() {
+                    return _this3.setState({
+                      isSearch: false
+                    });
+                  },
                   style: {
                     width: 30,
                     alignItems: 'center'
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 96
+                    lineNumber: 100
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -100254,11 +100272,17 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 97
+                    lineNumber: 101
                   }
                 })
               ),
               _react3.default.createElement(_reactNative.TextInput, {
+                onEndEditing: function onEndEditing() {
+                  return _this3.setState({
+                    isSearch: false
+                  });
+                },
+                autoFocus: true,
                 placeholderTextColor: "white",
                 underlineColorAndroid: "rgba(0,0,0,0)",
                 style: myStyle.ctmInput,
@@ -100266,24 +100290,39 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   _this3.setState({
                     strSearch: u
                   });
+
+                  _this3.setState({
+                    isClear: true
+                  });
+
+                  if (u == "") _this3.setState({
+                    isClear: false
+                  });
                 },
                 onSubmitEditing: this._search,
+                value: this.state.strSearch,
                 placeholder: "T\xECm b\xE0i vi\u1EBFt",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 100
+                  lineNumber: 103
                 }
               }),
-              _react3.default.createElement(
-                _reactNative.View,
+              this.state.isClear && _react3.default.createElement(
+                _reactNative.TouchableOpacity,
                 {
+                  onPress: function onPress() {
+                    return _this3.setState({
+                      strSearch: "",
+                      isClear: false
+                    });
+                  },
                   style: {
                     width: 30,
                     alignItems: 'center'
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 110
+                    lineNumber: 120
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -100294,11 +100333,37 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 111
+                    lineNumber: 121
                   }
                 })
               )
             )
+          ),
+          !this.state.isSearch && _react3.default.createElement(
+            _reactNative.TouchableOpacity,
+            {
+              style: myStyle.buttons,
+              onPress: function onPress() {
+                _this3.setState({
+                  isSearch: true
+                });
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 129
+              }
+            },
+            _react3.default.createElement(_Feather2.default, {
+              style: [myStyle.icon, {
+                marginRight: 0
+              }],
+              name: "search",
+              size: 28,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 135
+              }
+            })
           ),
           this.props.dataUser.name === "admin" && _react3.default.createElement(
             _reactNative.TouchableOpacity,
@@ -100309,7 +100374,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 116
+                lineNumber: 139
               }
             },
             _react3.default.createElement(_Feather2.default, {
@@ -100318,7 +100383,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               size: 34,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 120
+                lineNumber: 143
               }
             })
           )
@@ -100329,7 +100394,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 126
+              lineNumber: 149
             }
           },
           headerBar,
@@ -100352,7 +100417,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 userName: _this3.props.dataUser.name,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 139
+                  lineNumber: 162
                 }
               });
             },
@@ -100363,7 +100428,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             ListFooterComponent: this._renderFooter,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 131
+              lineNumber: 154
             }
           })
         );
@@ -100499,7 +100564,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 43
+            lineNumber: 45
           }
         },
         _react3.default.createElement(_Feather2.default, {
@@ -100510,7 +100575,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           size: 25,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 48
+            lineNumber: 50
           }
         })
       );
@@ -100542,6 +100607,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     icon: {
       marginRight: 10,
+      marginLeft: 5,
       color: "#fff"
     },
     buttons: {
@@ -100583,16 +100649,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       paddingLeft: 10,
       paddingRight: 10,
       flex: 1,
+      justifyContent: "center",
       alignItems: 'center',
       flexDirection: 'row',
-      backgroundColor: 'rgba(255,255,255,0.1)'
+      backgroundColor: 'rgba(255,255,255,0.2)',
+      marginVertical: 5
     },
     ctmInput: {
       backgroundColor: "rgba(255,255,255,0)",
-      fontSize: 18,
+      fontSize: 16,
       flex: 1,
-      paddingLeft: 10,
-      paddingRight: 10,
+      paddingVertical: 5,
+      paddingLeft: 7,
+      paddingRight: 7,
       color: "white"
     }
   });
