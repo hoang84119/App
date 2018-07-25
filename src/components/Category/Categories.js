@@ -9,7 +9,7 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
-  TextInput,
+  TextInput
 } from "react-native";
 import API from "../../config/API";
 import Feather from "react-native-vector-icons/Feather";
@@ -27,7 +27,7 @@ class Categories extends Component {
       loading: false,
       strSearch: "",
       isClear: false,
-      isSearch: false,
+      isSearch: false
     };
   }
   static navigationOptions = {
@@ -36,7 +36,7 @@ class Categories extends Component {
 
   componentDidMount() {
     this.props.navigation.addListener("didFocus", () => {
-      this.setState({strSearch:""});
+      this.setState({ strSearch: "" });
       this._refreshing();
     });
   }
@@ -67,48 +67,64 @@ class Categories extends Component {
                   size={25}
                 />
               </TouchableOpacity>
-              {!this.state.isSearch && (<Text style={myStyle.title}>Chuyên mục</Text>)}
-            {
-              this.state.isSearch &&(
+              {!this.state.isSearch && (
+                <Text style={myStyle.title}>Chuyên mục</Text>
+              )}
+              {this.state.isSearch && (
                 <View style={myStyle.vText}>
-              <TouchableOpacity onPress={() => this.setState({isSearch: false})} style={{ width: 30, alignItems: 'center' }}>
-                <Feather name="search" size={24} style={{ color: "white" }} />
-              </TouchableOpacity>
-              <TextInput
-                onEndEditing={() => this.setState({isSearch: false})}
-                autoFocus = {true}
-                placeholderTextColor="white"
-                underlineColorAndroid="rgba(0,0,0,0)"
-                style={myStyle.ctmInput}
-                onChangeText={u => {
-                  this.setState({ strSearch: u })
-                  this.setState({isClear: true})
-                  if(u =="")
-                    this.setState({isClear: false})
-                }}
-                onSubmitEditing={this._search}
-                value = {this.state.strSearch}
-                placeholder="Tìm chuyên mục"
-              />
-              {this.state.isClear&&(
-                <TouchableOpacity onPress = {() => this.setState({strSearch : "", isClear: false})} style={{ width: 30, alignItems: 'center' }}>
-                  <Feather name="x" size={24} style={{ color: "white" }} />
-                </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => this.setState({ isSearch: false })}
+                    style={{ width: 30, alignItems: "center" }}
+                  >
+                    <Feather
+                      name="search"
+                      size={24}
+                      style={{ color: "white" }}
+                    />
+                  </TouchableOpacity>
+                  <TextInput
+                    onEndEditing={() => this.setState({ isSearch: false })}
+                    autoFocus={true}
+                    placeholderTextColor="white"
+                    underlineColorAndroid="rgba(0,0,0,0)"
+                    style={myStyle.ctmInput}
+                    onChangeText={u => {
+                      if (u == "") {
+                        this.setState({ strSearch: u, isClear: false });
+                        this._search();
+                      } else this.setState({ strSearch: u, isClear: true });
+                    }}
+                    onSubmitEditing={this._search}
+                    value={this.state.strSearch}
+                    placeholder="Tìm chuyên mục"
+                  />
+                  {this.state.isClear && (
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.setState({ strSearch: "", isClear: false })
+                      }
+                      style={{ width: 30, alignItems: "center" }}
+                    >
+                      <Feather name="x" size={24} style={{ color: "white" }} />
+                    </TouchableOpacity>
+                  )}
+                </View>
               )}
             </View>
-              )
-            }
-          </View>
-          {!this.state.isSearch && (
-            <TouchableOpacity
-              style={myStyle.buttons}
-              onPress={() => {
-                this.setState({isSearch: true})
-              }}
-            >
-              <Feather style={[myStyle.icon, {marginRight: 0}]} name="search" size={28} />
-            </TouchableOpacity>
-          )}
+            {!this.state.isSearch && (
+              <TouchableOpacity
+                style={myStyle.buttons}
+                onPress={() => {
+                  this.setState({ isSearch: true });
+                }}
+              >
+                <Feather
+                  style={[myStyle.icon, { marginRight: 0 }]}
+                  name="search"
+                  size={28}
+                />
+              </TouchableOpacity>
+            )}
             {ButtonRight}
           </View>
         </View>
@@ -141,7 +157,7 @@ class Categories extends Component {
   }
 
   _renderEmpty = () => {
-    if(this.state.refreshing) return null;
+    if (this.state.refreshing) return null;
     return (
       <View style={myStyle.empty}>
         <Feather name="alert-circle" size={60} />
@@ -159,19 +175,26 @@ class Categories extends Component {
       );
     else if (this.state.over)
       return (
-        <View style={{ flexDirection: "row", justifyContent: "center", paddingVertical: 10, alignItems: "center" }}>
-          <Feather name="alert-circle" size= {14}/>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingVertical: 10,
+            alignItems: "center"
+          }}
+        >
+          <Feather name="alert-circle" size={14} />
           <Text style={myStyle.textOver}> Hết nội dung</Text>
         </View>
       );
     else return null;
   };
 
-  _search = () =>{
-    this.setState({page:1},()=>{
-      this._refreshing()
+  _search = () => {
+    this.setState({ page: 1 }, () => {
+      this._refreshing();
     });
-  }
+  };
 
   _refreshing() {
     //let p = this.state.page;
@@ -194,12 +217,15 @@ class Categories extends Component {
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
-        let response = await API.Category.GetAllCategory(i,this.state.strSearch);
+        let response = await API.Category.GetAllCategory(
+          i,
+          this.state.strSearch
+        );
         if (response != null) {
           if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
           }
-        } else{
+        } else {
           ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
         }
       }
@@ -210,7 +236,10 @@ class Categories extends Component {
         over: false
       });
     } else {
-      let response = await API.Category.GetAllCategory(this.state.page,this.state.strSearch);
+      let response = await API.Category.GetAllCategory(
+        this.state.page,
+        this.state.strSearch
+      );
       if (response != null) {
         if (response.length === 0) {
           this.setState({
@@ -227,7 +256,7 @@ class Categories extends Component {
             over: false
           });
         }
-      } else{
+      } else {
         ToastAndroid.show("Lỗi", ToastAndroid.SHORT);
       }
     }
@@ -304,7 +333,7 @@ const myStyle = StyleSheet.create({
   },
   empty: {
     flexDirection: "column",
-    marginTop:20,
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -312,11 +341,11 @@ const myStyle = StyleSheet.create({
     borderRadius: 40,
     paddingLeft: 10,
     paddingRight: 10,
-    flex:1,
+    flex: 1,
     justifyContent: "center",
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "rgba(255,255,255,0.2)",
     marginVertical: 5
   },
   ctmInput: {
@@ -327,7 +356,7 @@ const myStyle = StyleSheet.create({
     paddingLeft: 7,
     paddingRight: 7,
     color: "white"
-  },
+  }
 });
 
 function mapStateToProps(state) {

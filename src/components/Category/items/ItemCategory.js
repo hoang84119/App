@@ -28,7 +28,6 @@ class ItemCategory extends Component {
     //this.setState({ hasChild: false }, this._checkChild());
     this._checkPost();
     this._checkChild();
-    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,7 +38,7 @@ class ItemCategory extends Component {
   }
 
   _checkPost() {
-    API.Post.GetAllPost(this.props.data.id, "",1).then(response => {
+    API.Post.GetAllPost(this.props.data.id, "", 1).then(response => {
       if (response.length != 0) this.setState({ soBaiViet: response.length });
     });
   }
@@ -53,7 +52,7 @@ class ItemCategory extends Component {
         // if (responseJson.length === 0) {
         //   this.setState({ hasChild: false });
         // } else {
-          this.setState({ dataChild: responseJson});
+        this.setState({ dataChild: responseJson });
         //}
       });
   }
@@ -77,14 +76,19 @@ class ItemCategory extends Component {
         >
           <View style={myStyle.btnNoiDung}>
             <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
-            <Text style={myStyle.moTa}>{this.props.data.description}</Text>
+            <Text style={myStyle.moTa}>
+              {this._formatExcerpt(this.props.data.description)}
+            </Text>
             {this.state.soBaiViet != 0 && (
               <Text style={myStyle.soBaiViet}>
-              {this.state.soBaiViet === 10 ? `+${this.state.soBaiViet}`:this.state.soBaiViet} bài viết
+                {this.state.soBaiViet === 10
+                  ? `+${this.state.soBaiViet}`
+                  : this.state.soBaiViet}{" "}
+                bài viết
               </Text>
             )}
           </View>
-          {this.state.dataChild.length!=0 && (
+          {this.state.dataChild.length != 0 && (
             <View style={myStyle.buttons}>
               <TouchableOpacity onPress={this._showChild} style={myStyle.btn}>
                 <Feather
@@ -143,6 +147,11 @@ class ItemCategory extends Component {
       this.setState({ isOpen: false, iconName: "chevron-right" });
     else this.setState({ isOpen: true, iconName: "chevron-down" });
   };
+
+  _formatExcerpt(content) {
+    //Mỗi trích đoạn chỉ lấy tối đa 120 ký tự
+    return content.length > 120 ? content.substring(0, 120) : content;
+  }
 }
 
 const color = [

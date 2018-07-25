@@ -51,7 +51,7 @@ class ItemCategory extends Component {
 
           <View style={myStyle.btnNoiDung}>
             <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
-            <Text style={myStyle.moTa}>{this.props.data.description}</Text>
+            <Text style={myStyle.moTa}>{this._formatExcerpt(this.props.data.description)}</Text>
             {this.state.soBaiViet != 0 && (
               <Text style={myStyle.soBaiViet}>
                 {this.state.soBaiViet === 10 ? `+${this.state.soBaiViet}`:this.state.soBaiViet} bài viết
@@ -93,6 +93,11 @@ class ItemCategory extends Component {
     API.Post.GetAllPost("", this.props.data.id,1).then(response => {
       if (response.length != 0) this.setState({ soBaiViet: response.length });
     });
+  }
+  
+  _formatExcerpt(content) {
+    //Mỗi trích đoạn chỉ lấy tối đa 120 ký tự
+    return content.length > 120 ? content.substring(0, 120) : content;
   }
 }
 
