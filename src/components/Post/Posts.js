@@ -107,10 +107,12 @@ class Posts extends Component {
                 underlineColorAndroid="rgba(0,0,0,0)"
                 style={myStyle.ctmInput}
                 onChangeText={u => {
-                  this.setState({ strSearch: u })
-                  this.setState({isClear: true})
                   if(u =="")
-                    this.setState({isClear: false})
+                   {
+                      this.setState({strSearch: u,isClear: false})
+                      this._search();
+                   } 
+                   else this.setState({ strSearch: u, isClear: true })
                 }}
                 onSubmitEditing={this._search}
                 value = {this.state.strSearch}
