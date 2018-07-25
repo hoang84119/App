@@ -20,19 +20,21 @@ import Base64 from "../../config/Base64";
 import { connect } from "react-redux";
 import Feather from "react-native-vector-icons/Feather";
 
+const initState = {
+  noidung: [],
+  refreshing: true,
+  loading: false,
+  page: 1,
+  over: false,
+  strSearch: "",
+  isClear: false,
+  isSearch: false
+};
+
 class Page extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      noidung: [],
-      refreshing: true,
-      loading: false,
-      page: 1,
-      over: false,
-      strSearch: "",
-      isClear: false,
-      isSearch: false,
-    };
+    this.state = initState;
   }
 
   // static navigationOptions = {
@@ -42,11 +44,10 @@ class Page extends Component {
   componentDidMount() {
     //this._loadData();
     //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
-    if (this.props.dataUser.name === "admin")
-      this.props.navigation.addListener("didFocus", () => {
-        this._refresh();
-      });
-    else this._refresh();
+    this.props.navigation.addListener("didFocus", () => {
+      this.setState(initState);
+      this._refresh();
+    });
   }
 
   render() {
@@ -64,48 +65,59 @@ class Page extends Component {
               size={25}
             />
           </TouchableOpacity>
-          {!this.state.isSearch && (<Text style={myStyle.title}>Quản lý trang</Text>)}
-            {
-              this.state.isSearch &&(
-                <View style={myStyle.vText}>
-              <TouchableOpacity onPress={() => this.setState({isSearch: false})} style={{ width: 30, alignItems: 'center' }}>
+          {!this.state.isSearch && (
+            <Text style={myStyle.title}>Quản lý trang</Text>
+          )}
+          {this.state.isSearch && (
+            <View style={myStyle.vText}>
+              <TouchableOpacity
+                onPress={() => this.setState({ isSearch: false })}
+                style={{ width: 30, alignItems: "center" }}
+              >
                 <Feather name="search" size={24} style={{ color: "white" }} />
               </TouchableOpacity>
               <TextInput
-                onEndEditing={() => this.setState({isSearch: false})}
-                autoFocus = {true}
+                onEndEditing={() => this.setState({ isSearch: false })}
+                autoFocus={true}
                 placeholderTextColor="white"
                 underlineColorAndroid="rgba(0,0,0,0)"
                 style={myStyle.ctmInput}
                 onChangeText={u => {
-                  this.setState({ strSearch: u })
-                  this.setState({isClear: true})
-                  if(u =="")
-                    this.setState({isClear: false})
+                  this.setState({ strSearch: u });
+                  this.setState({ isClear: true });
+                  if (u == "") this.setState({ isClear: false });
                 }}
                 onSubmitEditing={this._search}
-                value = {this.state.strSearch}
+                value={this.state.strSearch}
                 placeholder="Tìm trang"
               />
-              {this.state.isClear&&(
-                <TouchableOpacity onPress = {() => this.setState({strSearch : "", isClear: false})} style={{ width: 30, alignItems: 'center' }}>
+              {this.state.isClear && (
+                <TouchableOpacity
+                  onPress={() =>
+                    this.setState({ strSearch: "", isClear: false })
+                  }
+                  style={{ width: 30, alignItems: "center" }}
+                >
                   <Feather name="x" size={24} style={{ color: "white" }} />
                 </TouchableOpacity>
               )}
             </View>
-              )
-            }
-          </View>
-          {!this.state.isSearch && (
-            <TouchableOpacity
-              style={myStyle.buttons}
-              onPress={() => {
-                this.setState({isSearch: true})
-              }}
-            >
-              <Feather style={[myStyle.icon, {marginRight: 0}]} name="search" size={28} />
-            </TouchableOpacity>
           )}
+        </View>
+        {!this.state.isSearch && (
+          <TouchableOpacity
+            style={myStyle.buttons}
+            onPress={() => {
+              this.setState({ isSearch: true });
+            }}
+          >
+            <Feather
+              style={[myStyle.icon, { marginRight: 0 }]}
+              name="search"
+              size={28}
+            />
+          </TouchableOpacity>
+        )}
         {this.props.dataUser.name === "admin" && (
           <TouchableOpacity
             style={myStyle.buttons}
@@ -121,27 +133,27 @@ class Page extends Component {
         {/* Thanh bar */}
         {headerBar}
         {/* Noi dung */}
-          <FlatList
-            //style={myStyle.item}
-            refreshing={this.state.refreshing}
-            onRefresh={() => this._refresh()}
-            data={this.state.noidung}
-            ListEmptyComponent={this._renderEmpty}
-            keyExtractor={(item, index) => item.id.toString()}
-            renderItem={({ item }) => (
-              <ItemPage
-                data={item}
-                navigation={this.props.navigation}
-                delete={this._beforeDelete}
-                userName={this.props.dataUser.name}
-              />
-            )}
-            onEndReachedThreshold={0.1}
-            onEndReached={() => {
-              this._loadMore();
-            }}
-            ListFooterComponent={this._renderFooter}
-          />
+        <FlatList
+          //style={myStyle.item}
+          refreshing={this.state.refreshing}
+          onRefresh={() => this._refresh()}
+          data={this.state.noidung}
+          ListEmptyComponent={this._renderEmpty}
+          keyExtractor={(item, index) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ItemPage
+              data={item}
+              navigation={this.props.navigation}
+              delete={this._beforeDelete}
+              userName={this.props.dataUser.name}
+            />
+          )}
+          onEndReachedThreshold={0.1}
+          onEndReached={() => {
+            this._loadMore();
+          }}
+          ListFooterComponent={this._renderFooter}
+        />
       </View>
     );
   }
@@ -153,7 +165,7 @@ class Page extends Component {
       [
         {
           text: "Xóa",
-          onPress: ()=> this._delete(id)
+          onPress: () => this._delete(id)
         },
         { text: "Hủy", style: "cancel" }
       ],
@@ -171,7 +183,7 @@ class Page extends Component {
   };
 
   _renderEmpty = () => {
-    if(this.state.refreshing) return null;
+    if (this.state.refreshing) return null;
     return (
       <View style={myStyle.empty}>
         <Feather name="alert-circle" size={60} />
@@ -189,19 +201,26 @@ class Page extends Component {
       );
     else if (this.state.over)
       return (
-        <View style={{ flexDirection: "row", justifyContent: "center", paddingVertical: 10, alignItems: "center" }}>
-          <Feather name="alert-circle" size= {14}/>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingVertical: 10,
+            alignItems: "center"
+          }}
+        >
+          <Feather name="alert-circle" size={14} />
           <Text style={myStyle.textOver}> Hết nội dung</Text>
         </View>
       );
     else return null;
   };
 
-  _search = () =>{
-    this.setState({page:1},()=>{
-      this._refresh()
+  _search = () => {
+    this.setState({ page: 1 }, () => {
+      this._refresh();
     });
-  }
+  };
 
   _refresh() {
     this.setState({ refreshing: true }, () => {
@@ -221,7 +240,7 @@ class Page extends Component {
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
-        let response = await API.Page.GetAllPage(i,this.state.strSearch);
+        let response = await API.Page.GetAllPage(i, this.state.strSearch);
         if (response != null) {
           if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
@@ -235,7 +254,10 @@ class Page extends Component {
         over: false
       });
     } else {
-      let response = await API.Post.GetAllPost(this.state.page,this.state.strSearch);
+      let response = await API.Post.GetAllPost(
+        this.state.page,
+        this.state.strSearch
+      );
       if (response != null) {
         this.setState({
           noidung: [...this.state.noidung, ...response],
@@ -310,7 +332,7 @@ const myStyle = StyleSheet.create({
   empty: {
     flexDirection: "column",
     //flex: 1,
-    marginTop:20,
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -325,11 +347,11 @@ const myStyle = StyleSheet.create({
     borderRadius: 40,
     paddingLeft: 10,
     paddingRight: 10,
-    flex:1,
+    flex: 1,
     justifyContent: "center",
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "rgba(255,255,255,0.2)",
     marginVertical: 5
   },
   ctmInput: {
@@ -340,7 +362,7 @@ const myStyle = StyleSheet.create({
     paddingLeft: 7,
     paddingRight: 7,
     color: "white"
-  },
+  }
 });
 
 //export default Page;

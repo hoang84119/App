@@ -20,19 +20,21 @@ import Base64 from "../../config/Base64";
 import { connect } from "react-redux";
 import Feather from "react-native-vector-icons/Feather";
 
+const initState = {
+  noidung: [],
+  refreshing: true,
+  loading: false,
+  page: 1,
+  over: false,
+  strSearch: "",
+  isClear: false,
+  isSearch: false
+};
+
 class Posts extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      noidung: [],
-      refreshing: true,
-      loading: false,
-      page: 1,
-      over: false,
-      strSearch: "",
-      isClear: false,
-      isSearch: false,
-    };
+    this.state = initState;
   }
   static navigationOptions = ({ navigation }) => {
     let idCategory = navigation.getParam("idCategory", "");
@@ -67,11 +69,10 @@ class Posts extends Component {
   };
 
   componentDidMount() {
-    if (this.props.dataUser.name === "admin")
-      this.props.navigation.addListener("didFocus", () => {
-        this._refresh();
-      });
-    else this._refresh();
+    this.props.navigation.addListener("didFocus", () => {
+      this.setState(initState);
+      this._refresh();
+    });
   }
 
   render() {
@@ -93,48 +94,58 @@ class Posts extends Component {
                 size={25}
               />
             </TouchableOpacity>
-            {!this.state.isSearch && (<Text style={myStyle.title}>Bài viết</Text>)}
-            {
-              this.state.isSearch &&(
-                <View style={myStyle.vText}>
-              <TouchableOpacity onPress={() => this.setState({isSearch: false})} style={{ width: 30, alignItems: 'center' }}>
-                <Feather name="search" size={24} style={{ color: "white" }} />
-              </TouchableOpacity>
-              <TextInput
-                onEndEditing={() => this.setState({isSearch: false})}
-                autoFocus = {true}
-                placeholderTextColor="white"
-                underlineColorAndroid="rgba(0,0,0,0)"
-                style={myStyle.ctmInput}
-                onChangeText={u => {
-                  if(u =="")
-                   {
-                      this.setState({strSearch: u,isClear: false})
-                      this._search();
-                   } 
-                   else this.setState({ strSearch: u, isClear: true })
-                }}
-                onSubmitEditing={this._search}
-                value = {this.state.strSearch}
-                placeholder="Tìm bài viết"
-              />
-              {this.state.isClear&&(
-                <TouchableOpacity onPress = {() => this.setState({strSearch : "", isClear: false})} style={{ width: 30, alignItems: 'center' }}>
-                  <Feather name="x" size={24} style={{ color: "white" }} />
+            {!this.state.isSearch && (
+              <Text style={myStyle.title}>Bài viết</Text>
+            )}
+            {this.state.isSearch && (
+              <View style={myStyle.vText}>
+                <TouchableOpacity
+                  onPress={() => this.setState({ isSearch: false })}
+                  style={{ width: 30, alignItems: "center" }}
+                >
+                  <Feather name="search" size={24} style={{ color: "white" }} />
                 </TouchableOpacity>
-              )}
-            </View>
-              )
-            }
+                <TextInput
+                  onEndEditing={() => this.setState({ isSearch: false })}
+                  autoFocus={true}
+                  placeholderTextColor="white"
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  style={myStyle.ctmInput}
+                  onChangeText={u => {
+                    if (u == "") {
+                      this.setState({ strSearch: u, isClear: false });
+                      this._search();
+                    } else this.setState({ strSearch: u, isClear: true });
+                  }}
+                  onSubmitEditing={this._search}
+                  value={this.state.strSearch}
+                  placeholder="Tìm bài viết"
+                />
+                {this.state.isClear && (
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.setState({ strSearch: "", isClear: false })
+                    }
+                    style={{ width: 30, alignItems: "center" }}
+                  >
+                    <Feather name="x" size={24} style={{ color: "white" }} />
+                  </TouchableOpacity>
+                )}
+              </View>
+            )}
           </View>
           {!this.state.isSearch && (
             <TouchableOpacity
               style={myStyle.buttons}
               onPress={() => {
-                this.setState({isSearch: true})
+                this.setState({ isSearch: true });
               }}
             >
-              <Feather style={[myStyle.icon, {marginRight: 0}]} name="search" size={28} />
+              <Feather
+                style={[myStyle.icon, { marginRight: 0 }]}
+                name="search"
+                size={28}
+              />
             </TouchableOpacity>
           )}
           {this.props.dataUser.name === "admin" && (
@@ -178,14 +189,14 @@ class Posts extends Component {
     );
   }
 
-  _search = () =>{
-    this.setState({page:1},()=>{
-      this._refresh()
+  _search = () => {
+    this.setState({ page: 1 }, () => {
+      this._refresh();
     });
-  }
+  };
 
   _renderEmpty = () => {
-    if(this.state.refreshing) return null;
+    if (this.state.refreshing) return null;
     return (
       <View style={myStyle.empty}>
         <Feather name="alert-circle" size={60} />
@@ -203,8 +214,15 @@ class Posts extends Component {
       );
     else if (this.state.over)
       return (
-        <View style={{ flexDirection: "row", justifyContent: "center", paddingVertical: 10, alignItems: "center" }}>
-          <Feather name="alert-circle" size= {14}/>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingVertical: 10,
+            alignItems: "center"
+          }}
+        >
+          <Feather name="alert-circle" size={14} />
           <Text style={myStyle.textOver}> Hết nội dung</Text>
         </View>
       );
@@ -225,14 +243,14 @@ class Posts extends Component {
         });
   }
 
-  _beforeDelete = (id) => {
+  _beforeDelete = id => {
     Alert.alert(
       "Thông báo",
       "Bạn có thật sự muốn xóa bài viết này không?",
       [
         {
           text: "Xóa",
-          onPress: ()=> this._delete(id)
+          onPress: () => this._delete(id)
         },
         { text: "Hủy", style: "cancel" }
       ],
@@ -248,14 +266,19 @@ class Posts extends Component {
       } else Alert.alert("Cảnh báo", "Xóa thất bại!");
     });
   };
-  
+
   async _loadData() {
     let idCategory = this.props.navigation.getParam("idCategory", "");
     let idTag = this.props.navigation.getParam("idTag", "");
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
-        let response = await API.Post.GetAllPost(idCategory, idTag, i,this.state.strSearch);
+        let response = await API.Post.GetAllPost(
+          idCategory,
+          idTag,
+          i,
+          this.state.strSearch
+        );
         if (response != null) {
           if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
@@ -296,11 +319,10 @@ class Posts extends Component {
   _onAdd() {
     this.props.navigation.navigate("thembaiviet");
   }
-
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: {marginRight: 10, marginLeft: 5, color: "#fff" },
+  icon: { marginRight: 10, marginLeft: 5, color: "#fff" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -322,7 +344,7 @@ const myStyle = StyleSheet.create({
   loading: { paddingVertical: 10 },
   empty: {
     flexDirection: "column",
-    marginTop:20,
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -333,11 +355,11 @@ const myStyle = StyleSheet.create({
     borderRadius: 40,
     paddingLeft: 10,
     paddingRight: 10,
-    flex:1,
+    flex: 1,
     justifyContent: "center",
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "rgba(255,255,255,0.2)",
     marginVertical: 5
   },
   ctmInput: {
@@ -348,7 +370,7 @@ const myStyle = StyleSheet.create({
     paddingLeft: 7,
     paddingRight: 7,
     color: "white"
-  },
+  }
 });
 
 //export default Posts;
