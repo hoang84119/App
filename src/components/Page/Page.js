@@ -28,7 +28,10 @@ class Page extends Component {
       refreshing: true,
       loading: false,
       page: 1,
-      over: false
+      over: false,
+      strSearch: "",
+      isClear: false,
+      isSearch: false,
     };
   }
 
@@ -194,6 +197,12 @@ class Page extends Component {
     else return null;
   };
 
+  _search = () =>{
+    this.setState({page:1},()=>{
+      this._refresh()
+    });
+  }
+
   _refresh() {
     this.setState({ refreshing: true }, () => {
       this._loadData();
@@ -212,7 +221,7 @@ class Page extends Component {
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
-        let response = await API.Page.GetAllPage(i);
+        let response = await API.Page.GetAllPage(i,this.state.strSearch);
         if (response != null) {
           if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
@@ -226,7 +235,7 @@ class Page extends Component {
         over: false
       });
     } else {
-      let response = await API.Post.GetAllPost(this.state.page);
+      let response = await API.Post.GetAllPost(this.state.page,this.state.strSearch);
       if (response != null) {
         this.setState({
           noidung: [...this.state.noidung, ...response],

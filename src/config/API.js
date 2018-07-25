@@ -6,8 +6,9 @@ import { AsyncStorage, ToastAndroid } from "react-native";
 import Base64 from "./Base64";
 
 Category = {
-  GetAllCategory: async function(page) {
+  GetAllCategory: async function(page,search) {
     let address = `${url}/wp-json/wp/v2/categories?parent=0&page=${page}`;
+    if (search != "") address = `${address}&search=${search}`;
     let response = await fetch(address);
     if(response.status === 200) {
       let responseJson = await response.json();
@@ -66,8 +67,9 @@ Category = {
 };
 
 Tag = {
-  GetAllTag: async function(page) {
+  GetAllTag: async function(page,search) {
     let address = `${url}/wp-json/wp/v2/tags?page=${page}`;
+    if (search != "") address = `${address}&search=${search}`;
     let response = await fetch(address);
     if(response.status === 200) {
       let responseJson = await response.json();
@@ -192,8 +194,9 @@ Image = {
 };
 
 Page = {
-  GetAllPage: async function(page) {
+  GetAllPage: async function(page,search) {
     let address = `${url}/wp-json/wp/v2/pages?page=${page}`;
+    if (search != "") address = `${address}&search=${search}`;
     let response = await fetch(address);
     if(response.status === 200) {
       let responseJson = await response.json();

@@ -24,7 +24,10 @@ class Tags extends Component {
       refreshing: true,
       page: 1,
       over: false,
-      loading: false
+      loading: false,
+      strSearch: "",
+      isClear: false,
+      isSearch: false,
     };
   }
   static navigationOptions = {
@@ -162,6 +165,12 @@ class Tags extends Component {
     else return null;
   };
 
+  _search = () =>{
+    this.setState({page:1},()=>{
+      this._refreshing()
+    });
+  }
+
   _refreshing() {
     //let p = this.state.page;
     //for(i=1; i<=p;i++){
@@ -183,7 +192,7 @@ class Tags extends Component {
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
-        let response = await API.Tag.GetAllTag(i)
+        let response = await API.Tag.GetAllTag(i,this.state.strSearch)
         if (response != null) {
           if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
@@ -200,7 +209,7 @@ class Tags extends Component {
         over: false
       });
     } else {
-      let response = await API.Tag.GetAllTag(this.state.page)
+      let response = await API.Tag.GetAllTag(this.state.page,this.state.strSearch)
       if (response != null) {
         if (response.length === 0) {
           this.setState({
