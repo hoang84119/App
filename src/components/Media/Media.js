@@ -29,7 +29,8 @@ export default class Media extends Component {
       selected: new Set(),
       page: 1,
       over: false,
-      uploading: false
+      uploading: false,
+      isDelete: false
     };
   }
 
@@ -133,7 +134,6 @@ export default class Media extends Component {
           visible={this.state.uploading}
           onRequestClose={() => null}
         >
-          >
           <View style={myStyle.modalBackground}>
             <View style={myStyle.activityIndicatorWrapper}>
               <ActivityIndicator
@@ -142,6 +142,23 @@ export default class Media extends Component {
                 animating={this.state.uploading}
               />
               <Text size={16}>Đang tải lên</Text>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          transparent={true}
+          animationType={"none"}
+          visible={this.state.isDelete}
+          onRequestClose={() => null}
+        >
+          <View style={myStyle.modalBackground}>
+            <View style={myStyle.activityIndicatorWrapper}>
+              <ActivityIndicator
+                color={"#0ABFBC"}
+                size={30}
+                animating={this.state.isDelete}
+              />
+              <Text size={16}>Đang xóa</Text>
             </View>
           </View>
         </Modal>
@@ -259,7 +276,7 @@ export default class Media extends Component {
   }
 
   _renderEmpty = () => {
-    if(this.state.refreshing) return null;
+    if (this.state.refreshing) return null;
     return (
       <View style={myStyle.empty}>
         <Feather name="alert-circle" size={60} />
@@ -267,7 +284,7 @@ export default class Media extends Component {
       </View>
     );
   };
-  
+
   _renderFooter = () => {
     if (this.state.loading)
       return (
@@ -277,8 +294,15 @@ export default class Media extends Component {
       );
     else if (this.state.over)
       return (
-        <View style={{ flexDirection: "row", justifyContent: "center", paddingVertical: 10, alignItems: "center" }}>
-          <Feather name="alert-circle" size= {14}/>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingVertical: 10,
+            alignItems: "center"
+          }}
+        >
+          <Feather name="alert-circle" size={14} />
           <Text style={myStyle.textOver}> Hết nội dung</Text>
         </View>
       );
@@ -321,16 +345,15 @@ export default class Media extends Component {
     });
   };
 
-  _delete = () => {
-    this.state.selected.forEach(value => {
-      API.Image.DeleteImage(value).then(response => {
-        if (response) {
-          this.state.selected.clear();
-          ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
-          this._refresh();
-        } else Alert.alert("Cảnh báo", "Xóa thất bại!");
-      });
-    });
+  _delete = async () => {
+    this.setState({ isDelete: true });
+    for (let item of this.state.selected) {
+      await API.Image.DeleteImage(item);
+    }
+    this.state.selected.clear();
+    this.setState({ isDelete: false });
+    ToastAndroid.show("Xóa thành công !", ToastAndroid.LONG);
+    this._refresh();
   };
 
   _before_Delete = () => {
@@ -350,33 +373,41 @@ export default class Media extends Component {
   };
 
   _openCamera = async () => {
-    let image = await ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true
-    });
-    this.refs.myModal.close();
-    this.setState({ uploading: true });
-    await this._uploadImage(image);
-    this.setState({ uploading: false });
-    this._refresh();
-    ToastAndroid.show("Hoàn thành!", ToastAndroid.TOP, ToastAndroid.SHORT);
+    try {
+      let image = await ImagePicker.openCamera({
+        width: 300,
+        height: 400
+      });
+      console.log(image);
+      this.refs.myModal.close();
+      this.setState({ uploading: true });
+      await this._uploadImage(image);
+      console.log("Xong");
+      this.setState({ uploading: false });
+      this._refresh();
+      ToastAndroid.show("Hoàn thành!", ToastAndroid.TOP, ToastAndroid.SHORT);
+    } catch (error) {}
   };
 
   _openPicker = async () => {
-    let images = await ImagePicker.openPicker({
-      multiple: true,
-      mediaType: "photo"
-    });
-    this.setState({ uploading: true });
-    this.refs.myModal.close();
-    for (let item of images) {
-      await this._uploadImage(item);
-    }
-    //this.refs.myModal.close();
-    this.setState({ uploading: false });
-    this._refresh();
-    ToastAndroid.show("Hoàn thành!", ToastAndroid.TOP, ToastAndroid.SHORT);
+    try {
+      let images = await ImagePicker.openPicker({
+        multiple: true,
+        mediaType: "photo"
+      });
+      this.setState({ uploading: true });
+      this.refs.myModal.close();
+      console.log("Bat dau up");
+      console.log(images);
+      for (let item of images) {
+        await this._uploadImage(item);
+      }
+      console.log("Xong");
+      //this.refs.myModal.close();
+      this.setState({ uploading: false });
+      this._refresh();
+      ToastAndroid.show("Hoàn thành!", ToastAndroid.TOP, ToastAndroid.SHORT);
+    } catch (error) {}
   };
 
   _uploadImage = async item => {
@@ -385,11 +416,8 @@ export default class Media extends Component {
       name: item.path.replace(/^.*[\\\/]/, ""),
       type: item.mime
     };
-    await API.Image.UploadImage(file).then(pathImage => {
-      if (pathImage == "") {
-        ToastAndroid.show("Lỗi", ToastAndroid.TOP, ToastAndroid.SHORT);
-      }
-    });
+    console.log(file);
+    await API.Image.UploadImage(file);
   };
 }
 
@@ -485,8 +513,8 @@ const myStyle = StyleSheet.create({
   empty: {
     flexDirection: "column",
     //flex: 1,
-    marginTop:20,
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center"
-  },
+  }
 });
