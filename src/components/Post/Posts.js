@@ -29,7 +29,9 @@ class Posts extends Component {
       loading: false,
       page: 1,
       over: false,
-      strSearch: ""
+      strSearch: "",
+      isClear: false,
+      isSearch: false,
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -91,26 +93,48 @@ class Posts extends Component {
                 size={25}
               />
             </TouchableOpacity>
-            {/* <Text style={myStyle.title}>Bài viết</Text> */}
-            <View style={myStyle.vText}>
-              <View style={{ width: 30, alignItems: 'center' }}>
+            {!this.state.isSearch && (<Text style={myStyle.title}>Bài viết</Text>)}
+            {
+              this.state.isSearch &&(
+                <View style={myStyle.vText}>
+              <TouchableOpacity onPress={() => this.setState({isSearch: false})} style={{ width: 30, alignItems: 'center' }}>
                 <Feather name="search" size={24} style={{ color: "white" }} />
-              </View>
-
+              </TouchableOpacity>
               <TextInput
+              onEndEditing={() => this.setState({isSearch: false})}
+                onKeyPress = {() => {
+                  this.setState({isClear: true})
+                  if(this.state.strSearch =="")
+                    this.setState({isClear: false})
+              }}
                 placeholderTextColor="white"
                 underlineColorAndroid="rgba(0,0,0,0)"
                 style={myStyle.ctmInput}
                 onChangeText={u => {
                   this.setState({ strSearch: u });
                 }}
+                value = {this.state.strSearch}
                 placeholder="Tìm bài viết"
               />
-              <View style={{ width: 30, alignItems: 'center' }}>
-                <Feather name="x" size={24} style={{ color: "white" }} />
-              </View>
+              {this.state.isClear&&(
+                <TouchableOpacity onPress = {() => this.setState({strSearch : "", isClear: false})} style={{ width: 30, alignItems: 'center' }}>
+                  <Feather name="x" size={24} style={{ color: "white" }} />
+                </TouchableOpacity>
+              )}
             </View>
+              )
+            }
           </View>
+          {!this.state.isSearch && (
+            <TouchableOpacity
+              style={myStyle.buttons}
+              onPress={() => {
+                this.setState({isSearch: true})
+              }}
+            >
+              <Feather style={[myStyle.icon, {marginRight: 0}]} name="search" size={28} />
+            </TouchableOpacity>
+          )}
           {this.props.dataUser.name === "admin" && (
             <TouchableOpacity
               style={myStyle.buttons}
@@ -267,7 +291,7 @@ class Posts extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: {marginRight: 10, color: "#fff" },
+  icon: {marginRight: 10, marginLeft: 5, color: "#fff" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
@@ -301,16 +325,19 @@ const myStyle = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     flex:1,
+    justifyContent: "center",
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'rgba(255,255,255,0.1)'
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    marginVertical: 5
   },
   ctmInput: {
     backgroundColor: "rgba(255,255,255,0)",
-    fontSize: 18,
+    fontSize: 16,
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingVertical: 5,
+    paddingLeft: 7,
+    paddingRight: 7,
     color: "white"
   },
 });
