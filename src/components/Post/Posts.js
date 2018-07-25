@@ -3,6 +3,7 @@ import {
   Alert,
   StatusBar,
   FlatList,
+  TextInput,
   BackHandler,
   View,
   TouchableOpacity,
@@ -89,7 +90,25 @@ class Posts extends Component {
                 size={25}
               />
             </TouchableOpacity>
-            <Text style={myStyle.title}>Bài viết</Text>
+            {/* <Text style={myStyle.title}>Bài viết</Text> */}
+            <View style={myStyle.vText}>
+              <View style={{ width: 30, alignItems: 'center' }}>
+                <Feather name="search" size={24} style={{ color: "white" }} />
+              </View>
+
+              <TextInput
+                placeholderTextColor="white"
+                underlineColorAndroid="rgba(0,0,0,0)"
+                style={myStyle.ctmInput}
+                onChangeText={u => {
+                  this.setState({ user: u });
+                }}
+                placeholder="Tìm bài viết"
+              />
+              <View style={{ width: 30, alignItems: 'center' }}>
+                <Feather name="x" size={24} style={{ color: "white" }} />
+              </View>
+            </View>
           </View>
           {this.props.dataUser.name === "admin" && (
             <TouchableOpacity
@@ -247,11 +266,10 @@ class Posts extends Component {
 }
 const myStyle = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFF" },
-  icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
+  icon: {marginRight: 10, color: "#fff" },
   buttons: {
     flexDirection: "row",
     alignItems: "center",
-    flex: 1,
     justifyContent: "flex-end"
   },
   headerTitleBar: {
@@ -276,7 +294,24 @@ const myStyle = StyleSheet.create({
   },
   textOver: {
     fontSize: 10
-  }
+  },
+  vText: {
+    borderRadius: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
+    flex:1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255,255,255,0.1)'
+  },
+  ctmInput: {
+    backgroundColor: "rgba(255,255,255,0)",
+    fontSize: 18,
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    color: "white"
+  },
 });
 
 //export default Posts;
