@@ -20,21 +20,19 @@ import Base64 from "../../config/Base64";
 import { connect } from "react-redux";
 import Feather from "react-native-vector-icons/Feather";
 
-const initState = {
-  noidung: [],
-  refreshing: true,
-  loading: false,
-  page: 1,
-  over: false,
-  strSearch: "",
-  isClear: false,
-  isSearch: false
-};
-
 class Posts extends Component {
   constructor(props) {
     super(props);
-    this.state = initState;
+    this.state = {
+      noidung: [],
+      refreshing: true,
+      loading: false,
+      page: 1,
+      over: false,
+      strSearch: "",
+      isClear: false,
+      isSearch: false
+    };
   }
   static navigationOptions = ({ navigation }) => {
     let idCategory = navigation.getParam("idCategory", "");
@@ -70,7 +68,7 @@ class Posts extends Component {
 
   componentDidMount() {
     this.props.navigation.addListener("didFocus", () => {
-      this.setState(initState);
+      this.setState({strSearch:""});
       this._refresh();
     });
   }

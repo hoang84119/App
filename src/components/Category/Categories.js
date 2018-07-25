@@ -16,21 +16,19 @@ import Feather from "react-native-vector-icons/Feather";
 import ItemCategory from "./items/ItemCategory";
 import { connect } from "react-redux";
 
-const initState = {
-  data: [],
-  refreshing: true,
-  page: 1,
-  over: false,
-  loading: false,
-  strSearch: "",
-  isClear: false,
-  isSearch: false,
-};
-
 class Categories extends Component {
   constructor(props) {
     super(props);
-    this.state = initState;
+    this.state = {
+      data: [],
+      refreshing: true,
+      page: 1,
+      over: false,
+      loading: false,
+      strSearch: "",
+      isClear: false,
+      isSearch: false,
+    };
   }
   static navigationOptions = {
     header: null
@@ -38,7 +36,7 @@ class Categories extends Component {
 
   componentDidMount() {
     this.props.navigation.addListener("didFocus", () => {
-      this.setState(initState);
+      this.setState({strSearch:""});
       this._refreshing();
     });
   }
