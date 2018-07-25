@@ -255,10 +255,11 @@ Page = {
 };
 
 Post = {
-  GetAllPost: async function(idCategory, idTag, page) {
+  GetAllPost: async function(idCategory, idTag, page,search) {
     let address = `${url}/wp-json/wp/v2/posts?page=${page}`;
     if (idCategory != "") address = `${address}&categories=${idCategory}`;
     else if (idTag != "") address = `${address}&tags=${idTag}`;
+    else if (search != "") address = `${address}&search=${search}`;
     let response = await fetch(address);
     if(response.status === 200) {
       let responseJson = await response.json();

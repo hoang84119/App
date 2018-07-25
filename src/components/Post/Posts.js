@@ -104,6 +104,7 @@ class Posts extends Component {
                 onChangeText={u => {
                   this.setState({ strSearch: u });
                 }}
+                onSubmitEditing={this._search}
                 placeholder="Tìm bài viết"
               />
               <View style={{ width: 30, alignItems: 'center' }}>
@@ -150,6 +151,12 @@ class Posts extends Component {
         />
       </View>
     );
+  }
+
+  _search = () =>{
+    this.setState({page:1},()=>{
+      this._refresh()
+    });
   }
 
   _renderEmpty = () => {
@@ -223,7 +230,7 @@ class Posts extends Component {
     if (this.state.refreshing) {
       let dataTemp = [];
       for (let i = 1; i <= this.state.page; i++) {
-        let response = await API.Post.GetAllPost(idCategory, idTag, i);
+        let response = await API.Post.GetAllPost(idCategory, idTag, i,this.state.strSearch);
         if (response != null) {
           if (response.length != 0) {
             dataTemp = dataTemp.concat(response);
@@ -240,7 +247,8 @@ class Posts extends Component {
       let response = await API.Post.GetAllPost(
         idCategory,
         idTag,
-        this.state.page
+        this.state.page,
+        this.state.strSearch
       );
       if (response != null) {
         this.setState({
