@@ -101,17 +101,16 @@ class Posts extends Component {
                 <Feather name="search" size={24} style={{ color: "white" }} />
               </TouchableOpacity>
               <TextInput
-              onEndEditing={() => this.setState({isSearch: false})}
-                onKeyPress = {() => {
-                  this.setState({isClear: true})
-                  if(this.state.strSearch =="")
-                    this.setState({isClear: false})
-              }}
+                onEndEditing={() => this.setState({isSearch: false})}
+                autoFocus = {true}
                 placeholderTextColor="white"
                 underlineColorAndroid="rgba(0,0,0,0)"
                 style={myStyle.ctmInput}
                 onChangeText={u => {
-                  this.setState({ strSearch: u });
+                  this.setState({ strSearch: u })
+                  this.setState({isClear: true})
+                  if(u =="")
+                    this.setState({isClear: false})
                 }}
                 value = {this.state.strSearch}
                 placeholder="Tìm bài viết"
