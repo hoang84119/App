@@ -32,9 +32,10 @@ class ItemCategory extends Component {
       soBaiViet: 0,
     };
   }
-
+  img = 0;
   componentDidMount() { 
     this._checkPost();
+    this.img = Math.floor(Math.random() * randomImages.length)
   }
 
   componentWillReceiveProps(nextProps) { 
@@ -46,7 +47,7 @@ class ItemCategory extends Component {
   render() {
     return (
       <TouchableOpacity onPress={this._xem}>
-        <ImageBackground source={randomImages[Math.floor(Math.random() * randomImages.length)]} style={myStyle.cardItem}>
+        <ImageBackground source={randomImages[this.img]} style={myStyle.cardItem}>
 
           <View style={myStyle.btnNoiDung}>
             <Text style={myStyle.noiDung}>{this.props.data.name}</Text>
@@ -103,7 +104,7 @@ const myStyle = StyleSheet.create({
     marginHorizontal: 8,
     padding: 10,
     paddingVertical: 25,
-    borderRadius:2,
+    borderRadius:5,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
