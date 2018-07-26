@@ -119,7 +119,7 @@ class Tags extends Component {
                 }}
               >
                 <Feather
-                  style={[myStyle.icon, { marginRight: 0 }]}
+                  style={myStyle.icon}
                   name="search"
                   size={28}
                 />
