@@ -7,7 +7,9 @@ import {
   StyleSheet,
   FlatList,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -26,6 +28,7 @@ class Statistical extends Component {
       dataPosts: [],
       dataComments: [],
       refreshing: true,
+      //isLoadPost: true
     };
   }
   componentDidMount() {
@@ -161,6 +164,7 @@ class Statistical extends Component {
             <Text style={myStyle.text}>Bình luận mới</Text>
           </View>
         </ScrollView>
+          
       </View>
     );
   }
@@ -228,27 +232,35 @@ const myStyle = StyleSheet.create({
   },
   title: { fontSize: 20, color: "#fff", fontWeight: "500", marginLeft: 5 },
   cardItem: {
+    flex: 1,
     flexDirection: "column",
     margin: 5,
-    //borderWidth: 1,
-    borderRadius: 7,
-    shadowColor: "#000",
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.8,
-    elevation: 1.5
+    borderWidth: 1,
+    borderRadius: 5,
+    overflow: "hidden",
+    borderColor: "#d0d0d0"
+    // shadowColor: "#000",
+    // shadowOffset: { width: 10, height: 10 },
+    // shadowOpacity: 0.8,
+    // elevation: 1.5
   },
   buttons: {
-    width: 100,
-    height: 100,
-    borderColor: "#c0c0c0",
-    borderWidth: 1,
-    borderRadius: 50,
+    padding: 15,
+    width: 110,
+    height: 110,
+    //borderColor: "#0ABFBC",
+    borderWidth: 2.5,
+    borderRadius: 1000,
     justifyContent: "center",
     alignItems: "center",
-    margin: 10
+    margin: 10,
+    // shadowColor: "blue",
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowOpacity: 1,
+    // elevation: 3
   },
-  textSoLuong: { color: "#000", fontSize: 20, marginLeft: 10 },
-  text: { color: "#000", fontSize: 16, marginLeft: 10, marginVertical: 5 }
+  textSoLuong: { color: "#0ABFBC", fontSize: 20, fontWeight: "bold"},
+  text: {fontSize: 14, marginLeft: 10, marginVertical: 5 }
 });
 
 export default Statistical;
