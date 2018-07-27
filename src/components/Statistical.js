@@ -148,12 +148,12 @@ class Statistical extends Component {
 
   _loadData = async () => {
     try {
-      let posts = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
+      let statistical = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
       let dataPosts = await this._getPost();
       this.setState({
-        posts: posts.headers.get("x-wp-total"),
-        pages: pages.headers.get("x-wp-total"),
-        comments: comments.headers.get("x-wp-total"),
+        posts: statistical.totalposts,
+        pages: statistical.totalpages,
+        comments: statistical.totalcomments,
         dataPosts: dataPosts,
         refreshingPost: false
       });
