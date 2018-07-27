@@ -26,7 +26,8 @@ class Statistical extends Component {
       dataPosts: [],
       dataComments: [],
       refreshingPost: true,
-      refreshingComment: true
+      refreshingComment: true,
+      isLoadPost: true
     };
   }
   componentDidMount() {
@@ -133,19 +134,26 @@ class Statistical extends Component {
         <ImageBackground style={{padding: 5}} source={require("../image/tag/img5.jpg")}>
           <Text style={{color: "#fff", fontSize: 16, paddingLeft: 5}}>Bài viết mới</Text>
         </ImageBackground>
-          <FlatList
-              data={this.state.dataPosts}
-              refreshing={this.state.refreshingPost}
-              keyExtractor={(item, index) => item.id.toString()}
-              renderItem={this._renderPost}
-            />
+          {this.state.isLoadPost&&(
+            <View style={{flex:1, justifyContent:"center"}}>
+              <ActivityIndicator size={40} color = {"#d73c57"}/>
+            </View>
+          )}
+          {!this.state.isLoadPost&&(
+            <FlatList
+                data={this.state.dataPosts}
+                refreshing={this.state.refreshingPost}
+                keyExtractor={(item, index) => item.id.toString()}
+                renderItem={this._renderPost}
+              />
+          )}
         </View>
         <View style={myStyle.cardItem}>
           <ImageBackground style={{padding: 5}} source={require("../image/tag/img5.jpg")}>
             <Text style={{color: "#fff", fontSize: 16, paddingLeft: 5}}>Bình luận mới</Text>
           </ImageBackground>
-          <View>
-
+          <View style={{flex:1, justifyContent:"center"}}>
+            <ActivityIndicator size={40} color = {"#d73c57"}/>
           </View>
         </View>
       </View>
@@ -166,7 +174,8 @@ class Statistical extends Component {
         visitor:statistical.totalvisitor,
         visit:statistical.totalvisit,
         dataPosts: dataPosts,
-        refreshingPost: false
+        refreshingPost: false,
+        isLoadPost: false,
       });
     } catch (error) {
       console.log(error);
@@ -254,7 +263,7 @@ const myStyle = StyleSheet.create({
     // elevation: 3
   },
   textSoLuong: { color: "#0ABFBC", fontSize: 20, fontWeight: "bold"},
-  text: { color: "#000", fontSize: 16, marginLeft: 10, marginVertical: 5 }
+  text: {fontSize: 14, marginLeft: 10, marginVertical: 5 }
 });
 
 export default Statistical;
