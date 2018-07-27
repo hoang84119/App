@@ -69,7 +69,7 @@ class Statistical extends Component {
               onPress={() => {
                 this.props.navigation.navigate("Post");
               }}
-              style={[myStyle.buttons,{borderColor: "#14d160"}]}
+              style={[myStyle.buttons,{borderColor: "#14d160", backgroundColor: "#F3FFF7"}]}
             >
               <Ionicons
                   name={"ios-paper"}
@@ -83,7 +83,7 @@ class Statistical extends Component {
               onPress={() => {
                 this.props.navigation.navigate("Page");
               }}
-              style={[myStyle.buttons,{borderColor: "#fe5605"}]}
+              style={[myStyle.buttons,{borderColor: "#fe5605", backgroundColor: "#FFFDF8"}]}
             >
             <Ionicons
                   name={"ios-book"}
@@ -93,7 +93,7 @@ class Statistical extends Component {
                 <Text style={[myStyle.textSoLuong,{color: "#fe5605"}]}>{this.state.pages}</Text>
             <Text style={{ fontSize: 12 }}>Trang</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[myStyle.buttons,{borderColor: "#d213e8"}]}>
+            <TouchableOpacity style={[myStyle.buttons,{borderColor: "#d213e8", backgroundColor: "#FDEDFD"}]}>
               <Ionicons
                   name={"ios-chatboxes"}
                   size={40}
@@ -113,7 +113,7 @@ class Statistical extends Component {
               alignItems: "center"
             }}
           >
-            <Ionicons name={"ios-eye"} size={30} color={"#0ABFBC"} />
+            <Ionicons name={"ios-eye"} size={25} color={"#0ABFBC"} />
             <Text style={myStyle.text}>{this.state.visitor} đang xem</Text>
           </View>
           <View
@@ -123,7 +123,7 @@ class Statistical extends Component {
               alignItems: "center"
             }}
           >
-            <Ionicons name={"ios-people"} size={30} color={"#0ABFBC"} />
+            <Ionicons name={"ios-people"} size={20} color={"#0ABFBC"} />
             <Text style={myStyle.text}>{this.state.visit} lượt truy cập</Text>
           </View>
           </View>
@@ -253,7 +253,7 @@ const myStyle = StyleSheet.create({
     height: 110,
     //borderColor: "#0ABFBC",
     borderWidth: 2.5,
-    borderRadius: 1000,
+    borderRadius: 110/2,
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
@@ -263,7 +263,7 @@ const myStyle = StyleSheet.create({
     // elevation: 3
   },
   textSoLuong: { color: "#0ABFBC", fontSize: 20, fontWeight: "bold"},
-  text: {fontSize: 14, marginLeft: 10, marginVertical: 5 }
+  text: {fontSize: 12, marginLeft: 10, marginVertical: 5 }
 });
 
 export default Statistical;
