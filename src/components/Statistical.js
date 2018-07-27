@@ -66,15 +66,13 @@ class Statistical extends Component {
               }}
               style={myStyle.buttons}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Ionicons
+              <Ionicons
                   name={"ios-paper-outline"}
-                  size={30}
+                  size={40}
                   color={"#0ABFBC"}
                 />
-                <Text style={myStyle.textSoLuong}>{this.state.posts}</Text>
-              </View>
-              <Text style={{ fontSize: 15, marginTop: 5 }}>Bài viết</Text>
+              <Text style={myStyle.textSoLuong}>{this.state.posts}</Text>
+              <Text style={{ fontSize: 12}}>Bài viết</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -237,7 +235,7 @@ const myStyle = StyleSheet.create({
     alignItems: "center",
     margin: 10
   },
-  textSoLuong: { color: "#000", fontSize: 20, marginLeft: 10 },
+  textSoLuong: { color: "#000", fontSize: 20},
   text: { color: "#000", fontSize: 16, marginLeft: 10, marginVertical: 5 }
 });
 
