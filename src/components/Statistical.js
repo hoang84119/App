@@ -170,9 +170,10 @@ class Statistical extends Component {
     try {
       let response = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
       let statistical = await response.json();
-      let dataPosts = await this._getPost();
-      console.log(response);
-      console.log(dataPosts);
+      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts?per_page=5`);
+      let dataPosts = await posts.json();
+      let comments = await fetch(`${API.getURL()}/wp-json/wp/v2/comments?per_page=5`);
+      let dataComments = await comments.json();
       this.setState({
         posts: statistical.totalposts,
         pages: statistical.totalpages,
@@ -180,24 +181,9 @@ class Statistical extends Component {
         visitor: statistical.totalvisitor,
         visit: statistical.totalvisit,
         dataPosts: dataPosts,
+        dataComments: dataComments,
         refreshing: false
       });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  _refreshPost = () => {
-    this._getPost().then(data => {
-      this.setState({ dataPosts: data });
-    });
-  };
-
-  _getPost = async () => {
-    try {
-      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts?per_page=5`);
-      let json = await posts.json();
-      return json;
     } catch (error) {
       console.log(error);
     }
