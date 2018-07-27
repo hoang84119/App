@@ -28,7 +28,7 @@ class Statistical extends Component {
       dataPosts: [],
       dataComments: [],
       refreshing: true,
-      //isLoadPost: true
+      isLoadPost: true
     };
   }
   componentDidMount() {
@@ -73,96 +73,98 @@ class Statistical extends Component {
           <View style={myStyle.cardItem}>
             {/* Buttons */}
 
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate("Post");
-                }}
-                style={myStyle.buttons}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Ionicons
-                    name={"ios-paper-outline"}
-                    size={30}
-                    color={"#0ABFBC"}
-                  />
-                  <Text style={myStyle.textSoLuong}>{this.state.posts}</Text>
-                </View>
-                <Text style={{ fontSize: 15, marginTop: 5 }}>Bài viết</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate("Page");
-                }}
-                style={myStyle.buttons}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Ionicons
-                    name={"ios-book-outline"}
-                    size={30}
-                    color={"#0ABFBC"}
-                  />
-                  <Text style={myStyle.textSoLuong}>{this.state.pages}</Text>
-                </View>
-                <Text style={{ fontSize: 15, marginTop: 5 }}>Trang</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={myStyle.buttons}>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Ionicons
-                    name={"ios-chatboxes-outline"}
-                    size={30}
-                    color={"#0ABFBC"}
-                  />
-                  <Text style={myStyle.textSoLuong}>{this.state.comments}</Text>
-                </View>
-                <Text style={{ fontSize: 15, marginTop: 5 }}>Bình luận</Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* So luong khach */}
-
-            <View
-              style={{
-                marginLeft: 10,
-                flexDirection: "row",
-                alignItems: "center"
+            <<View style={{ flexDirection: "row", justifyContent: "center" , alignItems:"center"}}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("Post");
               }}
-            >
-              <Ionicons name={"ios-eye-outline"} size={30} color={"#0ABFBC"} />
-              <Text style={myStyle.text}>
-                Tổng số người xem: {this.state.visitor}
-              </Text>
-            </View>
-            <View
-              style={{
-                marginLeft: 10,
-                flexDirection: "row",
-                alignItems: "center"
-              }}
+              style={[myStyle.buttons,{borderColor: "#14d160"}]}
             >
               <Ionicons
-                name={"ios-people-outline"}
-                size={30}
-                color={"#0ABFBC"}
-              />
-              <Text style={myStyle.text}>
-                Tổng số khách viếng thăm: {this.state.visit}
-              </Text>
-            </View>
+                  name={"ios-paper"}
+                  size={40}
+                  color={"#14d160"}
+                />
+              <Text style={[myStyle.textSoLuong,{color: "#14d160"}]}>{this.state.posts}</Text>
+              <Text style={{ fontSize: 12}}>Bài viết</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("Page");
+              }}
+              style={[myStyle.buttons,{borderColor: "#fe5605"}]}
+            >
+            <Ionicons
+                  name={"ios-book"}
+                  size={40}
+                  color={"#fe5605"}
+                />
+                <Text style={[myStyle.textSoLuong,{color: "#fe5605"}]}>{this.state.pages}</Text>
+            <Text style={{ fontSize: 12 }}>Trang</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[myStyle.buttons,{borderColor: "#d213e8"}]}>
+              <Ionicons
+                  name={"ios-chatboxes"}
+                  size={40}
+                  color={"#d213e8"}
+                />
+              <Text style={[myStyle.textSoLuong,{color: "#d213e8"}]}>{this.state.comments}</Text>
+              <Text style={{ fontSize: 12}}>Bình luận</Text>
+            </TouchableOpacity>
           </View>
 
-          {/* Bài viết */}
-          <View style={myStyle.cardItem}>
-            <Text style={myStyle.text}>Bài viết mới</Text>
+          {/* So luong khach */}
+          <View style={{flex: 1 , flexDirection:"row", justifyContent:"center"}}>
+          <View
+            style={{
+              margin: 10,
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
+            <Ionicons name={"ios-eye"} size={30} color={"#0ABFBC"} />
+            <Text style={myStyle.text}>{this.state.visitor} đang xem</Text>
+          </View>
+          <View
+            style={{
+              margin: 10,
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
+            <Ionicons name={"ios-people"} size={30} color={"#0ABFBC"} />
+            <Text style={myStyle.text}>{this.state.visit} lượt truy cập</Text>
+          </View>
+          </View>
+        </View>
+
+        {/* Bài viết */}
+        <View style={myStyle.cardItem}>
+        <ImageBackground style={{padding: 5}} source={require("../image/tag/img5.jpg")}>
+          <Text style={{color: "#fff", fontSize: 16, paddingLeft: 5}}>Bài viết mới</Text>
+        </ImageBackground>
+          {this.state.isLoadPost&&(
+            <View style={{flex:1, justifyContent:"center"}}>
+              <ActivityIndicator size={40} color = {"#d73c57"}/>
+            </View>
+          )}
+          {!this.state.isLoadPost&&(
             <FlatList
-              data={this.state.dataPosts}
-              keyExtractor={(item, index) => item.id.toString()}
-              renderItem={this._renderPost}
-            />
+                data={this.state.dataPosts}
+                refreshing={this.state.refreshingPost}
+                keyExtractor={(item, index) => item.id.toString()}
+                renderItem={this._renderPost}
+              />
+          )}
+        </View>
+        <View style={myStyle.cardItem}>
+          <ImageBackground style={{padding: 5}} source={require("../image/tag/img5.jpg")}>
+            <Text style={{color: "#fff", fontSize: 16, paddingLeft: 5}}>Bình luận mới</Text>
+          </ImageBackground>
+          <View style={{flex:1, justifyContent:"center"}}>
+            <ActivityIndicator size={40} color = {"#d73c57"}/>
           </View>
-          <View style={myStyle.cardItem}>
-            <Text style={myStyle.text}>Bình luận mới</Text>
-          </View>
+        </View>
         </ScrollView>
           
       </View>
@@ -186,7 +188,8 @@ class Statistical extends Component {
         visit: statistical.totalvisit,
         dataPosts: dataPosts,
         dataComments: dataComments,
-        refreshing: false
+        refreshing: false,
+        isLoadPost: false,
       });
     } catch (error) {
       console.log(error);
