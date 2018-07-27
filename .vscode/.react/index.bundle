@@ -112402,11 +112402,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _reactNative.TouchableOpacity,
           {
             style: {
-              flexDirection: "row"
+              flexDirection: "row",
+              alignItems: "center",
+              borderBottomColor: "#c0c0c0",
+              borderBottomWidth: 1
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 221
+              lineNumber: 238
             }
           },
           _react3.default.createElement(
@@ -112415,19 +112418,69 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.text,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 222
+                lineNumber: 246
               }
             },
-            _this._getDate(item.date_gmt)
+            _this._getDate(item.modified_gmt),
+            " | "
           ),
           _react3.default.createElement(_reactNativeRenderHtml2.default, {
             html: "<span style=\"fontSize:16\">" + item.title.rendered + "</span>",
             renderers: _this.renderers,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 223
+              lineNumber: 247
             }
           })
+        );
+      };
+
+      _this._renderComment = function (_ref2) {
+        var item = _ref2.item;
+        return _react3.default.createElement(
+          _reactNative.TouchableOpacity,
+          {
+            style: {
+              flexDirection: "row",
+              borderBottomColor: "#c0c0c0",
+              borderBottomWidth: 1
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 255
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: {
+                flexDirection: "column"
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 268
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: myStyle.text,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 269
+                }
+              },
+              item.author_name
+            ),
+            _react3.default.createElement(_reactNativeRenderHtml2.default, {
+              html: "<span style=\"fontSize:16\">" + item.content.rendered + "</span>",
+              renderers: _this.renderers,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 270
+              }
+            })
+          )
         );
       };
 
@@ -112439,7 +112492,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.text,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 232
+                lineNumber: 280
               }
             },
             children
@@ -112614,7 +112667,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       _this3.props.navigation.navigate("Post");
                     },
                     style: [myStyle.buttons, {
-                      borderColor: "#14d160"
+                      borderColor: "#14d160",
+                      backgroundColor: "#F3FFF7"
                     }],
                     __source: {
                       fileName: _jsxFileName,
@@ -112627,7 +112681,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#14d160",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 89
+                      lineNumber: 92
                     }
                   }),
                   _react3.default.createElement(
@@ -112638,7 +112692,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       }],
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 90
+                        lineNumber: 93
                       }
                     },
                     this.state.posts
@@ -112651,7 +112705,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 93
+                        lineNumber: 96
                       }
                     },
                     "B\xE0i vi\u1EBFt"
@@ -112664,11 +112718,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       _this3.props.navigation.navigate("Page");
                     },
                     style: [myStyle.buttons, {
-                      borderColor: "#fe5605"
+                      borderColor: "#fe5605",
+                      backgroundColor: "#FFFDF8"
                     }],
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 95
+                      lineNumber: 98
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -112677,7 +112732,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#fe5605",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 101
+                      lineNumber: 107
                     }
                   }),
                   _react3.default.createElement(
@@ -112688,7 +112743,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       }],
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 102
+                        lineNumber: 108
                       }
                     },
                     this.state.pages
@@ -112701,7 +112756,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 105
+                        lineNumber: 111
                       }
                     },
                     "Trang"
@@ -112711,11 +112766,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   _reactNative.TouchableOpacity,
                   {
                     style: [myStyle.buttons, {
-                      borderColor: "#d213e8"
+                      borderColor: "#d213e8",
+                      backgroundColor: "#FDEDFD"
                     }],
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 107
+                      lineNumber: 113
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -112724,7 +112780,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#d213e8",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 110
+                      lineNumber: 119
                     }
                   }),
                   _react3.default.createElement(
@@ -112735,7 +112791,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       }],
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 111
+                        lineNumber: 120
                       }
                     },
                     this.state.comments
@@ -112748,7 +112804,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 114
+                        lineNumber: 123
                       }
                     },
                     "B\xECnh lu\u1EADn"
@@ -112765,7 +112821,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 119
+                    lineNumber: 128
                   }
                 },
                 _react3.default.createElement(
@@ -112778,16 +112834,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 126
+                      lineNumber: 135
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
                     name: "ios-eye",
-                    size: 30,
+                    size: 25,
                     color: "#0ABFBC",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 133
+                      lineNumber: 142
                     }
                   }),
                   _react3.default.createElement(
@@ -112796,11 +112852,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.text,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 134
+                        lineNumber: 143
                       }
                     },
                     this.state.visitor,
-                    " \u0111ang xem"
+                    " vi\u1EBFng th\u0103m"
                   )
                 ),
                 _react3.default.createElement(
@@ -112813,16 +112869,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 136
+                      lineNumber: 147
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
                     name: "ios-people",
-                    size: 30,
+                    size: 20,
                     color: "#0ABFBC",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 143
+                      lineNumber: 154
                     }
                   }),
                   _react3.default.createElement(
@@ -112831,11 +112887,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.text,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 144
+                        lineNumber: 155
                       }
                     },
                     this.state.visit,
-                    " l\u01B0\u1EE3t truy c\u1EADp"
+                    " l\u01B0\u1EE3t xem"
                   )
                 )
               )
@@ -112846,7 +112902,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.cardItem,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 152
+                  lineNumber: 162
                 }
               },
               _react3.default.createElement(
@@ -112858,7 +112914,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   source: _require(_dependencyMap[7], "../image/tag/img5.jpg"),
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 153
+                    lineNumber: 163
                   }
                 },
                 _react3.default.createElement(
@@ -112871,7 +112927,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 157
+                      lineNumber: 167
                     }
                   },
                   "B\xE0i vi\u1EBFt m\u1EDBi"
@@ -112886,7 +112942,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 162
+                    lineNumber: 172
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -112894,20 +112950,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   color: "#d73c57",
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 163
+                    lineNumber: 173
                   }
                 })
               ),
               !this.state.isLoadPost && _react3.default.createElement(_reactNative.FlatList, {
                 data: this.state.dataPosts,
-                refreshing: this.state.refreshingPost,
                 keyExtractor: function keyExtractor(item, index) {
                   return item.id.toString();
                 },
                 renderItem: this._renderPost,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 167
+                  lineNumber: 177
                 }
               })
             ),
@@ -112917,7 +112972,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.cardItem,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 175
+                  lineNumber: 187
                 }
               },
               _react3.default.createElement(
@@ -112929,7 +112984,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   source: _require(_dependencyMap[7], "../image/tag/img5.jpg"),
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 176
+                    lineNumber: 188
                   }
                 },
                 _react3.default.createElement(
@@ -112942,33 +112997,23 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 180
+                      lineNumber: 192
                     }
                   },
                   "B\xECnh lu\u1EADn m\u1EDBi"
                 )
               ),
-              _react3.default.createElement(
-                _reactNative.View,
-                {
-                  style: {
-                    flex: 1,
-                    justifyContent: "center"
-                  },
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 184
-                  }
+              _react3.default.createElement(_reactNative.FlatList, {
+                data: this.state.dataComments,
+                keyExtractor: function keyExtractor(item, index) {
+                  return item.id.toString();
                 },
-                _react3.default.createElement(_reactNative.ActivityIndicator, {
-                  size: 40,
-                  color: "#d73c57",
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 185
-                  }
-                })
-              )
+                renderItem: this._renderComment,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 199
+                }
+              })
             )
           )
         );
@@ -113019,7 +113064,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       width: 110,
       height: 110,
       borderWidth: 2.5,
-      borderRadius: 1000,
+      borderRadius: 110 / 2,
       justifyContent: "center",
       alignItems: "center",
       margin: 10
@@ -113030,9 +113075,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontWeight: "bold"
     },
     text: {
-      fontSize: 14,
+      fontSize: 12,
       marginLeft: 10,
       marginVertical: 5
+    },
+    avatar: {
+      width: 40,
+      height: 40
     }
   });
 
