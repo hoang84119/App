@@ -148,9 +148,7 @@ class Statistical extends Component {
 
   _loadData = async () => {
     try {
-      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts`);
-      let pages = await fetch(`${API.getURL()}/wp-json/wp/v2/pages`);
-      let comments = await fetch(`${API.getURL()}/wp-json/wp/v2/comments`);
+      let posts = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
       let dataPosts = await this._getPost();
       this.setState({
         posts: posts.headers.get("x-wp-total"),
@@ -176,9 +174,9 @@ class Statistical extends Component {
 
   _renderPost = ({ item }) => (
     <TouchableOpacity style={{ flexDirection: "row" }}>
-      <Text style={myStyle.text}>Ngay</Text>
+      <Text style={myStyle.text}>{this._getDate(item.modified_gmt)}</Text>
       <HTML
-        html={`<span style="fontSize:18">${
+        html={`<span style="fontSize:16">${
           item.title.rendered
         }</span>`}
         renderers={this.renderers}
@@ -193,6 +191,11 @@ class Statistical extends Component {
       </Text>
     )
   };
+
+  _getDate = (isoDates) =>{
+    let date = new Date(isoDates);
+    return date.toLocaleDateString() +" "+ date.toLocaleTimeString();
+  }
 }
 
 const myStyle = StyleSheet.create({
