@@ -19,6 +19,8 @@ class Statistical extends Component {
       pages: 0,
       posts: 0,
       comments: 0,
+      visitor:0,
+      visit:0,
       dataPosts: [],
       dataComments: [],
       refreshingPost: true,
@@ -113,7 +115,7 @@ class Statistical extends Component {
             }}
           >
             <Ionicons name={"ios-eye-outline"} size={30} color={"#0ABFBC"} />
-            <Text style={myStyle.text}>Số người xem: 10</Text>
+            <Text style={myStyle.text}>Tổng số người xem: {this.state.visitor}</Text>
           </View>
           <View
             style={{
@@ -123,7 +125,7 @@ class Statistical extends Component {
             }}
           >
             <Ionicons name={"ios-people-outline"} size={30} color={"#0ABFBC"} />
-            <Text style={myStyle.text}>Số khách viếng thăm: 15</Text>
+            <Text style={myStyle.text}>Tổng số khách viếng thăm: {this.state.visit}</Text>
           </View>
         </View>
 
@@ -155,6 +157,8 @@ class Statistical extends Component {
         posts: statistical.totalposts,
         pages: statistical.totalpages,
         comments: statistical.totalcomments,
+        visitor:statistical.totalvisitor,
+        visit:statistical.totalvisit,
         dataPosts: dataPosts,
         refreshingPost: false
       });
