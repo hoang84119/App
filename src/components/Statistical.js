@@ -193,7 +193,7 @@ class Statistical extends Component {
   };
 
   _renderPost = ({ item }) => (
-    <TouchableOpacity style={{ flexDirection: "row" }}>
+    <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", borderBottomColor: "#c0c0c0", borderBottomWidth: 1 }}>
       <Text style={myStyle.text}>{this._getDate(item.modified_gmt)}    | </Text>
       <HTML
         html={`<span style="fontSize:16">${
