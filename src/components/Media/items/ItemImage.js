@@ -39,7 +39,7 @@ class ItemImage extends Component {
                 uri: this.props.guid
               }}
               style={{
-              height: Dimensions.get("window").width/3 - 10, resizeMode: "cover" }}
+              height: Dimensions.get("window").width/3 - 8, resizeMode: "cover" }}
             />
             {this.props.selected && (
               <View
