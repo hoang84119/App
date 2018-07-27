@@ -68,7 +68,7 @@ class Posts extends Component {
 
   componentDidMount() {
     this.props.navigation.addListener("didFocus", () => {
-      this.setState({strSearch:""});
+      this.setState({strSearch:"",page:1});
       this._refresh();
     });
   }

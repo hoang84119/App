@@ -43,7 +43,7 @@ class Page extends Component {
     //this._loadData();
     //BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPress);
     this.props.navigation.addListener("didFocus", () => {
-      this.setState({ strSearch: "" });
+      this.setState({ strSearch: "",page:1 });
       this._refresh();
     });
   }

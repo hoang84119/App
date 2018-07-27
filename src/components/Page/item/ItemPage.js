@@ -111,7 +111,6 @@ class ItemPage extends Component {
     this.props.navigation.navigate("EditPage", { id: this.props.data.id });
   };
   async _getFeaturedMedia() {
-    console.log("_getFeaturedMedia");
     if (this.props.data.featured_media != 0) {
       let idImage = this.props.data.featured_media;
       let response = await fetch(
