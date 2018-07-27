@@ -28,8 +28,7 @@ class Statistical extends Component {
       visit: 0,
       dataPosts: [],
       dataComments: [],
-      refreshing: true,
-      isLoadPost: true
+      refreshing: true
     };
   }
   componentDidMount() {
@@ -169,12 +168,12 @@ class Statistical extends Component {
                 Bài viết mới
               </Text>
             </ImageBackground>
-            {this.state.isLoadPost && (
+            {this.state.refreshing && (
               <View style={{ flex: 1, justifyContent: "center" }}>
                 <ActivityIndicator size={40} color={"#d73c57"} />
               </View>
             )}
-            {!this.state.isLoadPost && (
+            {!this.state.refreshing && (
               <FlatList
                 data={this.state.dataPosts}
                 keyExtractor={(item, index) => item.id.toString()}
@@ -194,14 +193,18 @@ class Statistical extends Component {
                 Bình luận mới
               </Text>
             </ImageBackground>
-            {/* <View style={{flex:1, justifyContent:"center"}}>
-            <ActivityIndicator size={40} color = {"#d73c57"}/>
-          </View> */}
-            <FlatList
-              data={this.state.dataComments}
-              keyExtractor={(item, index) => item.id.toString()}
-              renderItem={this._renderComment}
-            />
+            {this.state.refreshing && (
+              <View style={{ flex: 1, justifyContent: "center" }}>
+                <ActivityIndicator size={40} color={"#d73c57"} />
+              </View>
+            )}
+            {!this.state.refreshing && (
+              <FlatList
+                data={this.state.dataComments}
+                keyExtractor={(item, index) => item.id.toString()}
+                renderItem={this._renderComment}
+              />
+            )}
           </View>
         </ScrollView>
       </View>
@@ -227,8 +230,7 @@ class Statistical extends Component {
         visit: statistical.totalvisit,
         dataPosts: dataPosts,
         dataComments: dataComments,
-        refreshing: false,
-        isLoadPost: false
+        refreshing: false
       });
     } catch (error) {
       console.log(error);
@@ -337,8 +339,8 @@ const myStyle = StyleSheet.create({
   avatar: {
     width: 40,
     height: 40,
-    borderRadius:50,
-    marginLeft:5
+    borderRadius: 50,
+    marginLeft: 5
     //resizeMode: "cover"
   }
 });
