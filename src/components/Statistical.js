@@ -6,6 +6,8 @@ import {
   StatusBar,
   StyleSheet,
   FlatList,
+  ScrollView,
+  RefreshControl,
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
@@ -21,12 +23,11 @@ class Statistical extends Component {
       pages: 0,
       posts: 0,
       comments: 0,
-      visitor:0,
-      visit:0,
+      visitor: 0,
+      visit: 0,
       dataPosts: [],
       dataComments: [],
-      refreshingPost: true,
-      refreshingComment: true,
+      refreshing: true,
       isLoadPost: true
     };
   }
@@ -61,15 +62,23 @@ class Statistical extends Component {
 
         {/* Nội dung */}
 
-        <View style={myStyle.cardItem}>
-          {/* Buttons */}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._loadData}
+            />
+          }
+        >
+          <View style={myStyle.cardItem}>
+            {/* Buttons */}
 
-          <View style={{ flexDirection: "row", justifyContent: "center" , alignItems:"center"}}>
+            <View style={{ flexDirection: "row", justifyContent: "center" , alignItems:"center"}}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Post");
               }}
-              style={[myStyle.buttons,{borderColor: "#14d160", backgroundColor: "#F3FFF7"}]}
+              style={[myStyle.buttons,{borderColor: "#14d160"}]}
             >
               <Ionicons
                   name={"ios-paper"}
@@ -83,7 +92,7 @@ class Statistical extends Component {
               onPress={() => {
                 this.props.navigation.navigate("Page");
               }}
-              style={[myStyle.buttons,{borderColor: "#fe5605", backgroundColor: "#FFFDF8"}]}
+              style={[myStyle.buttons,{borderColor: "#fe5605"}]}
             >
             <Ionicons
                   name={"ios-book"}
@@ -93,7 +102,7 @@ class Statistical extends Component {
                 <Text style={[myStyle.textSoLuong,{color: "#fe5605"}]}>{this.state.pages}</Text>
             <Text style={{ fontSize: 12 }}>Trang</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[myStyle.buttons,{borderColor: "#d213e8", backgroundColor: "#FDEDFD"}]}>
+            <TouchableOpacity style={[myStyle.buttons,{borderColor: "#d213e8"}]}>
               <Ionicons
                   name={"ios-chatboxes"}
                   size={40}
@@ -113,7 +122,7 @@ class Statistical extends Component {
               alignItems: "center"
             }}
           >
-            <Ionicons name={"ios-eye"} size={25} color={"#0ABFBC"} />
+            <Ionicons name={"ios-eye"} size={30} color={"#0ABFBC"} />
             <Text style={myStyle.text}>{this.state.visitor} đang xem</Text>
           </View>
           <View
@@ -123,7 +132,7 @@ class Statistical extends Component {
               alignItems: "center"
             }}
           >
-            <Ionicons name={"ios-people"} size={20} color={"#0ABFBC"} />
+            <Ionicons name={"ios-people"} size={30} color={"#0ABFBC"} />
             <Text style={myStyle.text}>{this.state.visit} lượt truy cập</Text>
           </View>
           </View>
@@ -156,37 +165,32 @@ class Statistical extends Component {
             <ActivityIndicator size={40} color = {"#d73c57"}/>
           </View>
         </View>
+        </ScrollView>
+          
       </View>
     );
   }
 
   _loadData = async () => {
+    this.setState({refreshing:true});
     try {
       let response = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
       let statistical = await response.json();
-      let dataPosts = await this._getPost();
-      console.log(response);
-      console.log(statistical);
+      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts?per_page=5`);
+      let dataPosts = await posts.json();
+      let comments = await fetch(`${API.getURL()}/wp-json/wp/v2/comments?per_page=5`);
+      let dataComments = await comments.json();
       this.setState({
         posts: statistical.totalposts,
         pages: statistical.totalpages,
         comments: statistical.totalcomments,
-        visitor:statistical.totalvisitor,
-        visit:statistical.totalvisit,
+        visitor: statistical.totalvisitor,
+        visit: statistical.totalvisit,
         dataPosts: dataPosts,
-        refreshingPost: false,
+        dataComments: dataComments,
+        refreshing: false,
         isLoadPost: false,
       });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  _getPost = async () => {
-    try {
-      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts?per_page=5`);
-      let json = await posts.json();
-      return json;
     } catch (error) {
       console.log(error);
     }
@@ -196,9 +200,7 @@ class Statistical extends Component {
     <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", borderBottomColor: "#c0c0c0", borderBottomWidth: 1 }}>
       <Text style={myStyle.text}>{this._getDate(item.modified_gmt)}    | </Text>
       <HTML
-        html={`<span style="fontSize:16">${
-          item.title.rendered
-        }</span>`}
+        html={`<span style="fontSize:16">${item.title.rendered}</span>`}
         renderers={this.renderers}
       />
     </TouchableOpacity>
@@ -206,16 +208,14 @@ class Statistical extends Component {
 
   renderers = {
     span: (htmlAttribs, children) => (
-      <Text style={myStyle.text}>
-        {children}
-      </Text>
+      <Text style={myStyle.text}>{children}</Text>
     )
   };
 
-  _getDate = (isoDates) =>{
+  _getDate = isoDates => {
     let date = new Date(isoDates);
-    return date.toLocaleDateString() +" "+ date.toLocaleTimeString();
-  }
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  };
 }
 
 const myStyle = StyleSheet.create({
@@ -253,7 +253,7 @@ const myStyle = StyleSheet.create({
     height: 110,
     //borderColor: "#0ABFBC",
     borderWidth: 2.5,
-    borderRadius: 110/2,
+    borderRadius: 1000,
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
@@ -263,7 +263,7 @@ const myStyle = StyleSheet.create({
     // elevation: 3
   },
   textSoLuong: { color: "#0ABFBC", fontSize: 20, fontWeight: "bold"},
-  text: {fontSize: 12, marginLeft: 10, marginVertical: 5 }
+  text: {fontSize: 14, marginLeft: 10, marginVertical: 5 }
 });
 
 export default Statistical;
