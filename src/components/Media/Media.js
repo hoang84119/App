@@ -32,7 +32,7 @@ export default class Media extends Component {
       over: false,
       uploading: false,
       isDelete: false,
-      marginAnim: new Animated.Value(-10)
+      marginAnim: new Animated.Value(-5)
     };
   }
 
@@ -43,14 +43,14 @@ export default class Media extends Component {
     });
     const anim = Animated.timing(
       this.state.marginAnim,{
-        toValue: 10,
-        duration: 1000
+        toValue: 0,
+        duration: 800
       }
     )
     const anim2 = Animated.timing(
       this.state.marginAnim,{
-        toValue: -10,
-        duration: 1000
+        toValue: -5,
+        duration: 800
       }
     )
     const animfinal = Animated.sequence([anim, anim2])
@@ -96,20 +96,19 @@ export default class Media extends Component {
     if (this.state.selected.size == 0)
       if (this.props.navigation.getParam("check", 0) != 1)
         buttonUpload = (
-          <TouchableOpacity
-            onPress={() => {
-              this.refs.myModal.open();
-            }}
-            style={[myStyle.select, { backgroundColor: "#0ABFBC" }]}
-          >
-            <Animated.View style={{ marginBottom}}>
-              <IonIcon
-                style={{ color: "white" }}
-                name="ios-cloud-upload-outline"
-                size={32}
-              />
-            </Animated.View>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.refs.myModal.open();
+              }}
+              style={[myStyle.select, { backgroundColor: "#0ABFBC" }]}
+            >
+              
+                <IonIcon
+                  style={{ color: "white" }}
+                  name="ios-cloud-upload-outline"
+                  size={32}
+                />
+            </TouchableOpacity>
         );
     let buttonInsertDelete = null;
     if (this.state.selected.size != 0)
@@ -226,7 +225,9 @@ export default class Media extends Component {
           />
         </View>
         {buttonInsertDelete}
+        <Animated.View style={{ marginBottom}}>
         {buttonUpload}
+        </Animated.View>
       </View>
     );
   }
