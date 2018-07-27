@@ -73,7 +73,7 @@ class Statistical extends Component {
           <View style={myStyle.cardItem}>
             {/* Buttons */}
 
-            <<View style={{ flexDirection: "row", justifyContent: "center" , alignItems:"center"}}>
+            <View style={{ flexDirection: "row", justifyContent: "center" , alignItems:"center"}}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Post");
