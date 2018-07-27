@@ -5,7 +5,9 @@ import {
   Text,
   StatusBar,
   StyleSheet,
-  FlatList
+  FlatList,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -19,12 +21,11 @@ class Statistical extends Component {
       pages: 0,
       posts: 0,
       comments: 0,
-      visitor:0,
-      visit:0,
+      visitor: 0,
+      visit: 0,
       dataPosts: [],
       dataComments: [],
-      refreshingPost: true,
-      refreshingComment: true
+      refreshing: true,
     };
   }
   componentDidMount() {
@@ -58,115 +59,138 @@ class Statistical extends Component {
 
         {/* Nội dung */}
 
-        <View style={myStyle.cardItem}>
-          {/* Buttons */}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._loadData}
+            />
+          }
+        >
+          <View style={myStyle.cardItem}>
+            {/* Buttons */}
 
-          <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate("Post");
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.navigate("Post");
+                }}
+                style={myStyle.buttons}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Ionicons
+                    name={"ios-paper-outline"}
+                    size={30}
+                    color={"#0ABFBC"}
+                  />
+                  <Text style={myStyle.textSoLuong}>{this.state.posts}</Text>
+                </View>
+                <Text style={{ fontSize: 15, marginTop: 5 }}>Bài viết</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.navigate("Page");
+                }}
+                style={myStyle.buttons}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Ionicons
+                    name={"ios-book-outline"}
+                    size={30}
+                    color={"#0ABFBC"}
+                  />
+                  <Text style={myStyle.textSoLuong}>{this.state.pages}</Text>
+                </View>
+                <Text style={{ fontSize: 15, marginTop: 5 }}>Trang</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={myStyle.buttons}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Ionicons
+                    name={"ios-chatboxes-outline"}
+                    size={30}
+                    color={"#0ABFBC"}
+                  />
+                  <Text style={myStyle.textSoLuong}>{this.state.comments}</Text>
+                </View>
+                <Text style={{ fontSize: 15, marginTop: 5 }}>Bình luận</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* So luong khach */}
+
+            <View
+              style={{
+                marginLeft: 10,
+                flexDirection: "row",
+                alignItems: "center"
               }}
-              style={myStyle.buttons}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Ionicons
-                  name={"ios-paper-outline"}
-                  size={30}
-                  color={"#0ABFBC"}
-                />
-                <Text style={myStyle.textSoLuong}>{this.state.posts}</Text>
-              </View>
-              <Text style={{ fontSize: 15, marginTop: 5 }}>Bài viết</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate("Page");
+              <Ionicons name={"ios-eye-outline"} size={30} color={"#0ABFBC"} />
+              <Text style={myStyle.text}>
+                Tổng số người xem: {this.state.visitor}
+              </Text>
+            </View>
+            <View
+              style={{
+                marginLeft: 10,
+                flexDirection: "row",
+                alignItems: "center"
               }}
-              style={myStyle.buttons}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Ionicons
-                  name={"ios-book-outline"}
-                  size={30}
-                  color={"#0ABFBC"}
-                />
-                <Text style={myStyle.textSoLuong}>{this.state.pages}</Text>
-              </View>
-              <Text style={{ fontSize: 15, marginTop: 5 }}>Trang</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={myStyle.buttons}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Ionicons
-                  name={"ios-chatboxes-outline"}
-                  size={30}
-                  color={"#0ABFBC"}
-                />
-                <Text style={myStyle.textSoLuong}>{this.state.comments}</Text>
-              </View>
-              <Text style={{ fontSize: 15, marginTop: 5 }}>Bình luận</Text>
-            </TouchableOpacity>
+              <Ionicons
+                name={"ios-people-outline"}
+                size={30}
+                color={"#0ABFBC"}
+              />
+              <Text style={myStyle.text}>
+                Tổng số khách viếng thăm: {this.state.visit}
+              </Text>
+            </View>
           </View>
 
-          {/* So luong khach */}
-
-          <View
-            style={{
-              marginLeft: 10,
-              flexDirection: "row",
-              alignItems: "center"
-            }}
-          >
-            <Ionicons name={"ios-eye-outline"} size={30} color={"#0ABFBC"} />
-            <Text style={myStyle.text}>Tổng số người xem: {this.state.visitor}</Text>
+          {/* Bài viết */}
+          <View style={myStyle.cardItem}>
+            <Text style={myStyle.text}>Bài viết mới</Text>
+            <FlatList
+              data={this.state.dataPosts}
+              keyExtractor={(item, index) => item.id.toString()}
+              renderItem={this._renderPost}
+            />
           </View>
-          <View
-            style={{
-              marginLeft: 10,
-              flexDirection: "row",
-              alignItems: "center"
-            }}
-          >
-            <Ionicons name={"ios-people-outline"} size={30} color={"#0ABFBC"} />
-            <Text style={myStyle.text}>Tổng số khách viếng thăm: {this.state.visit}</Text>
+          <View style={myStyle.cardItem}>
+            <Text style={myStyle.text}>Bình luận mới</Text>
           </View>
-        </View>
-
-        {/* Bài viết */}
-        <View style={myStyle.cardItem}>
-          <Text style={myStyle.text}>Bài viết mới</Text>
-          <FlatList
-            data={this.state.dataPosts}
-            refreshing={this.state.refreshingPost}
-            keyExtractor={(item, index) => item.id.toString()}
-            renderItem={this._renderPost}
-          />
-        </View>
-        <View style={myStyle.cardItem}>
-          <Text style={myStyle.text}>Bình luận mới</Text>
-        </View>
+        </ScrollView>
       </View>
     );
   }
 
   _loadData = async () => {
+    this.setState({refreshing:true});
     try {
       let response = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
       let statistical = await response.json();
       let dataPosts = await this._getPost();
       console.log(response);
-      console.log(statistical);
+      console.log(dataPosts);
       this.setState({
         posts: statistical.totalposts,
         pages: statistical.totalpages,
         comments: statistical.totalcomments,
-        visitor:statistical.totalvisitor,
-        visit:statistical.totalvisit,
+        visitor: statistical.totalvisitor,
+        visit: statistical.totalvisit,
         dataPosts: dataPosts,
-        refreshingPost: false
+        refreshing: false
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  _refreshPost = () => {
+    this._getPost().then(data => {
+      this.setState({ dataPosts: data });
+    });
   };
 
   _getPost = async () => {
@@ -181,11 +205,9 @@ class Statistical extends Component {
 
   _renderPost = ({ item }) => (
     <TouchableOpacity style={{ flexDirection: "row" }}>
-      <Text style={myStyle.text}>{this._getDate(item.modified_gmt)}</Text>
+      <Text style={myStyle.text}>{this._getDate(item.date_gmt)}</Text>
       <HTML
-        html={`<span style="fontSize:16">${
-          item.title.rendered
-        }</span>`}
+        html={`<span style="fontSize:16">${item.title.rendered}</span>`}
         renderers={this.renderers}
       />
     </TouchableOpacity>
@@ -193,16 +215,14 @@ class Statistical extends Component {
 
   renderers = {
     span: (htmlAttribs, children) => (
-      <Text style={myStyle.text}>
-        {children}
-      </Text>
+      <Text style={myStyle.text}>{children}</Text>
     )
   };
 
-  _getDate = (isoDates) =>{
+  _getDate = isoDates => {
     let date = new Date(isoDates);
-    return date.toLocaleDateString() +" "+ date.toLocaleTimeString();
-  }
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  };
 }
 
 const myStyle = StyleSheet.create({
