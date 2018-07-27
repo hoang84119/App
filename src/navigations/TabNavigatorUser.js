@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import TagTo from "./TagTo";
 import CategoryTo from "./CategoryTo";
 import PageTo from "./PageTo";
+import Statistical from "../components/Statistical";
 
 //tạo thanh Tab
 //export default TabNavigator(
@@ -14,6 +15,12 @@ export default createBottomTabNavigator(
   {
     //Định nghĩa các màn hình
     //Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
+    Statistical:{
+      screen: Statistical,
+      navigationOptions: {
+        title: "Thống kê"
+      }
+    },
     Post: {
       screen: PostTo,
       navigationOptions: {
@@ -62,6 +69,8 @@ export default createBottomTabNavigator(
           iconName = `ios-pricetag${focused ? "" : "-outline"}`;
         } else if (routeName === "Page") {
           iconName = `ios-book${focused ? "" : "-outline"}`;
+        } else if (routeName === "Statistical") {
+          iconName = `ios-podium${focused ? "" : "-outline"}`;
         }
         // trả về icon
         return <Ionicons name={iconName} size={20} color={tintColor} />;
@@ -76,7 +85,7 @@ export default createBottomTabNavigator(
       //style: {height:40},
       scrollEnabled: true
     },
-    initialRouteName: "Post",
+    initialRouteName: "Statistical",
     animationEnabled: true //hiệu ứng chuyển tab
     //swipeEnabled: true,// cho phép vuốt để chuyển
   }
