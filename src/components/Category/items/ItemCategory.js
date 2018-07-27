@@ -82,9 +82,14 @@ class ItemCategory extends Component {
             {this.state.soBaiViet != 0 && (
               <Text style={myStyle.soBaiViet}>
                 {this.state.soBaiViet === 10
-                  ? `+${this.state.soBaiViet}`
+                  ? `(${this.state.soBaiViet}+)`
                   : this.state.soBaiViet}{" "}
                 bài viết
+              </Text>
+            )}
+            {this.state.soBaiViet == 0 && (
+              <Text style={myStyle.soBaiViet}>
+                (0) bài viết
               </Text>
             )}
           </View>
@@ -200,7 +205,7 @@ const myStyle = StyleSheet.create({
     marginBottom: 5
   },
   moTa: { fontStyle: "italic" },
-  soBaiViet: { marginTop: 3 },
+  soBaiViet: { marginTop: 3 , fontSize: 14},
   buttons: {
     //flex: 1,
     flexDirection: "row",

@@ -9,7 +9,8 @@ import {
   ToastAndroid,
   ActivityIndicator,
   Text,
-  Modal
+  Modal,
+  Animated
 } from "react-native";
 import API from "../../config/API";
 import ItemImage from "./items/ItemImage";
@@ -30,7 +31,8 @@ export default class Media extends Component {
       page: 1,
       over: false,
       uploading: false,
-      isDelete: false
+      isDelete: false,
+      marginAnim: new Animated.Value(-10)
     };
   }
 
@@ -39,9 +41,24 @@ export default class Media extends Component {
       this._refresh();
       this.state.selected.clear();
     });
+    const anim = Animated.timing(
+      this.state.marginAnim,{
+        toValue: 10,
+        duration: 1000
+      }
+    )
+    const anim2 = Animated.timing(
+      this.state.marginAnim,{
+        toValue: -10,
+        duration: 1000
+      }
+    )
+    const animfinal = Animated.sequence([anim, anim2])
+    Animated.loop(animfinal).start();
   }
 
   render() {
+    const marginBottom = this.state.marginAnim
     let headerBar = (
       <View style={myStyle.headerTitleBar}>
         <View style={myStyle.headerTitle}>
@@ -85,11 +102,13 @@ export default class Media extends Component {
             }}
             style={[myStyle.select, { backgroundColor: "#0ABFBC" }]}
           >
-            <IonIcon
-              style={{ color: "white" }}
-              name="ios-cloud-upload-outline"
-              size={32}
-            />
+            <Animated.View style={{ marginBottom}}>
+              <IonIcon
+                style={{ color: "white" }}
+                name="ios-cloud-upload-outline"
+                size={32}
+              />
+            </Animated.View>
           </TouchableOpacity>
         );
     let buttonInsertDelete = null;
