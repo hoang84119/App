@@ -54,7 +54,12 @@ class ItemCategory extends Component {
             <Text style={myStyle.moTa}>{this._formatExcerpt(this.props.data.description)}</Text>
             {this.state.soBaiViet != 0 && (
               <Text style={myStyle.soBaiViet}>
-                {this.state.soBaiViet === 10 ? `+${this.state.soBaiViet}`:this.state.soBaiViet} bài viết
+                ({this.state.soBaiViet === 10 ? `${this.state.soBaiViet}+`:this.state.soBaiViet}) bài viết
+              </Text>
+            )}
+            {this.state.soBaiViet == 0 && (
+              <Text style={myStyle.soBaiViet}>
+                (0) bài viết
               </Text>
             )}
           </View>
