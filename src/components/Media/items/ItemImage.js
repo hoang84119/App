@@ -1,6 +1,6 @@
 // Hiển thị hình ảnh trong media
 import React, { Component } from "react";
-import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
+import { View, Text, Image, TouchableWithoutFeedback, Dimensions } from "react-native";
 import IonIcon from "react-native-vector-icons/Ionicons";
 
 class ItemImage extends Component {
@@ -16,7 +16,6 @@ class ItemImage extends Component {
     }
   };
   render() {
-    //const zIndexAuTo = this.props.selected ? 1 : -1;
 
     return (
       <View style={{
@@ -39,13 +38,12 @@ class ItemImage extends Component {
               source={{
                 uri: this.props.guid
               }}
-              style={{ //weight: 1, 
-              height: 140, resizeMode: "cover" }}
+              style={{
+              height: Dimensions.get("window").width/3 - 10, resizeMode: "cover" }}
             />
             {this.props.selected && (
               <View
                 style={{
-                  //weight: 1,
                   height: 200,
                   marginTop: -200,
                   zIndex: 1,
@@ -61,17 +59,6 @@ class ItemImage extends Component {
                 />
               </View>
             )}
-            {/* <Text
-              style={{
-                zIndex: 0,
-                padding: 2,
-                height: 22,
-                marginTop: -50,
-                backgroundColor: "rgba(255,255,255,0.3)"
-              }}
-            >
-              {this.props.title}
-            </Text> */}
           </View>
         </TouchableWithoutFeedback>
       </View>
