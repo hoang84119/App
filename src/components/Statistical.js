@@ -9,7 +9,8 @@ import {
   ScrollView,
   RefreshControl,
   ImageBackground,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -255,15 +256,15 @@ class Statistical extends Component {
     <TouchableOpacity
       style={{
         flexDirection: "row",
-        //alignItems: "center",
+        alignItems: "center",
         borderBottomColor: "#c0c0c0",
         borderBottomWidth: 1
       }}
     >
-      {/* <Image
+      <Image
         style={myStyle.avatar}
         source={{ uri: item.author_avatar_urls[96] }}
-      /> */}
+      />
 
       <View style={{ flexDirection: "column" }}>
         <Text style={myStyle.text}>{item.author_name}</Text>
@@ -335,7 +336,9 @@ const myStyle = StyleSheet.create({
   text: { fontSize: 12, marginLeft: 10, marginVertical: 5 },
   avatar: {
     width: 40,
-    height: 40
+    height: 40,
+    borderRadius:50,
+    marginLeft:5
     //resizeMode: "cover"
   }
 });
