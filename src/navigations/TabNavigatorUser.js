@@ -8,6 +8,7 @@ import TagTo from "./TagTo";
 import CategoryTo from "./CategoryTo";
 import PageTo from "./PageTo";
 import Statistical from "../components/Statistical";
+import StatisticalTo from "./StatisticalTo";
 
 //tạo thanh Tab
 //export default TabNavigator(
@@ -16,7 +17,7 @@ export default createBottomTabNavigator(
     //Định nghĩa các màn hình
     //Post: {screen: PostTo,tabBarOptions: {tabStyle: {width:100}}},
     Statistical:{
-      screen: Statistical,
+      screen: StatisticalTo,
       navigationOptions: {
         title: "Thống kê"
       }
