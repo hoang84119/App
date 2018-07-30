@@ -40,10 +40,13 @@ class Statistical extends Component {
   }
   render() {
     return (
-      <View style={myStyle.container}>
+      <ImageBackground
+      source={require("../image/background/KyooPal.jpg")} style={myStyle.container}>
         {/* Status Bar */}
 
-        <View style={{ backgroundColor: "#0ABFBC" }}>
+        <ImageBackground
+        style={{ padding: 0 }}
+        source={require("../image/tag/img5.jpg")}>
           <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)" animated />
           <View style={{ height: StatusBar.currentHeight }} />
           <View style={myStyle.headerBar}>
@@ -62,11 +65,12 @@ class Statistical extends Component {
               <Text style={myStyle.title}>Thống kê</Text>
             </View>
           </View>
-        </View>
+        </ImageBackground>
 
         {/* Nội dung */}
 
         <ScrollView
+          style={{backgroundColor: "rgba(255,255,255,0.3)"}}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -94,9 +98,17 @@ class Statistical extends Component {
                 ]}
               >
                 <Ionicons name={"ios-paper"} size={40} color={"#14d160"} />
-                <Text style={[myStyle.textSoLuong, { color: "#14d160" }]}>
-                  {this.state.posts}
-                </Text>
+                <AnimateNumber
+                  style={[myStyle.textSoLuong, { color: "#14d160" }]}
+                  value={this.state.posts}
+                  formatter={(val) => {
+                    return parseInt(val).toFixed(0)
+                  }}
+                  timing={(interval, progress) => {
+                    // slow start, slow end
+                    return interval * (1 - Math.sin(Math.PI*progress) )*10
+                  }}
+                />
                 <Text style={{ fontSize: 12 }}>Bài viết</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -109,9 +121,17 @@ class Statistical extends Component {
                 ]}
               >
                 <Ionicons name={"ios-book"} size={40} color={"#fe5605"} />
-                <Text style={[myStyle.textSoLuong, { color: "#fe5605" }]}>
-                  {this.state.pages}
-                </Text>
+                <AnimateNumber
+                  style={[myStyle.textSoLuong, { color: "#fe5605" }]}
+                  value={this.state.pages}
+                  formatter={(val) => {
+                    return parseInt(val).toFixed(0)
+                  }}
+                  timing={(interval, progress) => {
+                    // slow start, slow end
+                    return interval * (1 - Math.sin(Math.PI*progress) )*10
+                  }}
+                />
                 <Text style={{ fontSize: 12 }}>Trang</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -121,9 +141,17 @@ class Statistical extends Component {
                 ]}
               >
                 <Ionicons name={"ios-chatboxes"} size={40} color={"#d213e8"} />
-                <Text style={[myStyle.textSoLuong, { color: "#d213e8" }]}>
-                  {this.state.comments}
-                </Text>
+                <AnimateNumber
+                  style={[myStyle.textSoLuong, { color: "#d213e8" }]}
+                  value={this.state.comments}
+                  formatter={(val) => {
+                    return parseInt(val).toFixed(0)
+                  }}
+                  timing={(interval, progress) => {
+                    // slow start, slow end
+                    return interval * (1 - Math.sin(Math.PI*progress) )*10
+                  }}
+                />
                 <Text style={{ fontSize: 12 }}>Bình luận</Text>
               </TouchableOpacity>
             </View>
@@ -131,6 +159,7 @@ class Statistical extends Component {
             {/* So luong khach */}
             <View
               style={{
+                backgroundColor: "#fff",
                 flex: 1,
                 flexDirection: "row",
                 justifyContent: "center"
@@ -138,25 +167,43 @@ class Statistical extends Component {
             >
               <View
                 style={{
-                  margin: 10,
+                  margin: 7,
                   flexDirection: "row",
                   alignItems: "center"
                 }}
               >
                 <Ionicons name={"ios-people"} size={20} color={"#0ABFBC"} />
-                <Text style={myStyle.text}>
-                  {this.state.visitor} viếng thăm
-                </Text>
+                <AnimateNumber
+                  value={this.state.visitor}
+                  formatter={(val) => {
+                    return ' ' + parseInt(val).toFixed(0)
+                  }}
+                  timing={(interval, progress) => {
+                    // slow start, slow end
+                    return interval * (1 - Math.sin(Math.PI*progress) )*10
+                  }}
+                />
+                <Text style={[myStyle.text,{marginLeft: 3}]}>khách viếng thăm</Text>
               </View>
               <View
                 style={{
-                  margin: 10,
+                  margin: 7,
                   flexDirection: "row",
                   alignItems: "center"
                 }}
               >
                 <Ionicons name={"ios-eye"} size={25} color={"#0ABFBC"} />
-                <Text style={myStyle.text}>{this.state.visit} lượt xem</Text>
+                <AnimateNumber
+                  value={this.state.visit}
+                  formatter={(val) => {
+                    return ' ' + parseInt(val).toFixed(0)
+                  }}
+                  timing={(interval, progress) => {
+                    // slow start, slow end
+                    return interval * (1 - Math.sin(Math.PI*progress) )*10
+                  }}
+                />
+                <Text style={[myStyle.text,{marginLeft: 3}]}>lượt xem</Text>
               </View>
             </View>
           </View>
@@ -188,7 +235,7 @@ class Statistical extends Component {
 
           {/* Bình luận */}
 
-          <View style={myStyle.cardItem}>
+          <View style={[myStyle.cardItem,{marginBottom: 10}]}>
             <ImageBackground
               style={{ padding: 5 }}
               source={require("../image/tag/img5.jpg")}
@@ -211,7 +258,7 @@ class Statistical extends Component {
             )}
           </View>
         </ScrollView>
-      </View>
+      </ImageBackground>
     );
   }
 
@@ -247,9 +294,10 @@ class Statistical extends Component {
     <TouchableOpacity
       onPress={() => this._xem(item)}
       style={{
+        paddingVertical: 5,
         flexDirection: "row",
         alignItems: "center",
-        borderBottomColor: "#c0c0c0",
+        borderBottomColor: "#f0f0f0",
         borderBottomWidth: 1
       }}
     >
@@ -268,9 +316,10 @@ class Statistical extends Component {
         this._xemComment(item.post);
       }}
       style={{
+        paddingVertical: 5,
         flexDirection: "row",
         alignItems: "center",
-        borderBottomColor: "#c0c0c0",
+        borderBottomColor: "#f0f0f0",
         borderBottomWidth: 1
       }}
     >
@@ -279,10 +328,15 @@ class Statistical extends Component {
         source={{ uri: item.author_avatar_urls[96] }}
       />
 
-      <View style={{ flexDirection: "column" }}>
-        <Text style={myStyle.text}>{item.author_name}</Text>
+      <View style={{ flexDirection: "column" , flex:1}}>
+        <View style={{ flexDirection: "row" , flex: 1}}>
+          <Text style={{marginLeft: 10, fontSize: 14, fontWeight: "bold"}}>{item.author_name}</Text>
+          <View  style={{flex: 1, alignItems: "flex-end", marginRight: 10}}>
+            <Text style={{fontSize: 12}}>{this._getDate(item.date_gmt)}</Text>
+          </View>
+        </View>
         <HTML
-          html={`<span style="fontSize:16">${item.content.rendered}</span>`}
+          html={`<span style="fontSize:14">${item.content.rendered}</span>`}
           renderers={this.renderers}
         />
       </View>
@@ -356,15 +410,13 @@ class Statistical extends Component {
 }
 
 const myStyle = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "white" },
+  container: { flex: 1},
   icon: { marginLeft: 5, marginRight: 10, color: "#fff" },
   headerBar: {
-    backgroundColor: "#0ABFBC",
     flexDirection: "row",
     zIndex: 0
   },
   headerTitle: {
-    //paddingLeft: 20,
     alignItems: "center",
     height: 50,
     flexDirection: "row",
@@ -374,38 +426,30 @@ const myStyle = StyleSheet.create({
   cardItem: {
     flex: 1,
     flexDirection: "column",
-    margin: 5,
-    borderWidth: 1,
-    borderRadius: 5,
+    margin: 10,
+    marginBottom: 0,
+    borderRadius: 8,
     overflow: "hidden",
-    borderColor: "#d0d0d0"
-    // shadowColor: "#000",
-    // shadowOffset: { width: 10, height: 10 },
-    // shadowOpacity: 0.8,
-    // elevation: 1.5
+    borderColor: "#d0d0d0",
+    backgroundColor: "rgba(255,255,255,0.9)"
   },
   buttons: {
     padding: 15,
     width: 110,
     height: 110,
-    //borderColor: "#0ABFBC",
     borderWidth: 2.5,
     borderRadius: 110 / 2,
     justifyContent: "center",
     alignItems: "center",
     margin: 10
-    // shadowColor: "blue",
-    // shadowOffset: { width: 0, height: 0 },
-    // shadowOpacity: 1,
-    // elevation: 3
   },
   textSoLuong: { color: "#0ABFBC", fontSize: 20, fontWeight: "bold" },
-  text: { fontSize: 12, marginLeft: 10, marginVertical: 5 },
+  text: { fontSize: 12, marginLeft: 10},
   avatar: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     borderRadius: 50,
-    marginLeft: 5
+    marginLeft: 10
     //resizeMode: "cover"
   }
 });
