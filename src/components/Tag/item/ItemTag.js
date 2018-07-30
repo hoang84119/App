@@ -95,9 +95,12 @@ class ItemCategory extends Component {
   };
 
   _checkPost(){
-    API.Post.GetAllPost("", this.props.data.id,1).then(response => {
-      if (response.length != 0) this.setState({ soBaiViet: response.length });
-    });
+    // API.Post.GetAllPost("", this.props.data.id,1).then(response => {
+    //   if (response.length != 0) this.setState({ soBaiViet: response.length });
+    // });
+    fetch(`${API.getURL()}/wp-json/wp/v2/posts?tags=${this.props.data.id}`).then(response=>{
+      this.setState({ soBaiViet: response.headers.get("X-WP-Total") });
+    })
   }
   
   _formatExcerpt(content) {

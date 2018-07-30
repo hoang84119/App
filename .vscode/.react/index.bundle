@@ -61386,7 +61386,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         logged: false,
         haveUrl: false,
         showModal: false,
-        url: ""
+        url: "",
+        user: []
       };
       return _this;
     }
@@ -61428,7 +61429,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             source: _require(_dependencyMap[9], "./src/image/background/Miaka.jpg"),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 60
+              lineNumber: 61
             }
           },
           _react3.default.createElement(_reactNative.StatusBar, {
@@ -61437,7 +61438,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             animated: true,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 64
+              lineNumber: 65
             }
           }),
           _react3.default.createElement(
@@ -61449,7 +61450,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 65
+                lineNumber: 66
               }
             },
             _react3.default.createElement(
@@ -61458,7 +61459,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.khung,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 66
+                  lineNumber: 67
                 }
               },
               _react3.default.createElement(_reactNative.Image, {
@@ -61470,7 +61471,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 source: _require(_dependencyMap[10], "./src/image/logo.png"),
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 67
+                  lineNumber: 68
                 }
               }),
               _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -61478,7 +61479,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 color: "white",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 71
+                  lineNumber: 72
                 }
               })
             )
@@ -61494,7 +61495,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             source: _require(_dependencyMap[9], "./src/image/background/Miaka.jpg"),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 78
+              lineNumber: 79
             }
           },
           _react3.default.createElement(_reactNative.StatusBar, {
@@ -61503,7 +61504,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             animated: true,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 82
+              lineNumber: 83
             }
           }),
           _react3.default.createElement(
@@ -61515,7 +61516,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 83
+                lineNumber: 84
               }
             },
             _react3.default.createElement(
@@ -61524,7 +61525,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.khung,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 84
+                  lineNumber: 85
                 }
               },
               _react3.default.createElement(_reactNative.Image, {
@@ -61536,7 +61537,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 source: _require(_dependencyMap[10], "./src/image/logo.png"),
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 85
+                  lineNumber: 86
                 }
               }),
               _react3.default.createElement(
@@ -61545,7 +61546,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.vText,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 90
                   }
                 },
                 _react3.default.createElement(
@@ -61557,7 +61558,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 90
+                      lineNumber: 91
                     }
                   },
                   _react3.default.createElement(_FontAwesome2.default, {
@@ -61568,7 +61569,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 91
+                      lineNumber: 92
                     }
                   })
                 ),
@@ -61585,7 +61586,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   value: this.state.url,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 97
+                    lineNumber: 98
                   }
                 })
               ),
@@ -61598,7 +61599,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 108
+                    lineNumber: 109
                   }
                 },
                 _react3.default.createElement(
@@ -61607,7 +61608,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     onPress: this._addURL,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 109
+                      lineNumber: 110
                     }
                   },
                   _react3.default.createElement(
@@ -61616,7 +61617,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.ctmBottom,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 110
+                        lineNumber: 111
                       }
                     },
                     "Ti\u1EBFp t\u1EE5c"
@@ -61626,15 +61627,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             )
           )
         );
-        var mainView = this.state.loading ? loadingView : !this.state.haveUrl ? AddUrl : this.state.logged ? _react3.default.createElement(_DrawerNavigatorUser2.default, {
+        var mainView = this.state.loading ? loadingView : !this.state.haveUrl ? AddUrl : this.state.user.name === 'admin' ? _react3.default.createElement(_DrawerNavigatorUser2.default, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 122
+            lineNumber: 123
           }
         }) : _react3.default.createElement(_DrawerNavigator2.default, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 124
+            lineNumber: 125
           }
         });
         return _react3.default.createElement(
@@ -61643,7 +61644,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             store: store,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 127
+              lineNumber: 128
             }
           },
           mainView
@@ -61663,7 +61664,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
             _this4.setState({
               loading: false,
-              logged: true
+              logged: true,
+              user: response
             });
           } else {
             _this4.setState({
@@ -106067,9 +106069,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       value: function _checkPost() {
         var _this2 = this;
 
-        _API2.default.Post.GetAllPost("", this.props.data.id, 1).then(function (response) {
-          if (response.length != 0) _this2.setState({
-            soBaiViet: response.length
+        fetch(_API2.default.getURL() + "/wp-json/wp/v2/posts?tags=" + this.props.data.id).then(function (response) {
+          _this2.setState({
+            soBaiViet: response.headers.get("X-WP-Total")
           });
         });
       }
@@ -107953,9 +107955,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       value: function _checkPost() {
         var _this2 = this;
 
-        _API2.default.Post.GetAllPost(this.props.data.id, "", 1).then(function (response) {
-          if (response.length != 0) _this2.setState({
-            soBaiViet: response.length
+        fetch(_API2.default.getURL() + "/wp-json/wp/v2/posts?categories=" + this.props.data.id).then(function (response) {
+          _this2.setState({
+            soBaiViet: response.headers.get("X-WP-Total")
           });
         });
       }
@@ -108041,9 +108043,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     lineNumber: 83
                   }
                 },
-                this.state.soBaiViet === 10 ? "(" + this.state.soBaiViet + "+)" : this.state.soBaiViet,
-                " ",
-                "b\xE0i vi\u1EBFt"
+                "(",
+                this.state.soBaiViet,
+                ") b\xE0i vi\u1EBFt"
               ),
               this.state.soBaiViet == 0 && _react3.default.createElement(
                 _reactNative.Text,
@@ -108051,7 +108053,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.soBaiViet,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 91
+                    lineNumber: 89
                   }
                 },
                 "(0) b\xE0i vi\u1EBFt"
@@ -108063,7 +108065,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.buttons,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 97
+                  lineNumber: 95
                 }
               },
               _react3.default.createElement(
@@ -108073,7 +108075,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 98
+                    lineNumber: 96
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -108082,7 +108084,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 24,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 99
+                    lineNumber: 97
                   }
                 })
               )
@@ -108093,7 +108095,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.buttons,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 108
+                  lineNumber: 106
                 }
               },
               _react3.default.createElement(
@@ -108103,7 +108105,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 109
+                    lineNumber: 107
                   }
                 },
                 _react3.default.createElement(_FontAwesome2.default, {
@@ -108112,7 +108114,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 110
+                    lineNumber: 108
                   }
                 })
               ),
@@ -108123,7 +108125,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.btn,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 112
+                    lineNumber: 110
                   }
                 },
                 _react3.default.createElement(_Feather2.default, {
@@ -108132,7 +108134,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   size: 15,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 113
+                    lineNumber: 111
                   }
                 })
               )
@@ -108155,13 +108157,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 level: _this4.props.level + 1,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 123
+                  lineNumber: 121
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 119
+              lineNumber: 117
             }
           })
         );
@@ -112419,7 +112421,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 244
+              lineNumber: 246
             }
           },
           _react3.default.createElement(
@@ -112428,7 +112430,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.text,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 253
+                lineNumber: 255
               }
             },
             _this._getDate(item.modified_gmt),
@@ -112439,7 +112441,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             renderers: _this.renderers,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 254
+              lineNumber: 256
             }
           })
         );
@@ -112451,8 +112453,6 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           _reactNative.TouchableOpacity,
           {
             onPress: function onPress() {
-              console.log(item);
-
               _this._xemComment(item.post);
             },
             style: {
@@ -112463,7 +112463,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 262
+              lineNumber: 264
             }
           },
           _react3.default.createElement(_reactNative.Image, {
@@ -112473,7 +112473,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 271
+              lineNumber: 275
             }
           }),
           _react3.default.createElement(
@@ -112484,7 +112484,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 276
+                lineNumber: 280
               }
             },
             _react3.default.createElement(
@@ -112493,7 +112493,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.text,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 277
+                  lineNumber: 281
                 }
               },
               item.author_name
@@ -112503,7 +112503,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               renderers: _this.renderers,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 278
+                lineNumber: 282
               }
             })
           )
@@ -112518,7 +112518,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.text,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 288
+                lineNumber: 292
               }
             },
             children
@@ -112532,12 +112532,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       };
 
       _this._xemComment = function (idPost) {
-        console.log(idPost);
         fetch(_API2.default.getURL() + "/wp-json/wp/v2/posts/" + idPost).then(function (response) {
           return response.json();
         }).then(function (json) {
-          console.log(json);
-
           _this._xem(json);
         });
       };
@@ -112884,8 +112881,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
-                    name: "ios-eye",
-                    size: 25,
+                    name: "ios-people",
+                    size: 20,
                     color: "#0ABFBC",
                     __source: {
                       fileName: _jsxFileName,
@@ -112919,8 +112916,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
-                    name: "ios-people",
-                    size: 20,
+                    name: "ios-eye",
+                    size: 25,
                     color: "#0ABFBC",
                     __source: {
                       fileName: _jsxFileName,
