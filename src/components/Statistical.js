@@ -16,6 +16,9 @@ import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import API from "../config/API";
 import HTML from "react-native-render-html";
+import { connect } from "react-redux";
+const featured_media_default =
+  "https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/background-thumb1.jpg";
 
 class Statistical extends Component {
   constructor(props) {
@@ -216,7 +219,7 @@ class Statistical extends Component {
     try {
       let response = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
       let statistical = await response.json();
-      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts?per_page=5`);
+      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts?per_page=5&orderby=modified`);
       let dataPosts = await posts.json();
       let comments = await fetch(
         `${API.getURL()}/wp-json/wp/v2/comments?per_page=5`
@@ -239,6 +242,7 @@ class Statistical extends Component {
 
   _renderPost = ({ item }) => (
     <TouchableOpacity
+    onPress={()=>this._xem(item)}
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -256,6 +260,7 @@ class Statistical extends Component {
 
   _renderComment = ({ item }) => (
     <TouchableOpacity
+    onPress={()=>{console.log(item); this._xemComment(item.post)}}
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -288,6 +293,58 @@ class Statistical extends Component {
     let date = new Date(isoDates);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
   };
+
+  _xemComment = (idPost) =>{
+    console.log(idPost);
+    fetch(`${API.getURL()}/wp-json/wp/v2/posts/${idPost}`).then(response=>response.json()).then((json)=>{
+      console.log(json);
+      this._xem(json);
+    })
+  }
+
+  _xem = (data) => {
+    this._getFeaturedMedia(data).then((featured_media)=>{
+      this.props.navigation.navigate("chitiet", {
+      id: data.id,
+      userName: this.props.dataUser.name,
+      featured_media: featured_media
+    });
+    })
+  };
+
+  async _getFeaturedMedia(data) {
+    if (data.featured_media != 0) {
+      let response = await fetch(
+        `${API.getURL()}/wp-json/wp/v2/media/${data.featured_media}`
+      );
+      if (response.status === 200) {
+        let json = await response.json();
+        let src = json.media_details.sizes.medium.source_url;
+        return src.replace(/http:\/\/localhost\/thuctap/g, API.getURL())
+      } else {
+        return featured_media_default
+      }
+    } else {
+      let content = data.content.rendered;
+      //tìm thẻ img đầu tiên
+      let indexImg = content.toString().indexOf("<img");
+      //không tìm thấy trả về đường dẫn mặc định
+      var src = featured_media_default;
+      if (indexImg != -1) {
+        // tìm vị trí mở src
+        let indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
+        //tìm vị trí đóng src
+        let indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
+        //lấy đường dẫn
+        src = content
+          .substring(indexSrcStart, indexSrcEnd)
+          .replace(/http:\/\/localhost\/thuctap/g, API.getURL());
+        let response = await fetch(src);
+        if (response.status != 200) src = featured_media_default;
+      }
+      return src;
+    }
+  }
 }
 
 const myStyle = StyleSheet.create({
@@ -345,4 +402,7 @@ const myStyle = StyleSheet.create({
   }
 });
 
-export default Statistical;
+function mapStateToProps(state) {
+  return { dataUser: state.dataUser };
+}
+export default connect(mapStateToProps)(Statistical);

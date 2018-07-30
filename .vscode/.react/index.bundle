@@ -81824,11 +81824,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _Statistical2 = _interopRequireDefault(_Statistical);
 
+  var _StatisticalTo = _require(_dependencyMap[9], "./StatisticalTo");
+
+  var _StatisticalTo2 = _interopRequireDefault(_StatisticalTo);
+
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   exports.default = (0, _reactNavigation.createBottomTabNavigator)({
     Statistical: {
-      screen: _Statistical2.default,
+      screen: _StatisticalTo2.default,
       navigationOptions: {
         title: "Thống kê"
       }
@@ -81893,7 +81897,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             color: tintColor,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 76
+              lineNumber: 77
             }
           });
         }
@@ -81907,7 +81911,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     initialRouteName: "Statistical",
     animationEnabled: true
   });
-},621,[118,622,760,517,743,761,774,779,785],"src\\navigations\\TabNavigatorUser.js");
+},621,[118,622,760,517,743,761,774,779,785,794],"src\\navigations\\TabNavigatorUser.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -112289,6 +112293,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _reactNativeRenderHtml2 = _interopRequireDefault(_reactNativeRenderHtml);
 
+  var _reactRedux = _require(_dependencyMap[7], "react-redux");
+
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -112315,6 +112321,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
     };
   }
+
+  var featured_media_default = "https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/background-thumb1.jpg";
 
   var Statistical = _wrapComponent("Statistical")(function (_Component) {
     _inherits(Statistical, _Component);
@@ -112348,7 +112356,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               case 7:
                 statistical = _context.sent;
                 _context.next = 10;
-                return regeneratorRuntime.awrap(fetch(_API2.default.getURL() + "/wp-json/wp/v2/posts?per_page=5"));
+                return regeneratorRuntime.awrap(fetch(_API2.default.getURL() + "/wp-json/wp/v2/posts?per_page=5&orderby=modified"));
 
               case 10:
                 posts = _context.sent;
@@ -112400,6 +112408,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         return _react3.default.createElement(
           _reactNative.TouchableOpacity,
           {
+            onPress: function onPress() {
+              return _this._xem(item);
+            },
             style: {
               flexDirection: "row",
               alignItems: "center",
@@ -112408,7 +112419,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 241
+              lineNumber: 244
             }
           },
           _react3.default.createElement(
@@ -112417,7 +112428,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.text,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 249
+                lineNumber: 253
               }
             },
             _this._getDate(item.modified_gmt),
@@ -112428,7 +112439,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             renderers: _this.renderers,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 250
+              lineNumber: 254
             }
           })
         );
@@ -112439,6 +112450,11 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         return _react3.default.createElement(
           _reactNative.TouchableOpacity,
           {
+            onPress: function onPress() {
+              console.log(item);
+
+              _this._xemComment(item.post);
+            },
             style: {
               flexDirection: "row",
               alignItems: "center",
@@ -112447,7 +112463,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 258
+              lineNumber: 262
             }
           },
           _react3.default.createElement(_reactNative.Image, {
@@ -112457,7 +112473,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 266
+              lineNumber: 271
             }
           }),
           _react3.default.createElement(
@@ -112468,7 +112484,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 271
+                lineNumber: 276
               }
             },
             _react3.default.createElement(
@@ -112477,7 +112493,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.text,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 272
+                  lineNumber: 277
                 }
               },
               item.author_name
@@ -112487,7 +112503,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               renderers: _this.renderers,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 273
+                lineNumber: 278
               }
             })
           )
@@ -112502,7 +112518,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: myStyle.text,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 283
+                lineNumber: 288
               }
             },
             children
@@ -112513,6 +112529,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       _this._getDate = function (isoDates) {
         var date = new Date(isoDates);
         return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+      };
+
+      _this._xemComment = function (idPost) {
+        console.log(idPost);
+        fetch(_API2.default.getURL() + "/wp-json/wp/v2/posts/" + idPost).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          console.log(json);
+
+          _this._xem(json);
+        });
+      };
+
+      _this._xem = function (data) {
+        _this._getFeaturedMedia(data).then(function (featured_media) {
+          _this.props.navigation.navigate("chitiet", {
+            id: data.id,
+            userName: _this.props.dataUser.name,
+            featured_media: featured_media
+          });
+        });
       };
 
       _this.state = {
@@ -112544,7 +112581,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: myStyle.container,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 39
+              lineNumber: 42
             }
           },
           _react3.default.createElement(
@@ -112555,7 +112592,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 42
+                lineNumber: 45
               }
             },
             _react3.default.createElement(_reactNative.StatusBar, {
@@ -112564,7 +112601,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               animated: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 43
+                lineNumber: 46
               }
             }),
             _react3.default.createElement(_reactNative.View, {
@@ -112573,7 +112610,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 44
+                lineNumber: 47
               }
             }),
             _react3.default.createElement(
@@ -112582,7 +112619,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.headerBar,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 45
+                  lineNumber: 48
                 }
               },
               _react3.default.createElement(
@@ -112591,7 +112628,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: myStyle.headerTitle,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 46
+                    lineNumber: 49
                   }
                 },
                 _react3.default.createElement(
@@ -112602,7 +112639,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 47
+                      lineNumber: 50
                     }
                   },
                   _react3.default.createElement(_Feather2.default, {
@@ -112613,7 +112650,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     size: 25,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 52
+                      lineNumber: 55
                     }
                   })
                 ),
@@ -112623,7 +112660,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: myStyle.title,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 58
+                      lineNumber: 61
                     }
                   },
                   "Th\u1ED1ng k\xEA"
@@ -112639,12 +112676,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 onRefresh: this._loadData,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 67
+                  lineNumber: 70
                 }
               }),
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 65
+                lineNumber: 68
               }
             },
             _react3.default.createElement(
@@ -112653,7 +112690,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.cardItem,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 73
+                  lineNumber: 76
                 }
               },
               _react3.default.createElement(
@@ -112666,7 +112703,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 79
                   }
                 },
                 _react3.default.createElement(
@@ -112681,7 +112718,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     }],
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 83
+                      lineNumber: 86
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -112690,7 +112727,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#14d160",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 92
+                      lineNumber: 95
                     }
                   }),
                   _react3.default.createElement(
@@ -112701,7 +112738,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       }],
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 93
+                        lineNumber: 96
                       }
                     },
                     this.state.posts
@@ -112714,7 +112751,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 96
+                        lineNumber: 99
                       }
                     },
                     "B\xE0i vi\u1EBFt"
@@ -112732,7 +112769,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     }],
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 98
+                      lineNumber: 101
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -112741,7 +112778,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#fe5605",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 107
+                      lineNumber: 110
                     }
                   }),
                   _react3.default.createElement(
@@ -112752,7 +112789,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       }],
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 108
+                        lineNumber: 111
                       }
                     },
                     this.state.pages
@@ -112765,7 +112802,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 111
+                        lineNumber: 114
                       }
                     },
                     "Trang"
@@ -112780,7 +112817,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     }],
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 113
+                      lineNumber: 116
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -112789,7 +112826,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#d213e8",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 119
+                      lineNumber: 122
                     }
                   }),
                   _react3.default.createElement(
@@ -112800,7 +112837,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       }],
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 120
+                        lineNumber: 123
                       }
                     },
                     this.state.comments
@@ -112813,7 +112850,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 123
+                        lineNumber: 126
                       }
                     },
                     "B\xECnh lu\u1EADn"
@@ -112830,7 +112867,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 128
+                    lineNumber: 131
                   }
                 },
                 _react3.default.createElement(
@@ -112843,7 +112880,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 135
+                      lineNumber: 138
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -112852,7 +112889,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#0ABFBC",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 142
+                      lineNumber: 145
                     }
                   }),
                   _react3.default.createElement(
@@ -112861,7 +112898,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.text,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 143
+                        lineNumber: 146
                       }
                     },
                     this.state.visitor,
@@ -112878,7 +112915,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 147
+                      lineNumber: 150
                     }
                   },
                   _react3.default.createElement(_Ionicons2.default, {
@@ -112887,7 +112924,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     color: "#0ABFBC",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 154
+                      lineNumber: 157
                     }
                   }),
                   _react3.default.createElement(
@@ -112896,7 +112933,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: myStyle.text,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 155
+                        lineNumber: 158
                       }
                     },
                     this.state.visit,
@@ -112911,7 +112948,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.cardItem,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 162
+                  lineNumber: 165
                 }
               },
               _react3.default.createElement(
@@ -112920,10 +112957,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: {
                     padding: 5
                   },
-                  source: _require(_dependencyMap[7], "../image/tag/img5.jpg"),
+                  source: _require(_dependencyMap[8], "../image/tag/img5.jpg"),
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 163
+                    lineNumber: 166
                   }
                 },
                 _react3.default.createElement(
@@ -112936,7 +112973,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 167
+                      lineNumber: 170
                     }
                   },
                   "B\xE0i vi\u1EBFt m\u1EDBi"
@@ -112951,7 +112988,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 172
+                    lineNumber: 175
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -112959,7 +112996,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   color: "#d73c57",
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 173
+                    lineNumber: 176
                   }
                 })
               ),
@@ -112971,7 +113008,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 renderItem: this._renderPost,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 177
+                  lineNumber: 180
                 }
               })
             ),
@@ -112981,7 +113018,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: myStyle.cardItem,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 187
+                  lineNumber: 190
                 }
               },
               _react3.default.createElement(
@@ -112990,10 +113027,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: {
                     padding: 5
                   },
-                  source: _require(_dependencyMap[7], "../image/tag/img5.jpg"),
+                  source: _require(_dependencyMap[8], "../image/tag/img5.jpg"),
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 188
+                    lineNumber: 191
                   }
                 },
                 _react3.default.createElement(
@@ -113006,7 +113043,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     },
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 192
+                      lineNumber: 195
                     }
                   },
                   "B\xECnh lu\u1EADn m\u1EDBi"
@@ -113021,7 +113058,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 197
+                    lineNumber: 200
                   }
                 },
                 _react3.default.createElement(_reactNative.ActivityIndicator, {
@@ -113029,7 +113066,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   color: "#d73c57",
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 198
+                    lineNumber: 201
                   }
                 })
               ),
@@ -113041,12 +113078,82 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 renderItem: this._renderComment,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 202
+                  lineNumber: 205
                 }
               })
             )
           )
         );
+      }
+    }, {
+      key: "_getFeaturedMedia",
+      value: function _getFeaturedMedia(data) {
+        var response, json, _src, content, indexImg, src, indexSrcStart, indexSrcEnd, _response;
+
+        return regeneratorRuntime.async(function _getFeaturedMedia$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(data.featured_media != 0)) {
+                  _context2.next = 15;
+                  break;
+                }
+
+                _context2.next = 3;
+                return regeneratorRuntime.awrap(fetch(_API2.default.getURL() + "/wp-json/wp/v2/media/" + data.featured_media));
+
+              case 3:
+                response = _context2.sent;
+
+                if (!(response.status === 200)) {
+                  _context2.next = 12;
+                  break;
+                }
+
+                _context2.next = 7;
+                return regeneratorRuntime.awrap(response.json());
+
+              case 7:
+                json = _context2.sent;
+                _src = json.media_details.sizes.medium.source_url;
+                return _context2.abrupt("return", _src.replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL()));
+
+              case 12:
+                return _context2.abrupt("return", featured_media_default);
+
+              case 13:
+                _context2.next = 27;
+                break;
+
+              case 15:
+                content = data.content.rendered;
+                indexImg = content.toString().indexOf("<img");
+                src = featured_media_default;
+
+                if (!(indexImg != -1)) {
+                  _context2.next = 26;
+                  break;
+                }
+
+                indexSrcStart = content.toString().indexOf("src", indexImg) + 5;
+                indexSrcEnd = content.toString().indexOf('"', indexSrcStart);
+                src = content.substring(indexSrcStart, indexSrcEnd).replace(/http:\/\/localhost\/thuctap/g, _API2.default.getURL());
+                _context2.next = 24;
+                return regeneratorRuntime.awrap(fetch(src));
+
+              case 24:
+                _response = _context2.sent;
+                if (_response.status != 200) src = featured_media_default;
+
+              case 26:
+                return _context2.abrupt("return", src);
+
+              case 27:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, null, this);
       }
     }]);
 
@@ -113117,8 +113224,147 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   });
 
-  exports.default = Statistical;
-},785,[118,179,12,624,743,492,674,768],"src\\components\\Statistical.js");
+  function mapStateToProps(state) {
+    return {
+      dataUser: state.dataUser
+    };
+  }
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps)(Statistical);
+},785,[118,179,12,624,743,492,674,497,768],"src\\components\\Statistical.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "D:\\SourceCode\\React native\\App\\src\\navigations\\StatisticalTo.js";
+
+  var _reactNavigation = _require(_dependencyMap[0], "react-navigation");
+
+  var _react = _require(_dependencyMap[1], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _Statistical = _require(_dependencyMap[3], "../components/Statistical");
+
+  var _Statistical2 = _interopRequireDefault(_Statistical);
+
+  var _PostDetail = _require(_dependencyMap[4], "../components/Post/PostDetail");
+
+  var _PostDetail2 = _interopRequireDefault(_PostDetail);
+
+  var _EditPost = _require(_dependencyMap[5], "../components/Post/EditPost");
+
+  var _EditPost2 = _interopRequireDefault(_EditPost);
+
+  var _Media = _require(_dependencyMap[6], "../components/Media/Media");
+
+  var _Media2 = _interopRequireDefault(_Media);
+
+  var _MediaDetail = _require(_dependencyMap[7], "../components/Media/MediaDetail");
+
+  var _MediaDetail2 = _interopRequireDefault(_MediaDetail);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var StatisticalTo = (0, _reactNavigation.createStackNavigator)({
+    main: {
+      screen: _Statistical2.default,
+      navigationOptions: {
+        header: null
+      }
+    },
+    chitiet: {
+      screen: _PostDetail2.default,
+      navigationOptions: {
+        headerTitle: "Chi tiết bài viết"
+      }
+    },
+    chinhsua: {
+      screen: _EditPost2.default,
+      navigationOptions: {
+        headerTitle: "Chỉnh sửa"
+      }
+    },
+    scmedia: {
+      screen: _Media2.default,
+      navigationOptions: {
+        headerTitle: "Chọn hình ảnh"
+      }
+    },
+    scchitiet: {
+      screen: _MediaDetail2.default,
+      navigationOptions: {
+        headerTitle: "Chi tiết hình ảnh"
+      }
+    }
+  }, {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#0ABFBC',
+        elevation: 0
+      },
+      headerTintColor: "white",
+      header: function header(props) {
+        return _react2.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              backgroundColor: "#0ABFBC"
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 57
+            }
+          },
+          _react2.default.createElement(_reactNative.StatusBar, {
+            translucent: true,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            animated: true,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 58
+            }
+          }),
+          _react2.default.createElement(_reactNative.View, {
+            style: {
+              height: _reactNative.StatusBar.currentHeight
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 59
+            }
+          }),
+          _react2.default.createElement(_reactNavigation.Header, _extends({}, props, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 60
+            }
+          }))
+        );
+      }
+    }
+  });
+
+  StatisticalTo.navigationOptions = function (_ref) {
+    var navigation = _ref.navigation;
+    var tabBarVisible = true;
+
+    if (navigation.state.index > 0) {
+      tabBarVisible = false;
+    }
+
+    return {
+      tabBarVisible: tabBarVisible
+    };
+  };
+
+  exports.default = StatisticalTo;
+},794,[517,118,12,785,623,726,748,750],"src\\navigations\\StatisticalTo.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
