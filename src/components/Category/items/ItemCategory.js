@@ -38,9 +38,9 @@ class ItemCategory extends Component {
   }
 
   _checkPost() {
-    API.Post.GetAllPost(this.props.data.id, "", 1).then(response => {
-      if (response.length != 0) this.setState({ soBaiViet: response.length });
-    });
+    fetch(`${API.getURL()}/wp-json/wp/v2/posts?categories=${this.props.data.id}`).then(response=>{
+      this.setState({ soBaiViet: response.headers.get("X-WP-Total") });
+    })
   }
 
   _checkChild() {
@@ -81,9 +81,7 @@ class ItemCategory extends Component {
             </Text>
             {this.state.soBaiViet != 0 && (
               <Text style={myStyle.soBaiViet}>
-                {this.state.soBaiViet === 10
-                  ? `(${this.state.soBaiViet}+)`
-                  : this.state.soBaiViet}{" "}
+                ({this.state.soBaiViet})
                 bài viết
               </Text>
             )}

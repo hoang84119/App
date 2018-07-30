@@ -263,7 +263,6 @@ class Statistical extends Component {
   _renderComment = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        console.log(item);
         this._xemComment(item.post);
       }}
       style={{
@@ -300,11 +299,9 @@ class Statistical extends Component {
   };
 
   _xemComment = idPost => {
-    console.log(idPost);
     fetch(`${API.getURL()}/wp-json/wp/v2/posts/${idPost}`)
       .then(response => response.json())
       .then(json => {
-        console.log(json);
         this._xem(json);
       });
   };

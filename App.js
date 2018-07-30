@@ -39,7 +39,8 @@ class App extends Component {
       logged: false,
       haveUrl: false,
       showModal: false,
-      url: ""
+      url: "",
+      user:[],
     };
   }
 
@@ -118,7 +119,7 @@ class App extends Component {
       loadingView
     ) : !this.state.haveUrl ? (
       AddUrl
-    ) : this.state.logged ? (
+    ) : this.state.user.name === 'admin' ? (
       <DrawerNavigatorUser />
     ) : (
       <DrawerNavigator />
@@ -159,7 +160,8 @@ class App extends Component {
         });
         this.setState({
           loading: false,
-          logged: true
+          logged: true,
+          user:response,
         });
       } else {
         this.setState({
