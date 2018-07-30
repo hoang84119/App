@@ -16,6 +16,7 @@ import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import API from "../config/API";
 import HTML from "react-native-render-html";
+import AnimateNumber from 'react-native-animate-number'
 import { connect } from "react-redux";
 const featured_media_default =
   "https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/background-thumb1.jpg";
