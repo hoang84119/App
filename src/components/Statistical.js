@@ -117,12 +117,12 @@ class Statistical extends Component {
                 }}
                 style={[
                   myStyle.buttons,
-                  { borderColor: "#fe5605", backgroundColor: "#FFFDF8" }
+                  { borderColor: "#fe8347", backgroundColor: "#FFFDF8" }
                 ]}
               >
-                <Ionicons name={"ios-book"} size={40} color={"#fe5605"} />
+                <Ionicons name={"ios-book"} size={40} color={"#fe8347"} />
                 <AnimateNumber
-                  style={[myStyle.textSoLuong, { color: "#fe5605" }]}
+                  style={[myStyle.textSoLuong, { color: "#fe8347" }]}
                   value={this.state.pages}
                   formatter={(val) => {
                     return parseInt(val).toFixed(0)
@@ -137,12 +137,12 @@ class Statistical extends Component {
               <TouchableOpacity
                 style={[
                   myStyle.buttons,
-                  { borderColor: "#d213e8", backgroundColor: "#FDEDFD" }
+                  { borderColor: "#e04ff0", backgroundColor: "#FDEDFD" }
                 ]}
               >
-                <Ionicons name={"ios-chatboxes"} size={40} color={"#d213e8"} />
+                <Ionicons name={"ios-chatboxes"} size={40} color={"#e04ff0"} />
                 <AnimateNumber
-                  style={[myStyle.textSoLuong, { color: "#d213e8" }]}
+                  style={[myStyle.textSoLuong, { color: "#e04ff0" }]}
                   value={this.state.comments}
                   formatter={(val) => {
                     return parseInt(val).toFixed(0)
@@ -172,7 +172,7 @@ class Statistical extends Component {
                   alignItems: "center"
                 }}
               >
-                <Ionicons name={"ios-people"} size={20} color={"#0ABFBC"} />
+                <Ionicons name={"ios-people"} size={20} color={"#DD3E54"} />
                 <AnimateNumber
                   value={this.state.visitor}
                   formatter={(val) => {
@@ -192,7 +192,7 @@ class Statistical extends Component {
                   alignItems: "center"
                 }}
               >
-                <Ionicons name={"ios-eye"} size={25} color={"#0ABFBC"} />
+                <Ionicons name={"ios-eye"} size={25} color={"#DD3E54"} />
                 <AnimateNumber
                   value={this.state.visit}
                   formatter={(val) => {
