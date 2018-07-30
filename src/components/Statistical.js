@@ -303,7 +303,7 @@ class Statistical extends Component {
     >
       <Text style={myStyle.text}>{this._getDate(item.modified_gmt)} | </Text>
       <HTML
-        html={`<span style="fontSize:16">${item.title.rendered}</span>`}
+        html={`<span style="fontSize:16">${this._formatContentPost(item.title.rendered)}</span>`}
         renderers={this.renderers}
       />
     </TouchableOpacity>
@@ -335,7 +335,7 @@ class Statistical extends Component {
           </View>
         </View>
         <HTML
-          html={`<span style="fontSize:14">${item.content.rendered}</span>`}
+          html={`<span style="fontSize:14">${this._formatContentComment(item.content.rendered)}</span>`}
           renderers={this.renderers}
         />
       </View>
@@ -403,6 +403,13 @@ class Statistical extends Component {
       }
       return src;
     }
+  }
+
+  _formatContentPost(content) {
+    return content.length > 30 ? content.substring(0, 30)+"..." : content;
+  }
+  _formatContentComment(content) {
+    return content.length > 52 ? content.substring(0, 52)+"..." : content;
   }
 }
 
