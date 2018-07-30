@@ -15,6 +15,7 @@ import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import API from "../config/API";
 import HTML from "react-native-render-html";
+import AnimateNumber from 'react-native-animate-number'
 
 class Statistical extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ class Statistical extends Component {
                   size={40}
                   color={"#14d160"}
                 />
-              <Text style={[myStyle.textSoLuong,{color: "#14d160"}]}>{this.state.posts}</Text>
+              <AnimateNumber  style={[myStyle.textSoLuong,{color: "#14d160"}]} value={this.state.posts} countBy={1}/>
               <Text style={{ fontSize: 12}}>Bài viết</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -99,7 +100,7 @@ class Statistical extends Component {
                   size={40}
                   color={"#fe5605"}
                 />
-                <Text style={[myStyle.textSoLuong,{color: "#fe5605"}]}>{this.state.pages}</Text>
+              <AnimateNumber  style={[myStyle.textSoLuong,{color: "#fe5605"}]} value={this.state.pages} countBy={1}/>
             <Text style={{ fontSize: 12 }}>Trang</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[myStyle.buttons,{borderColor: "#d213e8", backgroundColor: "#FDEDFD"}]}>
@@ -108,7 +109,7 @@ class Statistical extends Component {
                   size={40}
                   color={"#d213e8"}
                 />
-              <Text style={[myStyle.textSoLuong,{color: "#d213e8"}]}>{this.state.comments}</Text>
+              <AnimateNumber  style={[myStyle.textSoLuong,{color: "#d213e8"}]} value={this.state.comments} countBy={1}/>
               <Text style={{ fontSize: 12}}>Bình luận</Text>
             </TouchableOpacity>
           </View>
@@ -123,7 +124,8 @@ class Statistical extends Component {
             }}
           >
             <Ionicons name={"ios-eye"} size={25} color={"#0ABFBC"} />
-            <Text style={myStyle.text}>{this.state.visitor} đang xem</Text>
+            <AnimateNumber  style={{fontSize: 12, margin: 4}} value={this.state.visitor} countBy={1}/>
+            <Text style={[myStyle.text, {marginLeft:0}]}> đang xem</Text>
           </View>
           <View
             style={{
