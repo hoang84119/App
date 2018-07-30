@@ -142,7 +142,7 @@ class Statistical extends Component {
                   alignItems: "center"
                 }}
               >
-                <Ionicons name={"ios-eye"} size={25} color={"#0ABFBC"} />
+                <Ionicons name={"ios-people"} size={20} color={"#0ABFBC"} />
                 <Text style={myStyle.text}>
                   {this.state.visitor} viếng thăm
                 </Text>
@@ -154,7 +154,7 @@ class Statistical extends Component {
                   alignItems: "center"
                 }}
               >
-                <Ionicons name={"ios-people"} size={20} color={"#0ABFBC"} />
+                <Ionicons name={"ios-eye"} size={25} color={"#0ABFBC"} />
                 <Text style={myStyle.text}>{this.state.visit} lượt xem</Text>
               </View>
             </View>
@@ -219,7 +219,9 @@ class Statistical extends Component {
     try {
       let response = await fetch(`${API.getURL()}/wp-json/gsoft/thongke`);
       let statistical = await response.json();
-      let posts = await fetch(`${API.getURL()}/wp-json/wp/v2/posts?per_page=5&orderby=modified`);
+      let posts = await fetch(
+        `${API.getURL()}/wp-json/wp/v2/posts?per_page=5&orderby=modified`
+      );
       let dataPosts = await posts.json();
       let comments = await fetch(
         `${API.getURL()}/wp-json/wp/v2/comments?per_page=5`
@@ -242,7 +244,7 @@ class Statistical extends Component {
 
   _renderPost = ({ item }) => (
     <TouchableOpacity
-    onPress={()=>this._xem(item)}
+      onPress={() => this._xem(item)}
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -260,7 +262,10 @@ class Statistical extends Component {
 
   _renderComment = ({ item }) => (
     <TouchableOpacity
-    onPress={()=>{console.log(item); this._xemComment(item.post)}}
+      onPress={() => {
+        console.log(item);
+        this._xemComment(item.post);
+      }}
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -294,22 +299,24 @@ class Statistical extends Component {
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
   };
 
-  _xemComment = (idPost) =>{
+  _xemComment = idPost => {
     console.log(idPost);
-    fetch(`${API.getURL()}/wp-json/wp/v2/posts/${idPost}`).then(response=>response.json()).then((json)=>{
-      console.log(json);
-      this._xem(json);
-    })
-  }
+    fetch(`${API.getURL()}/wp-json/wp/v2/posts/${idPost}`)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        this._xem(json);
+      });
+  };
 
-  _xem = (data) => {
-    this._getFeaturedMedia(data).then((featured_media)=>{
+  _xem = data => {
+    this._getFeaturedMedia(data).then(featured_media => {
       this.props.navigation.navigate("chitiet", {
-      id: data.id,
-      userName: this.props.dataUser.name,
-      featured_media: featured_media
+        id: data.id,
+        userName: this.props.dataUser.name,
+        featured_media: featured_media
+      });
     });
-    })
   };
 
   async _getFeaturedMedia(data) {
@@ -320,9 +327,9 @@ class Statistical extends Component {
       if (response.status === 200) {
         let json = await response.json();
         let src = json.media_details.sizes.medium.source_url;
-        return src.replace(/http:\/\/localhost\/thuctap/g, API.getURL())
+        return src.replace(/http:\/\/localhost\/thuctap/g, API.getURL());
       } else {
-        return featured_media_default
+        return featured_media_default;
       }
     } else {
       let content = data.content.rendered;
